@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		F0DB86AD238299880013F31A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB86AC238299880013F31A /* main.cpp */; };
+		F0DB86BA238299F10013F31A /* sfml-network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B4238299F10013F31A /* sfml-network.framework */; };
+		F0DB86BB238299F10013F31A /* sfml-system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B5238299F10013F31A /* sfml-system.framework */; };
+		F0DB86BC238299F10013F31A /* SFML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B6238299F10013F31A /* SFML.framework */; };
+		F0DB86BD238299F10013F31A /* sfml-graphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B7238299F10013F31A /* sfml-graphics.framework */; };
+		F0DB86BE238299F10013F31A /* sfml-audio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B8238299F10013F31A /* sfml-audio.framework */; };
+		F0DB86BF238299F10013F31A /* sfml-window.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B9238299F10013F31A /* sfml-window.framework */; };
+		F0DB86C623829C420013F31A /* stateLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB86C423829C420013F31A /* stateLogic.cpp */; };
+		F0DB86C92382A44C0013F31A /* assetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB86C72382A44C0013F31A /* assetManager.cpp */; };
+		F0DB86CC2382A6FB0013F31A /* inputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB86CA2382A6FB0013F31A /* inputManager.cpp */; };
+		F0DB86CF2382AAD70013F31A /* Simulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB86CD2382AAD70013F31A /* Simulator.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +35,21 @@
 /* Begin PBXFileReference section */
 		F0DB86A9238299880013F31A /* SimulatorSFML */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SimulatorSFML; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0DB86AC238299880013F31A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F0DB86B4238299F10013F31A /* sfml-network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-network.framework"; path = "libs/SFML/Frameworks/sfml-network.framework"; sourceTree = "<group>"; };
+		F0DB86B5238299F10013F31A /* sfml-system.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-system.framework"; path = "libs/SFML/Frameworks/sfml-system.framework"; sourceTree = "<group>"; };
+		F0DB86B6238299F10013F31A /* SFML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SFML.framework; path = libs/SFML/Frameworks/SFML.framework; sourceTree = "<group>"; };
+		F0DB86B7238299F10013F31A /* sfml-graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-graphics.framework"; path = "libs/SFML/Frameworks/sfml-graphics.framework"; sourceTree = "<group>"; };
+		F0DB86B8238299F10013F31A /* sfml-audio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-audio.framework"; path = "libs/SFML/Frameworks/sfml-audio.framework"; sourceTree = "<group>"; };
+		F0DB86B9238299F10013F31A /* sfml-window.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-window.framework"; path = "libs/SFML/Frameworks/sfml-window.framework"; sourceTree = "<group>"; };
+		F0DB86C223829B6E0013F31A /* state.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = state.hpp; sourceTree = "<group>"; };
+		F0DB86C423829C420013F31A /* stateLogic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stateLogic.cpp; sourceTree = "<group>"; };
+		F0DB86C523829C420013F31A /* stateLogic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = stateLogic.hpp; sourceTree = "<group>"; };
+		F0DB86C72382A44C0013F31A /* assetManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = assetManager.cpp; sourceTree = "<group>"; };
+		F0DB86C82382A44C0013F31A /* assetManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = assetManager.hpp; sourceTree = "<group>"; };
+		F0DB86CA2382A6FB0013F31A /* inputManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = inputManager.cpp; sourceTree = "<group>"; };
+		F0DB86CB2382A6FB0013F31A /* inputManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = inputManager.hpp; sourceTree = "<group>"; };
+		F0DB86CD2382AAD70013F31A /* Simulator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Simulator.cpp; sourceTree = "<group>"; };
+		F0DB86CE2382AAD70013F31A /* Simulator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Simulator.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +57,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0DB86BA238299F10013F31A /* sfml-network.framework in Frameworks */,
+				F0DB86BB238299F10013F31A /* sfml-system.framework in Frameworks */,
+				F0DB86BC238299F10013F31A /* SFML.framework in Frameworks */,
+				F0DB86BD238299F10013F31A /* sfml-graphics.framework in Frameworks */,
+				F0DB86BE238299F10013F31A /* sfml-audio.framework in Frameworks */,
+				F0DB86BF238299F10013F31A /* sfml-window.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +74,7 @@
 			children = (
 				F0DB86AB238299880013F31A /* SimulatorSFML */,
 				F0DB86AA238299880013F31A /* Products */,
+				F0DB86B3238299F10013F31A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,8 +90,30 @@
 			isa = PBXGroup;
 			children = (
 				F0DB86AC238299880013F31A /* main.cpp */,
+				F0DB86C223829B6E0013F31A /* state.hpp */,
+				F0DB86C423829C420013F31A /* stateLogic.cpp */,
+				F0DB86C523829C420013F31A /* stateLogic.hpp */,
+				F0DB86C72382A44C0013F31A /* assetManager.cpp */,
+				F0DB86C82382A44C0013F31A /* assetManager.hpp */,
+				F0DB86CA2382A6FB0013F31A /* inputManager.cpp */,
+				F0DB86CB2382A6FB0013F31A /* inputManager.hpp */,
+				F0DB86CD2382AAD70013F31A /* Simulator.cpp */,
+				F0DB86CE2382AAD70013F31A /* Simulator.hpp */,
 			);
 			path = SimulatorSFML;
+			sourceTree = "<group>";
+		};
+		F0DB86B3238299F10013F31A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F0DB86B8238299F10013F31A /* sfml-audio.framework */,
+				F0DB86B7238299F10013F31A /* sfml-graphics.framework */,
+				F0DB86B4238299F10013F31A /* sfml-network.framework */,
+				F0DB86B5238299F10013F31A /* sfml-system.framework */,
+				F0DB86B9238299F10013F31A /* sfml-window.framework */,
+				F0DB86B6238299F10013F31A /* SFML.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,6 +173,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0DB86CC2382A6FB0013F31A /* inputManager.cpp in Sources */,
+				F0DB86C623829C420013F31A /* stateLogic.cpp in Sources */,
+				F0DB86C92382A44C0013F31A /* assetManager.cpp in Sources */,
+				F0DB86CF2382AAD70013F31A /* Simulator.cpp in Sources */,
 				F0DB86AD238299880013F31A /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,6 +297,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libs/SFML/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/libs/SFML/include";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -247,6 +310,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libs/SFML/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/libs/SFML/include";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
