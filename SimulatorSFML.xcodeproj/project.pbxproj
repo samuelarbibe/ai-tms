@@ -7,17 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F0DB86AD238299880013F31A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB86AC238299880013F31A /* main.cpp */; };
+		F0626D0623893CA1001CDD16 /* MovableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F036B06E2387CE0C00A8B1C8 /* MovableObject.cpp */; };
+		F0626D0723893CA4001CDD16 /* Engine.hpp in Sources */ = {isa = PBXBuildFile; fileRef = F078F3242387D8B900B0347C /* Engine.hpp */; };
+		F0626D0823893CA6001CDD16 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB86AC238299880013F31A /* main.cpp */; };
+		F0626D0923893CA7001CDD16 /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0626D01238935CC001CDD16 /* Intersection.cpp */; };
+		F078F3252387D8B900B0347C /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F078F3232387D8B900B0347C /* Engine.cpp */; };
+		F09DAA552389400F00924DD0 /* Block.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F09DAA532389400F00924DD0 /* Block.cpp */; };
 		F0DB86BA238299F10013F31A /* sfml-network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B4238299F10013F31A /* sfml-network.framework */; };
 		F0DB86BB238299F10013F31A /* sfml-system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B5238299F10013F31A /* sfml-system.framework */; };
 		F0DB86BC238299F10013F31A /* SFML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B6238299F10013F31A /* SFML.framework */; };
 		F0DB86BD238299F10013F31A /* sfml-graphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B7238299F10013F31A /* sfml-graphics.framework */; };
 		F0DB86BE238299F10013F31A /* sfml-audio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B8238299F10013F31A /* sfml-audio.framework */; };
 		F0DB86BF238299F10013F31A /* sfml-window.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B9238299F10013F31A /* sfml-window.framework */; };
-		F0DB86C623829C420013F31A /* stateLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB86C423829C420013F31A /* stateLogic.cpp */; };
-		F0DB86C92382A44C0013F31A /* assetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB86C72382A44C0013F31A /* assetManager.cpp */; };
-		F0DB86CC2382A6FB0013F31A /* inputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB86CA2382A6FB0013F31A /* inputManager.cpp */; };
-		F0DB86CF2382AAD70013F31A /* Simulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB86CD2382AAD70013F31A /* Simulator.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +34,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F036B06E2387CE0C00A8B1C8 /* MovableObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MovableObject.cpp; sourceTree = "<group>"; };
+		F036B06F2387CE0C00A8B1C8 /* MovableObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MovableObject.hpp; sourceTree = "<group>"; };
+		F03F274F238BD65C00F37654 /* lane.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lane.png; sourceTree = "<group>"; };
+		F03F2750238BE02A00F37654 /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
+		F046109423913BF900E30CF2 /* road.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = road.png; sourceTree = "<group>"; };
+		F0461095239145D700E30CF2 /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
+		F046109823914EA900E30CF2 /* car_image2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car_image2.png; sourceTree = "<group>"; };
+		F0626D01238935CC001CDD16 /* Intersection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Intersection.cpp; sourceTree = "<group>"; };
+		F0626D02238935CC001CDD16 /* Intersection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Intersection.hpp; sourceTree = "<group>"; };
+		F078F3232387D8B900B0347C /* Engine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Engine.cpp; sourceTree = "<group>"; };
+		F078F3242387D8B900B0347C /* Engine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Engine.hpp; sourceTree = "<group>"; };
+		F078F3272387DE9000B0347C /* car_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car_image.png; sourceTree = "<group>"; };
+		F09DAA532389400F00924DD0 /* Block.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Block.cpp; sourceTree = "<group>"; };
+		F09DAA542389400F00924DD0 /* Block.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Block.hpp; sourceTree = "<group>"; };
+		F09DAA5723895AC000924DD0 /* map.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = map.txt; sourceTree = "<group>"; };
 		F0DB86A9238299880013F31A /* SimulatorSFML */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SimulatorSFML; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0DB86AC238299880013F31A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F0DB86B4238299F10013F31A /* sfml-network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-network.framework"; path = "libs/SFML/Frameworks/sfml-network.framework"; sourceTree = "<group>"; };
@@ -41,15 +57,6 @@
 		F0DB86B7238299F10013F31A /* sfml-graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-graphics.framework"; path = "libs/SFML/Frameworks/sfml-graphics.framework"; sourceTree = "<group>"; };
 		F0DB86B8238299F10013F31A /* sfml-audio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-audio.framework"; path = "libs/SFML/Frameworks/sfml-audio.framework"; sourceTree = "<group>"; };
 		F0DB86B9238299F10013F31A /* sfml-window.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-window.framework"; path = "libs/SFML/Frameworks/sfml-window.framework"; sourceTree = "<group>"; };
-		F0DB86C223829B6E0013F31A /* state.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = state.hpp; sourceTree = "<group>"; };
-		F0DB86C423829C420013F31A /* stateLogic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stateLogic.cpp; sourceTree = "<group>"; };
-		F0DB86C523829C420013F31A /* stateLogic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = stateLogic.hpp; sourceTree = "<group>"; };
-		F0DB86C72382A44C0013F31A /* assetManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = assetManager.cpp; sourceTree = "<group>"; };
-		F0DB86C82382A44C0013F31A /* assetManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = assetManager.hpp; sourceTree = "<group>"; };
-		F0DB86CA2382A6FB0013F31A /* inputManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = inputManager.cpp; sourceTree = "<group>"; };
-		F0DB86CB2382A6FB0013F31A /* inputManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = inputManager.hpp; sourceTree = "<group>"; };
-		F0DB86CD2382AAD70013F31A /* Simulator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Simulator.cpp; sourceTree = "<group>"; };
-		F0DB86CE2382AAD70013F31A /* Simulator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Simulator.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +76,68 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F0626CFC2389358A001CDD16 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				F0626CFD23893595001CDD16 /* map */,
+				F0DB86AC238299880013F31A /* main.cpp */,
+				F036B06E2387CE0C00A8B1C8 /* MovableObject.cpp */,
+				F036B06F2387CE0C00A8B1C8 /* MovableObject.hpp */,
+				F078F3232387D8B900B0347C /* Engine.cpp */,
+				F078F3242387D8B900B0347C /* Engine.hpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		F0626CFD23893595001CDD16 /* map */ = {
+			isa = PBXGroup;
+			children = (
+				F0626D01238935CC001CDD16 /* Intersection.cpp */,
+				F0626D02238935CC001CDD16 /* Intersection.hpp */,
+				F09DAA532389400F00924DD0 /* Block.cpp */,
+				F09DAA542389400F00924DD0 /* Block.hpp */,
+			);
+			name = map;
+			sourceTree = "<group>";
+		};
+		F078F3262387DE6D00B0347C /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				F09DAA5923895AD300924DD0 /* Cars */,
+				F09DAA5823895AC700924DD0 /* Maps */,
+				F09DAA562389459B00924DD0 /* Blocks */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		F09DAA562389459B00924DD0 /* Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				F0461095239145D700E30CF2 /* stop.png */,
+				F046109423913BF900E30CF2 /* road.png */,
+				F03F2750238BE02A00F37654 /* empty.png */,
+				F03F274F238BD65C00F37654 /* lane.png */,
+			);
+			path = Blocks;
+			sourceTree = "<group>";
+		};
+		F09DAA5823895AC700924DD0 /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				F09DAA5723895AC000924DD0 /* map.txt */,
+			);
+			path = Maps;
+			sourceTree = "<group>";
+		};
+		F09DAA5923895AD300924DD0 /* Cars */ = {
+			isa = PBXGroup;
+			children = (
+				F046109823914EA900E30CF2 /* car_image2.png */,
+				F078F3272387DE9000B0347C /* car_image.png */,
+			);
+			path = Cars;
+			sourceTree = "<group>";
+		};
 		F0DB86A0238299880013F31A = {
 			isa = PBXGroup;
 			children = (
@@ -89,16 +158,8 @@
 		F0DB86AB238299880013F31A /* SimulatorSFML */ = {
 			isa = PBXGroup;
 			children = (
-				F0DB86AC238299880013F31A /* main.cpp */,
-				F0DB86C223829B6E0013F31A /* state.hpp */,
-				F0DB86C423829C420013F31A /* stateLogic.cpp */,
-				F0DB86C523829C420013F31A /* stateLogic.hpp */,
-				F0DB86C72382A44C0013F31A /* assetManager.cpp */,
-				F0DB86C82382A44C0013F31A /* assetManager.hpp */,
-				F0DB86CA2382A6FB0013F31A /* inputManager.cpp */,
-				F0DB86CB2382A6FB0013F31A /* inputManager.hpp */,
-				F0DB86CD2382AAD70013F31A /* Simulator.cpp */,
-				F0DB86CE2382AAD70013F31A /* Simulator.hpp */,
+				F0626CFC2389358A001CDD16 /* src */,
+				F078F3262387DE6D00B0347C /* assets */,
 			);
 			path = SimulatorSFML;
 			sourceTree = "<group>";
@@ -173,11 +234,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0DB86CC2382A6FB0013F31A /* inputManager.cpp in Sources */,
-				F0DB86C623829C420013F31A /* stateLogic.cpp in Sources */,
-				F0DB86C92382A44C0013F31A /* assetManager.cpp in Sources */,
-				F0DB86CF2382AAD70013F31A /* Simulator.cpp in Sources */,
-				F0DB86AD238299880013F31A /* main.cpp in Sources */,
+				F078F3252387D8B900B0347C /* Engine.cpp in Sources */,
+				F0626D0823893CA6001CDD16 /* main.cpp in Sources */,
+				F0626D0623893CA1001CDD16 /* MovableObject.cpp in Sources */,
+				F09DAA552389400F00924DD0 /* Block.cpp in Sources */,
+				F0626D0923893CA7001CDD16 /* Intersection.cpp in Sources */,
+				F0626D0723893CA4001CDD16 /* Engine.hpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

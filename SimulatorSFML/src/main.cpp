@@ -6,15 +6,16 @@
 //  Copyright © 2019 Samuel Arbibe. All rights reserved.
 //
 
-#define SCREEN_HEIGHT 768
-#define SCREEN_WIDTH 1024
-
 #include <iostream>
-#include "Simulator.hpp"
+#include "Engine.hpp"
 
 int main(int argc, const char * argv[]) {
     
-    Sim::Simulator(SCREEN_WIDTH, SCREEN_HEIGHT, "SFML");
+    Engine engine;
+    
+    engine.Init(1000, 1000, "Simulator");
+    
+    engine.Start();
     
     return EXIT_SUCCESS;
 }
