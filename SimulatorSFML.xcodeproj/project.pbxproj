@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F048496B23965E1D00920D9F /* Lane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F048496923965E1D00920D9F /* Lane.cpp */; };
+		F048496E239685CA00920D9F /* Road.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F048496C239685CA00920D9F /* Road.cpp */; };
 		F0626D0623893CA1001CDD16 /* MovableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F036B06E2387CE0C00A8B1C8 /* MovableObject.cpp */; };
 		F0626D0723893CA4001CDD16 /* Engine.hpp in Sources */ = {isa = PBXBuildFile; fileRef = F078F3242387D8B900B0347C /* Engine.hpp */; };
 		F0626D0823893CA6001CDD16 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB86AC238299880013F31A /* main.cpp */; };
 		F0626D0923893CA7001CDD16 /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0626D01238935CC001CDD16 /* Intersection.cpp */; };
 		F078F3252387D8B900B0347C /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F078F3232387D8B900B0347C /* Engine.cpp */; };
-		F09DAA552389400F00924DD0 /* Block.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F09DAA532389400F00924DD0 /* Block.cpp */; };
 		F0DB86BA238299F10013F31A /* sfml-network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B4238299F10013F31A /* sfml-network.framework */; };
 		F0DB86BB238299F10013F31A /* sfml-system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B5238299F10013F31A /* sfml-system.framework */; };
 		F0DB86BC238299F10013F31A /* SFML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B6238299F10013F31A /* SFML.framework */; };
@@ -36,19 +37,16 @@
 /* Begin PBXFileReference section */
 		F036B06E2387CE0C00A8B1C8 /* MovableObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MovableObject.cpp; sourceTree = "<group>"; };
 		F036B06F2387CE0C00A8B1C8 /* MovableObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MovableObject.hpp; sourceTree = "<group>"; };
-		F03F274F238BD65C00F37654 /* lane.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lane.png; sourceTree = "<group>"; };
-		F03F2750238BE02A00F37654 /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
-		F046109423913BF900E30CF2 /* road.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = road.png; sourceTree = "<group>"; };
-		F0461095239145D700E30CF2 /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
 		F046109823914EA900E30CF2 /* car_image2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car_image2.png; sourceTree = "<group>"; };
+		F048496923965E1D00920D9F /* Lane.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Lane.cpp; sourceTree = "<group>"; };
+		F048496A23965E1D00920D9F /* Lane.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Lane.hpp; sourceTree = "<group>"; };
+		F048496C239685CA00920D9F /* Road.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Road.cpp; sourceTree = "<group>"; };
+		F048496D239685CA00920D9F /* Road.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Road.hpp; sourceTree = "<group>"; };
 		F0626D01238935CC001CDD16 /* Intersection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Intersection.cpp; sourceTree = "<group>"; };
 		F0626D02238935CC001CDD16 /* Intersection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Intersection.hpp; sourceTree = "<group>"; };
 		F078F3232387D8B900B0347C /* Engine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Engine.cpp; sourceTree = "<group>"; };
 		F078F3242387D8B900B0347C /* Engine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Engine.hpp; sourceTree = "<group>"; };
 		F078F3272387DE9000B0347C /* car_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car_image.png; sourceTree = "<group>"; };
-		F09DAA532389400F00924DD0 /* Block.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Block.cpp; sourceTree = "<group>"; };
-		F09DAA542389400F00924DD0 /* Block.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Block.hpp; sourceTree = "<group>"; };
-		F09DAA5723895AC000924DD0 /* map.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = map.txt; sourceTree = "<group>"; };
 		F0DB86A9238299880013F31A /* SimulatorSFML */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SimulatorSFML; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0DB86AC238299880013F31A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F0DB86B4238299F10013F31A /* sfml-network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-network.framework"; path = "libs/SFML/Frameworks/sfml-network.framework"; sourceTree = "<group>"; };
@@ -94,8 +92,10 @@
 			children = (
 				F0626D01238935CC001CDD16 /* Intersection.cpp */,
 				F0626D02238935CC001CDD16 /* Intersection.hpp */,
-				F09DAA532389400F00924DD0 /* Block.cpp */,
-				F09DAA542389400F00924DD0 /* Block.hpp */,
+				F048496923965E1D00920D9F /* Lane.cpp */,
+				F048496A23965E1D00920D9F /* Lane.hpp */,
+				F048496C239685CA00920D9F /* Road.cpp */,
+				F048496D239685CA00920D9F /* Road.hpp */,
 			);
 			name = map;
 			sourceTree = "<group>";
@@ -113,10 +113,6 @@
 		F09DAA562389459B00924DD0 /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
-				F0461095239145D700E30CF2 /* stop.png */,
-				F046109423913BF900E30CF2 /* road.png */,
-				F03F2750238BE02A00F37654 /* empty.png */,
-				F03F274F238BD65C00F37654 /* lane.png */,
 			);
 			path = Blocks;
 			sourceTree = "<group>";
@@ -124,7 +120,6 @@
 		F09DAA5823895AC700924DD0 /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				F09DAA5723895AC000924DD0 /* map.txt */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -237,9 +232,10 @@
 				F078F3252387D8B900B0347C /* Engine.cpp in Sources */,
 				F0626D0823893CA6001CDD16 /* main.cpp in Sources */,
 				F0626D0623893CA1001CDD16 /* MovableObject.cpp in Sources */,
-				F09DAA552389400F00924DD0 /* Block.cpp in Sources */,
 				F0626D0923893CA7001CDD16 /* Intersection.cpp in Sources */,
 				F0626D0723893CA4001CDD16 /* Engine.hpp in Sources */,
+				F048496E239685CA00920D9F /* Road.cpp in Sources */,
+				F048496B23965E1D00920D9F /* Lane.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

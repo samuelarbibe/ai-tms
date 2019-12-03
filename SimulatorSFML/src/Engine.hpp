@@ -14,7 +14,7 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 #include "MovableObject.hpp"
-#include "Intersection.hpp"
+#include "Road.hpp"
 
 using namespace sf;
 
@@ -36,7 +36,7 @@ public:
     void Init(int windowWidth, int windowHeight, const char * windowName);
     
     MovableObject car;
-    Intersection inter;
+    Road r;
     
     void Start();
 };

@@ -12,28 +12,24 @@
 
 #include <stdio.h>
 #include <iostream>
-#include <stdio.h>
 #include <SFML/Graphics.hpp>
 #include <fstream>
-#include "Block.hpp"
+#include "Lane.hpp"
 
 using namespace sf;
 
 class Intersection{
 private:
     
-    Block   **   m_grid;
     char  * m_renderDir;
-    const char * m_name;
+    int m_intersectionNumber;
     
-    int m_rows;
-    int m_cols;
+    Lane * m_lanes;
+    int m_numOfLanes;
+    
     int m_width;
     int m_height;
-    int m_cellWidth;
-    int m_cellHeight;
-    int m_numOfLanes;
-    int * m_lanes;
+    Vector2f m_position;
     
     Texture m_texture;
     Sprite  m_sprite;
@@ -47,10 +43,10 @@ public:
     Intersection();
     ~Intersection();
     
-    void Init(int rows, int cols, int width, int height, const char * mapName, RenderWindow * window);
+    void Init(Vector2f position, int width, int height, int intersectioNumber, RenderWindow * window);
     void Draw(RenderWindow * window);
      
-    Block ** GetGrid(){return this->m_grid;};
+    Lane * GetLanes(){return this->m_lanes;};
 };
 
 #endif /* Intersection_hpp */

@@ -1,3 +1,4 @@
+#pragma once
 //
 //  MovableObject.hpp
 //  SimulatorSFML
@@ -5,7 +6,6 @@
 //  Created by Samuel Arbibe on 22/11/2019.
 //  Copyright © 2019 Samuel Arbibe. All rights reserved.
 //
-#pragma once
 
 #ifndef MovableObject_hpp
 #define MovableObject_hpp
@@ -14,29 +14,39 @@
 #include <iostream>
 #include <math.h>
 #include <SFML/Graphics.hpp>
+//#include "Intersection.hpp"
 
 using namespace sf;
 
 class MovableObject{
 private:
+    
     Vector2f m_position;
+    Vector2f m_movementVec;
     Sprite   m_sprite;
     Texture  m_texture;
+    
     float    m_speed;
+    float    m_maxSpeed;
     float    m_rotation;
+    
+    int      m_sourceLane;
+    int      m_targetLane;
+    
     bool     m_brake;
     bool     m_drive;
-    
+        
 public:
     MovableObject();
     ~MovableObject();
     
-    void Init(float initSpeed, float initRotation, int x, int y, const char * textureDirName);
+    void Init(float initSpeed, float initRotation, Vector2f initPosition, const char * textureDirName, int sourceLane, int targetLane);
     void Move(float rotationDt, float speedDt);
     void Draw(RenderWindow * window);
     void Update(float elapsedTime);
     
-    Sprite GetSprite();    
+    int GetSourceLane(){return this->m_sourceLane;};
+    int GetTargetLane(){return this->m_targetLane;};
 };
 
 #endif

@@ -8,17 +8,32 @@
 
 #include "Engine.hpp"
 
+
 Engine::Engine(){}
 
 void Engine::Init(int windowWidth, int windowHeight, const char * windowName){
          
     m_window.create(VideoMode(windowWidth, windowHeight), windowName);
     
-    m_window.setActive();
-      
-    this->car.Init(50, 0, 500, 500, "Cars/car_image2.png");
+    m_window.setFramerateLimit(60);
     
-    this->inter.Init(10, 10, m_window.getSize().x, m_window.getSize().y, "Maps/map.txt", &m_window);
+    m_window.setActive();
+    
+    r.Init(1, Vector2f(500.f, 500.f), 400.f, 70, 120);
+    
+    r.AddLane(0, true);
+    r.AddLane(0, true);
+    r.AddLane(0, false);
+    r.AddLane(0, true);
+    //r.AddLane(7, true);
+    
+    //l.Init(1, 1, Vector2f(500.f, 500.f), 100, 700, 45.f);
+    
+    //this->inter.Init(10, 10, m_window.getSize().x, m_window.getSize().y, "Maps/map.txt", &m_window);
+    
+    //this->car.Init(50, 0, this->inter.GetLanes()[1].startPosition, "Cars/car_image2.png", 1, 3);
+    
+    //this->inter.AddCarToLane(&(this->car), car.GetSourceLane(), true);
 }
 
 void Engine::Start(){
@@ -27,19 +42,24 @@ void Engine::Start(){
     int frameCount = 0;
     
     while (m_window.isOpen()) {
+        
+        // count elapsed frames for FPS calculation
         frameCount++;
         
+        // the time it takes to do 1 frame itiration
         Time dt = clock.restart();
         
         float dtInSeconds = dt.asSeconds();
         
-        if(frameCount % 2000 == 0)std::cout << 1/dtInSeconds << std::endl;
+        // print out FPS
+        //if(frameCount % 20 == 0)std::cout << 1/dtInSeconds << std::endl;
         
         sf::Event event;
         while (m_window.pollEvent(event))
         {
             
-            if (event.type == sf::Event::Closed){
+            if (event.type == sf::Event::Closed ||
+                (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)){
                 m_window.close();
             }
         }
@@ -53,20 +73,7 @@ void Engine::Start(){
 
 void Engine::input(){
     
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        car.Move(0.f, 2.f);
-        
-    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        car.Move(0.f, -2.f);
-    }
-    
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        car.Move(2.f, 0.f);
-    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        car.Move(-2.f, 0.f);
-    }
-     
-};
+}
 
 void Engine::update(float dtInSeconds){
     
@@ -76,11 +83,12 @@ void Engine::update(float dtInSeconds){
 void Engine::draw()
 {
     // Clean out the last frame
-    m_window.clear(Color::White);
+    m_window.clear(BackgroundColor);
  
     // Draw the objects
-    this->inter.Draw(&m_window);
-    this->car.Draw(&m_window);
+    //this->inter.Draw(&m_window);
+    //this->car.Draw(&m_window);
+    r.Draw(&m_window);
      
     // Show everything that has been drawn
     m_window.display();

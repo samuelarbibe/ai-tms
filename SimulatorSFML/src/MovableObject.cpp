@@ -8,17 +8,22 @@
 
 #include "MovableObject.hpp"
 
+const Vector2f m_forwardVec(1.f, 0.f);
+
 MovableObject::MovableObject(){};
 
 MovableObject::~MovableObject(){}
 
-void MovableObject::Init(float initSpeed, float initRotation, int x, int y, const char * textureDirName){
+void MovableObject::Init(float initSpeed, float initRotation, Vector2f initPosition, const char * textureDirName, int sourceLane, int targetLane){
     
     // set initial values for the movable object
     m_speed    = initSpeed;
     m_rotation = initRotation;
-    m_position.x = x;
-    m_position.y = y;
+    m_position = initPosition;
+    m_movementVec = m_forwardVec;
+    m_maxSpeed = 300;
+    m_sourceLane = sourceLane;
+    m_targetLane = targetLane;
     
     // load texture and set up object sprite
     m_texture.loadFromFile(textureDirName);
@@ -28,21 +33,36 @@ void MovableObject::Init(float initSpeed, float initRotation, int x, int y, cons
     m_sprite.setOrigin(m_sprite.getTextureRect().width/3, m_sprite.getTextureRect().height/2);
 }
 
-Sprite MovableObject::GetSprite(){
-    return m_sprite;
-}
-
 void MovableObject::Move(float rotationDt, float speedDt){
     
-    m_rotation += (m_speed == 0)? 0 : (rotationDt * m_speed / 1500);
-    m_speed = (m_speed < 0)? 0 : (m_speed + speedDt);
+    // update speed
+    m_speed += speedDt;
+    
+    // apply max speed limit
+    if(m_speed > m_maxSpeed) m_speed = m_maxSpeed;
+    
+    // apply min speed limit
+    if(m_speed < 0) m_speed = 0;
+    
+    // set rotation relative to current speed, to create a constant turning radius
+    m_rotation += rotationDt * m_speed/1000;
+    
+    Transform t;
+    
+    t.rotate(m_rotation);
+    
+    // rotate the movement vector in relation to the forward vector (0,1)
+    m_movementVec = t.transformPoint(m_forwardVec);
+    
 }
 
 void MovableObject::Update(float elapsedTime){
     
-    m_position.x += cos(m_rotation * M_PI /180) * m_speed * elapsedTime ;
-    m_position.y += sin(m_rotation * M_PI /180) * m_speed * elapsedTime ;
+    // apply movement vector on position, relative to elapsed time to ensure
+    // a constant speed at any FPS
+    m_position += m_movementVec * m_speed * elapsedTime;
     
+    // apply rotation and position changes to the actual car sprite
     m_sprite.setPosition(m_position);
     m_sprite.setRotation(m_rotation);
     
