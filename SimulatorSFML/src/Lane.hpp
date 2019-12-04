@@ -35,11 +35,13 @@ private:
     float m_width;
     float m_length;
     
+    ConvexShape m_arrowShape;
+    
+    void createArrowShape();
+    
 public:
     Lane();
     ~Lane();
-    
-    
     
     void Init(int roadNumber, int laneNumber, Vector2f startPosition, float width, float length, float direction);
     

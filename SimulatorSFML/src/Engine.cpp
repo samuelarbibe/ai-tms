@@ -19,21 +19,38 @@ void Engine::Init(int windowWidth, int windowHeight, const char * windowName){
     
     m_window.setActive();
     
-    r.Init(1, Vector2f(500.f, 500.f), 400.f, 70, 120);
     
-    r.AddLane(0, true);
-    r.AddLane(0, true);
-    r.AddLane(0, false);
-    r.AddLane(0, true);
-    //r.AddLane(7, true);
+    inter.Init(Vector2f(500,500), 225, 225, 1);
     
-    //l.Init(1, 1, Vector2f(500.f, 500.f), 100, 700, 45.f);
+    inter.AddRoadConnection(0, 1, 400);
+    inter.AddRoadConnection(0, 2, 400);
+    inter.AddRoadConnection(0, 3, 400);
+    inter.AddRoadConnection(0, 4, 400);
     
-    //this->inter.Init(10, 10, m_window.getSize().x, m_window.getSize().y, "Maps/map.txt", &m_window);
+    Road * r1 = inter.GetRoadByConnectionSide(1);
+    Road * r2 = inter.GetRoadByConnectionSide(2);
+    Road * r3 = inter.GetRoadByConnectionSide(3);
+    Road * r4 = inter.GetRoadByConnectionSide(4);
     
-    //this->car.Init(50, 0, this->inter.GetLanes()[1].startPosition, "Cars/car_image2.png", 1, 3);
+    r1->AddLane(0, true);
+    r1->AddLane(0, true);
+    r1->AddLane(0, false);
+
+    r2->AddLane(0, true);
+    r2->AddLane(0, true);
+    r2->AddLane(0, false);
     
-    //this->inter.AddCarToLane(&(this->car), car.GetSourceLane(), true);
+    r3->AddLane(0, true);
+    r3->AddLane(0, true);
+    r3->AddLane(0, false);
+
+    r4->AddLane(0, true);
+    r4->AddLane(0, true);
+    r4->AddLane(0, false);
+    
+    
+    this->car.Init(50, 45, Vector2f(0.f, 0.f), "Cars/car_image2.png", 1, 3);
+    
 }
 
 void Engine::Start(){
@@ -52,7 +69,7 @@ void Engine::Start(){
         float dtInSeconds = dt.asSeconds();
         
         // print out FPS
-        //if(frameCount % 20 == 0)std::cout << 1/dtInSeconds << std::endl;
+        if(frameCount % 20 == 0)std::cout << 1/dtInSeconds << std::endl;
         
         sf::Event event;
         while (m_window.pollEvent(event))
@@ -86,9 +103,8 @@ void Engine::draw()
     m_window.clear(BackgroundColor);
  
     // Draw the objects
-    //this->inter.Draw(&m_window);
-    //this->car.Draw(&m_window);
-    r.Draw(&m_window);
+    this->inter.Draw(&m_window);
+    this->car.Draw(&m_window);
      
     // Show everything that has been drawn
     m_window.display();

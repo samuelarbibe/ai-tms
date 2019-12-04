@@ -26,7 +26,7 @@ void Lane::Init(int roadNumber, int laneNumber, Vector2f startPosition, float wi
     Transform t;
     t.rotate(direction);
     
-    lengthVec = t.transformPoint(Vector2f(1.f, 0.f)) * length;
+    lengthVec = t.transformPoint(Vector2f(0.f, -1.f)) * length;
     
     m_endPosition = lengthVec + m_startPosition;
     
@@ -35,16 +35,41 @@ void Lane::Init(int roadNumber, int laneNumber, Vector2f startPosition, float wi
     this->setPosition(m_startPosition);
     this->setOutlineColor(WhiteColor);
     this->setOutlineThickness(1.f);
-    this->setRotation(-m_direction - 90.f);
+    this->setRotation(m_direction + 180);
     this->setSize(Vector2f(m_width, m_length));
     
     this->setFillColor(LaneColor);
     
-    //cout << startPosition.x << "," << startPosition.y << endl;
-    //cout << m_endPosition.x << "," << m_endPosition.y << endl;
+    
+    // create direction arrow shape
+    
+    m_arrowShape.setPointCount(7);
+    
+    t.scale(m_width/4, m_width/4);
+    m_arrowShape.setPoint(0, m_endPosition - t.transformPoint(Vector2f(0.f, -2.f)) );
+    
+    t.rotate(-45);
+    m_arrowShape.setPoint(1, m_arrowShape.getPoint(0) - t.transformPoint(Vector2f(0.f, -1.f)));
+    
+    t.rotate(90);
+    m_arrowShape.setPoint(6, m_arrowShape.getPoint(0) - t.transformPoint(Vector2f(0.f, -1.f)));
+    
+    t.rotate(45);
+    m_arrowShape.setPoint(2, m_arrowShape.getPoint(1) - t.transformPoint(Vector2f(0.f, -1.0f)));
+    
+    t.rotate(180);
+    m_arrowShape.setPoint(5, m_arrowShape.getPoint(6) - t.transformPoint(Vector2f(0.f, -1.f)));
+    
+    t.rotate(90);
+    m_arrowShape.setPoint(3, m_arrowShape.getPoint(2) - t.transformPoint(Vector2f(0.f, -1.f)));
+    
+    m_arrowShape.setPoint(4, m_arrowShape.getPoint(5) - t.transformPoint(Vector2f(0.f, -1.f)));
+    
+    m_arrowShape.setFillColor(WhiteColor);
 }
 
 void Lane::Draw(RenderWindow *window)
 {
     window->draw(*this);
+    window->draw(m_arrowShape);
 }

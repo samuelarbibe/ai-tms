@@ -13,40 +13,48 @@
 #include <stdio.h>
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <fstream>
-#include "Lane.hpp"
+#include <list>
+#include "Road.hpp"
+
+#define LANE_WIDTH 75
 
 using namespace sf;
+using namespace std;
 
-class Intersection{
+typedef struct RoadConnection
+{
+    int connectionSide;
+    Vector2f connectionPosition;
+    Road * road;
+    
+}RoadConnection;
+
+class Intersection: public RectangleShape
+{
 private:
     
-    char  * m_renderDir;
     int m_intersectionNumber;
     
-    Lane * m_lanes;
-    int m_numOfLanes;
+    list<RoadConnection> m_roadConnetions;
+    int m_numberOfConnections;
     
+    Vector2f m_position;
     int m_width;
     int m_height;
-    Vector2f m_position;
-    
-    Texture m_texture;
-    Sprite  m_sprite;
-    
-    RenderWindow * m_window;
-        
-    void LoadMapFromFile(const char * dirName);
-    void CreateMapRender(const char * fileName);
  
 public:
     Intersection();
     ~Intersection();
     
-    void Init(Vector2f position, int width, int height, int intersectioNumber, RenderWindow * window);
-    void Draw(RenderWindow * window);
-     
-    Lane * GetLanes(){return this->m_lanes;};
+    void Init(Vector2f position, int width, int height, int intersectioNumber);
+    
+    void AddRoadConnection(int roadNumber, int connectionSide, float length);
+    void RemoveRoadConnection(int roadNumber);
+    
+    Road * GetRoad(int roadNumber);
+    Road * GetRoadByConnectionSide(int connectionSide);
+    
+    void Draw(RenderWindow *window);
 };
 
 #endif /* Intersection_hpp */

@@ -26,7 +26,7 @@ void Road::Init(int roadNumber, Vector2f startPosition, float length, float lane
     Transform t;
     t.rotate(direction);
     
-    lengthVec = t.transformPoint(Vector2f(1.f, 0.f)) * length;
+    lengthVec = t.transformPoint(Vector2f(0.f, -1.f)) * length;
     
     m_endPosition = lengthVec + m_startPosition;
     
@@ -35,7 +35,7 @@ void Road::Init(int roadNumber, Vector2f startPosition, float length, float lane
     this->setPosition(m_startPosition);
     this->setOutlineColor(WhiteColor);
     this->setOutlineThickness(10.f);
-    this->setRotation(-m_direction - 90.f);
+    this->setRotation(m_direction + 180);
     this->setSize(Vector2f(m_width, m_length));
         
     //cout << startPosition.x << "," << startPosition.y << endl;
@@ -76,8 +76,8 @@ void Road::reAssignLanePositions()
     
     Transform t, x;
     
-    t.rotate(-m_direction - 90);
-    laneDifference = t.transformPoint(1.f, 0.f) * m_laneWidth;
+    t.rotate(m_direction+90);
+    laneDifference = t.transformPoint(0.f, -1.f) * m_laneWidth;
     
     (m_numberOfLanes % 2) ?
     x.scale(m_numberOfLanes/2, m_numberOfLanes/2) :
@@ -91,7 +91,7 @@ void Road::reAssignLanePositions()
     
     for (int i = 0; i < m_numberOfLanes; i++) {
         
-        Transform z;
+        Transform z, y;
         
         z.scale(i, i);
         
@@ -104,8 +104,8 @@ void Road::reAssignLanePositions()
         else
         {
             // send starting point + length vector
-            t.rotate(90);
-            lengthVec = t.transformPoint(Vector2f(1.f, 0.f)) * m_length;
+            y.rotate(m_direction);
+            lengthVec = y.transformPoint(Vector2f(0.f, -1.f)) * m_length;
             
             iterator->Init(m_roadNumber, iterator->GetLaneNumber(), firstLanePoint + z.transformPoint(laneDifference) + lengthVec,
                            m_laneWidth, m_length, (m_direction + 180.f));

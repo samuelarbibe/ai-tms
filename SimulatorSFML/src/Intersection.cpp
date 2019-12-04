@@ -12,26 +12,91 @@ Intersection::Intersection(){};
 
 Intersection::~Intersection(){};
 
-void Intersection::Init(Vector2f position, int width, int height, int intersectioNumber, RenderWindow * window)
+void Intersection::Init(Vector2f position, int width, int height, int intersectioNumber)
 {
+    m_intersectionNumber = intersectioNumber;
+    m_position = position;
+    m_width = width;
+    m_height = height;
     
-    this->m_intersectionNumber = intersectioNumber;
-    this->m_position = position;
-    this->m_width  = width;
-    this->m_height = height;
-        
-    this->m_window = window;
+    m_numberOfConnections = 0;
+    
+    this->setOrigin(m_width/2, m_height/2);
+    this->setPosition(m_position);
+    this->setOutlineColor(WhiteColor);
+    this->setFillColor(LaneColor);
+    this->setOutlineThickness(1.f);
+    this->setSize(Vector2f(m_width, m_width));
 }
 
-void Intersection::LoadMapFromFile(const char *dirName)
+void Intersection::AddRoadConnection(int roadNumber, int connectionSide, float length)
 {
-
+    RoadConnection temp;
+    
+    temp.road = new Road();
+    
+    Transform t;
+    
+    t.rotate((connectionSide-1)*90);
+    Vector2f baseVec(0.f, -1.f);
+    
+    t.scale(m_height/2, m_width/2);
+    
+    if(roadNumber == 0)
+    {
+        roadNumber = roadCount + 1;
+    }
+    
+    temp.connectionSide = connectionSide;
+    temp.connectionPosition = t.transformPoint(baseVec);
+    temp.road->Init(roadNumber, m_position + temp.connectionPosition, length, LANE_WIDTH, (connectionSide-1)*90);
+        
+    m_roadConnetions.push_back(temp);
+    
+    m_numberOfConnections++;
+    roadCount++;
 }
 
+Road * Intersection::GetRoad(int roadNumber)
+{
+    list<RoadConnection>::iterator iterator = m_roadConnetions.begin();
+    
+    for (int i = 0; i < m_numberOfConnections; i++)
+    {
+        if(iterator->road->GetRoadNumber() == roadNumber)
+        {
+            return iterator->road;
+        }
+        iterator++;
+    }
+    
+    cout << "error: road not found in intersection..." << endl;
+    
+    return nullptr;
+}
 
+Road * Intersection::GetRoadByConnectionSide(int connectionSide)
+{
+    list<RoadConnection>::iterator iterator = m_roadConnetions.begin();
+    
+    for (int i = 0; i < m_numberOfConnections; i++)
+    {
+        if(iterator->connectionSide == connectionSide)
+        {
+            return iterator->road;
+        }
+        iterator++;
+    }
+    
+    cout << "error: intersection connection unused or unexisting" << endl;
+    
+    return nullptr;
+}
+
+/*
 void Intersection::CreateMapRender(const char * fileDir)
 {
-    /*
+    
     sf::Texture texture;
 
     texture.create(this->m_window->getSize().x, this->m_window->getSize().y);
@@ -47,12 +112,15 @@ void Intersection::CreateMapRender(const char * fileDir)
     {
         std::cout << "could not create new map render to" << fileDir << std::endl;
     }
-     */
+     
 }
-
+*/
 void Intersection::Draw(RenderWindow *window)
 {
-
-        (*window).draw(m_sprite);
+    (*window).draw(*this);
+    
+    for (RoadConnection r : m_roadConnetions) {
+        r.road->Draw(window);
+    }
 }
 

@@ -17,6 +17,8 @@
 
 using namespace std;
 
+static int roadCount = 0;
+
 class Road : public RectangleShape
 {
 private:
@@ -38,8 +40,11 @@ public:
     void Init(int roadNumber, Vector2f startPosition, float length, float laneWidth, float direction);
     
     void AddLane(int laneNumber, bool isInRoadDirection);
+    void RemoveLane(int laneNumber);
     
     void reAssignLanePositions();
+    
+    int GetRoadNumber(){return m_roadNumber;};
     
     void Draw(RenderWindow * window);
 };
