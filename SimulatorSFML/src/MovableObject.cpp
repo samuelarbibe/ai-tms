@@ -31,6 +31,8 @@ void MovableObject::Init(float initSpeed, float initRotation, Vector2f initPosit
     
     m_sprite.setScale(0.15f, 0.15f);
     m_sprite.setOrigin(m_sprite.getTextureRect().width/3, m_sprite.getTextureRect().height/2);
+    
+    Move(0.f, 0.f);
 }
 
 void MovableObject::Move(float rotationDt, float speedDt){

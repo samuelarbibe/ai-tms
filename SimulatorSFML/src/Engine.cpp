@@ -19,38 +19,29 @@ void Engine::Init(int windowWidth, int windowHeight, const char * windowName){
     
     m_window.setActive();
     
+    inter.Init(Vector2f(windowWidth/2,windowHeight/2), 0, 0, 1);
     
-    inter.Init(Vector2f(500,500), 225, 225, 1);
-    
+    // add roads
     inter.AddRoadConnection(0, 1, 400);
     inter.AddRoadConnection(0, 2, 400);
     inter.AddRoadConnection(0, 3, 400);
     inter.AddRoadConnection(0, 4, 400);
     
-    Road * r1 = inter.GetRoadByConnectionSide(1);
-    Road * r2 = inter.GetRoadByConnectionSide(2);
-    Road * r3 = inter.GetRoadByConnectionSide(3);
-    Road * r4 = inter.GetRoadByConnectionSide(4);
     
-    r1->AddLane(0, true);
-    r1->AddLane(0, true);
-    r1->AddLane(0, false);
-
-    r2->AddLane(0, true);
-    r2->AddLane(0, true);
-    r2->AddLane(0, false);
+    inter.AddLane(0, 1, false);
+    inter.AddLane(0, 1, true);    
     
-    r3->AddLane(0, true);
-    r3->AddLane(0, true);
-    r3->AddLane(0, false);
-
-    r4->AddLane(0, true);
-    r4->AddLane(0, true);
-    r4->AddLane(0, false);
+    inter.AddLane(0, 2, false);
+    inter.AddLane(0, 2, true);
+    
+    inter.AddLane(0, 3, false);
+    inter.AddLane(0, 3, true);
+    
+    inter.AddLane(0, 4, false);
+    inter.AddLane(0, 4, true);
     
     
-    this->car.Init(50, 45, Vector2f(0.f, 0.f), "Cars/car_image2.png", 1, 3);
-    
+    this->car.Init(50, 45, Vector2f(0.f, 0.f), "Cars/car_image2.png", 1, 3);   
 }
 
 void Engine::Start(){

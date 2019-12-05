@@ -16,7 +16,7 @@
 #include <list>
 #include "Road.hpp"
 
-#define LANE_WIDTH 75
+#define LANE_WIDTH 80
 
 using namespace sf;
 using namespace std;
@@ -48,11 +48,21 @@ public:
     
     void Init(Vector2f position, int width, int height, int intersectioNumber);
     
-    void AddRoadConnection(int roadNumber, int connectionSide, float length);
-    void RemoveRoadConnection(int roadNumber);
+    RoadConnection * AddRoadConnection(int roadNumber,
+                                       int connectionSide,
+                                       float length);
+    
+    //void RemoveRoadConnection(int roadNumber);
+    
+    Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
+    
+    list<RoadConnection> * GetRoadConnections(){return &m_roadConnetions;};
     
     Road * GetRoad(int roadNumber);
     Road * GetRoadByConnectionSide(int connectionSide);
+    Vector2f GetPositionByConnectionSide(int connectionSide);
+    
+    void reAssignRoadPositions();
     
     void Draw(RenderWindow *window);
 };

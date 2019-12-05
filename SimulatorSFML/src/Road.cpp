@@ -19,6 +19,7 @@ void Road::Init(int roadNumber, Vector2f startPosition, float length, float lane
     m_direction = direction;
     m_laneWidth = laneWidth;
     m_numberOfLanes = 0;
+    m_width = m_numberOfLanes * laneWidth;
     
     // calculate end position:
     Vector2f lengthVec;
@@ -34,7 +35,8 @@ void Road::Init(int roadNumber, Vector2f startPosition, float length, float lane
     this->setOrigin(m_width/2, 0.f);
     this->setPosition(m_startPosition);
     this->setOutlineColor(WhiteColor);
-    this->setOutlineThickness(10.f);
+    this->setOutlineThickness(1.f);
+    this->setFillColor(Color::Transparent);
     this->setRotation(m_direction + 180);
     this->setSize(Vector2f(m_width, m_length));
         
@@ -42,28 +44,35 @@ void Road::Init(int roadNumber, Vector2f startPosition, float length, float lane
     //cout << m_endPosition.x << "," << m_endPosition.y << endl;
 }
 
-void Road::AddLane(int laneNumber, bool isInRoadDirection)
+Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
 {
-    Lane temp;
+    Lane * temp = new Lane();
     
     if(!laneNumber)
     {
-        laneNumber = ++laneCount;
+        laneNumber = laneCount + 1;
     }
     
     if (isInRoadDirection) {
-        temp.Init(m_roadNumber, (m_numberOfLanes + 1), m_startPosition, m_laneWidth, m_length, m_direction);
+        temp->Init(m_roadNumber, (m_numberOfLanes + 1), m_startPosition, m_laneWidth, m_length, m_direction);
     }
     else
     {
-        temp.Init(m_roadNumber, (m_numberOfLanes + 1), m_endPosition, m_laneWidth, m_length, (m_direction + 180.f));
+        temp->Init(m_roadNumber, (m_numberOfLanes + 1), m_endPosition, m_laneWidth, m_length, (m_direction + 180.f));
     }
     
-    m_lanes.push_back(temp);
+    m_lanes.push_back(*temp);
     m_numberOfLanes++;
     laneCount++;
     
-    reAssignLanePositions();
+    // adjust road size
+    m_width = m_numberOfLanes * m_laneWidth;
+    this->setSize(Vector2f(m_width, m_length));
+    this->setOrigin(m_width/2, 0.f);
+
+    
+    
+    return temp;
 }
 
 void Road::reAssignLanePositions()
@@ -115,9 +124,19 @@ void Road::reAssignLanePositions()
     }
 }
 
+void Road::UpdateStartPosition(Vector2f position)
+{
+    m_startPosition = position;
+    this->setOrigin(m_width/2, 0.f);
+    this->setPosition(m_startPosition);
+    
+    reAssignLanePositions();
+}
+
 void Road::Draw(RenderWindow * window)
 {
     for (Lane i : m_lanes) {
         i.Draw(window);
     }
+    window->draw(*this);
 }

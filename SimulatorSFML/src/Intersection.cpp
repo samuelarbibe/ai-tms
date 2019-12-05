@@ -26,35 +26,32 @@ void Intersection::Init(Vector2f position, int width, int height, int intersecti
     this->setOutlineColor(WhiteColor);
     this->setFillColor(LaneColor);
     this->setOutlineThickness(1.f);
-    this->setSize(Vector2f(m_width, m_width));
+    this->setSize(Vector2f(m_width, m_height));
 }
 
-void Intersection::AddRoadConnection(int roadNumber, int connectionSide, float length)
+RoadConnection * Intersection::AddRoadConnection(int roadNumber, int connectionSide, float length)
 {
     RoadConnection temp;
     
-    temp.road = new Road();
-    
-    Transform t;
-    
-    t.rotate((connectionSide-1)*90);
-    Vector2f baseVec(0.f, -1.f);
-    
-    t.scale(m_height/2, m_width/2);
-    
-    if(roadNumber == 0)
+    if(!roadNumber)
     {
         roadNumber = roadCount + 1;
     }
     
+    temp.road = new Road();
+    
     temp.connectionSide = connectionSide;
-    temp.connectionPosition = t.transformPoint(baseVec);
-    temp.road->Init(roadNumber, m_position + temp.connectionPosition, length, LANE_WIDTH, (connectionSide-1)*90);
-        
+    
+    temp.connectionPosition = GetPositionByConnectionSide(connectionSide);
+    
+    temp.road->Init(roadNumber, temp.connectionPosition, length, LANE_WIDTH, (connectionSide-1)*90);
+    
     m_roadConnetions.push_back(temp);
     
     m_numberOfConnections++;
     roadCount++;
+    
+    return &(m_roadConnetions.back());
 }
 
 Road * Intersection::GetRoad(int roadNumber)
@@ -93,28 +90,82 @@ Road * Intersection::GetRoadByConnectionSide(int connectionSide)
     return nullptr;
 }
 
-/*
-void Intersection::CreateMapRender(const char * fileDir)
+Lane * Intersection::AddLane(int laneNumber, int roadNumber, bool isInRoadDirection)
 {
+    Road * temp = GetRoad(roadNumber);
+    Lane * l;
     
-    sf::Texture texture;
-
-    texture.create(this->m_window->getSize().x, this->m_window->getSize().y);
-    texture.update(*(this->m_window));
+    l = temp->AddLane(laneNumber, isInRoadDirection);
     
-    // screenshot map and save it to file
-    if (texture.copyToImage().saveToFile(fileDir))
+    // update intersection dimentions
+    Road * r1 = GetRoadByConnectionSide(1);
+    Road * r2 = GetRoadByConnectionSide(2);
+    Road * r3 = GetRoadByConnectionSide(3);
+    Road * r4 = GetRoadByConnectionSide(4);
+    
+    
+    // TODO: improve this shitty code
+    m_width = r1->GetWidth();
+    
+    if(r3 != nullptr && r3->GetWidth() > m_width)
     {
-        std::cout << "new map render saved to " << fileDir << std::endl;
-        this->m_renderDir = strdup(fileDir);
+        m_width = r3->GetWidth();
     }
-    else
+    
+    if(r2 != nullptr && r2->GetWidth() > m_height)
     {
-        std::cout << "could not create new map render to" << fileDir << std::endl;
+        m_height = r2->GetWidth();
     }
-     
+    
+    if(r4 != nullptr && r4->GetWidth() > m_height)
+    {
+        m_height = r4->GetWidth();
+    }
+    
+    this->setSize(Vector2f(m_width, m_height));
+    this->setOrigin(m_width/2, m_height/2);
+    
+    reAssignRoadPositions();
+    
+    return l;
 }
-*/
+
+Vector2f Intersection::GetPositionByConnectionSide(int connectionSide)
+{
+    switch (connectionSide) {
+        case 1:
+            return Vector2f(m_position.x, m_position.y - m_height/2);
+            
+            break;
+        case 2:
+            return Vector2f(m_position.x + m_width/2, m_position.y);
+            
+            break;
+        case 3:
+            return Vector2f(m_position.x, m_position.y + m_height/2);
+            
+            break;
+        case 4:
+            return Vector2f(m_position.x - m_width/2, m_position.y);
+            
+            break;
+        default:
+            return m_position;
+            break;
+    }
+}
+
+void Intersection::reAssignRoadPositions()
+{
+    for (RoadConnection r : m_roadConnetions)
+    {
+        if(r.road != nullptr)
+        {
+            r.road->UpdateStartPosition(GetPositionByConnectionSide(r.connectionSide));
+        }
+    }
+}
+
 void Intersection::Draw(RenderWindow *window)
 {
     (*window).draw(*this);

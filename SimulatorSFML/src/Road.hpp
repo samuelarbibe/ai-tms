@@ -29,8 +29,8 @@ private:
     Vector2f m_endPosition;
     float m_direction;
     float m_laneWidth;
-    float m_width;
     float m_length;
+    float m_width;
     list<Lane> m_lanes;
         
 public:
@@ -39,12 +39,15 @@ public:
     
     void Init(int roadNumber, Vector2f startPosition, float length, float laneWidth, float direction);
     
-    void AddLane(int laneNumber, bool isInRoadDirection);
+    Lane * AddLane(int laneNumber, bool isInRoadDirection);
     void RemoveLane(int laneNumber);
     
     void reAssignLanePositions();
     
     int GetRoadNumber(){return m_roadNumber;};
+    float GetWidth(){return m_width;};
+    
+    void UpdateStartPosition(Vector2f position);
     
     void Draw(RenderWindow * window);
 };
