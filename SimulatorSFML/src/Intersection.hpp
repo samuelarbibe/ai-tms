@@ -21,50 +21,38 @@
 using namespace sf;
 using namespace std;
 
-typedef struct RoadConnection
-{
-    int connectionSide;
-    Vector2f connectionPosition;
-    Road * road;
-    
-}RoadConnection;
-
 class Intersection: public RectangleShape
-{
+{    
+public:
+    
+    Intersection(Vector2f position, int width, int height, int intersectioNumber);
+    ~Intersection();
+    
+    void   Init(Vector2f position, int width, int height, int intersectioNumber);
+    void   reAssignRoadPositions();
+    void   Draw(RenderWindow *window);
+    
+    Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
+    Road * GetRoad(int roadNumber);
+    Lane * GetLane(int laneNumber);
+    Road * GetRoadByConnectionSide(int connectionSide);
+    
+    Vector2f GetPositionByConnectionSide(int connectionSide);
+    
+    Road * AddRoad(int roadNumber, int connectionSide, float length);
+    
+    vector<Road> * GetRoads(){return &(m_roads);};
+    
 private:
     
     int m_intersectionNumber;
-    
-    list<RoadConnection> m_roadConnetions;
-    int m_numberOfConnections;
-    
-    Vector2f m_position;
+    int m_numberOfRoads;
     int m_width;
     int m_height;
- 
-public:
-    Intersection();
-    ~Intersection();
     
-    void Init(Vector2f position, int width, int height, int intersectioNumber);
+    Vector2f m_position;
     
-    RoadConnection * AddRoadConnection(int roadNumber,
-                                       int connectionSide,
-                                       float length);
-    
-    //void RemoveRoadConnection(int roadNumber);
-    
-    Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
-    
-    list<RoadConnection> * GetRoadConnections(){return &m_roadConnetions;};
-    
-    Road * GetRoad(int roadNumber);
-    Road * GetRoadByConnectionSide(int connectionSide);
-    Vector2f GetPositionByConnectionSide(int connectionSide);
-    
-    void reAssignRoadPositions();
-    
-    void Draw(RenderWindow *window);
+    vector<Road>  m_roads;
 };
 
 #endif /* Intersection_hpp */

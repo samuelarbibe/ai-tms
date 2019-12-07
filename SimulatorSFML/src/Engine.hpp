@@ -31,12 +31,10 @@ private:
     void draw();
     
 public:
-    Engine();
-    
-    void Init(int windowWidth, int windowHeight, const char * windowName);
-    
-    MovableObject car;
-    Intersection inter;
+    Engine(int windowWidth, int windowHeight, const char * windowName);
+        
+    MovableObject * car;
+    Intersection * inter;
     
     void Start();
 };

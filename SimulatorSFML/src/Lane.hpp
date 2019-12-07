@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <queue>
+#include <math.h>
 
 using namespace std;
 using namespace sf;
@@ -25,30 +25,33 @@ static int laneCount = 0;
 
 class Lane : public RectangleShape
 {
-private:
-    
-    int m_roadNumber;
-    int m_laneNumber;
-    Vector2f m_startPosition;
-    Vector2f m_endPosition;
-    float m_direction;
-    float m_width;
-    float m_length;
-    
-    ConvexShape m_arrowShape;
-    
-    void createArrowShape();
     
 public:
+    
     Lane();
+    Lane(int laneNumber, int roadNumber, Vector2f startPosition, float width, float length, float direction);
     ~Lane();
     
-    void Init(int roadNumber, int laneNumber, Vector2f startPosition, float width, float length, float direction);
-    
-    float GetDirection(){return m_direction;};
+    float GetDirection() {return m_direction;};
     int   GetLaneNumber(){return m_laneNumber;};
     
-    void Draw(RenderWindow * window);
+    void  Draw(RenderWindow * window);
+    
+private:
+    
+    int      m_roadNumber;
+    int      m_laneNumber;
+    
+    Vector2f m_startPosition;
+    Vector2f m_endPosition;
+    
+    float    m_direction;
+    float    m_width;
+    float    m_length;
+    
+    void     m_createArrowShape(Transform t);
+    ConvexShape m_arrowShape;
+    
 };
 
 #endif /* Lane_hpp */

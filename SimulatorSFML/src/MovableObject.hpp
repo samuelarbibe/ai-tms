@@ -19,6 +19,19 @@
 using namespace sf;
 
 class MovableObject{
+    
+public:
+    
+    MovableObject(float initSpeed, float initRotation, Vector2f initPosition, const char * textureDirName, int sourceLane, int targetLane);
+    ~MovableObject();
+    
+    void Move(float rotationDt, float speedDt);
+    void Draw(RenderWindow * window);
+    void Update(float elapsedTime);
+    
+    int GetSourceLane(){return this->m_sourceLane;};
+    int GetTargetLane(){return this->m_targetLane;};
+    
 private:
     
     Vector2f m_position;
@@ -36,17 +49,7 @@ private:
     bool     m_brake;
     bool     m_drive;
         
-public:
-    MovableObject();
-    ~MovableObject();
-    
-    void Init(float initSpeed, float initRotation, Vector2f initPosition, const char * textureDirName, int sourceLane, int targetLane);
-    void Move(float rotationDt, float speedDt);
-    void Draw(RenderWindow * window);
-    void Update(float elapsedTime);
-    
-    int GetSourceLane(){return this->m_sourceLane;};
-    int GetTargetLane(){return this->m_targetLane;};
+
 };
 
 #endif

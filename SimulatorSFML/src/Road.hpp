@@ -21,35 +21,44 @@ static int roadCount = 0;
 
 class Road : public RectangleShape
 {
-private:
     
-    int m_roadNumber;
-    int m_numberOfLanes;
-    Vector2f m_startPosition;
-    Vector2f m_endPosition;
-    float m_direction;
-    float m_laneWidth;
-    float m_length;
-    float m_width;
-    list<Lane> m_lanes;
-        
 public:
-    Road();
+    
+    Road(){};
+    Road(int roadNumber, int intersectionNumber, int connectionSide, Vector2f startPosition, float length, float laneWidth, float direction);
     ~Road();
     
-    void Init(int roadNumber, Vector2f startPosition, float length, float laneWidth, float direction);
     
     Lane * AddLane(int laneNumber, bool isInRoadDirection);
-    void RemoveLane(int laneNumber);
+    Lane * GetLane(int laneNumber);
+
+    float  GetWidth(){return m_width;};
     
-    void reAssignLanePositions();
+    int    GetRoadNumber(){return m_roadNumber;};
+    int    GetIntersectionNumber(){return m_intersectionNumber;};
+    int    GetConnectionSide(){return m_connectionSide;};
     
-    int GetRoadNumber(){return m_roadNumber;};
-    float GetWidth(){return m_width;};
+    void   reAssignLanePositions();
+    void   UpdateStartPosition(Vector2f position);
+    void   Draw(RenderWindow * window);
     
-    void UpdateStartPosition(Vector2f position);
+private:
     
-    void Draw(RenderWindow * window);
+    int        m_roadNumber;
+    int        m_numberOfLanes;
+    int        m_intersectionNumber;
+    int        m_connectionSide;
+    
+    Vector2f   m_startPosition;
+    Vector2f   m_endPosition;
+    
+    float      m_direction;
+    float      m_laneWidth;
+    float      m_length;
+    float      m_width;
+    
+    vector<Lane> m_lanes;
+        
 };
 
 #endif /* Road_hpp */

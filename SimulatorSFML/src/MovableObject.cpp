@@ -10,11 +10,8 @@
 
 const Vector2f m_forwardVec(1.f, 0.f);
 
-MovableObject::MovableObject(){};
 
-MovableObject::~MovableObject(){}
-
-void MovableObject::Init(float initSpeed, float initRotation, Vector2f initPosition, const char * textureDirName, int sourceLane, int targetLane){
+MovableObject::MovableObject(float initSpeed, float initRotation, Vector2f initPosition, const char * textureDirName, int sourceLane, int targetLane){
     
     // set initial values for the movable object
     m_speed    = initSpeed;
@@ -34,6 +31,8 @@ void MovableObject::Init(float initSpeed, float initRotation, Vector2f initPosit
     
     Move(0.f, 0.f);
 }
+
+MovableObject::~MovableObject(){}
 
 void MovableObject::Move(float rotationDt, float speedDt){
     

@@ -9,16 +9,15 @@
 #include "Lane.hpp"
 
 Lane::Lane(){}
-Lane::~Lane(){}
 
-void Lane::Init(int roadNumber, int laneNumber, Vector2f startPosition, float width, float length, float direction)
+Lane::Lane(int laneNumber, int roadNumber, Vector2f startPosition, float width, float length, float direction)
 {
-    m_roadNumber = roadNumber;
     m_laneNumber = laneNumber;
+    m_roadNumber = roadNumber;
     m_startPosition = startPosition;
     m_width = width;
     m_length = length;
-    m_direction = direction;
+    m_direction = fmod(direction,360.f);
     
     // calculate end position:
     Vector2f lengthVec;
@@ -43,6 +42,14 @@ void Lane::Init(int roadNumber, int laneNumber, Vector2f startPosition, float wi
     
     // create direction arrow shape
     
+    m_createArrowShape(t);
+}
+
+Lane::~Lane(){}
+
+
+void Lane::m_createArrowShape(Transform t)
+{
     m_arrowShape.setPointCount(7);
     
     t.scale(m_width/4, m_width/4);

@@ -11,11 +11,11 @@
 
 int main(int argc, const char * argv[]) {
     
-    Engine engine;
+    Engine * engine;
     
-    engine.Init(1000, 1000, "Simulator");
+    engine = new Engine(1000, 1000, "Simulator");
     
-    engine.Start();
+    engine->Start();
     
     return EXIT_SUCCESS;
 }

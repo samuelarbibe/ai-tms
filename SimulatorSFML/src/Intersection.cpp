@@ -8,18 +8,15 @@
 
 #include "Intersection.hpp"
 
-Intersection::Intersection(){};
-
-Intersection::~Intersection(){};
-
-void Intersection::Init(Vector2f position, int width, int height, int intersectioNumber)
+Intersection::Intersection(Vector2f position, int width, int height, int intersectioNumber)
 {
     m_intersectionNumber = intersectioNumber;
     m_position = position;
     m_width = width;
     m_height = height;
+    //m_roads();
     
-    m_numberOfConnections = 0;
+    m_numberOfRoads = 0;
     
     this->setOrigin(m_width/2, m_height/2);
     this->setPosition(m_position);
@@ -27,44 +24,54 @@ void Intersection::Init(Vector2f position, int width, int height, int intersecti
     this->setFillColor(LaneColor);
     this->setOutlineThickness(1.f);
     this->setSize(Vector2f(m_width, m_height));
-}
+};
 
-RoadConnection * Intersection::AddRoadConnection(int roadNumber, int connectionSide, float length)
+Intersection::~Intersection(){};
+
+
+Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
 {
-    RoadConnection temp;
     
     if(!roadNumber)
     {
         roadNumber = roadCount + 1;
     }
     
-    temp.road = new Road();
-    
-    temp.connectionSide = connectionSide;
-    
-    temp.connectionPosition = GetPositionByConnectionSide(connectionSide);
-    
-    temp.road->Init(roadNumber, temp.connectionPosition, length, LANE_WIDTH, (connectionSide-1)*90);
-    
-    m_roadConnetions.push_back(temp);
-    
-    m_numberOfConnections++;
+    m_roads.push_back(Road(roadNumber, m_intersectionNumber, connectionSide ,GetPositionByConnectionSide(connectionSide), length, LANE_WIDTH, (connectionSide-1)*90));
+            
+    m_numberOfRoads++;
     roadCount++;
     
-    return &(m_roadConnetions.back());
+    std::cout << "Road " << roadNumber << " added" << endl;
+    
+    return &(m_roads[m_numberOfRoads-1]);
+}
+
+Lane * Intersection::GetLane(int laneNumber)
+{
+    Lane * temp;
+    
+    for (int i = 0; i < m_numberOfRoads; i++)
+    {
+        if ((temp = m_roads[i].GetLane(laneNumber)) != nullptr)
+        {
+            return temp;
+        }
+    }
+    
+    cout << "error : lane not found in intersection..." << endl;
+    
+    return nullptr;
 }
 
 Road * Intersection::GetRoad(int roadNumber)
 {
-    list<RoadConnection>::iterator iterator = m_roadConnetions.begin();
-    
-    for (int i = 0; i < m_numberOfConnections; i++)
+    for (int i = 0 ;i < m_numberOfRoads; i++)
     {
-        if(iterator->road->GetRoadNumber() == roadNumber)
+        if(m_roads[i].GetRoadNumber() == roadNumber)
         {
-            return iterator->road;
+            return &(m_roads[i]);
         }
-        iterator++;
     }
     
     cout << "error: road not found in intersection..." << endl;
@@ -74,21 +81,21 @@ Road * Intersection::GetRoad(int roadNumber)
 
 Road * Intersection::GetRoadByConnectionSide(int connectionSide)
 {
-    list<RoadConnection>::iterator iterator = m_roadConnetions.begin();
     
-    for (int i = 0; i < m_numberOfConnections; i++)
+    for (int i = 0 ;i < m_numberOfRoads; i++)
     {
-        if(iterator->connectionSide == connectionSide)
+        if(m_roads[i].GetConnectionSide() == connectionSide)
         {
-            return iterator->road;
+            return &(m_roads[i]);
         }
-        iterator++;
     }
     
     cout << "error: intersection connection unused or unexisting" << endl;
     
     return nullptr;
 }
+
+
 
 Lane * Intersection::AddLane(int laneNumber, int roadNumber, bool isInRoadDirection)
 {
@@ -104,7 +111,6 @@ Lane * Intersection::AddLane(int laneNumber, int roadNumber, bool isInRoadDirect
     Road * r4 = GetRoadByConnectionSide(4);
     
     
-    // TODO: improve this shitty code
     m_width = r1->GetWidth();
     
     if(r3 != nullptr && r3->GetWidth() > m_width)
@@ -157,12 +163,9 @@ Vector2f Intersection::GetPositionByConnectionSide(int connectionSide)
 
 void Intersection::reAssignRoadPositions()
 {
-    for (RoadConnection r : m_roadConnetions)
+    for (int i = 0 ; i < m_numberOfRoads; i++)
     {
-        if(r.road != nullptr)
-        {
-            r.road->UpdateStartPosition(GetPositionByConnectionSide(r.connectionSide));
-        }
+        m_roads[i].UpdateStartPosition(GetPositionByConnectionSide(m_roads[i].GetConnectionSide()));
     }
 }
 
@@ -170,8 +173,8 @@ void Intersection::Draw(RenderWindow *window)
 {
     (*window).draw(*this);
     
-    for (RoadConnection r : m_roadConnetions) {
-        r.road->Draw(window);
+    for (int i = 0 ; i < m_numberOfRoads; i++) {
+        m_roads[i].Draw(window);
     }
 }
 
