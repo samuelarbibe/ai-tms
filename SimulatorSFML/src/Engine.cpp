@@ -15,6 +15,9 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
     
     m_window.setFramerateLimit(60);
     
+    //FloatRect area(0, 0, resolution.x, resolution.y);
+    m_window.setView(View(FloatRect(0, 0, 1000, 1000)));
+    
     m_window.setActive();
     
     inter = new Intersection(Vector2f(windowWidth/2,windowHeight/2), 0, 0, 1);
@@ -25,16 +28,35 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
     inter->AddRoad(0, 3, 400);
     inter->AddRoad(0, 4, 400);
     
-    inter->AddLane(1, 1, false);
-    inter->AddLane(2, 1, true);
-    inter->AddLane(3, 2, false);
-    inter->AddLane(4, 2, true);
-    inter->AddLane(5, 3, false);
-    inter->AddLane(6, 3, true);
-    inter->AddLane(7, 4, false);
-    inter->AddLane(8, 4, true);
+    inter->AddLane(0, 1, false);
+    inter->AddLane(0, 1, false);
+    inter->AddLane(0, 1, true);
+    inter->AddLane(0, 1, true);
     
-    car = new MovableObject(50, 45, Vector2f(0.f, 0.f), "Cars/car_image2.png", 1, 3);
+    inter->AddLane(0, 2, false);
+    inter->AddLane(0, 2, false);
+    inter->AddLane(0, 2, true);
+    inter->AddLane(0, 2, true);
+    
+    inter->AddLane(0, 3, false);
+    inter->AddLane(0, 3, false);
+    inter->AddLane(0, 3, true);
+    inter->AddLane(0, 3, true);
+    
+    inter->AddLane(0, 4, false);
+    inter->AddLane(0, 4, false);
+    inter->AddLane(0, 4, true);
+    inter->AddLane(0, 4, true);
+    
+    inter->AddVehicle(1, 2);
+    inter->AddVehicle(2, 2);
+    inter->AddVehicle(3, 2);
+    inter->AddVehicle(4, 2);
+    inter->AddVehicle(5, 2);
+    inter->AddVehicle(6, 2);
+    inter->AddVehicle(7, 2);
+    inter->AddVehicle(8, 2);
+    
 };
 
 void Engine::Start(){
@@ -78,7 +100,7 @@ void Engine::input(){
 
 void Engine::update(float dtInSeconds){
     
-    car->Update(dtInSeconds);
+    inter->Update(dtInSeconds);
 }
 
 void Engine::draw()
@@ -88,7 +110,6 @@ void Engine::draw()
  
     // Draw the objects
     this->inter->Draw(&m_window);
-    this->car->Draw(&m_window);
      
     // Show everything that has been drawn
     m_window.display();

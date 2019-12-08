@@ -13,7 +13,6 @@
 #include <iostream>
 #include <list>
 #include <SFML/Graphics.hpp>
-#include "MovableObject.hpp"
 #include "Intersection.hpp"
 
 using namespace sf;
@@ -33,7 +32,6 @@ private:
 public:
     Engine(int windowWidth, int windowHeight, const char * windowName);
         
-    MovableObject * car;
     Intersection * inter;
     
     void Start();

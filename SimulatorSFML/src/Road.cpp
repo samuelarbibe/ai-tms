@@ -52,11 +52,11 @@ Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
     }
     
     if (isInRoadDirection) {
-        m_lanes.push_back(Lane(laneNumber, m_roadNumber, m_startPosition, m_laneWidth, m_length, m_direction));
+        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_startPosition, m_laneWidth, m_length, m_direction));
     }
     else
     {
-        m_lanes.push_back(Lane(laneNumber, m_roadNumber, m_endPosition, m_laneWidth, m_length, (m_direction + 180.f)));
+        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_endPosition, m_laneWidth, m_length, (m_direction + 180.f)));
     }
     
     m_numberOfLanes++;
@@ -68,18 +68,18 @@ Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
     this->setOrigin(m_width/2, 0.f);
 
     
-    std::cout << "lane " << m_lanes[m_numberOfLanes - 1].GetLaneNumber() << " added to road " << m_roadNumber << std::endl;
+    std::cout << "lane " << m_lanes[m_numberOfLanes - 1]->GetLaneNumber() << " added to road " << m_roadNumber << std::endl;
     
-    return &(m_lanes[m_numberOfLanes - 1]);
+    return m_lanes[m_numberOfLanes - 1];
 }
 
 Lane * Road::GetLane(int laneNumber)
 {
     for (int i = 0; i < m_numberOfLanes; i++)
     {
-        if(m_lanes[i].GetLaneNumber() == laneNumber)
+        if(m_lanes[i]->GetLaneNumber() == laneNumber)
         {
-            return &(m_lanes[i]);
+            return m_lanes[i];
         }
     }
     
@@ -113,14 +113,16 @@ void Road::reAssignLanePositions()
         
         z.scale(i, i);
         
-        int   tempLaneNumber = m_lanes[i].GetLaneNumber();
-        float tempLaneDirection = m_lanes[i].GetDirection();
+        int   tempLaneNumber = m_lanes[i]->GetLaneNumber();
+        float tempLaneDirection = m_lanes[i]->GetDirection();
+        
+        delete m_lanes[i];
                 
         //if lane is in road direction
         if(tempLaneDirection == m_direction)
         {
             // send calculated starting point
-            m_lanes[i] = Lane(tempLaneNumber, m_roadNumber, firstLanePoint + z.transformPoint(laneDifference), m_laneWidth, m_length, m_direction);
+            m_lanes[i] = new Lane(tempLaneNumber, m_roadNumber, firstLanePoint + z.transformPoint(laneDifference), m_laneWidth, m_length, m_direction);
         }
         else
         {
@@ -128,7 +130,7 @@ void Road::reAssignLanePositions()
             y.rotate(m_direction);
             lengthVec = y.transformPoint(Vector2f(0.f, -1.f)) * m_length;
             
-            m_lanes[i] = Lane(tempLaneNumber, m_roadNumber, firstLanePoint + z.transformPoint(laneDifference) + lengthVec,
+            m_lanes[i] = new Lane(tempLaneNumber, m_roadNumber, firstLanePoint + z.transformPoint(laneDifference) + lengthVec,
                            m_laneWidth, m_length, (m_direction + 180.f));
         }
     }
@@ -143,10 +145,18 @@ void Road::UpdateStartPosition(Vector2f position)
     reAssignLanePositions();
 }
 
+void Road::Update(float elapsedTime)
+{
+    for(Lane * l : m_lanes)
+    {
+        l->Update(elapsedTime);
+    }
+}
+
 void Road::Draw(RenderWindow * window)
 {
     for (int i = 0; i < m_numberOfLanes; i++) {
-        m_lanes[i].Draw(window);
+        m_lanes[i]->Draw(window);
     }
     window->draw(*this);
 }

@@ -40,6 +40,8 @@ public:
     
     void   reAssignLanePositions();
     void   UpdateStartPosition(Vector2f position);
+    
+    void   Update(float elapsedTime);
     void   Draw(RenderWindow * window);
     
 private:
@@ -57,8 +59,10 @@ private:
     float      m_length;
     float      m_width;
     
-    vector<Lane> m_lanes;
+    vector<Lane*> m_lanes;
         
 };
+
+
 
 #endif /* Road_hpp */

@@ -37,14 +37,14 @@ Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
         roadNumber = roadCount + 1;
     }
     
-    m_roads.push_back(Road(roadNumber, m_intersectionNumber, connectionSide ,GetPositionByConnectionSide(connectionSide), length, LANE_WIDTH, (connectionSide-1)*90));
+    m_roads.push_back(new Road(roadNumber, m_intersectionNumber, connectionSide ,GetPositionByConnectionSide(connectionSide), length, LANE_WIDTH, (connectionSide-1)*90));
             
     m_numberOfRoads++;
     roadCount++;
     
     std::cout << "Road " << roadNumber << " added" << endl;
     
-    return &(m_roads[m_numberOfRoads-1]);
+    return m_roads[m_numberOfRoads-1];
 }
 
 Lane * Intersection::GetLane(int laneNumber)
@@ -53,7 +53,7 @@ Lane * Intersection::GetLane(int laneNumber)
     
     for (int i = 0; i < m_numberOfRoads; i++)
     {
-        if ((temp = m_roads[i].GetLane(laneNumber)) != nullptr)
+        if ((temp = m_roads[i]->GetLane(laneNumber)) != nullptr)
         {
             return temp;
         }
@@ -68,9 +68,9 @@ Road * Intersection::GetRoad(int roadNumber)
 {
     for (int i = 0 ;i < m_numberOfRoads; i++)
     {
-        if(m_roads[i].GetRoadNumber() == roadNumber)
+        if(m_roads[i]->GetRoadNumber() == roadNumber)
         {
-            return &(m_roads[i]);
+            return m_roads[i];
         }
     }
     
@@ -84,9 +84,9 @@ Road * Intersection::GetRoadByConnectionSide(int connectionSide)
     
     for (int i = 0 ;i < m_numberOfRoads; i++)
     {
-        if(m_roads[i].GetConnectionSide() == connectionSide)
+        if(m_roads[i]->GetConnectionSide() == connectionSide)
         {
-            return &(m_roads[i]);
+            return m_roads[i];
         }
     }
     
@@ -136,6 +136,14 @@ Lane * Intersection::AddLane(int laneNumber, int roadNumber, bool isInRoadDirect
     return l;
 }
 
+Vehicle * Intersection::AddVehicle(int laneNumber, int destinationLaneNumber)
+{
+    Lane * origin = GetLane(laneNumber);
+    Lane * dest = GetLane(destinationLaneNumber);
+    
+    return origin->AddVehicle(dest);
+}
+
 Vector2f Intersection::GetPositionByConnectionSide(int connectionSide)
 {
     switch (connectionSide) {
@@ -165,7 +173,15 @@ void Intersection::reAssignRoadPositions()
 {
     for (int i = 0 ; i < m_numberOfRoads; i++)
     {
-        m_roads[i].UpdateStartPosition(GetPositionByConnectionSide(m_roads[i].GetConnectionSide()));
+        m_roads[i]->UpdateStartPosition(GetPositionByConnectionSide(m_roads[i]->GetConnectionSide()));
+    }
+}
+
+void Intersection::Update(float elapsedTime)
+{
+    for(Road * r : m_roads)
+    {
+        r->Update(elapsedTime);
     }
 }
 
@@ -174,7 +190,7 @@ void Intersection::Draw(RenderWindow *window)
     (*window).draw(*this);
     
     for (int i = 0 ; i < m_numberOfRoads; i++) {
-        m_roads[i].Draw(window);
+        m_roads[i]->Draw(window);
     }
 }
 
