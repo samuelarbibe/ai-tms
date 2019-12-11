@@ -20,6 +20,7 @@ Lane::Lane(int laneNumber, int roadNumber, Vector2f startPosition, float width, 
     m_direction     = fmod(direction,360.f);
     m_isBlocked     = false;
     m_vehicleCount  = 0;
+    m_lastEnteredCarNumber = 0;
     
     // calculate end position:
     Vector2f lengthVec;
@@ -46,8 +47,6 @@ Lane::Lane(int laneNumber, int roadNumber, Vector2f startPosition, float width, 
     
     m_createArrowShape(t);
 }
-
-Lane::~Lane(){}
 
 
 void Lane::m_createArrowShape(Transform t)
@@ -77,44 +76,14 @@ void Lane::m_createArrowShape(Transform t)
     m_arrowShape.setFillColor(WhiteColor);
 }
 
-
-Vehicle * Lane::AddVehicle(Lane * destinationLane)
-{
-    Vehicle * temp = nullptr;
-    
-    if(!m_vehicles.empty())
-    {
-        temp = m_vehicles[m_vehicleCount - 1];
-    }
-    
-    m_vehicles.push_back(new Vehicle(0, 100, this, destinationLane, temp));
-    m_vehicleCount++;
-    
-    temp = m_vehicles[m_vehicleCount - 1];
-    
-    
-    cout << "car " << temp->GetVehicleNumber() << " added to lane " << m_laneNumber << endl;
-    
-    return temp;
-}
-
 void Lane::Update(float elapsedTime)
 {
-    for(Vehicle * v : m_vehicles)
-    {
-        v->Update(elapsedTime);
-    }
 }
 
 void Lane::Draw(RenderWindow *window)
 {
     window->draw(*this);
     window->draw(m_arrowShape);
-    
-    for(Vehicle * v : m_vehicles)
-    {
-        v->Draw(window);
-    }
 }
 
 

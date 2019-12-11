@@ -14,6 +14,7 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 #include "Intersection.hpp"
+#include "Vehicle.hpp"
 
 using namespace sf;
 
@@ -33,6 +34,7 @@ public:
     Engine(int windowWidth, int windowHeight, const char * windowName);
         
     Intersection * inter;
+    vector<Vehicle*> activeVehicles;
     
     void Start();
 };

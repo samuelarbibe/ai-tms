@@ -26,7 +26,6 @@ Intersection::Intersection(Vector2f position, int width, int height, int interse
     this->setSize(Vector2f(m_width, m_height));
 };
 
-Intersection::~Intersection(){};
 
 
 Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
@@ -136,13 +135,6 @@ Lane * Intersection::AddLane(int laneNumber, int roadNumber, bool isInRoadDirect
     return l;
 }
 
-Vehicle * Intersection::AddVehicle(int laneNumber, int destinationLaneNumber)
-{
-    Lane * origin = GetLane(laneNumber);
-    Lane * dest = GetLane(destinationLaneNumber);
-    
-    return origin->AddVehicle(dest);
-}
 
 Vector2f Intersection::GetPositionByConnectionSide(int connectionSide)
 {

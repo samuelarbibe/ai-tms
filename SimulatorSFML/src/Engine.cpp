@@ -19,7 +19,7 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
     m_window.setView(View(FloatRect(0, 0, 1000, 1000)));
     
     m_window.setActive();
-    
+            
     inter = new Intersection(Vector2f(windowWidth/2,windowHeight/2), 0, 0, 1);
     
     // add roads
@@ -48,15 +48,7 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
     inter->AddLane(0, 4, true);
     inter->AddLane(0, 4, true);
     
-    inter->AddVehicle(1, 2);
-    inter->AddVehicle(2, 2);
-    inter->AddVehicle(3, 2);
-    inter->AddVehicle(4, 2);
-    inter->AddVehicle(5, 2);
-    inter->AddVehicle(6, 2);
-    inter->AddVehicle(7, 2);
-    inter->AddVehicle(8, 2);
-    
+    Vehicle::AddVehicle(activeVehicles ,0, 100, inter->GetLane(1), inter->GetLane(1));
 };
 
 void Engine::Start(){
@@ -75,7 +67,7 @@ void Engine::Start(){
         float dtInSeconds = dt.asSeconds();
         
         // print out FPS
-        if(frameCount % 20 == 0) std::cout << 1/dtInSeconds << std::endl;
+        //if(frameCount % 20 == 0) std::cout << 1/dtInSeconds << std::endl;
         
         sf::Event event;
         while (m_window.pollEvent(event))
@@ -96,11 +88,29 @@ void Engine::Start(){
 
 void Engine::input(){
     
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        Vehicle::AddVehicle(activeVehicles ,0, 100, inter->GetLane(1), inter->GetLane(1));
+    }
+    
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    {
+        inter->GetLane(1)->SetIsBlocked(true);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    {
+        inter->GetLane(1)->SetIsBlocked(false);
+    }
 }
 
 void Engine::update(float dtInSeconds){
     
     inter->Update(dtInSeconds);
+    
+    for(Vehicle * v : activeVehicles)
+    {
+        v->Update(dtInSeconds);
+    }
 }
 
 void Engine::draw()
@@ -110,6 +120,11 @@ void Engine::draw()
  
     // Draw the objects
     this->inter->Draw(&m_window);
+    
+    for(Vehicle * v : activeVehicles)
+    {
+        v->Draw(&m_window);
+    }
      
     // Show everything that has been drawn
     m_window.display();

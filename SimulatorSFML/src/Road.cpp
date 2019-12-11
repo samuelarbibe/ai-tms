@@ -42,7 +42,6 @@ Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f
 
 }
 
-Road::~Road(){}
 
 Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
 {

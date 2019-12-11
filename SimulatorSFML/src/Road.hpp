@@ -26,7 +26,7 @@ public:
     
     Road(){};
     Road(int roadNumber, int intersectionNumber, int connectionSide, Vector2f startPosition, float length, float laneWidth, float direction);
-    ~Road();
+    ~Road(){cout << "Road " << m_roadNumber << "deleted" << endl;};
     
     
     Lane * AddLane(int laneNumber, bool isInRoadDirection);

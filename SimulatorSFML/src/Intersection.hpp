@@ -27,7 +27,7 @@ class Intersection: public RectangleShape
 public:
     
     Intersection(Vector2f position, int width, int height, int intersectioNumber);
-    ~Intersection();
+    ~Intersection(){cout << "Intersection " << m_intersectionNumber << "deleted" << endl;};
     
     void   Init(Vector2f position, int width, int height, int intersectioNumber);
     void   reAssignRoadPositions();
@@ -38,7 +38,6 @@ public:
     Road * GetRoad(int roadNumber);
     Lane * GetLane(int laneNumber);
     Road * GetRoadByConnectionSide(int connectionSide);
-    Vehicle * AddVehicle(int laneNumber, int destinationLaneNumber);
     
     Vector2f GetPositionByConnectionSide(int connectionSide);
     

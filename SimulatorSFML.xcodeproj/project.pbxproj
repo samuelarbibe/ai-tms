@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		F048496B23965E1D00920D9F /* Lane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F048496923965E1D00920D9F /* Lane.cpp */; };
 		F048496E239685CA00920D9F /* Road.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F048496C239685CA00920D9F /* Road.cpp */; };
-		F0626D0623893CA1001CDD16 /* Vehicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F036B06E2387CE0C00A8B1C8 /* Vehicle.cpp */; };
 		F0626D0723893CA4001CDD16 /* Engine.hpp in Sources */ = {isa = PBXBuildFile; fileRef = F078F3242387D8B900B0347C /* Engine.hpp */; };
 		F0626D0823893CA6001CDD16 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB86AC238299880013F31A /* main.cpp */; };
 		F0626D0923893CA7001CDD16 /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0626D01238935CC001CDD16 /* Intersection.cpp */; };
@@ -20,6 +19,7 @@
 		F0DB86BD238299F10013F31A /* sfml-graphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B7238299F10013F31A /* sfml-graphics.framework */; };
 		F0DB86BE238299F10013F31A /* sfml-audio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B8238299F10013F31A /* sfml-audio.framework */; };
 		F0DB86BF238299F10013F31A /* sfml-window.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB86B9238299F10013F31A /* sfml-window.framework */; };
+		F0F309B423A117960077A6E2 /* Vehicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0F309B223A117960077A6E2 /* Vehicle.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,7 +35,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F036B06E2387CE0C00A8B1C8 /* Vehicle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Vehicle.cpp; sourceTree = "<group>"; };
 		F046109823914EA900E30CF2 /* car_image2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car_image2.png; sourceTree = "<group>"; };
 		F048496923965E1D00920D9F /* Lane.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Lane.cpp; sourceTree = "<group>"; };
 		F048496A23965E1D00920D9F /* Lane.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Lane.hpp; sourceTree = "<group>"; };
@@ -54,6 +53,8 @@
 		F0DB86B7238299F10013F31A /* sfml-graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-graphics.framework"; path = "libs/SFML/Frameworks/sfml-graphics.framework"; sourceTree = "<group>"; };
 		F0DB86B8238299F10013F31A /* sfml-audio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-audio.framework"; path = "libs/SFML/Frameworks/sfml-audio.framework"; sourceTree = "<group>"; };
 		F0DB86B9238299F10013F31A /* sfml-window.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-window.framework"; path = "libs/SFML/Frameworks/sfml-window.framework"; sourceTree = "<group>"; };
+		F0F309B223A117960077A6E2 /* Vehicle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Vehicle.cpp; sourceTree = "<group>"; };
+		F0F309B323A117960077A6E2 /* Vehicle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Vehicle.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,9 +79,10 @@
 			children = (
 				F0626CFD23893595001CDD16 /* map */,
 				F0DB86AC238299880013F31A /* main.cpp */,
-				F036B06E2387CE0C00A8B1C8 /* Vehicle.cpp */,
 				F078F3232387D8B900B0347C /* Engine.cpp */,
 				F078F3242387D8B900B0347C /* Engine.hpp */,
+				F0F309B223A117960077A6E2 /* Vehicle.cpp */,
+				F0F309B323A117960077A6E2 /* Vehicle.hpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -196,7 +198,7 @@
 		F0DB86A1238299880013F31A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Samuel Arbibe";
 				TargetAttributes = {
 					F0DB86A8238299880013F31A = {
@@ -229,7 +231,7 @@
 			files = (
 				F078F3252387D8B900B0347C /* Engine.cpp in Sources */,
 				F0626D0823893CA6001CDD16 /* main.cpp in Sources */,
-				F0626D0623893CA1001CDD16 /* Vehicle.cpp in Sources */,
+				F0F309B423A117960077A6E2 /* Vehicle.cpp in Sources */,
 				F0626D0923893CA7001CDD16 /* Intersection.cpp in Sources */,
 				F0626D0723893CA4001CDD16 /* Engine.hpp in Sources */,
 				F048496E239685CA00920D9F /* Road.cpp in Sources */,
@@ -352,6 +354,7 @@
 		F0DB86B1238299880013F31A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -365,6 +368,7 @@
 		F0DB86B2238299880013F31A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
