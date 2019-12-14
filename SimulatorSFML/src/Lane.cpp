@@ -42,7 +42,6 @@ Lane::Lane(int laneNumber, int roadNumber, Vector2f startPosition, float width, 
     
     this->setFillColor(LaneColor);
     
-    
     // create direction arrow shape
     
     m_createArrowShape(t);

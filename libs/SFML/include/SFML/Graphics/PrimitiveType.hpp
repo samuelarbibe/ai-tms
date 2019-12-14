@@ -49,7 +49,7 @@ enum PrimitiveType
     // Deprecated names
     LinesStrip     = LineStrip,     ///< \deprecated Use LineStrip instead
     TrianglesStrip = TriangleStrip, ///< \deprecated Use TriangleStrip instead
-    TrianglesFan   = TriangleFan    ///< \deprecated Use TriangleFan instead
+    TrianglesFan   = TriangleFan    
 };
 
 } // namespace sf

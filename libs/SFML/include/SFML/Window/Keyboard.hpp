@@ -158,7 +158,7 @@ public:
         BackSpace = Backspace,    ///< \deprecated Use Backspace instead
         BackSlash = Backslash,    ///< \deprecated Use Backslash instead
         SemiColon = Semicolon,    ///< \deprecated Use Semicolon instead
-        Return    = Enter         ///< \deprecated Use Enter instead
+        Return    = Enter         
     };
 
     ////////////////////////////////////////////////////////////

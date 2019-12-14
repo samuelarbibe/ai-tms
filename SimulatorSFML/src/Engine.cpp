@@ -48,7 +48,6 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
     inter->AddLane(0, 4, true);
     inter->AddLane(0, 4, true);
     
-    Vehicle::AddVehicle(activeVehicles ,0, 100, inter->GetLane(1), inter->GetLane(1));
 };
 
 void Engine::Start(){
@@ -90,7 +89,7 @@ void Engine::input(){
     
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        Vehicle::AddVehicle(activeVehicles ,0, 100, inter->GetLane(1), inter->GetLane(1));
+        Vehicle::AddVehicle(activeVehicles ,0, 170, inter->GetLane(2), inter->GetLane(7) , inter);
     }
     
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))

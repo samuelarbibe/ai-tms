@@ -102,7 +102,6 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Mouse wheel events parameters (MouseWheelMoved)
     ///
-    /// \deprecated This event is deprecated and potentially inaccurate.
     ///             Use MouseWheelScrollEvent instead.
     ///
     ////////////////////////////////////////////////////////////

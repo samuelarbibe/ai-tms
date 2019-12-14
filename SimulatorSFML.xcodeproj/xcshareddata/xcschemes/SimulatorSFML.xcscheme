@@ -36,7 +36,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/samuelarbibe/Documents/SimulatorSFML/SimulatorSFML/assets"
+      customWorkingDirectory = "/Users/samuelarbibe/Documents/GitHub/SimulatorSFML/SimulatorSFML/assets"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
