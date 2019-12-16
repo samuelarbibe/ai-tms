@@ -34,7 +34,6 @@ public:
     Engine(int windowWidth, int windowHeight, const char * windowName);
         
     Intersection * inter;
-    vector<Vehicle*> activeVehicles;
     
     void Start();
 };

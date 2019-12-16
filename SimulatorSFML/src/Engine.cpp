@@ -8,12 +8,15 @@
 
 #include "Engine.hpp"
 
+int Vehicle::vehicleCount = 0;
+int Vehicle::toBeDeleted = 0;
+list<Vehicle*> Vehicle::activeVehicles;
 
 Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
 {
     m_window.create(VideoMode(windowWidth, windowHeight), windowName);
     
-    m_window.setFramerateLimit(60);
+    m_window.setFramerateLimit(120);
     
     //FloatRect area(0, 0, resolution.x, resolution.y);
     m_window.setView(View(FloatRect(0, 0, 1000, 1000)));
@@ -48,6 +51,8 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
     inter->AddLane(0, 4, true);
     inter->AddLane(0, 4, true);
     
+    
+    Vehicle::AddVehicle(0, 170, inter->GetLane(2), inter->GetLane(15), inter);
 };
 
 void Engine::Start(){
@@ -89,27 +94,30 @@ void Engine::input(){
     
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        Vehicle::AddVehicle(activeVehicles ,0, 170, inter->GetLane(2), inter->GetLane(7) , inter);
+        Vehicle::AddVehicle(0, 170, inter->GetLane(2), inter->GetLane(7), inter);
     }
     
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
-        inter->GetLane(1)->SetIsBlocked(true);
+        inter->GetLane(2)->SetIsBlocked(true);
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
-        inter->GetLane(1)->SetIsBlocked(false);
+        inter->GetLane(2)->SetIsBlocked(false);
     }
 }
 
 void Engine::update(float dtInSeconds){
     
     inter->Update(dtInSeconds);
-    
-    for(Vehicle * v : activeVehicles)
+
+    for (Vehicle *v : Vehicle::activeVehicles)
     {
         v->Update(dtInSeconds);
     }
+    
+    //clear all cars to be deleted
+    Vehicle::ClearVehicles();
 }
 
 void Engine::draw()
@@ -120,7 +128,7 @@ void Engine::draw()
     // Draw the objects
     this->inter->Draw(&m_window);
     
-    for(Vehicle * v : activeVehicles)
+    for(Vehicle * v : Vehicle::activeVehicles)
     {
         v->Draw(&m_window);
     }

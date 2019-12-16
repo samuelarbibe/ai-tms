@@ -21,11 +21,7 @@
 using namespace std;
 using namespace sf;
 
-typedef enum State {STOP, DRIVE, TURN} State;
-
-class Vehicle;
-
-static int vehicleCount = 0;
+typedef enum State {STOP, DRIVE, TURN, DELETE} State;
 
 static Texture carTexture;
 
@@ -34,22 +30,27 @@ class Vehicle
     
 public:
 
-    static Vehicle * AddVehicle(vector<Vehicle*> &activeVehicles, int carNumber, float maxSpeed, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection);
-    static void RemoveVehicle(int vehicleNumber, vector<Vehicle*> &activeVehicles);
-    static Vehicle * GetVehicle(int vehicleNumber, vector<Vehicle*> &activeVehicles);
-
+    static list<Vehicle*> activeVehicles;
+    static int vehicleCount;
+    static int toBeDeleted;
+    
+    static void ClearVehicles();
+    static Vehicle * GetVehicle(int vehicleNumber);
+    static Vehicle * AddVehicle(int vehicleNumber, float maxSpeed, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection);
+    
     Vehicle();
-    Vehicle(vector<Vehicle*> &activeVehicles, int carNumber, float maxSpeed, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection);
-    ~Vehicle(){cout << "Vehicle " << m_veheicleNumber << " deleted" << endl;};
+    Vehicle(int vehicleNumber, float maxSpeed, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection);
+    ~Vehicle(){cout << "Vehicle " << m_vehicleNumber << " deleted" << endl;};
+        
+    void TransferVehicle(int vehicleNumber, Lane * fromLane, Lane * toLane);
     
     void Draw(RenderWindow * window);
     void Update(float elapsedTime);
     
-    //static Vehicle * GetVehicle(int vehicleNumber);
-
     Lane * GetSourceLane(){return this->m_sourceLane;};
     Lane * GetTargetLane(){return this->m_targetLane;};
-    int GetVehicleNumber(){return this->m_veheicleNumber;};
+    State GetState(){return m_state;};
+    int GetVehicleNumber(){return this->m_vehicleNumber;};
     
 private:
     
@@ -64,9 +65,9 @@ private:
     float    m_angularV;
     
     Vehicle *m_vehicleInFront;
-    vector<Vehicle*> *m_activeVehiclesPtr;
     
-    int      m_veheicleNumber;
+    int      m_vehicleNumber;
+    
     Lane *   m_sourceLane;
     Lane *   m_targetLane;
     Lane *   m_currentLane;
@@ -74,6 +75,9 @@ private:
         
     State    m_state;
     
-    void calculateState();
+    State drive();
+    void  applyChanges(float elapsedTime);
+    float calculateDistance(Vector2f a, Vector2f b);
 
 };
+
