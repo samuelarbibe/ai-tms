@@ -30,19 +30,20 @@ class Vehicle
     
 public:
 
-    static list<Vehicle*> activeVehicles;
-    static int vehicleCount;
-    static int toBeDeleted;
+    static list<Vehicle*> ActiveVehicles;
+    static int VehicleCount;
+    
     
     static void ClearVehicles();
+    static void SetMaxSpeed(float max_speed){maxSpeed = max_speed; maxAcceleration = maxSpeed/5.f;};
     static Vehicle * GetVehicle(int vehicleNumber);
-    static Vehicle * AddVehicle(int vehicleNumber, float maxSpeed, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection);
+    static Vehicle * AddVehicle(int vehicleNumber, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection);
     
     Vehicle();
-    Vehicle(int vehicleNumber, float maxSpeed, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection);
+    Vehicle(int vehicleNumber, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection);
     ~Vehicle(){cout << "Vehicle " << m_vehicleNumber << " deleted" << endl;};
         
-    void TransferVehicle(int vehicleNumber, Lane * fromLane, Lane * toLane);
+    void TransferVehicle(Vehicle * vehicle, Lane * fromLane, Lane * toLane);
     
     void Draw(RenderWindow * window);
     void Update(float elapsedTime);
@@ -54,13 +55,17 @@ public:
     
 private:
     
+    static float maxSpeed;
+    static float maxAcceleration;
+    static int toBeDeleted;
+    
     Vector2f m_position;
     Vector2f m_movementVec;
     Sprite   m_sprite;
     //Texture  m_texture;
         
     float    m_speed;
-    float    m_maxSpeed;
+    float    m_acceleration;
     float    m_rotation;
     float    m_angularV;
     

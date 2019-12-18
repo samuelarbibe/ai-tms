@@ -14,9 +14,9 @@
             filePath = "SimulatorSFML/src/Vehicle.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "Vehicle::AddVehicle(vehicleNumber, maxSpeed, sourceLane, destinationLane, currentIntersection)"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "Vehicle::AddVehicle(vehicleNumber, sourceLane, destinationLane, currentIntersection)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -30,9 +30,9 @@
             filePath = "SimulatorSFML/src/Vehicle.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "Vehicle::TransferVehicle(vehicleNumber, fromLane, toLane)"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "Vehicle::TransferVehicle(vehicle, fromLane, toLane)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -46,24 +46,8 @@
             filePath = "SimulatorSFML/src/Vehicle.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "Vehicle::drive()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8D73EF9B-283B-4D22-8C68-86272F368853"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SimulatorSFML/src/Vehicle.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "Vehicle::drive()"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,9 +62,9 @@
             filePath = "SimulatorSFML/src/Vehicle.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "Vehicle::AddVehicle(vehicleNumber, maxSpeed, sourceLane, destinationLane, currentIntersection)"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "Vehicle::AddVehicle(vehicleNumber, sourceLane, destinationLane, currentIntersection)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -94,9 +78,25 @@
             filePath = "SimulatorSFML/src/Vehicle.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "Vehicle::applyChanges(elapsedTime)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CADCABEC-F20F-4D0B-9A0D-7FA6B957EC4D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SimulatorSFML/src/Vehicle.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "Vehicle::drive()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

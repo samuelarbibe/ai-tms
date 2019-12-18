@@ -10,13 +10,17 @@
 
 const Vector2f m_forwardVec(0.f, -1.f);
 
-Vehicle::Vehicle(int vehicleNumber, float maxSpeed, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection)
+float Vehicle::maxSpeed = 0;
+float Vehicle::maxAcceleration = 0;
+int   Vehicle::toBeDeleted = 0;
+
+Vehicle::Vehicle(int vehicleNumber, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection)
 {
     
     // set initial values for the movable object
-    m_vehicleNumber = (vehicleNumber)? vehicleNumber : vehicleCount + 1;
-    m_maxSpeed       = maxSpeed;
-    m_speed          = maxSpeed;
+    m_vehicleNumber  = vehicleNumber;
+    m_speed          = 150.f;
+    m_acceleration   = maxAcceleration;
     m_state          = DRIVE;
     m_sourceLane     = sourceLane;
     m_targetLane     = destinationLane;
@@ -35,10 +39,12 @@ Vehicle::Vehicle(int vehicleNumber, float maxSpeed, Lane * sourceLane, Lane * de
     {
         // load it
         carTexture.loadFromFile(CAR_IMAGE_DIR);
+        carTexture.setSmooth(true);
         
         cout << "Car texture successfully loaded" << endl;
     }
     //m_texture.loadFromFile(CAR_IMAGE_DIR);
+    
     m_sprite.setTexture(carTexture);
     
     m_sprite.setScale(0.12f, 0.12f);
@@ -47,21 +53,21 @@ Vehicle::Vehicle(int vehicleNumber, float maxSpeed, Lane * sourceLane, Lane * de
 
 void Vehicle::ClearVehicles()
 {
-    list<Vehicle*>::iterator it = activeVehicles.begin();
+    list<Vehicle*>::iterator it = ActiveVehicles.begin();
     
     // while there are cars to delete;
-    while(toBeDeleted != 0 && it != activeVehicles.end())
+    while(toBeDeleted != 0 && it != ActiveVehicles.end())
     {
         // if is to be deleted
         if((*it)->GetState() == DELETE)
         {
             Vehicle * temp = (*it);
-            it = activeVehicles.erase(it);
+            it = ActiveVehicles.erase(it);
             
             delete temp;
             
             toBeDeleted--;
-            cout << "active vehicles : " << activeVehicles.size() << endl;
+            cout << "active vehicles : " << ActiveVehicles.size() << endl;
         }
         else
         {
@@ -71,18 +77,18 @@ void Vehicle::ClearVehicles()
         
 }
 
-Vehicle * Vehicle::AddVehicle(int vehicleNumber, float maxSpeed, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection)
+Vehicle * Vehicle::AddVehicle(int vehicleNumber, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection)
 {
     //add vehicle to vector
-    if(vehicleNumber == 0)vehicleNumber = vehicleCount + 1;
-    Vehicle * temp = new Vehicle(vehicleNumber,  maxSpeed, sourceLane, destinationLane, currentIntersection);
-    activeVehicles.push_back(temp);
+    if(vehicleNumber == 0)vehicleNumber = VehicleCount + 1;
+    Vehicle * temp = new Vehicle(vehicleNumber, sourceLane, destinationLane, currentIntersection);
+    ActiveVehicles.push_back(temp);
     
     temp->m_vehicleInFront = (sourceLane->GetLastCar()) ? GetVehicle(sourceLane->GetLastCar()) : nullptr;
     
     //set this car as the last car that entered the lane
     sourceLane->SetLastCar(vehicleNumber);
-    vehicleCount++;
+    VehicleCount++;
     
     cout << "car " << vehicleNumber << " added to lane " << sourceLane->GetLaneNumber() << endl;
 
@@ -94,7 +100,7 @@ Vehicle * Vehicle::AddVehicle(int vehicleNumber, float maxSpeed, Lane * sourceLa
 
 Vehicle * Vehicle::GetVehicle(int vehicleNumber)
 {
-    for(Vehicle *v : activeVehicles)
+    for(Vehicle *v : ActiveVehicles)
     {
         if(v->m_vehicleNumber == vehicleNumber)
         {
@@ -105,55 +111,55 @@ Vehicle * Vehicle::GetVehicle(int vehicleNumber)
     return nullptr;
 }
 
-void Vehicle::TransferVehicle(int vehicleNumber, Lane * fromLane, Lane * toLane)
+void Vehicle::TransferVehicle(Vehicle * vehicle, Lane * fromLane, Lane * toLane)
 {
-    Vehicle * temp = GetVehicle(vehicleNumber);
-    
-    if(temp == nullptr)
+    if(vehicle == nullptr)
     {
         cout << "vehicle not found" << endl;
         return;
     }
     
-    if(fromLane != nullptr && temp->m_currentLane->GetLaneNumber() != fromLane->GetLaneNumber())
+    if(fromLane != nullptr && vehicle->m_currentLane->GetLaneNumber() != fromLane->GetLaneNumber())
     {
         cout << "vehicle is not in the given lane" << endl;
         return;
     }
     
-    temp->m_currentLane    = toLane;
-    temp->m_rotation       = m_currentLane->GetDirection();
-    temp->m_angularV       = 0;
-    temp->m_speed          = m_speed;
-    temp->m_position       = m_currentLane->GetStartPosition();
-    temp->m_vehicleInFront = (m_currentLane->GetLastCar()) ? GetVehicle(m_currentLane->GetLastCar()) : nullptr;
-    temp->m_currentLane->SetLastCar(temp->m_vehicleNumber);
+    vehicle->m_currentLane    = toLane;
+    vehicle->m_rotation       = m_currentLane->GetDirection();
+    vehicle->m_angularV       = 0;
+    vehicle->m_speed          = m_speed;
+    vehicle->m_vehicleInFront = (m_currentLane->GetLastCar()) ? GetVehicle(m_currentLane->GetLastCar()) : nullptr;
+    vehicle->m_currentLane->SetLastCar(vehicle->m_vehicleNumber);
 }
 
 State Vehicle::drive()
 {
     
     // check for distance with car in front
-    if(m_vehicleInFront != nullptr)
+    if(m_vehicleInFront != nullptr && m_vehicleInFront->m_state != DELETE)
     {
         float distanceFromNextCar = calculateDistance(m_position, m_vehicleInFront->m_position);
         
-        if(distanceFromNextCar < 200)
+        if(distanceFromNextCar < 250)
         {
             m_state = STOP;
-            if(distanceFromNextCar < 150)
+            
+            if(distanceFromNextCar < 50 || m_speed < 10)
             {
+                m_acceleration = 0;
                 m_speed = 0;
+                return m_state;
             }
             else
             {
-                float deceleration = (-(m_speed * m_speed)) / (20*(100 - distanceFromNextCar));
-                //decelerate car;
-                m_speed -= deceleration;
+                if(m_vehicleInFront->m_acceleration < 0 || distanceFromNextCar < 200){
+                    // using v^2 = v0^2 + 2a(x-x0)
+                    m_acceleration = ((m_speed*m_speed)/(2*(150 - distanceFromNextCar)));
+                    return m_state;
+                }
             }
-            return m_state;
         }
-          
     }
     
     // check if car is in between lanes
@@ -162,16 +168,21 @@ State Vehicle::drive()
         m_currentLane = nullptr;
         m_state = TURN;
         
-        float distanceSourceTarget = calculateDistance(m_sourceLane->GetEndPosition(), m_targetLane->GetStartPosition());
-        
-        //TODO: fix this algorithm!
-        float turningRadius = distanceSourceTarget / (2 * sin((m_targetLane->GetDirection() - m_sourceLane->GetDirection())/2));
-        
-        // using  w = (v/r)  to find radial acceleration
-        m_angularV = m_speed / turningRadius;
-        
+        if(m_angularV == 0)
+        {
+            float distanceSourceTarget = calculateDistance(m_sourceLane->GetEndPosition(), m_targetLane->GetStartPosition());
+            
+            float angle = (m_sourceLane->GetDirection() - m_targetLane->GetDirection());
+                    
+            float turningRadius = (distanceSourceTarget/2.f) / (sin(angle * M_PI/360.f));
+            
+            float turningParameter = 2.f * M_PI * turningRadius;
+            
+            float turningDistance = (angle/360.f) * turningParameter;
+            
+            m_angularV = -angle/turningDistance;
+        }
         //set rotoation
-        m_speed += 1.5f;
         return TURN;
     }
     
@@ -180,19 +191,20 @@ State Vehicle::drive()
     {
         float distanceFromStop = calculateDistance(this->m_position, m_currentLane->GetEndPosition());
         
-        if(distanceFromStop < 150 && distanceFromStop > 20)
+        if(distanceFromStop < 150)
         {
             m_state = STOP;
-            if(distanceFromStop < 20)
+            
+            if(distanceFromStop < 50 || m_speed < 5)
             {
                 m_speed = 0;
             }
             else
             {
-                float deceleration = (-(m_speed * m_speed)) / (100*(50 - distanceFromStop));
-                //decelerate car;
-                m_speed -= deceleration;
+                // using v^2 = v0^2 + 2a(x-x0)
+                m_acceleration = ((m_speed*m_speed)/(2*(50 - distanceFromStop)));
             }
+            return m_state;
         }
         
         return m_state;
@@ -202,15 +214,16 @@ State Vehicle::drive()
     if(m_currentLane != m_targetLane && m_targetLane->getGlobalBounds().contains(m_position))
     {
         // we need to transfer vehicle to target lane
-        TransferVehicle(m_vehicleNumber, nullptr, m_targetLane);
+        TransferVehicle(this, nullptr, m_targetLane);
         
-        m_speed += 1.5f;
+        m_acceleration = maxAcceleration;
         m_state = DRIVE;
         return DRIVE;
     }
     
     // check if car is no longer in intersection
-    if(!m_currentIntersection->getGlobalBounds().contains(m_position) &&
+    if(m_currentLane != nullptr &&
+       !m_currentIntersection->getGlobalBounds().contains(m_position) &&
        !m_currentLane->getGlobalBounds().contains(m_position))
     {
         toBeDeleted++;
@@ -219,7 +232,7 @@ State Vehicle::drive()
         return DELETE;
     }
     
-    m_speed += 1.5f;
+    m_acceleration = maxAcceleration;
     m_state = DRIVE;
     return DRIVE;
 }
@@ -241,17 +254,19 @@ void Vehicle::Update(float elapsedTime){
 
 void Vehicle::applyChanges(float elapsedTime)
 {
+    // apply acceleration
+    m_speed += m_acceleration * elapsedTime;
+    
     // apply max speed limit
-    if(m_speed > m_maxSpeed) m_speed = m_maxSpeed;
+    if(m_speed > maxSpeed) m_speed = maxSpeed;
     
     // apply min speed limit
     if(m_speed < 0) m_speed = 0;
     
     // set rotation relative to current speed, to create a constant turning radius
-    
     Transform t;
     
-    m_rotation += m_angularV * elapsedTime * m_speed / 3.6f;
+    m_rotation += m_angularV * elapsedTime * m_speed;
     
     t.rotate(m_rotation);
     

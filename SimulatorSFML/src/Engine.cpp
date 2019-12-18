@@ -8,21 +8,22 @@
 
 #include "Engine.hpp"
 
-int Vehicle::vehicleCount = 0;
-int Vehicle::toBeDeleted = 0;
-list<Vehicle*> Vehicle::activeVehicles;
+int Vehicle::VehicleCount = 0;
+list<Vehicle*> Vehicle::ActiveVehicles;
 
 Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
 {
     m_window.create(VideoMode(windowWidth, windowHeight), windowName);
     
-    m_window.setFramerateLimit(120);
+    m_window.setFramerateLimit(2000);
     
     //FloatRect area(0, 0, resolution.x, resolution.y);
     m_window.setView(View(FloatRect(0, 0, 1000, 1000)));
     
     m_window.setActive();
             
+    Vehicle::SetMaxSpeed(10000.f);
+
     inter = new Intersection(Vector2f(windowWidth/2,windowHeight/2), 0, 0, 1);
     
     // add roads
@@ -51,8 +52,6 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
     inter->AddLane(0, 4, true);
     inter->AddLane(0, 4, true);
     
-    
-    Vehicle::AddVehicle(0, 170, inter->GetLane(2), inter->GetLane(15), inter);
 };
 
 void Engine::Start(){
@@ -71,7 +70,7 @@ void Engine::Start(){
         float dtInSeconds = dt.asSeconds();
         
         // print out FPS
-        //if(frameCount % 20 == 0) std::cout << 1/dtInSeconds << std::endl;
+        if(frameCount % 20 == 0) std::cout << 1/dtInSeconds << std::endl;
         
         sf::Event event;
         while (m_window.pollEvent(event))
@@ -94,7 +93,7 @@ void Engine::input(){
     
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        Vehicle::AddVehicle(0, 170, inter->GetLane(2), inter->GetLane(7), inter);
+        Vehicle::AddVehicle(0, inter->GetLane(2), inter->GetLane(7), inter);
     }
     
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -111,7 +110,7 @@ void Engine::update(float dtInSeconds){
     
     inter->Update(dtInSeconds);
 
-    for (Vehicle *v : Vehicle::activeVehicles)
+    for (Vehicle *v : Vehicle::ActiveVehicles)
     {
         v->Update(dtInSeconds);
     }
@@ -128,7 +127,7 @@ void Engine::draw()
     // Draw the objects
     this->inter->Draw(&m_window);
     
-    for(Vehicle * v : Vehicle::activeVehicles)
+    for(Vehicle * v : Vehicle::ActiveVehicles)
     {
         v->Draw(&m_window);
     }
