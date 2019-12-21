@@ -22,8 +22,8 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
     
     m_window.setActive();
             
-    Vehicle::SetMaxSpeed(VehicleTypeOptions::CAR, 1000.f);
-    Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 700.f);
+    Vehicle::SetMaxSpeed(VehicleTypeOptions::CAR, 100000.f);
+    Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 70000.f);
 
     inter = new Intersection(Vector2f(windowWidth/2.f,windowHeight/2.f), 0, 0, 1);
     
@@ -71,7 +71,7 @@ void Engine::Start(){
         float dtInSeconds = dt.asSeconds();
         
         // print out FPS
-        //if(frameCount % 20 == 0) std::cout << 1/dtInSeconds << std::endl;
+        if(frameCount % 20 == 0) std::cout << 1/dtInSeconds << std::endl;
         
         sf::Event event;
         while (m_window.pollEvent(event))
@@ -99,7 +99,7 @@ void Engine::input(){
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
-        Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter, VehicleTypeOptions::TRUCK);
+        Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter, VehicleTypeOptions::CAR);
     }
     
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))

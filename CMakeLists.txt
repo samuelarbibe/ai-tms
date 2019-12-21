@@ -10,11 +10,11 @@ set(CMAKE_CXX_STANDARD 17)
 
 file(GLOB_RECURSE SCRF "src/*.cpp" "src/*.hpp")
 add_executable(SimulatorSFML
-        assets/Cars/car_image_1.png
-        assets/Cars/car_image_2.png
-        assets/Cars/car_image_3.png
-        assets/Cars/car_image_4.png
-        assets/Cars/car_image_5.png
+        resources/Cars/car_image_1.png
+        resources/Cars/car_image_2.png
+        resources/Cars/car_image_3.png
+        resources/Cars/car_image_4.png
+        resources/Cars/car_image_5.png
         src/Engine.cpp
         src/Engine.hpp
         src/Intersection.cpp

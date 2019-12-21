@@ -9,11 +9,10 @@
 #include "Vehicle.hpp"
 
 const Vector2f m_forwardVec{0.f, -1.f};
-
 int         Vehicle::toBeDeleted{0};
-VehicleType Vehicle::Car{CAR, "Car", "../assets/Cars/car_image_2.png", Vector2f(0.6f, 0.6f)};
-VehicleType Vehicle::Truck{TRUCK, "Truck",  "../assets/Cars/truck_image_", Vector2f(0.12f, 0.12f)};
-VehicleType Vehicle::Motorcycle{MOTORCYCLE,  "Motorcycle", "../assets/Cars/motorcycle_image_", Vector2f(0.12f, 0.12f)};
+VehicleType Vehicle::Car{CAR, "Car", "../../resources/Cars/car_image_1.png", Vector2f(0.6f, 0.6f)};
+VehicleType Vehicle::Truck{TRUCK, "Truck",  "../../resources/Cars/car_image_2.png", Vector2f(0.12f, 0.12f)};
+VehicleType Vehicle::Motorcycle{MOTORCYCLE,  "Motorcycle", "../resources/Cars/motorcycle_image_", Vector2f(0.12f, 0.12f)};
 
 Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection)
 {
