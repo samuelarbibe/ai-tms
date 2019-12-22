@@ -15,17 +15,17 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
 {
     m_window.create(VideoMode(windowWidth, windowHeight), windowName);
     
-    m_window.setFramerateLimit(2000);
+    m_window.setFramerateLimit(1000);
     
     //FloatRect area(0, 0, resolution.x, resolution.y);
     m_window.setView(View(FloatRect(0, 0, 1000, 1000)));
     
     m_window.setActive();
             
-    Vehicle::SetMaxSpeed(VehicleTypeOptions::CAR, 100000.f);
-    Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 70000.f);
+    Vehicle::SetMaxSpeed(VehicleTypeOptions::CAR, 20000.f);
+    Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 20000.f);
 
-    inter = new Intersection(Vector2f(windowWidth/2.f,windowHeight/2.f), 0, 0, 1);
+    inter = new Intersection(Vector2f(windowWidth/2,windowHeight/2), 0, 0, 1);
     
     // add roads
     inter->AddRoad(0, 1, 400);
@@ -52,8 +52,13 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
     inter->AddLane(0, 4, false);
     inter->AddLane(0, 4, true);
     inter->AddLane(0, 4, true);
-    
-};
+
+    for (int i = 0; i < 10000; ++i)
+    {
+        Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter, VehicleTypeOptions::CAR);
+    }
+
+}
 
 void Engine::Start(){
     
@@ -73,7 +78,7 @@ void Engine::Start(){
         // print out FPS
         if(frameCount % 20 == 0) std::cout << 1/dtInSeconds << std::endl;
         
-        sf::Event event;
+        sf::Event event{};
         while (m_window.pollEvent(event))
         {
             
@@ -94,12 +99,12 @@ void Engine::input(){
     
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter, VehicleTypeOptions::CAR);
+        //Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter, VehicleTypeOptions::CAR);
     }
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
-        Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter, VehicleTypeOptions::CAR);
+        //Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter, VehicleTypeOptions::CAR);
     }
     
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))

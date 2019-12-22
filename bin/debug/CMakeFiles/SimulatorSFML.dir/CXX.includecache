@@ -6,22 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Engine.cpp
-Engine.hpp
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Engine.hpp
-
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Engine.hpp
-iostream
--
-list
--
-SFML/Graphics.hpp
--
-Intersection.hpp
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Intersection.hpp
-Vehicle.hpp
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Vehicle.hpp
-
 /Users/samuelarbibe/Documents/SimulatorSFML/src/Intersection.hpp
 stdio.h
 -
@@ -56,8 +40,14 @@ list
 Lane.hpp
 /Users/samuelarbibe/Documents/SimulatorSFML/src/Lane.hpp
 
+/Users/samuelarbibe/Documents/SimulatorSFML/src/Vehicle.cpp
+Vehicle.hpp
+/Users/samuelarbibe/Documents/SimulatorSFML/src/Vehicle.hpp
+
 /Users/samuelarbibe/Documents/SimulatorSFML/src/Vehicle.hpp
 iostream
+-
+string.h
 -
 SFML/Graphics.hpp
 -

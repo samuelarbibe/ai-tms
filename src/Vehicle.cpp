@@ -10,9 +10,9 @@
 
 const Vector2f m_forwardVec{0.f, -1.f};
 int         Vehicle::toBeDeleted{0};
-VehicleType Vehicle::Car{CAR, "Car", "../../resources/Cars/car_image_1.png", Vector2f(0.6f, 0.6f)};
-VehicleType Vehicle::Truck{TRUCK, "Truck",  "../../resources/Cars/car_image_2.png", Vector2f(0.12f, 0.12f)};
-VehicleType Vehicle::Motorcycle{MOTORCYCLE,  "Motorcycle", "../resources/Cars/motorcycle_image_", Vector2f(0.12f, 0.12f)};
+VehicleType Vehicle::Car{CAR, "Car", "../../resources/Cars/car_image_", 5,  Vector2f(0.6f, 0.6f)};
+VehicleType Vehicle::Truck{TRUCK, "Truck",  "../../resources/Cars/car_image_",5, Vector2f(0.12f, 0.12f)};
+VehicleType Vehicle::Motorcycle{MOTORCYCLE,  "Motorcycle", "../resources/Cars/motorcycle_image_",5, Vector2f(0.12f, 0.12f)};
 
 Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection)
 {
@@ -37,7 +37,11 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, Lane * sourc
     Vehicle::LoadVehicleTextures(m_vehicleType);
 
     // set up sprite
-    m_sprite.setTexture(m_vehicleType->Texture);
+    int textureNumber = (m_vehicleNumber % m_vehicleType->ImageCount);
+
+    m_texture = &(m_vehicleType->Textures->at(textureNumber));
+    //m_sprite.setColor(Color::Red);
+    m_sprite.setTexture(*m_texture);
 
     m_sprite.setScale(m_vehicleType->Scale);
     m_sprite.setOrigin(m_sprite.getTextureRect().width/2, m_sprite.getTextureRect().height/3);
@@ -68,11 +72,12 @@ void Vehicle::ClearVehicles()
     }
 }
 
-Vehicle * Vehicle::AddVehicle(Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection, VehicleTypeOptions vehicleType, int vehicleNumber)
+Vehicle * Vehicle::AddVehicle(Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection,
+        VehicleTypeOptions vehicleType, int vehicleNumber)
 {
     //add vehicle to vector
     //if(vehicleNumber == 0)vehicleNumber = VehicleCount + 1;
-    Vehicle * temp = new Vehicle(vehicleType, vehicleNumber, sourceLane, destinationLane, currentIntersection);
+    auto * temp = new Vehicle(vehicleType, vehicleNumber, sourceLane, destinationLane, currentIntersection);
     ActiveVehicles.push_back(temp);
 
     temp->m_vehicleInFront = (sourceLane->GetLastCar()) ? GetVehicle(sourceLane->GetLastCar()) : nullptr;
@@ -89,21 +94,40 @@ Vehicle * Vehicle::AddVehicle(Lane * sourceLane, Lane * destinationLane, Interse
 
 void Vehicle::LoadVehicleTextures(VehicleType * vehicleType)
 {
-    //TODO:load multiple textures
-    vehicleType->Texture.loadFromFile(vehicleType->ImageDir);
+    if(vehicleType->Textures == nullptr)
+    {
+        vehicleType->Textures = new vector<Texture>();
+
+        string directory;
+        Texture tempTexture;
+        for (int i = 1; i <= vehicleType->ImageCount; ++i)
+        {
+            directory = vehicleType->ImageDir + to_string(i) + ".png";
+
+            if (tempTexture.loadFromFile(directory))
+            {
+                tempTexture.setSmooth(true);
+                vehicleType->Textures->push_back(tempTexture);
+            }
+            else
+            {
+                cout << "loading texture no." << i << " for " << vehicleType->VehicleTypeName << endl;
+            }
+        }
+    }
 }
 
-void Vehicle::SetMaxSpeed(VehicleTypeOptions vehicleType, float max_speed) {
+void Vehicle::SetMaxSpeed(VehicleTypeOptions vehicleType, float max_speed)
+{
     VehicleType * temp = GetVehicleTypeByOption(vehicleType);
     temp->MaxSpeed = max_speed;
-    temp->MaxAcceleration = max_speed/5.f;
+    temp->MaxAcceleration = max_speed/3.f;
 }
 
 VehicleType * Vehicle::GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions)
 {
     switch (vehicleTypeOptions)
     {
-
         case TRUCK:
             return &(Vehicle::Truck);
         case MOTORCYCLE:
@@ -123,7 +147,6 @@ Vehicle * Vehicle::GetVehicle(int vehicleNumber)
             return v;
         }
     }
-
     return nullptr;
 }
 
@@ -162,7 +185,7 @@ State Vehicle::drive()
     {
         float distanceFromNextCar = calculateDistance(m_position, m_vehicleInFront->m_position);
 
-        if(distanceFromNextCar < 250)
+        if(distanceFromNextCar < 200)
         {
             m_state = STOP;
 
@@ -176,12 +199,14 @@ State Vehicle::drive()
             {
                 if(m_vehicleInFront->m_acceleration < 0 || distanceFromNextCar < 200){
                     // using v^2 = v0^2 + 2a(x-x0)
-                    m_acceleration = ((m_speed*m_speed)/(2*(150 - distanceFromNextCar)));
+                    m_acceleration = ((m_speed*m_speed)/(2*(150.f - distanceFromNextCar)));
                     return m_state;
                 }
             }
         }
     }
+
+    //TODO: find better algorithm
 
     // check if car is in between lanes
     if(m_currentIntersection->getGlobalBounds().contains(m_position))

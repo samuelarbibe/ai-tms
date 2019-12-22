@@ -9,10 +9,10 @@
 #ifndef Lane_hpp
 #define Lane_hpp
 
-#include <stdio.h>
+#include <cstdio>
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <math.h>
+#include <cmath>
 //#include "Vehicle.hpp"
 
 using namespace std;
@@ -31,7 +31,7 @@ public:
     
     Lane();
     Lane(int laneNumber, int roadNumber, Vector2f startPosition, float width, float length, float direction);
-    ~Lane(){cout << "Lane " << m_laneNumber << " deleted" << endl;};
+    ~Lane() override{cout << "Lane " << m_laneNumber << " deleted" << endl;};
     
     void  Update(float elapsedTime);
 

@@ -10,7 +10,7 @@
 #ifndef Intersection_hpp
 #define Intersection_hpp
 
-#include <stdio.h>
+#include <cstdio>
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <list>
@@ -26,8 +26,8 @@ class Intersection: public RectangleShape
     
 public:
     
-    Intersection(Vector2f position, int width, int height, int intersectionNumber);
-    ~Intersection(){cout << "Intersection " << m_intersectionNumber << "deleted" << endl;};
+    Intersection(Vector2f position, float width, float height, int intersectionNumber);
+    ~Intersection() override{cout << "Intersection " << m_intersectionNumber << "deleted" << endl;};
     
     void   reAssignRoadPositions();
     void   Update(float elapsedTime);
@@ -48,8 +48,8 @@ private:
     
     int m_intersectionNumber;
     int m_numberOfRoads;
-    int m_width;
-    int m_height;
+    float m_width;
+    float m_height;
     
     Vector2f m_position;
     

@@ -8,7 +8,7 @@
 
 #include "Intersection.hpp"
 
-Intersection::Intersection(Vector2f position, int width, int height, int intersectionNumber)
+Intersection::Intersection(Vector2f position, float width, float height, int intersectionNumber)
 {
     m_intersectionNumber = intersectionNumber;
     m_position = position;
@@ -18,15 +18,13 @@ Intersection::Intersection(Vector2f position, int width, int height, int interse
     
     m_numberOfRoads = 0;
     
-    this->setOrigin(m_width/2, m_height/2);
+    this->setOrigin(m_width/2.f, m_height/2.f);
     this->setPosition(m_position);
     this->setOutlineColor(WhiteColor);
     this->setFillColor(LaneColor);
     this->setOutlineThickness(1.f);
     this->setSize(Vector2f(m_width, m_height));
-};
-
-
+}
 
 Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
 {
@@ -36,7 +34,7 @@ Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
         roadNumber = roadCount + 1;
     }
     
-    m_roads.push_back(new Road(roadNumber, m_intersectionNumber, connectionSide ,GetPositionByConnectionSide(connectionSide), length, LANE_WIDTH, (connectionSide-1)*90));
+    m_roads.push_back(new Road(roadNumber, m_intersectionNumber, connectionSide ,GetPositionByConnectionSide(connectionSide), length, LANE_WIDTH, float((connectionSide)*90)));
             
     m_numberOfRoads++;
     roadCount++;
@@ -128,7 +126,7 @@ Lane * Intersection::AddLane(int laneNumber, int roadNumber, bool isInRoadDirect
     }
     
     this->setSize(Vector2f(m_width, m_height));
-    this->setOrigin(m_width/2, m_height/2);
+    this->setOrigin(m_width/2.f, m_height/2.f);
     
     reAssignRoadPositions();
     
@@ -140,24 +138,15 @@ Vector2f Intersection::GetPositionByConnectionSide(int connectionSide)
 {
     switch (connectionSide) {
         case 1:
-            return Vector2f(m_position.x, m_position.y - m_height/2);
-            
-            break;
+            return Vector2f(m_position.x, m_position.y - m_height/2.f);
         case 2:
-            return Vector2f(m_position.x + m_width/2, m_position.y);
-            
-            break;
+            return Vector2f(m_position.x + m_width/2.f, m_position.y);
         case 3:
-            return Vector2f(m_position.x, m_position.y + m_height/2);
-            
-            break;
+            return Vector2f(m_position.x, m_position.y + m_height/2.f);
         case 4:
-            return Vector2f(m_position.x - m_width/2, m_position.y);
-            
-            break;
+            return Vector2f(m_position.x - m_width/2.f, m_position.y);
         default:
             return m_position;
-            break;
     }
 }
 

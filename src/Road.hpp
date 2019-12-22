@@ -9,7 +9,7 @@
 #ifndef Road_hpp
 #define Road_hpp
 
-#include <stdio.h>
+#include <cstdio>
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <list>
@@ -24,9 +24,9 @@ class Road : public RectangleShape
     
 public:
     
-    Road(){};
+    Road()= default;;
     Road(int roadNumber, int intersectionNumber, int connectionSide, Vector2f startPosition, float length, float laneWidth, float direction);
-    ~Road(){cout << "Road " << m_roadNumber << "deleted" << endl;};
+    ~Road() override{cout << "Road " << m_roadNumber << "deleted" << endl;};
     
     
     Lane * AddLane(int laneNumber, bool isInRoadDirection);
@@ -46,18 +46,18 @@ public:
     
 private:
     
-    int        m_roadNumber;
-    int        m_numberOfLanes;
-    int        m_intersectionNumber;
-    int        m_connectionSide;
+    int        m_roadNumber{};
+    int        m_numberOfLanes{};
+    int        m_intersectionNumber{};
+    int        m_connectionSide{};
     
     Vector2f   m_startPosition;
     Vector2f   m_endPosition;
     
-    float      m_direction;
-    float      m_laneWidth;
-    float      m_length;
-    float      m_width;
+    float      m_direction{};
+    float      m_laneWidth{};
+    float      m_length{};
+    float      m_width{};
     
     vector<Lane*> m_lanes;
         
