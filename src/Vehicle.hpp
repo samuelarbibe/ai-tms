@@ -10,7 +10,6 @@
 #define Vehicle_hpp
 
 #include <iostream>
-#include <cstring>
 #include <SFML/Graphics.hpp>
 #include "Intersection.hpp"
 
@@ -24,11 +23,10 @@ typedef struct {
     VehicleTypeOptions Type;
     string VehicleTypeName;
     string ImageDir;
-    int ImageCount;
     Vector2f Scale;
     float MaxSpeed{170};
-    float MaxAcceleration{MaxSpeed/3.f};
-    vector<Texture> * Textures;
+    float MaxAcceleration{MaxSpeed/5.f};
+    Texture Texture;
 }VehicleType;
 
 class Vehicle
@@ -70,13 +68,12 @@ private:
     Vector2f m_position;
 
     Vector2f m_movementVec;
-    Texture *m_texture;
     Sprite   m_sprite;
 
     float    m_speed;
     float    m_maxSpeed;
     float    m_maxAcceleration;
-    float    m_acceleration{};
+    float    m_acceleration;
     float    m_rotation;
     float    m_angularV;
 
