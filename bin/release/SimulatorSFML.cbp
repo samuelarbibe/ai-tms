@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\Library\;CMake Files\..\..\..\..\Library\Frameworks\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\CMake\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/Users/samuelarbibe/Documents/SimulatorSFML/bin/release"/>
+				<Option working_dir="/Users/samuelarbibe/Github/SimulatorSFML/bin/release"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/Users/samuelarbibe/Documents/SimulatorSFML/bin/release"/>
+				<Option working_dir="/Users/samuelarbibe/Github/SimulatorSFML/bin/release"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/Users/samuelarbibe/Documents/SimulatorSFML/bin/release"/>
+				<Option working_dir="/Users/samuelarbibe/Github/SimulatorSFML/bin/release"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="SimulatorSFML">
-				<Option output="/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/SimulatorSFML" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/samuelarbibe/Documents/SimulatorSFML/bin/release"/>
+				<Option output="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/SimulatorSFML" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/samuelarbibe/Github/SimulatorSFML/bin/release"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -53,15 +53,15 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 SimulatorSFML"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 SimulatorSFML"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="SimulatorSFML/fast">
-				<Option output="/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/SimulatorSFML" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/samuelarbibe/Documents/SimulatorSFML/bin/release"/>
+				<Option output="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/SimulatorSFML" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/samuelarbibe/Github/SimulatorSFML/bin/release"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -75,77 +75,77 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 SimulatorSFML/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 SimulatorSFML/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/resources/Cars/car_image_1.png">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/resources/Cars/car_image_1.png">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/resources/Cars/car_image_2.png">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/resources/Cars/car_image_2.png">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/resources/Cars/car_image_3.png">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/resources/Cars/car_image_3.png">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/resources/Cars/car_image_4.png">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/resources/Cars/car_image_4.png">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/resources/Cars/car_image_5.png">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/resources/Cars/car_image_5.png">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/src/Engine.cpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Engine.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/src/Engine.hpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Engine.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/src/Intersection.cpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Intersection.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/src/Intersection.hpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Intersection.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/src/Lane.cpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Lane.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/src/Lane.hpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Lane.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/src/Road.cpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Road.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/src/Road.hpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Road.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/src/Vehicle.cpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Vehicle.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/src/Vehicle.hpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Vehicle.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/src/main.cpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/main.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/CMakeLists.txt">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/../../../../Library/Frameworks/SFML.framework/Resources/CMake/SFMLConfig.cmake">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../Library/Frameworks/SFML.framework/Resources/CMake/SFMLConfig.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\CMake\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/../../../../Library/Frameworks/SFML.framework/Resources/CMake/SFMLConfigDependencies.cmake">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../Library/Frameworks/SFML.framework/Resources/CMake/SFMLConfigDependencies.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\CMake\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/../../../../Library/Frameworks/SFML.framework/Resources/CMake/SFMLConfigVersion.cmake">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../Library/Frameworks/SFML.framework/Resources/CMake/SFMLConfigVersion.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\CMake\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/../../../../Library/Frameworks/SFML.framework/Resources/CMake/SFMLSharedTargets-release.cmake">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../Library/Frameworks/SFML.framework/Resources/CMake/SFMLSharedTargets-release.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\CMake\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Documents/SimulatorSFML/../../../../Library/Frameworks/SFML.framework/Resources/CMake/SFMLSharedTargets.cmake">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../Library/Frameworks/SFML.framework/Resources/CMake/SFMLSharedTargets.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\CMake\"/>
 		</Unit>
 	</Project>

@@ -1,4 +1,4 @@
-# Install script for directory: /Users/samuelarbibe/Documents/SimulatorSFML
+# Install script for directory: /Users/samuelarbibe/Github/SimulatorSFML
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/samuelarbibe/Github/SimulatorSFML/bin/release/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

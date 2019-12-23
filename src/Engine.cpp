@@ -71,7 +71,7 @@ void Engine::Start(){
         float dtInSeconds = dt.asSeconds();
         
         // print out FPS
-        if(frameCount % 20 == 0) std::cout << 1/dtInSeconds << std::endl;
+        //if(frameCount % 20 == 0) std::cout << 1/dtInSeconds << std::endl;
         
         sf::Event event;
         while (m_window.pollEvent(event))
@@ -94,12 +94,12 @@ void Engine::input(){
     
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter, VehicleTypeOptions::CAR);
+        Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter);
     }
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
-        Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter, VehicleTypeOptions::CAR);
+        Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter);
     }
     
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))

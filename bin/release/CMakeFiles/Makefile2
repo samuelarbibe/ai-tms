@@ -44,10 +44,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/samuelarbibe/Documents/SimulatorSFML
+CMAKE_SOURCE_DIR = /Users/samuelarbibe/Github/SimulatorSFML
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/samuelarbibe/Documents/SimulatorSFML/bin/release
+CMAKE_BINARY_DIR = /Users/samuelarbibe/Github/SimulatorSFML/bin/release
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -74,14 +74,14 @@ preinstall:
 CMakeFiles/SimulatorSFML.dir/all:
 	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/depend
 	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target SimulatorSFML"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/release/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target SimulatorSFML"
 .PHONY : CMakeFiles/SimulatorSFML.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/SimulatorSFML.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/samuelarbibe/Documents/SimulatorSFML/bin/release/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/samuelarbibe/Github/SimulatorSFML/bin/release/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/SimulatorSFML.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/samuelarbibe/Documents/SimulatorSFML/bin/release/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/samuelarbibe/Github/SimulatorSFML/bin/release/CMakeFiles 0
 .PHONY : CMakeFiles/SimulatorSFML.dir/rule
 
 # Convenience name for target.

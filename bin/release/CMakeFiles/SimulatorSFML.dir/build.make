@@ -43,10 +43,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/samuelarbibe/Documents/SimulatorSFML
+CMAKE_SOURCE_DIR = /Users/samuelarbibe/Github/SimulatorSFML
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/samuelarbibe/Documents/SimulatorSFML/bin/release
+CMAKE_BINARY_DIR = /Users/samuelarbibe/Github/SimulatorSFML/bin/release
 
 # Include any dependencies generated for this target.
 include CMakeFiles/SimulatorSFML.dir/depend.make
@@ -59,81 +59,81 @@ include CMakeFiles/SimulatorSFML.dir/flags.make
 
 CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
 CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o: ../../src/Engine.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o -c /Users/samuelarbibe/Documents/SimulatorSFML/src/Engine.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o -c /Users/samuelarbibe/Github/SimulatorSFML/src/Engine.cpp
 
 CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Documents/SimulatorSFML/src/Engine.cpp > CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Github/SimulatorSFML/src/Engine.cpp > CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.i
 
 CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Documents/SimulatorSFML/src/Engine.cpp -o CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Github/SimulatorSFML/src/Engine.cpp -o CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.s
 
 CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
 CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o: ../../src/Intersection.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o -c /Users/samuelarbibe/Documents/SimulatorSFML/src/Intersection.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o -c /Users/samuelarbibe/Github/SimulatorSFML/src/Intersection.cpp
 
 CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Documents/SimulatorSFML/src/Intersection.cpp > CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Github/SimulatorSFML/src/Intersection.cpp > CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.i
 
 CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Documents/SimulatorSFML/src/Intersection.cpp -o CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Github/SimulatorSFML/src/Intersection.cpp -o CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.s
 
 CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
 CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.o: ../../src/Lane.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.o -c /Users/samuelarbibe/Documents/SimulatorSFML/src/Lane.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.o -c /Users/samuelarbibe/Github/SimulatorSFML/src/Lane.cpp
 
 CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Documents/SimulatorSFML/src/Lane.cpp > CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Github/SimulatorSFML/src/Lane.cpp > CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.i
 
 CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Documents/SimulatorSFML/src/Lane.cpp -o CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Github/SimulatorSFML/src/Lane.cpp -o CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.s
 
 CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
 CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/main.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/main.cpp.o -c /Users/samuelarbibe/Documents/SimulatorSFML/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/main.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/main.cpp.o -c /Users/samuelarbibe/Github/SimulatorSFML/src/main.cpp
 
 CMakeFiles/SimulatorSFML.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SimulatorSFML.dir/src/main.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Documents/SimulatorSFML/src/main.cpp > CMakeFiles/SimulatorSFML.dir/src/main.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Github/SimulatorSFML/src/main.cpp > CMakeFiles/SimulatorSFML.dir/src/main.cpp.i
 
 CMakeFiles/SimulatorSFML.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SimulatorSFML.dir/src/main.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Documents/SimulatorSFML/src/main.cpp -o CMakeFiles/SimulatorSFML.dir/src/main.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Github/SimulatorSFML/src/main.cpp -o CMakeFiles/SimulatorSFML.dir/src/main.cpp.s
 
 CMakeFiles/SimulatorSFML.dir/src/Road.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
 CMakeFiles/SimulatorSFML.dir/src/Road.cpp.o: ../../src/Road.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Road.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Road.cpp.o -c /Users/samuelarbibe/Documents/SimulatorSFML/src/Road.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Road.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Road.cpp.o -c /Users/samuelarbibe/Github/SimulatorSFML/src/Road.cpp
 
 CMakeFiles/SimulatorSFML.dir/src/Road.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SimulatorSFML.dir/src/Road.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Documents/SimulatorSFML/src/Road.cpp > CMakeFiles/SimulatorSFML.dir/src/Road.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Github/SimulatorSFML/src/Road.cpp > CMakeFiles/SimulatorSFML.dir/src/Road.cpp.i
 
 CMakeFiles/SimulatorSFML.dir/src/Road.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SimulatorSFML.dir/src/Road.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Documents/SimulatorSFML/src/Road.cpp -o CMakeFiles/SimulatorSFML.dir/src/Road.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Github/SimulatorSFML/src/Road.cpp -o CMakeFiles/SimulatorSFML.dir/src/Road.cpp.s
 
 CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
 CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o: ../../src/Vehicle.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o -c /Users/samuelarbibe/Documents/SimulatorSFML/src/Vehicle.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o -c /Users/samuelarbibe/Github/SimulatorSFML/src/Vehicle.cpp
 
 CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Documents/SimulatorSFML/src/Vehicle.cpp > CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Github/SimulatorSFML/src/Vehicle.cpp > CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.i
 
 CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Documents/SimulatorSFML/src/Vehicle.cpp -o CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Github/SimulatorSFML/src/Vehicle.cpp -o CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.s
 
 # Object files for target SimulatorSFML
 SimulatorSFML_OBJECTS = \
@@ -159,7 +159,7 @@ SimulatorSFML: /Library/Frameworks/./sfml-graphics.framework/Versions/2.5.1/sfml
 SimulatorSFML: /Library/Frameworks/./sfml-window.framework/Versions/2.5.1/sfml-window
 SimulatorSFML: /Library/Frameworks/./sfml-system.framework/Versions/2.5.1/sfml-system
 SimulatorSFML: CMakeFiles/SimulatorSFML.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/samuelarbibe/Documents/SimulatorSFML/bin/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable SimulatorSFML"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable SimulatorSFML"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SimulatorSFML.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -172,6 +172,6 @@ CMakeFiles/SimulatorSFML.dir/clean:
 .PHONY : CMakeFiles/SimulatorSFML.dir/clean
 
 CMakeFiles/SimulatorSFML.dir/depend:
-	cd /Users/samuelarbibe/Documents/SimulatorSFML/bin/release && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/samuelarbibe/Documents/SimulatorSFML /Users/samuelarbibe/Documents/SimulatorSFML /Users/samuelarbibe/Documents/SimulatorSFML/bin/release /Users/samuelarbibe/Documents/SimulatorSFML/bin/release /Users/samuelarbibe/Documents/SimulatorSFML/bin/release/CMakeFiles/SimulatorSFML.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/samuelarbibe/Github/SimulatorSFML/bin/release && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/samuelarbibe/Github/SimulatorSFML /Users/samuelarbibe/Github/SimulatorSFML /Users/samuelarbibe/Github/SimulatorSFML/bin/release /Users/samuelarbibe/Github/SimulatorSFML/bin/release /Users/samuelarbibe/Github/SimulatorSFML/bin/release/CMakeFiles/SimulatorSFML.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/SimulatorSFML.dir/depend
 

@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/samuelarbibe/Documents/SimulatorSFML/src/Engine.cpp" "/Users/samuelarbibe/Documents/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o"
-  "/Users/samuelarbibe/Documents/SimulatorSFML/src/Intersection.cpp" "/Users/samuelarbibe/Documents/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o"
-  "/Users/samuelarbibe/Documents/SimulatorSFML/src/Lane.cpp" "/Users/samuelarbibe/Documents/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.o"
-  "/Users/samuelarbibe/Documents/SimulatorSFML/src/Road.cpp" "/Users/samuelarbibe/Documents/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML.dir/src/Road.cpp.o"
-  "/Users/samuelarbibe/Documents/SimulatorSFML/src/Vehicle.cpp" "/Users/samuelarbibe/Documents/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o"
-  "/Users/samuelarbibe/Documents/SimulatorSFML/src/main.cpp" "/Users/samuelarbibe/Documents/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML.dir/src/main.cpp.o"
+  "/Users/samuelarbibe/Github/SimulatorSFML/src/Engine.cpp" "/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o"
+  "/Users/samuelarbibe/Github/SimulatorSFML/src/Intersection.cpp" "/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o"
+  "/Users/samuelarbibe/Github/SimulatorSFML/src/Lane.cpp" "/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.o"
+  "/Users/samuelarbibe/Github/SimulatorSFML/src/Road.cpp" "/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML.dir/src/Road.cpp.o"
+  "/Users/samuelarbibe/Github/SimulatorSFML/src/Vehicle.cpp" "/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o"
+  "/Users/samuelarbibe/Github/SimulatorSFML/src/main.cpp" "/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

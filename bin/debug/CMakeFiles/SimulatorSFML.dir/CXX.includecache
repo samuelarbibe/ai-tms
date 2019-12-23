@@ -6,23 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Engine.cpp
-Engine.hpp
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Engine.hpp
-
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Engine.hpp
-iostream
--
-list
--
-SFML/Graphics.hpp
--
-Intersection.hpp
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Intersection.hpp
-Vehicle.hpp
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Vehicle.hpp
-
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Intersection.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Intersection.hpp
 stdio.h
 -
 iostream
@@ -32,9 +16,9 @@ SFML/Graphics.hpp
 list
 -
 Road.hpp
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Road.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Road.hpp
 
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Lane.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Lane.hpp
 stdio.h
 -
 iostream
@@ -44,7 +28,7 @@ SFML/Graphics.hpp
 math.h
 -
 
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Road.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Road.hpp
 stdio.h
 -
 iostream
@@ -54,13 +38,19 @@ SFML/Graphics.hpp
 list
 -
 Lane.hpp
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Lane.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Lane.hpp
 
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Vehicle.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Vehicle.cpp
+Vehicle.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Vehicle.hpp
+
+/Users/samuelarbibe/Github/SimulatorSFML/src/Vehicle.hpp
 iostream
+-
+cstring
 -
 SFML/Graphics.hpp
 -
 Intersection.hpp
-/Users/samuelarbibe/Documents/SimulatorSFML/src/Intersection.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Intersection.hpp
 
