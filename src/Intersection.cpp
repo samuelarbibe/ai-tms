@@ -26,8 +26,6 @@ Intersection::Intersection(Vector2f position, int width, int height, int interse
     this->setSize(Vector2f(m_width, m_height));
 };
 
-
-
 Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
 {
     
@@ -41,7 +39,7 @@ Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
     m_numberOfRoads++;
     roadCount++;
     
-    std::cout << "Road " << roadNumber << " added" << endl;
+    if(DRAW_ADDED)std::cout << "Road " << roadNumber << " added" << endl;
     
     return m_roads[m_numberOfRoads-1];
 }

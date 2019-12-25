@@ -14,6 +14,7 @@
 #include <SFML/Graphics.hpp>
 #include "Intersection.hpp"
 #include "Vehicle.hpp"
+#include "Flags.hpp"
 
 using namespace sf;
 

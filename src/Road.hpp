@@ -14,6 +14,7 @@
 #include <SFML/Graphics.hpp>
 #include <list>
 #include "Lane.hpp"
+#include "Flags.hpp"
 
 using namespace std;
 
@@ -24,9 +25,8 @@ class Road : public RectangleShape
     
 public:
     
-    Road(){};
     Road(int roadNumber, int intersectionNumber, int connectionSide, Vector2f startPosition, float length, float laneWidth, float direction);
-    ~Road(){cout << "Road " << m_roadNumber << "deleted" << endl;};
+    ~Road(){if(DRAW_DELETE)cout << "Road " << m_roadNumber << "deleted" << endl;};
     
     
     Lane * AddLane(int laneNumber, bool isInRoadDirection);

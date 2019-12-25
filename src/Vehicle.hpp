@@ -13,6 +13,7 @@
 #include <cstring>
 #include <SFML/Graphics.hpp>
 #include "Intersection.hpp"
+#include "Flags.hpp"
 
 using namespace std;
 using namespace sf;
@@ -42,13 +43,13 @@ public:
 
     static void ClearVehicles();
     static void SetMaxSpeed(VehicleTypeOptions vehicleType, float max_speed);
-    static void LoadVehicleTextures(VehicleType * vehicleType);
+    static bool LoadVehicleTextures(VehicleType * vehicleType);
     static VehicleType * GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions);
     static Vehicle * GetVehicle(int vehicleNumber);
     static Vehicle * AddVehicle(Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection, VehicleTypeOptions vehicleType = CAR, int vehicleNumber = VehicleCount + 1);
 
     Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection);
-    ~Vehicle(){cout << "Vehicle " << m_vehicleNumber << " deleted" << endl;};
+    ~Vehicle(){if(DRAW_DELETE)cout << "Vehicle " << m_vehicleNumber << " deleted" << endl;};
 
     void TransferVehicle(Vehicle * vehicle, Lane * fromLane, Lane * toLane);
 
@@ -94,7 +95,7 @@ private:
 
     State drive();
     void  applyChanges(float elapsedTime);
-    float calculateDistance(Vector2f a, Vector2f b);
+    static float calculateDistance(Vector2f a, Vector2f b);
 
 };
 

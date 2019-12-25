@@ -8,30 +8,46 @@
 
 #include "Engine.hpp"
 
+
+
 int Vehicle::VehicleCount = 0;
 list<Vehicle*> Vehicle::ActiveVehicles;
 
 Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
 {
+    cout << "Creating window..." << endl;
     m_window.create(VideoMode(windowWidth, windowHeight), windowName);
-    
-    m_window.setFramerateLimit(2000);
-    
-    //FloatRect area(0, 0, resolution.x, resolution.y);
+
+    cout << "Setting max fps to " << MAX_FPS << "..." <<  endl;
+    m_window.setFramerateLimit(MAX_FPS);
+
     m_window.setView(View(FloatRect(0, 0, 1000, 1000)));
-    
+
+    cout << "Activating window..." << endl;
+
     m_window.setActive();
-            
-    Vehicle::SetMaxSpeed(VehicleTypeOptions::CAR, 100000.f);
-    Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 70000.f);
+
+    if(!m_window.isOpen())
+    {
+        cerr << "Window creation has failed..." << endl;
+        cerr << "Exiting Application..." << endl;
+        exit(1);
+    }
+    cout << "----------------------------------------------" << endl;
+    cout << "Window successfully created" << endl;
+    cout << "----------------------------------------------" << endl;
+
+    cout << "Setting up max speeds..." << endl;
+    Vehicle::SetMaxSpeed(VehicleTypeOptions::CAR, 200000.f);
+    Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 7000.f);
 
     inter = new Intersection(Vector2f(windowWidth/2.f,windowHeight/2.f), 0, 0, 1);
     
     // add roads
-    inter->AddRoad(0, 1, 400);
-    inter->AddRoad(0, 2, 400);
-    inter->AddRoad(0, 3, 400);
-    inter->AddRoad(0, 4, 400);
+    inter->AddRoad(0, 1, 600);
+    inter->AddRoad(0, 2, 600);
+    inter->AddRoad(0, 3, 600);
+    inter->AddRoad(0, 4, 600);
     
     inter->AddLane(0, 1, false);
     inter->AddLane(0, 1, false);
@@ -71,7 +87,7 @@ void Engine::Start(){
         float dtInSeconds = dt.asSeconds();
         
         // print out FPS
-        //if(frameCount % 20 == 0) std::cout << 1/dtInSeconds << std::endl;
+        if(DRAW_FPS && frameCount % 20 == 0) std::cout << 1/dtInSeconds << std::endl;
         
         sf::Event event;
         while (m_window.pollEvent(event))
@@ -94,7 +110,7 @@ void Engine::input(){
     
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter);
+        Vehicle::AddVehicle(inter->GetLane(1), inter->GetLane(8), inter);
     }
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Right))

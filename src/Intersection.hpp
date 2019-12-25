@@ -15,6 +15,8 @@
 #include <SFML/Graphics.hpp>
 #include <list>
 #include "Road.hpp"
+#include "Flags.hpp"
+
 
 #define LANE_WIDTH 80
 
@@ -27,7 +29,7 @@ class Intersection: public RectangleShape
 public:
     
     Intersection(Vector2f position, int width, int height, int intersectionNumber);
-    ~Intersection(){cout << "Intersection " << m_intersectionNumber << "deleted" << endl;};
+    ~Intersection(){if(DRAW_DELETE)cout << "Intersection " << m_intersectionNumber << "deleted" << endl;};
     
     void   reAssignRoadPositions();
     void   Update(float elapsedTime);

@@ -3,23 +3,28 @@
 
 CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o: ../../src/Engine.cpp
 CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o: ../../src/Engine.hpp
+CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o: ../../src/Flags.hpp
 CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o: ../../src/Intersection.hpp
 CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o: ../../src/Lane.hpp
 CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o: ../../src/Road.hpp
 CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o: ../../src/Vehicle.hpp
 
+CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o: ../../src/Flags.hpp
 CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o: ../../src/Intersection.cpp
 CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o: ../../src/Intersection.hpp
 CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o: ../../src/Lane.hpp
 CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o: ../../src/Road.hpp
 
+CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.o: ../../src/Flags.hpp
 CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.o: ../../src/Lane.cpp
 CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.o: ../../src/Lane.hpp
 
+CMakeFiles/SimulatorSFML.dir/src/Road.cpp.o: ../../src/Flags.hpp
 CMakeFiles/SimulatorSFML.dir/src/Road.cpp.o: ../../src/Lane.hpp
 CMakeFiles/SimulatorSFML.dir/src/Road.cpp.o: ../../src/Road.cpp
 CMakeFiles/SimulatorSFML.dir/src/Road.cpp.o: ../../src/Road.hpp
 
+CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o: ../../src/Flags.hpp
 CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o: ../../src/Intersection.hpp
 CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o: ../../src/Lane.hpp
 CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o: ../../src/Road.hpp
@@ -27,6 +32,7 @@ CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o: ../../src/Vehicle.cpp
 CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o: ../../src/Vehicle.hpp
 
 CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Engine.hpp
+CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Flags.hpp
 CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Intersection.hpp
 CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Lane.hpp
 CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Road.hpp

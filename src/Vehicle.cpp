@@ -27,22 +27,22 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, Lane * sourc
     m_targetLane     = destinationLane;
     m_currentIntersection   = currentIntersection;
     m_currentLane    = m_sourceLane;
-    m_angularV      = 0;
+    m_angularV       = 0;
 
     m_rotation       = sourceLane->GetDirection();
     m_position       = sourceLane->GetStartPosition();
     m_vehicleInFront = nullptr;
 
     // if vehicle texture hasn't been loaded yet, load it
-    Vehicle::LoadVehicleTextures(m_vehicleType);
+    if(Vehicle::LoadVehicleTextures(m_vehicleType)) {
 
-    // set up sprite
-    int textureNumber = (m_vehicleNumber % m_vehicleType->ImageCount);
+        // set up sprite
+        int textureNumber = (m_vehicleNumber % m_vehicleType->ImageCount);
 
-    m_texture = &(m_vehicleType->Textures->at(textureNumber));
-    //m_sprite.setColor(Color::Red);
-    m_sprite.setTexture(*m_texture);
-
+        m_texture = &(m_vehicleType->Textures->at(textureNumber));
+        //m_sprite.setColor(Color::Red);
+        m_sprite.setTexture(*m_texture);
+    }
     m_sprite.setScale(m_vehicleType->Scale);
     m_sprite.setOrigin(m_sprite.getTextureRect().width/2, m_sprite.getTextureRect().height/3);
 }
@@ -63,7 +63,7 @@ void Vehicle::ClearVehicles()
             delete temp;
 
             toBeDeleted--;
-            cout << "active vehicles : " << ActiveVehicles.size() << endl;
+            if(DRAW_ACTIVE)cout << "active vehicles : " << ActiveVehicles.size() << endl;
         }
         else
         {
@@ -86,12 +86,12 @@ Vehicle * Vehicle::AddVehicle(Lane * sourceLane, Lane * destinationLane, Interse
     sourceLane->AddVehicleCount();
     VehicleCount++;
 
-    cout << "car " << vehicleNumber << " added to lane " << sourceLane->GetLaneNumber() << endl;
+    if(DRAW_ADDED)cout << "car " << vehicleNumber << " added to lane " << sourceLane->GetLaneNumber() << endl;
 
     return temp;
 }
 
-void Vehicle::LoadVehicleTextures(VehicleType * vehicleType)
+bool Vehicle::LoadVehicleTextures(VehicleType * vehicleType)
 {
     if(vehicleType->Textures == nullptr)
     {
@@ -110,10 +110,17 @@ void Vehicle::LoadVehicleTextures(VehicleType * vehicleType)
             }
             else
             {
-                cout << "loading texture no." << i << " for " << vehicleType->VehicleTypeName << endl;
+                cerr << "loading texture no." << i << " for " << vehicleType->VehicleTypeName <<  " failed" << endl;
             }
         }
+
+        cout << "----------------------------------------------" << endl;
+        cout << vehicleType->Textures->size() << "/" << vehicleType->ImageCount << " Textures successfully added" << endl;
+        cout << "----------------------------------------------" << endl;
+        vehicleType->ImageCount = vehicleType->Textures->size();
     }
+    if(vehicleType->ImageCount > 0)return true;
+    return false;
 }
 
 void Vehicle::SetMaxSpeed(VehicleTypeOptions vehicleType, float max_speed)
@@ -189,7 +196,7 @@ State Vehicle::drive()
         {
             m_state = STOP;
 
-            if(distanceFromNextCar < 50 || m_speed < 10)
+            if(distanceFromNextCar < 70 || m_speed < 10)
             {
                 m_acceleration = 0;
                 m_speed = 0;
@@ -199,7 +206,7 @@ State Vehicle::drive()
             {
                 if(m_vehicleInFront->m_acceleration < 0 || distanceFromNextCar < 200){
                     // using v^2 = v0^2 + 2a(x-x0)
-                    m_acceleration = ((m_speed*m_speed)/(2*(150.f - distanceFromNextCar)));
+                    m_acceleration = ((m_speed*m_speed)/(2*(100.f - distanceFromNextCar)));
                     return m_state;
                 }
             }
@@ -220,6 +227,8 @@ State Vehicle::drive()
 
             float angle = (m_sourceLane->GetDirection() - m_targetLane->GetDirection());
 
+            if(angle > 180) angle -= 360;
+
             float turningRadius = (distanceSourceTarget/2.f) / (sin(angle * M_PI/360.f));
 
             float turningParameter = 2.f * M_PI * turningRadius;
@@ -229,6 +238,7 @@ State Vehicle::drive()
             m_angularV = -angle/turningDistance;
         }
         //set rotation
+        m_acceleration = 0;
         return TURN;
     }
 

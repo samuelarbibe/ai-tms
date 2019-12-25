@@ -25,6 +25,6 @@ add_executable(SimulatorSFML
         src/Road.cpp
         src/Road.hpp
         src/Vehicle.cpp
-        src/Vehicle.hpp)
+        src/Vehicle.hpp src/Flags.hpp)
 find_package(SFML COMPONENTS system window graphics network audio REQUIRED)
 target_link_libraries(${PROJECT_NAME} sfml-audio sfml-graphics sfml-window sfml-system)

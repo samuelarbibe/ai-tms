@@ -64,8 +64,8 @@ Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
     this->setSize(Vector2f(m_width, m_length));
     this->setOrigin(m_width/2, 0.f);
 
-    
-    std::cout << "lane " << m_lanes[m_numberOfLanes - 1]->GetLaneNumber() << " added to road " << m_roadNumber << std::endl;
+
+    if(DRAW_ADDED)std::cout << "lane " << m_lanes[m_numberOfLanes - 1]->GetLaneNumber() << " added to road " << m_roadNumber << std::endl;
     
     return m_lanes[m_numberOfLanes - 1];
 }

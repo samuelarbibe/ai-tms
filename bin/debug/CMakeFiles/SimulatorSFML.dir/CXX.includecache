@@ -6,6 +6,8 @@
 
 #IncludeRegexTransform: 
 
+/Users/samuelarbibe/Github/SimulatorSFML/src/Flags.hpp
+
 /Users/samuelarbibe/Github/SimulatorSFML/src/Intersection.hpp
 stdio.h
 -
@@ -17,6 +19,8 @@ list
 -
 Road.hpp
 /Users/samuelarbibe/Github/SimulatorSFML/src/Road.hpp
+Flags.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Flags.hpp
 
 /Users/samuelarbibe/Github/SimulatorSFML/src/Lane.hpp
 stdio.h
@@ -27,6 +31,8 @@ SFML/Graphics.hpp
 -
 math.h
 -
+Flags.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Flags.hpp
 
 /Users/samuelarbibe/Github/SimulatorSFML/src/Road.hpp
 stdio.h
@@ -39,6 +45,8 @@ list
 -
 Lane.hpp
 /Users/samuelarbibe/Github/SimulatorSFML/src/Lane.hpp
+Flags.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Flags.hpp
 
 /Users/samuelarbibe/Github/SimulatorSFML/src/Vehicle.cpp
 Vehicle.hpp
@@ -53,4 +61,6 @@ SFML/Graphics.hpp
 -
 Intersection.hpp
 /Users/samuelarbibe/Github/SimulatorSFML/src/Intersection.hpp
+Flags.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Flags.hpp
 

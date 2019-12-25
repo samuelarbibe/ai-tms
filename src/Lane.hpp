@@ -13,7 +13,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <math.h>
-//#include "Vehicle.hpp"
+#include "Flags.hpp"
 
 using namespace std;
 using namespace sf;
@@ -29,9 +29,8 @@ class Lane : public RectangleShape
     
 public:
     
-    Lane();
     Lane(int laneNumber, int roadNumber, Vector2f startPosition, float width, float length, float direction);
-    ~Lane(){cout << "Lane " << m_laneNumber << " deleted" << endl;};
+    ~Lane(){if(DRAW_DELETE)cout << "Lane " << m_laneNumber << " deleted" << endl;};
     
     void  Update(float elapsedTime);
 
