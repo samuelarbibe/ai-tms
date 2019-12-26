@@ -38,8 +38,11 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
     cout << "----------------------------------------------" << endl;
 
     cout << "Setting up max speeds..." << endl;
-    Vehicle::SetMaxSpeed(VehicleTypeOptions::CAR, 200000.f);
-    Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 7000.f);
+    Vehicle::SetMaxSpeed(VehicleTypeOptions::CAR, 100.f, 1.5f);
+    Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 80.f, 1.f);
+
+    cout << "Setting up weather conditions..." << endl;
+    //Vehicle::SetWeatherCondition(WeatherCondition::DRY);
 
     inter = new Intersection(Vector2f(windowWidth/2.f,windowHeight/2.f), 0, 0, 1);
     
@@ -100,7 +103,7 @@ void Engine::Start(){
         }
         
         input();
-        update(dtInSeconds);
+        update(dtInSeconds / (float)SCALE * (float)SPEED);
         draw();
         
     }

@@ -8,14 +8,14 @@
 
 #include "Intersection.hpp"
 
-Intersection::Intersection(Vector2f position, int width, int height, int intersectionNumber)
+Intersection::Intersection(Vector2f position, int width, int height, int intersectionNumber, WeatherCondition weatherCondition)
 {
     m_intersectionNumber = intersectionNumber;
     m_position = position;
     m_width = width;
     m_height = height;
-    //m_roads();
-    
+    m_weatherCondition = weatherCondition;
+
     m_numberOfRoads = 0;
     
     this->setOrigin(m_width/2, m_height/2);

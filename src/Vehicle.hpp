@@ -21,15 +21,16 @@ using namespace sf;
 typedef enum {STOP, DRIVE, TURN, DELETE} State;
 typedef enum {CAR, TRUCK, MOTORCYCLE} VehicleTypeOptions;
 
-typedef struct {
+typedef struct
+{
     VehicleTypeOptions Type;
     string VehicleTypeName;
     string ImageDir;
     int ImageCount;
-
     Vector2f Scale;
-    float MaxSpeed{170};
-    float MaxAcceleration{MaxSpeed/3.f};
+    float MaxSpeed{100};
+    float MaxAcceleration{};
+    float MinAcceleration{};
     vector<Texture> * Textures;
 }VehicleType;
 
@@ -42,7 +43,8 @@ public:
     static int VehicleCount;
 
     static void ClearVehicles();
-    static void SetMaxSpeed(VehicleTypeOptions vehicleType, float max_speed);
+    static void SetMaxSpeed(VehicleTypeOptions vehicleType, float max_speed, float max_acceleration);
+    static void TransferVehicle(Vehicle * vehicle, Lane * fromLane, Lane * toLane);
     static bool LoadVehicleTextures(VehicleType * vehicleType);
     static VehicleType * GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions);
     static Vehicle * GetVehicle(int vehicleNumber);
@@ -51,15 +53,13 @@ public:
     Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection);
     ~Vehicle(){if(DRAW_DELETE)cout << "Vehicle " << m_vehicleNumber << " deleted" << endl;};
 
-    void TransferVehicle(Vehicle * vehicle, Lane * fromLane, Lane * toLane);
-
     void Draw(RenderWindow * window);
     void Update(float elapsedTime);
 
-    Lane * GetSourceLane(){return this->m_sourceLane;};
-    Lane * GetTargetLane(){return this->m_targetLane;};
-    State GetState(){return m_state;};
-    int GetVehicleNumber(){return this->m_vehicleNumber;};
+    Lane * GetSourceLane(){return m_sourceLane;};
+    Lane * GetTargetLane(){return m_targetLane;};
+    State       GetState(){return m_state;};
+    int GetVehicleNumber(){return m_vehicleNumber;};
 
 private:
 
@@ -78,6 +78,7 @@ private:
     float    m_speed;
     float    m_maxSpeed;
     float    m_maxAcceleration;
+    float    m_minAcceleration;
     float    m_acceleration;
     float    m_rotation;
     float    m_angularV;

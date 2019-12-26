@@ -103,6 +103,9 @@
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Engine.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Flags.hpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Intersection.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>

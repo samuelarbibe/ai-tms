@@ -8,7 +8,8 @@
 
 #include "Vehicle.hpp"
 
-const Vector2f m_forwardVec{0.f, -1.f};
+const Vector2f       m_forwardVec{0.f, -1.f};
+
 int         Vehicle::toBeDeleted{0};
 VehicleType Vehicle::Car{CAR, "Car", "../../resources/Cars/car_image_", 5,  Vector2f(0.6f, 0.6f)};
 VehicleType Vehicle::Truck{TRUCK, "Truck",  "../../resources/Cars/car_image_",5, Vector2f(0.12f, 0.12f)};
@@ -19,16 +20,17 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, Lane * sourc
     // set initial values for the movable object
     m_vehicleType    = GetVehicleTypeByOption(vehicleType);
     m_vehicleNumber  = vehicleNumber;
-    m_speed          = 150.f;
-    m_maxAcceleration= m_vehicleType->MaxAcceleration;
-    m_maxSpeed       = m_vehicleType->MaxSpeed;
+    m_speed          = 0.f;
+    m_maxAcceleration= m_vehicleType->MaxAcceleration * currentIntersection->GetWeatherCondition()/10.f;
+    m_minAcceleration= m_vehicleType->MinAcceleration * currentIntersection->GetWeatherCondition()/10.f;
+    m_maxSpeed       = m_vehicleType->MaxSpeed * currentIntersection->GetWeatherCondition()/10.f;
+    m_acceleration   = m_maxAcceleration;
     m_state          = DRIVE;
     m_sourceLane     = sourceLane;
     m_targetLane     = destinationLane;
     m_currentIntersection   = currentIntersection;
     m_currentLane    = m_sourceLane;
     m_angularV       = 0;
-
     m_rotation       = sourceLane->GetDirection();
     m_position       = sourceLane->GetStartPosition();
     m_vehicleInFront = nullptr;
@@ -37,10 +39,17 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, Lane * sourc
     if(Vehicle::LoadVehicleTextures(m_vehicleType)) {
 
         // set up sprite
-        int textureNumber = (m_vehicleNumber % m_vehicleType->ImageCount);
+        int textureNumber;
+        if(MULTI_COLOR)
+        {
+            textureNumber = (m_vehicleNumber % m_vehicleType->ImageCount);
+        }
+        else
+        {
+            textureNumber = 1;
+        }
 
         m_texture = &(m_vehicleType->Textures->at(textureNumber));
-        //m_sprite.setColor(Color::Red);
         m_sprite.setTexture(*m_texture);
     }
     m_sprite.setScale(m_vehicleType->Scale);
@@ -123,10 +132,12 @@ bool Vehicle::LoadVehicleTextures(VehicleType * vehicleType)
     return false;
 }
 
-void Vehicle::SetMaxSpeed(VehicleTypeOptions vehicleType, float max_speed)
-{    VehicleType * temp = GetVehicleTypeByOption(vehicleType);
+void Vehicle::SetMaxSpeed(VehicleTypeOptions vehicleType, float max_speed, float max_acceleration)
+{
+    VehicleType * temp = GetVehicleTypeByOption(vehicleType);
     temp->MaxSpeed = max_speed;
-    temp->MaxAcceleration = max_speed/3.f;
+    temp->MaxAcceleration = max_acceleration;
+    temp->MinAcceleration = -max_acceleration;
 }
 
 VehicleType * Vehicle::GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions)
@@ -176,44 +187,31 @@ void Vehicle::TransferVehicle(Vehicle * vehicle, Lane * fromLane, Lane * toLane)
     }
 
     vehicle->m_currentLane    = toLane;
-    vehicle->m_rotation       = m_currentLane->GetDirection();
+    vehicle->m_rotation       = vehicle->m_currentLane->GetDirection();
     vehicle->m_angularV       = 0;
-    vehicle->m_speed          = m_speed;
-    vehicle->m_vehicleInFront = (m_currentLane->GetLastCar()) ? GetVehicle(m_currentLane->GetLastCar()) : nullptr;
+    vehicle->m_maxAcceleration= vehicle->m_vehicleType->MaxAcceleration * vehicle->m_currentIntersection->GetWeatherCondition()/10.f;
+    vehicle->m_maxSpeed       = vehicle->m_vehicleType->MaxSpeed * vehicle->m_currentIntersection->GetWeatherCondition()/10.f;
+    vehicle->m_minAcceleration= vehicle->m_vehicleType->MinAcceleration * vehicle->m_currentIntersection->GetWeatherCondition()/10.f;
+    vehicle->m_vehicleInFront = (vehicle->m_currentLane->GetLastCar()) ? GetVehicle(vehicle->m_currentLane->GetLastCar()) : nullptr;
     vehicle->m_currentLane->SetLastCar(vehicle->m_vehicleNumber);
 }
 
 
 State Vehicle::drive()
 {
-
     // check for distance with car in front
     if(m_vehicleInFront != nullptr && m_vehicleInFront->m_state != DELETE)
     {
         float distanceFromNextCar = calculateDistance(m_position, m_vehicleInFront->m_position);
+        float brakingDistance = -(m_speed * m_speed)/ (2 * m_minAcceleration);
 
-        if(distanceFromNextCar < 200)
+        if(distanceFromNextCar < brakingDistance + MIN_DISTANCE_FROM_NEXT_CAR || distanceFromNextCar < MIN_DISTANCE_FROM_NEXT_CAR)
         {
             m_state = STOP;
-
-            if(distanceFromNextCar < 70 || m_speed < 10)
-            {
-                m_acceleration = 0;
-                m_speed = 0;
-                return m_state;
-            }
-            else
-            {
-                if(m_vehicleInFront->m_acceleration < 0 || distanceFromNextCar < 200){
-                    // using v^2 = v0^2 + 2a(x-x0)
-                    m_acceleration = ((m_speed*m_speed)/(2*(100.f - distanceFromNextCar)));
-                    return m_state;
-                }
-            }
+            m_acceleration = m_minAcceleration;
+            return STOP;
         }
     }
-
-    //TODO: find better algorithm
 
     // check if car is in between lanes
     if(m_currentIntersection->getGlobalBounds().contains(m_position))
@@ -238,32 +236,22 @@ State Vehicle::drive()
             m_angularV = -angle/turningDistance;
         }
         //set rotation
-        m_acceleration = 0;
+        m_acceleration = (ACC_WHILE_TURNING)?m_maxAcceleration/2.f : 0;
         return TURN;
     }
 
     // check distance from stop (if lane is blocked)
-    if(m_currentLane != nullptr && m_currentLane != m_targetLane && m_currentLane->GetIsBlocked())
+    if(m_currentLane != nullptr && m_currentLane != m_targetLane && m_currentLane->GetIsBlocked() && !m_sprite.getGlobalBounds().contains(m_currentLane->GetEndPosition()))
     {
         float distanceFromStop = calculateDistance(this->m_position, m_currentLane->GetEndPosition());
+        float brakingDistance = -(m_speed * m_speed)/ (2 * m_minAcceleration * m_currentIntersection->GetWeatherCondition()/10.f);
 
-        if(distanceFromStop < 150)
+        if(distanceFromStop < brakingDistance + MIN_DISTANCE_FROM_STOP)
         {
             m_state = STOP;
-
-            if(distanceFromStop < 50 || m_speed < 5)
-            {
-                m_speed = 0;
-            }
-            else
-            {
-                // using v^2 = v0^2 + 2a(x-x0)
-                m_acceleration = ((m_speed*m_speed)/(2*(50 - distanceFromStop)));
-            }
-            return m_state;
+            m_acceleration = m_minAcceleration;
+            return STOP;
         }
-
-        return m_state;
     }
 
     // check if car is in targetLane
@@ -313,7 +301,7 @@ void Vehicle::applyChanges(float elapsedTime)
     m_speed += m_acceleration * elapsedTime;
 
     // apply max speed limit
-    if(m_speed > m_maxSpeed) m_speed = m_maxSpeed;
+    if(m_speed > m_maxSpeed) m_acceleration = m_minAcceleration;
 
     // apply min speed limit
     if(m_speed < 0) m_speed = 0;
@@ -321,7 +309,7 @@ void Vehicle::applyChanges(float elapsedTime)
     // set rotation relative to current speed, to create a constant turning radius
     Transform t;
 
-    m_rotation += m_angularV * elapsedTime * m_speed;
+    m_rotation += m_angularV * elapsedTime * m_speed ;
 
     t.rotate(m_rotation);
 
@@ -341,3 +329,4 @@ void Vehicle::Draw(RenderWindow *window)
 {
     (*window).draw(this->m_sprite);
 }
+

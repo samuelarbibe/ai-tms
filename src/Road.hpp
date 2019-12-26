@@ -9,7 +9,6 @@
 #ifndef Road_hpp
 #define Road_hpp
 
-#include <stdio.h>
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <list>

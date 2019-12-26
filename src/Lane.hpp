@@ -48,7 +48,7 @@ public:
     // Set
     void  AddVehicleCount(){m_currentVehicleCount++; m_totalVehicleCount++;};
     void  RemoveVehicleCount(){m_currentVehicleCount--;};
-    void  SetIsBlocked(bool blocked) {m_isBlocked = blocked;cout << "Lane " << m_laneNumber << " blocked : "<< blocked << endl;};
+    void  SetIsBlocked(bool blocked) {m_isBlocked = blocked; if(DRAW_ACTIVE)cout << "Lane " << m_laneNumber << " blocked : "<< blocked << endl;};
     void  SetLastCar(int lastCar){m_lastEnteredCarNumber = lastCar;};
 
     
