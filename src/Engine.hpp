@@ -33,7 +33,8 @@ private:
 public:
     Engine(int windowWidth, int windowHeight, const char * windowName);
         
-    Intersection * inter;
+    Intersection * inter1;
+    Intersection * inter2;
     
     void Start();
 };

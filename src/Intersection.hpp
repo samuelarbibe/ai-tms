@@ -39,6 +39,7 @@ public:
     WeatherCondition   GetWeatherCondition(){return m_weatherCondition;};
     
     Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
+    Road * AddConnectingRoad(int roadNumber, int connectionSide1, int connectionSide2, Intersection * connectedIntersection);
     Road * GetRoad(int roadNumber);
     Lane * GetLane(int laneNumber);
     Road * GetRoadByConnectionSide(int connectionSide);

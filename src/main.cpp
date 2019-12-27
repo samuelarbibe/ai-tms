@@ -13,7 +13,7 @@ int main(int argc, const char * argv[]) {
     
     Engine * engine;
     
-    engine = new Engine(1000, 1000, "Simulator");
+    engine = new Engine(1500, 1500, "Simulator");
     
     engine->Start();
     

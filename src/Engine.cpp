@@ -21,7 +21,7 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
     cout << "Setting max fps to " << MAX_FPS << "..." <<  endl;
     m_window.setFramerateLimit(MAX_FPS);
 
-    m_window.setView(View(FloatRect(0, 0, 1000, 1000)));
+    m_window.setView(View(FloatRect(0, 0, windowWidth, windowHeight)));
 
     cout << "Activating window..." << endl;
 
@@ -44,34 +44,30 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
     cout << "Setting up weather conditions..." << endl;
     //Vehicle::SetWeatherCondition(WeatherCondition::DRY);
 
-    inter = new Intersection(Vector2f(windowWidth/2.f,windowHeight/2.f), 0, 0, 1);
-    
+    inter1 = new Intersection(Vector2f(windowWidth/4.f,windowHeight/2.f), 0, 0, 1);
+    inter2 = new Intersection(Vector2f(windowWidth/4.f * 3,windowHeight/2.f), 0, 0, 1);
+
+
     // add roads
-    inter->AddRoad(0, 1, 600);
-    inter->AddRoad(0, 2, 600);
-    inter->AddRoad(0, 3, 600);
-    inter->AddRoad(0, 4, 600);
-    
-    inter->AddLane(0, 1, false);
-    inter->AddLane(0, 1, false);
-    inter->AddLane(0, 1, true);
-    inter->AddLane(0, 1, true);
-    
-    inter->AddLane(0, 2, false);
-    inter->AddLane(0, 2, false);
-    inter->AddLane(0, 2, true);
-    inter->AddLane(0, 2, true);
-    
-    inter->AddLane(0, 3, false);
-    inter->AddLane(0, 3, false);
-    inter->AddLane(0, 3, true);
-    inter->AddLane(0, 3, true);
-    
-    inter->AddLane(0, 4, false);
-    inter->AddLane(0, 4, false);
-    inter->AddLane(0, 4, true);
-    inter->AddLane(0, 4, true);
-    
+    inter1->AddRoad(0, 1, 200);
+    inter1->AddRoad(0, 3, 200);
+    inter1->AddRoad(0, 4, 200);
+
+    inter2->AddRoad(0, 1, 200);
+    inter2->AddRoad(0, 2, 200);
+    inter2->AddRoad(0, 3, 200);
+
+    inter1->AddConnectingRoad(0, 2, 4, inter2);
+
+    inter1->AddLane(0, 1, false);
+
+    inter1->AddLane(0, 7, true);
+    inter1->AddLane(0, 7, true);
+    inter1->AddLane(0, 7, true);
+    inter1->AddLane(0, 7, true);
+
+
+
 };
 
 void Engine::Start(){
@@ -113,27 +109,28 @@ void Engine::input(){
     
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        Vehicle::AddVehicle(inter->GetLane(1), inter->GetLane(8), inter);
+        Vehicle::AddVehicle(inter1->GetLane(1), inter1->GetLane(2), inter1);
     }
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
-        Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter);
+        //Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter);
     }
     
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
-        inter->GetLane(2)->SetIsBlocked(true);
+        //inter->GetLane(2)->SetIsBlocked(true);
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
-        inter->GetLane(2)->SetIsBlocked(false);
+        //inter->GetLane(2)->SetIsBlocked(false);
     }
 }
 
 void Engine::update(float dtInSeconds){
     
-    inter->Update(dtInSeconds);
+    inter1->Update(dtInSeconds);
+    inter2->Update(dtInSeconds);
 
     for (Vehicle *v : Vehicle::ActiveVehicles)
     {
@@ -150,8 +147,9 @@ void Engine::draw()
     m_window.clear(BackgroundColor);
  
     // Draw the objects
-    this->inter->Draw(&m_window);
-    
+    this->inter2->Draw(&m_window);
+    this->inter1->Draw(&m_window);
+
     for(Vehicle * v : Vehicle::ActiveVehicles)
     {
         v->Draw(&m_window);

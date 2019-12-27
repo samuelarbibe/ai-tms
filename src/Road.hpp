@@ -25,6 +25,7 @@ class Road : public RectangleShape
 public:
     
     Road(int roadNumber, int intersectionNumber, int connectionSide, Vector2f startPosition, float length, float laneWidth, float direction);
+    Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int connectionSide1, int connectionSide2, Vector2f conPosition1, Vector2f conPosition2, float laneWidth, float direction);
     ~Road(){if(DRAW_DELETE)cout << "Road " << m_roadNumber << "deleted" << endl;};
     
     
@@ -34,21 +35,26 @@ public:
     // ge
     float  GetWidth(){return m_width;};
     int    GetRoadNumber(){return m_roadNumber;};
-    int    GetIntersectionNumber(){return m_intersectionNumber;};
-    int    GetConnectionSide(){return m_connectionSide;};
+    int    GetIntersectionNumber(int index){return m_intersectionNumber[index];};
+    int    GetConnectionSide(int index){return m_connectionSide[index];};
+    bool   GetIsConnecting(){return m_isConnecting;};
     
     void   reAssignLanePositions();
     void   UpdateStartPosition(Vector2f position);
-    
+    void   UpdateEndPosition(Vector2f position);
+
+    static float calculateDistance(Vector2f a, Vector2f b);
+
     void   Update(float elapsedTime);
     void   Draw(RenderWindow * window);
     
 private:
-    
+
+    bool       m_isConnecting;
     int        m_roadNumber;
     int        m_numberOfLanes;
-    int        m_intersectionNumber;
-    int        m_connectionSide;
+    int        m_intersectionNumber[2];
+    int        m_connectionSide[2];
     
     Vector2f   m_startPosition;
     Vector2f   m_endPosition;

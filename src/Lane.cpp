@@ -32,10 +32,10 @@ Lane::Lane(int laneNumber, int roadNumber, Vector2f startPosition, float width, 
     m_endPosition = lengthVec + m_startPosition;
     
     // init rectangle shape
-    this->setOrigin(m_width/2, 0.f);
+    this->setOrigin(m_width/2.f, 0.f);
     this->setPosition(m_startPosition);
     this->setOutlineColor(WhiteColor);
-    this->setOutlineThickness(1.f);
+    this->setOutlineThickness(1.5f);
     this->setRotation(m_direction + 180);
     this->setSize(Vector2f(m_width, m_length));
     
@@ -75,6 +75,7 @@ void Lane::m_createArrowShape(Transform t)
 
 void Lane::Update(float elapsedTime)
 {
+
 }
 
 void Lane::Draw(RenderWindow *window)
