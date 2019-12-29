@@ -12,7 +12,7 @@
 #include <iostream>
 #include <list>
 #include <SFML/Graphics.hpp>
-#include "Intersection.hpp"
+#include "Map/Map.hpp"
 #include "Vehicle.hpp"
 #include "Flags.hpp"
 
@@ -33,8 +33,7 @@ private:
 public:
     Engine(int windowWidth, int windowHeight, const char * windowName);
         
-    Intersection * inter1;
-    Intersection * inter2;
+    Map * map;
     
     void Start();
 };

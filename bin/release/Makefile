@@ -204,6 +204,33 @@ src/Lane.cpp.s:
 	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.s
 .PHONY : src/Lane.cpp.s
 
+src/Map.o: src/Map.cpp.o
+
+.PHONY : src/Map.o
+
+# target to build an object file
+src/Map.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Map.cpp.o
+.PHONY : src/Map.cpp.o
+
+src/Map.i: src/Map.cpp.i
+
+.PHONY : src/Map.i
+
+# target to preprocess a source file
+src/Map.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Map.cpp.i
+.PHONY : src/Map.cpp.i
+
+src/Map.s: src/Map.cpp.s
+
+.PHONY : src/Map.s
+
+# target to generate assembly for a file
+src/Map.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Map.cpp.s
+.PHONY : src/Map.cpp.s
+
 src/Road.o: src/Road.cpp.o
 
 .PHONY : src/Road.o
@@ -303,6 +330,9 @@ help:
 	@echo "... src/Lane.o"
 	@echo "... src/Lane.i"
 	@echo "... src/Lane.s"
+	@echo "... src/Map.o"
+	@echo "... src/Map.i"
+	@echo "... src/Map.s"
 	@echo "... src/Road.o"
 	@echo "... src/Road.i"
 	@echo "... src/Road.s"

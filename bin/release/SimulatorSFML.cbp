@@ -118,6 +118,12 @@
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Lane.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Map.cpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Map.hpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Road.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>

@@ -15,16 +15,16 @@ add_executable(SimulatorSFML
         resources/Cars/car_image_3.png
         resources/Cars/car_image_4.png
         resources/Cars/car_image_5.png
-        src/Engine.cpp
-        src/Engine.hpp
-        src/Intersection.cpp
-        src/Intersection.hpp
-        src/Lane.cpp
-        src/Lane.hpp
+        src/Simulator/Engine.cpp
+        src/Simulator/Engine.hpp
+        src/Simulator/Map/Intersection.cpp
+        src/Simulator/Map/Intersection.hpp
+        src/Simulator/Map/Lane.cpp
+        src/Simulator/Map/Lane.hpp
         src/main.cpp
-        src/Road.cpp
-        src/Road.hpp
-        src/Vehicle.cpp
-        src/Vehicle.hpp src/Flags.hpp)
+        src/Simulator/Map/Road.cpp
+        src/Simulator/Map/Road.hpp
+        src/Simulator/Vehicle.cpp
+        src/Simulator/Vehicle.hpp src/Simulator/Flags.hpp src/Simulator/Map/Map.cpp src/Simulator/Map/Map.hpp)
 find_package(SFML COMPONENTS system window graphics network audio REQUIRED)
 target_link_libraries(${PROJECT_NAME} sfml-audio sfml-graphics sfml-window sfml-system)

@@ -8,12 +8,12 @@
 
 #include "Intersection.hpp"
 
-Intersection::Intersection(Vector2f position, int width, int height, int intersectionNumber, WeatherCondition weatherCondition)
+Intersection::Intersection(Vector2f position, int intersectionNumber, WeatherCondition weatherCondition)
 {
     m_intersectionNumber = intersectionNumber;
     m_position = position;
-    m_width = width;
-    m_height = height;
+    m_width = 0;
+    m_height = 0;
     m_weatherCondition = weatherCondition;
 
     m_numberOfRoads = 0;
@@ -28,7 +28,6 @@ Intersection::Intersection(Vector2f position, int width, int height, int interse
 
 Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
 {
-    
     if(!roadNumber)
     {
         roadNumber = roadCount + 1;
@@ -46,7 +45,6 @@ Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
 
 Road * Intersection::AddConnectingRoad(int roadNumber, int connectionSide1, int connectionSide2, Intersection * connectedIntersection)
 {
-
     if(!roadNumber)
     {
         roadNumber = roadCount + 1;
@@ -54,6 +52,9 @@ Road * Intersection::AddConnectingRoad(int roadNumber, int connectionSide1, int 
 
     m_roads.push_back(new Road(roadNumber, this->m_intersectionNumber, connectedIntersection->m_intersectionNumber, connectionSide1, connectionSide2 ,
             this->GetPositionByConnectionSide(connectionSide1) ,connectedIntersection->GetPositionByConnectionSide(connectionSide2), LANE_WIDTH, (connectionSide1-1)*90));
+
+    connectedIntersection->m_roads.push_back(m_roads[m_numberOfRoads]);
+    connectedIntersection->m_numberOfRoads++;
 
     m_numberOfRoads++;
     roadCount++;
@@ -74,24 +75,22 @@ Lane * Intersection::GetLane(int laneNumber)
             return temp;
         }
     }
-    
-    cout << "error : lane not found in intersection..." << endl;
-    
+
     return nullptr;
 }
 
 Road * Intersection::GetRoad(int roadNumber)
 {
+    Road * temp;
     for (int i = 0 ;i < m_numberOfRoads; i++)
     {
-        if(m_roads[i]->GetRoadNumber() == roadNumber)
+        temp = m_roads[i];
+        if((temp->GetRoadNumber()) == roadNumber)
         {
-            return m_roads[i];
+            return temp;
         }
     }
-    
-    cout << "error: road not found in intersection..." << endl;
-    
+
     return nullptr;
 }
 
@@ -109,9 +108,7 @@ Road * Intersection::GetRoadByConnectionSide(int connectionSide)
             return m_roads[i];
         }
     }
-    
-    cout << "error: intersection connection unused or unexisting" << endl;
-    
+
     return nullptr;
 }
 
@@ -132,7 +129,7 @@ Lane * Intersection::AddLane(int laneNumber, int roadNumber, bool isInRoadDirect
     
     
     m_width = r1->GetWidth();
-    m_height = r2->GetWidth();
+    if(r2 != nullptr)m_height = r2->GetWidth();
     
     if(r3 != nullptr && r3->GetWidth() > m_width)
     {
@@ -156,19 +153,19 @@ Lane * Intersection::AddLane(int laneNumber, int roadNumber, bool isInRoadDirect
 Vector2f Intersection::GetPositionByConnectionSide(int connectionSide)
 {
     switch (connectionSide) {
-        case 1:
+        case UP:
             return Vector2f(m_position.x, m_position.y - m_height/2);
             
             break;
-        case 2:
+        case RIGHT:
             return Vector2f(m_position.x + m_width/2, m_position.y);
             
             break;
-        case 3:
+        case DOWN:
             return Vector2f(m_position.x, m_position.y + m_height/2);
             
             break;
-        case 4:
+        case LEFT:
             return Vector2f(m_position.x - m_width/2, m_position.y);
             
             break;
@@ -176,6 +173,13 @@ Vector2f Intersection::GetPositionByConnectionSide(int connectionSide)
             return m_position;
             break;
     }
+}
+
+void Intersection::reAssignIntersectionPosition(Vector2f position)
+{
+    m_position = position;
+    this->setPosition(position);
+    reAssignRoadPositions();
 }
 
 void Intersection::reAssignRoadPositions()
@@ -208,9 +212,11 @@ void Intersection::Update(float elapsedTime)
 void Intersection::Draw(RenderWindow *window)
 {
     (*window).draw(*this);
-    
-    for (int i = 0 ; i < m_numberOfRoads; i++) {
+
+    for (int i = 0 ; i < m_numberOfRoads; i++)
+    {
         m_roads[i]->Draw(window);
     }
 }
+
 

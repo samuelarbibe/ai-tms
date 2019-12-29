@@ -97,37 +97,43 @@
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/resources/Cars/car_image_5.png">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Engine.cpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Engine.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Engine.hpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Engine.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Flags.hpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Flags.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Intersection.cpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Intersection.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Intersection.hpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Intersection.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Lane.cpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Lane.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Lane.hpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Lane.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Road.cpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Road.hpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Vehicle.cpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Road.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Vehicle.hpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Road.hpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Vehicle.cpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Vehicle.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/main.cpp">

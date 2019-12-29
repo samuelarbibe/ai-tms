@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o"
   "CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o"
   "CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.o"
+  "CMakeFiles/SimulatorSFML.dir/src/Map.cpp.o"
   "CMakeFiles/SimulatorSFML.dir/src/Road.cpp.o"
   "CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o"
   "CMakeFiles/SimulatorSFML.dir/src/main.cpp.o"

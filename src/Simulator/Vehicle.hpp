@@ -12,7 +12,7 @@
 #include <iostream>
 #include <cstring>
 #include <SFML/Graphics.hpp>
-#include "Intersection.hpp"
+#include "Map/Intersection.hpp"
 #include "Flags.hpp"
 
 using namespace std;

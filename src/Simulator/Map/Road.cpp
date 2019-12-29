@@ -69,8 +69,6 @@ Road::Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int
     this->setSize(Vector2f(m_width, m_length));
 }
 
-
-
 Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
 {
     if(!laneNumber)

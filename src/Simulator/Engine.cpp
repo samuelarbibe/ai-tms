@@ -44,29 +44,37 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
     cout << "Setting up weather conditions..." << endl;
     //Vehicle::SetWeatherCondition(WeatherCondition::DRY);
 
-    inter1 = new Intersection(Vector2f(windowWidth/4.f,windowHeight/2.f), 0, 0, 1);
-    inter2 = new Intersection(Vector2f(windowWidth/4.f * 3,windowHeight/2.f), 0, 0, 1);
+    map = new Map(0, Vector2f(windowWidth/2, windowHeight/2), windowWidth, windowHeight);
+
+    map->AddIntersection(0,Vector2f(500, 500));
+
+    map->AddIntersection(0,Vector2f(500, 500));
+
+    map->AddConnectingRoad(1, 1, 2, ConnectionSides::RIGHT, ConnectionSides::LEFT);
+
+    map->AddRoad(2, 1, ConnectionSides::UP, 200);
+    map->AddRoad(3, 1, ConnectionSides::DOWN, 200);
+
+    map->AddRoad(4, 2, ConnectionSides::UP, 200);
+    map->AddRoad(5, 2, ConnectionSides::DOWN, 200);
 
 
-    // add roads
-    inter1->AddRoad(0, 1, 200);
-    inter1->AddRoad(0, 3, 200);
-    inter1->AddRoad(0, 4, 200);
+    map->AddLane(0, 1, false);
+    map->AddLane(0, 1, false);
+    map->AddLane(0, 1, true);
+    map->AddLane(0, 1, true);
 
-    inter2->AddRoad(0, 1, 200);
-    inter2->AddRoad(0, 2, 200);
-    inter2->AddRoad(0, 3, 200);
+    map->AddLane(0, 2, false);
+    map->AddLane(0, 2, true);
 
-    inter1->AddConnectingRoad(0, 2, 4, inter2);
+    map->AddLane(0, 3, false);
+    map->AddLane(0, 3, true);
 
-    inter1->AddLane(0, 1, false);
+    map->AddLane(0, 4, false);
+    map->AddLane(0, 4, true);
 
-    inter1->AddLane(0, 7, true);
-    inter1->AddLane(0, 7, true);
-    inter1->AddLane(0, 7, true);
-    inter1->AddLane(0, 7, true);
-
-
+    map->AddLane(0, 5, false);
+    map->AddLane(0, 5, true);
 
 };
 
@@ -109,7 +117,7 @@ void Engine::input(){
     
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        Vehicle::AddVehicle(inter1->GetLane(1), inter1->GetLane(2), inter1);
+        Vehicle::AddVehicle(map->GetLane(1), map->GetLane(1), map->GetIntersection(1));
     }
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
@@ -128,9 +136,8 @@ void Engine::input(){
 }
 
 void Engine::update(float dtInSeconds){
-    
-    inter1->Update(dtInSeconds);
-    inter2->Update(dtInSeconds);
+
+    map->Update(dtInSeconds);
 
     for (Vehicle *v : Vehicle::ActiveVehicles)
     {
@@ -147,8 +154,7 @@ void Engine::draw()
     m_window.clear(BackgroundColor);
  
     // Draw the objects
-    this->inter2->Draw(&m_window);
-    this->inter1->Draw(&m_window);
+    this->map->Draw(&m_window);
 
     for(Vehicle * v : Vehicle::ActiveVehicles)
     {

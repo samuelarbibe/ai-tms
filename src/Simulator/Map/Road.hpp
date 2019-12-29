@@ -13,7 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include <list>
 #include "Lane.hpp"
-#include "Flags.hpp"
+#include "../Flags.hpp"
 
 using namespace std;
 
@@ -35,8 +35,8 @@ public:
     // ge
     float  GetWidth(){return m_width;};
     int    GetRoadNumber(){return m_roadNumber;};
-    int    GetIntersectionNumber(int index){return m_intersectionNumber[index];};
-    int    GetConnectionSide(int index){return m_connectionSide[index];};
+    int    GetIntersectionNumber(int index = 0){return m_intersectionNumber[index];};
+    int    GetConnectionSide(int index = 0){return m_connectionSide[index];};
     bool   GetIsConnecting(){return m_isConnecting;};
     
     void   reAssignLanePositions();

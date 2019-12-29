@@ -13,7 +13,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <math.h>
-#include "Flags.hpp"
+#include "../Flags.hpp"
 
 using namespace std;
 using namespace sf;
