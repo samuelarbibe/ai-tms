@@ -83,8 +83,7 @@ void Vehicle::ClearVehicles()
 
 Vehicle * Vehicle::AddVehicle(Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection,
                               VehicleTypeOptions vehicleType, int vehicleNumber){
-    //add vehicle to vector
-    //if(vehicleNumber == 0)vehicleNumber = VehicleCount + 1;
+
     auto * temp = new Vehicle(vehicleType, vehicleNumber, sourceLane, destinationLane, currentIntersection);
     ActiveVehicles.push_back(temp);
 

@@ -6,6 +6,10 @@ set(SFML_DIR "${CMAKE_CURRENT_LIST_DIR}/libs/SFML")
 file(GLOB ALL_REQUIRED_DLL "libs/required_dlls/*.dll")
 file(COPY ${ALL_REQUIRED_DLL} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 set(CMAKE_CXX_STANDARD 17)
+
+set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.14.0)
+find_package(Qt5Widgets REQUIRED)
+#/usr/local/Cellar/qt/5.14.0
 #link_libraries(stdc++fs) #link the filesystem
 
 file(GLOB_RECURSE SCRF "src/*.cpp" "src/*.hpp")
@@ -25,6 +29,7 @@ add_executable(SimulatorSFML
         src/Simulator/Map/Road.cpp
         src/Simulator/Map/Road.hpp
         src/Simulator/Vehicle.cpp
-        src/Simulator/Vehicle.hpp src/Simulator/Flags.hpp src/Simulator/Map/Map.cpp src/Simulator/Map/Map.hpp)
+        src/Simulator/Vehicle.hpp src/Simulator/Flags.hpp src/Simulator/Map/Map.cpp src/Simulator/Map/Map.hpp src/UI/QsfmlCanvas.cpp src/UI/QsfmlCanvas.hpp)
 find_package(SFML COMPONENTS system window graphics network audio REQUIRED)
-target_link_libraries(${PROJECT_NAME} sfml-audio sfml-graphics sfml-window sfml-system)
+target_link_libraries(${PROJECT_NAME} sfml-audio sfml-graphics sfml-window sfml-system Qt5::Widgets)
+#target_link_libraries(helloqt Qt5::Widgets)

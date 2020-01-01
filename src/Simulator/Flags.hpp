@@ -5,13 +5,13 @@
 #ifndef SIMULATORSFML_FLAGS_HPP
 #define SIMULATORSFML_FLAGS_HPP
 
-#define DRAW_FPS    false
+#define DRAW_FPS    true
 #define DRAW_ACTIVE false
 #define DRAW_DELETE false
 #define DRAW_ADDED  true
 
 #define MAX_FPS 60
-#define MULTI_COLOR false
+#define MULTI_COLOR true
 
 #define MIN_DISTANCE_FROM_NEXT_CAR 180
 #define MIN_DISTANCE_FROM_STOP 65

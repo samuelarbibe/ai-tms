@@ -12,30 +12,29 @@
 #include <iostream>
 #include <list>
 #include <SFML/Graphics.hpp>
+#include "../UI/QsfmlCanvas.hpp"
 #include "Map/Map.hpp"
 #include "Vehicle.hpp"
 #include "Flags.hpp"
 
 using namespace sf;
 
-class Engine{
-private:
-    
-    RenderWindow m_window;
-    
-    Sprite m_backgroundSprite;
-    Texture m_backgroundTexture;
-    
-    void input();
-    void update(float dtInSeconds);
-    void draw();
-    
+class Engine : public QSFMLCanvas
+{
 public:
-    Engine(int windowWidth, int windowHeight, const char * windowName);
-        
+
+    Engine(QWidget* Parent, const QPoint& Position, const QSize& Size);
+
+private:
+
+    void OnInit();
+    void OnUpdate();
+    void OnDraw();
+
+    void input();
+    void update(float elapsedTime);
+
     Map * map;
-    
-    void Start();
 };
 
 

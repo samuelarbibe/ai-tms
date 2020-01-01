@@ -4,47 +4,68 @@
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: ../../src/Simulator/Engine.cpp
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: ../../src/Simulator/Engine.hpp
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: ../../src/Simulator/Flags.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: ../../src/Simulator/Intersection.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: ../../src/Simulator/Lane.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: ../../src/Simulator/Map.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: ../../src/Simulator/Road.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: ../../src/Simulator/Map/Intersection.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: ../../src/Simulator/Map/Lane.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: ../../src/Simulator/Map/Map.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: ../../src/Simulator/Map/Road.hpp
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: ../../src/Simulator/Vehicle.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: ../../src/UI/QsfmlCanvas.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/QTimer
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/qtimer.h
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/QWidget
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qwidget.h
 
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Intersection.cpp.o: ../../src/Simulator/Flags.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Intersection.cpp.o: ../../src/Simulator/Intersection.cpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Intersection.cpp.o: ../../src/Simulator/Intersection.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Intersection.cpp.o: ../../src/Simulator/Lane.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Intersection.cpp.o: ../../src/Simulator/Road.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Intersection.cpp.o: ../../src/Simulator/Flags.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Intersection.cpp.o: ../../src/Simulator/Map/Intersection.cpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Intersection.cpp.o: ../../src/Simulator/Map/Intersection.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Intersection.cpp.o: ../../src/Simulator/Map/Lane.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Intersection.cpp.o: ../../src/Simulator/Map/Road.hpp
 
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Lane.cpp.o: ../../src/Simulator/Flags.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Lane.cpp.o: ../../src/Simulator/Lane.cpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Lane.cpp.o: ../../src/Simulator/Lane.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Lane.cpp.o: ../../src/Simulator/Flags.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Lane.cpp.o: ../../src/Simulator/Map/Lane.cpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Lane.cpp.o: ../../src/Simulator/Map/Lane.hpp
 
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Map.cpp.o: ../../src/Simulator/Flags.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Map.cpp.o: ../../src/Simulator/Intersection.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Map.cpp.o: ../../src/Simulator/Lane.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Map.cpp.o: ../../src/Simulator/Map.cpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Map.cpp.o: ../../src/Simulator/Map.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Map.cpp.o: ../../src/Simulator/Road.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Map.cpp.o: ../../src/Simulator/Flags.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Map.cpp.o: ../../src/Simulator/Map/Intersection.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Map.cpp.o: ../../src/Simulator/Map/Lane.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Map.cpp.o: ../../src/Simulator/Map/Map.cpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Map.cpp.o: ../../src/Simulator/Map/Map.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Map.cpp.o: ../../src/Simulator/Map/Road.hpp
 
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Road.cpp.o: ../../src/Simulator/Flags.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Road.cpp.o: ../../src/Simulator/Lane.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Road.cpp.o: ../../src/Simulator/Road.cpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Road.cpp.o: ../../src/Simulator/Road.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Road.cpp.o: ../../src/Simulator/Flags.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Road.cpp.o: ../../src/Simulator/Map/Lane.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Road.cpp.o: ../../src/Simulator/Map/Road.cpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Road.cpp.o: ../../src/Simulator/Map/Road.hpp
 
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Flags.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Intersection.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Lane.hpp
-CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Road.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Map/Intersection.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Map/Lane.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Map/Road.hpp
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Vehicle.cpp
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Vehicle.hpp
 
+CMakeFiles/SimulatorSFML.dir/src/UI/QsfmlCanvas.cpp.o: ../../src/UI/QsfmlCanvas.cpp
+CMakeFiles/SimulatorSFML.dir/src/UI/QsfmlCanvas.cpp.o: ../../src/UI/QsfmlCanvas.hpp
+CMakeFiles/SimulatorSFML.dir/src/UI/QsfmlCanvas.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/QTimer
+CMakeFiles/SimulatorSFML.dir/src/UI/QsfmlCanvas.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/qtimer.h
+CMakeFiles/SimulatorSFML.dir/src/UI/QsfmlCanvas.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/QWidget
+CMakeFiles/SimulatorSFML.dir/src/UI/QsfmlCanvas.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qwidget.h
+
 CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Simulator/Engine.hpp
 CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Simulator/Flags.hpp
-CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Simulator/Intersection.hpp
-CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Simulator/Lane.hpp
-CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Simulator/Map.hpp
-CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Simulator/Road.hpp
+CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Simulator/Map/Intersection.hpp
+CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Simulator/Map/Lane.hpp
+CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Simulator/Map/Map.hpp
+CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Simulator/Map/Road.hpp
 CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/Simulator/Vehicle.hpp
+CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/UI/QsfmlCanvas.hpp
 CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: ../../src/main.cpp
+CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/QTimer
+CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/qtimer.h
+CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/QApplication
+CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/QFrame
+CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/QWidget
+CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qapplication.h
+CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qframe.h
+CMakeFiles/SimulatorSFML.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qwidget.h
 

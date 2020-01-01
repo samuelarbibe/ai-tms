@@ -8,35 +8,16 @@
 
 #include "Engine.hpp"
 
-
-
 int Vehicle::VehicleCount = 0;
 list<Vehicle*> Vehicle::ActiveVehicles;
 
-Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
+Engine::Engine(QWidget *Parent, const QPoint &Position, const QSize &Size) : QSFMLCanvas(Parent, Position, Size, 1000.f/MAX_FPS)
 {
-    cout << "Creating window..." << endl;
-    m_window.create(VideoMode(windowWidth, windowHeight), windowName);
 
-    cout << "Setting max fps to " << MAX_FPS << "..." <<  endl;
-    m_window.setFramerateLimit(MAX_FPS);
+}
 
-    m_window.setView(View(FloatRect(0, 0, windowWidth, windowHeight)));
-
-    cout << "Activating window..." << endl;
-
-    m_window.setActive();
-
-    if(!m_window.isOpen())
-    {
-        cerr << "Window creation has failed..." << endl;
-        cerr << "Exiting Application..." << endl;
-        exit(1);
-    }
-    cout << "----------------------------------------------" << endl;
-    cout << "Window successfully created" << endl;
-    cout << "----------------------------------------------" << endl;
-
+void Engine::OnInit()
+{
     cout << "Setting up max speeds..." << endl;
     Vehicle::SetMaxSpeed(VehicleTypeOptions::CAR, 100.f, 1.5f);
     Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 80.f, 1.f);
@@ -44,11 +25,11 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
     cout << "Setting up weather conditions..." << endl;
     //Vehicle::SetWeatherCondition(WeatherCondition::DRY);
 
-    map = new Map(0, Vector2f(windowWidth/2, windowHeight/2), windowWidth, windowHeight);
+    map = new Map(0, Vector2f(this->width()/2, this->height()/2), this->width(), this->height());
 
-    map->AddIntersection(0,Vector2f(500, 500));
+    map->AddIntersection(0,Vector2f(this->width()/2, this->height()/2));
 
-    map->AddIntersection(0,Vector2f(500, 500));
+    map->AddIntersection(0,Vector2f(this->width()/2, this->height()/2));
 
     map->AddConnectingRoad(1, 1, 2, ConnectionSides::RIGHT, ConnectionSides::LEFT);
 
@@ -75,52 +56,16 @@ Engine::Engine(int windowWidth, int windowHeight, const char * windowName)
 
     map->AddLane(0, 5, false);
     map->AddLane(0, 5, true);
-
-};
-
-void Engine::Start(){
-    
-    Clock clock;
-    int frameCount = 0;
-    
-    while (m_window.isOpen()) {
-        
-        // count elapsed frames for FPS calculation
-        frameCount++;
-        
-        // the time it takes to do 1 frame iteration
-        Time dt = clock.restart();
-        
-        float dtInSeconds = dt.asSeconds();
-        
-        // print out FPS
-        if(DRAW_FPS && frameCount % 20 == 0) std::cout << 1/dtInSeconds << std::endl;
-        
-        sf::Event event;
-        while (m_window.pollEvent(event))
-        {
-            
-            if (event.type == sf::Event::Closed ||
-                (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)){
-                m_window.close();
-            }
-        }
-        
-        input();
-        update(dtInSeconds / (float)SCALE * (float)SPEED);
-        draw();
-        
-    }
 }
 
 void Engine::input(){
     
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
         Vehicle::AddVehicle(map->GetLane(1), map->GetLane(1), map->GetIntersection(1));
     }
 
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
         //Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter);
     }
@@ -135,32 +80,39 @@ void Engine::input(){
     }
 }
 
-void Engine::update(float dtInSeconds){
+void Engine::OnUpdate()
+{
+    if(DRAW_FPS)cout << "FPS : " << 1.f/myTimer.interval() * 1000 << endl;
+    input();
+    update((myTimer.interval()/1000.f) / (float)SCALE * (float)SPEED);
+    OnDraw();
+}
 
-    map->Update(dtInSeconds);
+void Engine::update(float elapsedTime)
+{
+    map->Update(elapsedTime);
 
     for (Vehicle *v : Vehicle::ActiveVehicles)
     {
-        v->Update(dtInSeconds);
+        v->Update(elapsedTime);
     }
-    
+
     //clear all cars to be deleted
     Vehicle::ClearVehicles();
+
+    OnDraw();
 }
 
-void Engine::draw()
+void Engine::OnDraw()
 {
     // Clean out the last frame
-    m_window.clear(BackgroundColor);
+    clear(BackgroundColor);
  
     // Draw the objects
-    this->map->Draw(&m_window);
+    this->map->Draw(this);
 
     for(Vehicle * v : Vehicle::ActiveVehicles)
     {
-        v->Draw(&m_window);
+        v->Draw(this);
     }
-     
-    // Show everything that has been drawn
-    m_window.display();
 }
