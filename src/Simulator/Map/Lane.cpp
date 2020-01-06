@@ -45,7 +45,7 @@ Lane::Lane(int laneNumber, int roadNumber, Vector2f startPosition, float width, 
     m_createArrowShape(t);
 }
 
-
+/// create the arrow shapes indicating the lane's direction
 void Lane::m_createArrowShape(Transform t)
 {
     m_arrowShape.setPointCount(7);
@@ -73,11 +73,13 @@ void Lane::m_createArrowShape(Transform t)
     m_arrowShape.setFillColor(WhiteColor);
 }
 
+/// update, for future use
 void Lane::Update(float elapsedTime)
 {
 
 }
 
+/// draw the road
 void Lane::Draw(RenderWindow *window)
 {
     window->draw(*this);

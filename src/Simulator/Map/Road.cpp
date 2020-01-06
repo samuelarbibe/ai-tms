@@ -8,6 +8,7 @@
 
 #include "Road.hpp"
 
+/// ctor for a normal road
 Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f startPosition, float length, float laneWidth, float direction)
 {
     m_isConnecting       = false;
@@ -41,6 +42,7 @@ Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f
     this->setSize(Vector2f(m_width, m_length));
 }
 
+/// ctor for a connecting road
 Road::Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int connectionSide1, int connectionSide2, Vector2f conPosition1, Vector2f conPosition2, float laneWidth, float direction)
 {
     m_isConnecting          = true;
@@ -69,6 +71,7 @@ Road::Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int
     this->setSize(Vector2f(m_width, m_length));
 }
 
+/// add a lane to a road
 Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
 {
     if(!laneNumber)
@@ -98,6 +101,7 @@ Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
     return m_lanes[m_numberOfLanes - 1];
 }
 
+/// get lane by laneNumber
 Lane * Road::GetLane(int laneNumber)
 {
     for (int i = 0; i < m_numberOfLanes; i++)
@@ -111,6 +115,7 @@ Lane * Road::GetLane(int laneNumber)
     return nullptr;
 }
 
+/// re-locate all lanes in road to align with the road
 void Road::reAssignLanePositions()
 {
     Vector2f  firstLanePoint;
@@ -160,6 +165,7 @@ void Road::reAssignLanePositions()
     }
 }
 
+/// update the road's start position
 void Road::UpdateStartPosition(Vector2f position)
 {
     m_startPosition = position;
@@ -172,6 +178,7 @@ void Road::UpdateStartPosition(Vector2f position)
     reAssignLanePositions();
 }
 
+/// update the road's end position
 void Road::UpdateEndPosition(Vector2f position)
 {
     m_endPosition = position;
@@ -181,6 +188,7 @@ void Road::UpdateEndPosition(Vector2f position)
     reAssignLanePositions();
 }
 
+/// calculate distance between 2 vectors
 float Road::calculateDistance(Vector2f a, Vector2f b)
 {
     float xDist = abs(a.x - b.x);
@@ -189,6 +197,7 @@ float Road::calculateDistance(Vector2f a, Vector2f b)
     return sqrt(xDist*xDist + yDist*yDist);
 }
 
+/// update, for future use
 void Road::Update(float elapsedTime)
 {
     for(Lane * l : m_lanes)
@@ -197,6 +206,7 @@ void Road::Update(float elapsedTime)
     }
 }
 
+/// draw the road and al of its lanes
 void Road::Draw(RenderWindow * window)
 {
     window->draw(*this);

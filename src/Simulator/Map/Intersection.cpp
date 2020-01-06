@@ -26,6 +26,7 @@ Intersection::Intersection(Vector2f position, int intersectionNumber, WeatherCon
     this->setSize(Vector2f(m_width, m_height));
 };
 
+/// add a road to an intersection
 Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
 {
     if(!roadNumber)
@@ -43,6 +44,7 @@ Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
     return m_roads[m_numberOfRoads-1];
 }
 
+/// add a connecting road between 2 different intersections
 Road * Intersection::AddConnectingRoad(int roadNumber, int connectionSide1, int connectionSide2, Intersection * connectedIntersection)
 {
     if(!roadNumber)
@@ -64,6 +66,7 @@ Road * Intersection::AddConnectingRoad(int roadNumber, int connectionSide1, int 
     return m_roads[m_numberOfRoads-1];
 }
 
+/// get a lane by laneNumber
 Lane * Intersection::GetLane(int laneNumber)
 {
     Lane * temp;
@@ -79,6 +82,7 @@ Lane * Intersection::GetLane(int laneNumber)
     return nullptr;
 }
 
+/// get a road by roadNUmber
 Road * Intersection::GetRoad(int roadNumber)
 {
     Road * temp;
@@ -94,6 +98,7 @@ Road * Intersection::GetRoad(int roadNumber)
     return nullptr;
 }
 
+/// get road connected to an intersection by its connection side
 Road * Intersection::GetRoadByConnectionSide(int connectionSide)
 {
     
@@ -113,7 +118,7 @@ Road * Intersection::GetRoadByConnectionSide(int connectionSide)
 }
 
 
-
+/// add a regular lane to an intersection
 Lane * Intersection::AddLane(int laneNumber, int roadNumber, bool isInRoadDirection)
 {
     Road * temp = GetRoad(roadNumber);
@@ -149,7 +154,7 @@ Lane * Intersection::AddLane(int laneNumber, int roadNumber, bool isInRoadDirect
     return l;
 }
 
-
+/// get the position of an intersection connection by side
 Vector2f Intersection::GetPositionByConnectionSide(int connectionSide)
 {
     switch (connectionSide) {
@@ -175,6 +180,7 @@ Vector2f Intersection::GetPositionByConnectionSide(int connectionSide)
     }
 }
 
+/// re-locate the whole intersection
 void Intersection::reAssignIntersectionPosition(Vector2f position)
 {
     m_position = position;
@@ -182,6 +188,7 @@ void Intersection::reAssignIntersectionPosition(Vector2f position)
     reAssignRoadPositions();
 }
 
+/// relocate all roads connected to intersection
 void Intersection::reAssignRoadPositions()
 {
     for (int i = 0 ; i < m_numberOfRoads; i++)
@@ -201,6 +208,7 @@ void Intersection::reAssignRoadPositions()
     }
 }
 
+/// update , for future use
 void Intersection::Update(float elapsedTime)
 {
     for(Road * r : m_roads)
@@ -209,6 +217,8 @@ void Intersection::Update(float elapsedTime)
     }
 }
 
+
+/// draw the intersection and everything that belongs to it
 void Intersection::Draw(RenderWindow *window)
 {
     (*window).draw(*this);

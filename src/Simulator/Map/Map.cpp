@@ -19,6 +19,7 @@ Map::Map(int mapNumber, Vector2f position, int width, int height)
     m_numberOfIntersections = 0;
 }
 
+/// add an intersection to the map
 Intersection * Map::AddIntersection(int intersectionNumber, Vector2f position,
                                    WeatherCondition weatherCondition) {
     if(!intersectionNumber)
@@ -38,6 +39,7 @@ Intersection * Map::AddIntersection(int intersectionNumber, Vector2f position,
     return m_intersections[m_numberOfIntersections-1];
 }
 
+/// add a road to a specific intersection
 Road * Map::AddRoad(int roadNumber, int intersectionNumber, int connectionSide, float length)
 {
     Intersection * temp = GetIntersection(intersectionNumber);
@@ -50,6 +52,7 @@ Road * Map::AddRoad(int roadNumber, int intersectionNumber, int connectionSide, 
     return nullptr;
 }
 
+/// add a road to a specific road
 Lane * Map::AddLane(int laneNumber, int roadNumber, bool isInRoadDirection)
 {
     Road *tempRoad = GetRoad(roadNumber);
@@ -68,6 +71,7 @@ Lane * Map::AddLane(int laneNumber, int roadNumber, bool isInRoadDirection)
     return nullptr;
 }
 
+/// add a road connecting between two intersections
 Road * Map::AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2 ,int connectionSide1, int connectionSide2)
 {
     Intersection * inter1 = GetIntersection(intersectionNumber1);
@@ -88,6 +92,7 @@ Road * Map::AddConnectingRoad(int roadNumber, int intersectionNumber1, int inter
     return inter1->AddConnectingRoad(roadNumber, connectionSide1, connectionSide2, inter2);
 }
 
+/// get intersection by intersectionNumber
 Intersection * Map::GetIntersection(int intersectionNumber)
 {
     Intersection * temp;
@@ -105,6 +110,8 @@ Intersection * Map::GetIntersection(int intersectionNumber)
     return nullptr;
 }
 
+
+/// get road by roadNumber
 Road * Map::GetRoad(int roadNumber)
 {
     Road * temp;
@@ -122,6 +129,7 @@ Road * Map::GetRoad(int roadNumber)
     return nullptr;
 }
 
+/// get lane by lane number
 Lane * Map::GetLane(int laneNumber)
 {
     Lane * temp;
@@ -139,6 +147,7 @@ Lane * Map::GetLane(int laneNumber)
     return nullptr;
 }
 
+/// re-locate 2 connected intersections, to fit the map
 bool Map::reAssignIntersectionPositions(Intersection * intersection1, Intersection * intersection2 ,int connectionSide1, int connectionSide2)
 {
     Vector2f pos1, pos2;
@@ -186,11 +195,13 @@ bool Map::reAssignIntersectionPositions(Intersection * intersection1, Intersecti
     return true;
 }
 
+/// update, for future use
 void Map::Update(float elapsedTime)
 {
 
 }
 
+/// draw the map, and all of its belongings
 void Map::Draw(RenderWindow * window)
 {
     for (int i = 0 ; i < m_numberOfIntersections; i++)

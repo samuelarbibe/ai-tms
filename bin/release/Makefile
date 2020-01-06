@@ -123,167 +123,194 @@ SimulatorSFML/fast:
 	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/build
 .PHONY : SimulatorSFML/fast
 
-src/Engine.o: src/Engine.cpp.o
+src/Simulator/Engine.o: src/Simulator/Engine.cpp.o
 
-.PHONY : src/Engine.o
-
-# target to build an object file
-src/Engine.cpp.o:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.o
-.PHONY : src/Engine.cpp.o
-
-src/Engine.i: src/Engine.cpp.i
-
-.PHONY : src/Engine.i
-
-# target to preprocess a source file
-src/Engine.cpp.i:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.i
-.PHONY : src/Engine.cpp.i
-
-src/Engine.s: src/Engine.cpp.s
-
-.PHONY : src/Engine.s
-
-# target to generate assembly for a file
-src/Engine.cpp.s:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Engine.cpp.s
-.PHONY : src/Engine.cpp.s
-
-src/Intersection.o: src/Intersection.cpp.o
-
-.PHONY : src/Intersection.o
+.PHONY : src/Simulator/Engine.o
 
 # target to build an object file
-src/Intersection.cpp.o:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.o
-.PHONY : src/Intersection.cpp.o
+src/Simulator/Engine.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o
+.PHONY : src/Simulator/Engine.cpp.o
 
-src/Intersection.i: src/Intersection.cpp.i
+src/Simulator/Engine.i: src/Simulator/Engine.cpp.i
 
-.PHONY : src/Intersection.i
+.PHONY : src/Simulator/Engine.i
 
 # target to preprocess a source file
-src/Intersection.cpp.i:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.i
-.PHONY : src/Intersection.cpp.i
+src/Simulator/Engine.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.i
+.PHONY : src/Simulator/Engine.cpp.i
 
-src/Intersection.s: src/Intersection.cpp.s
+src/Simulator/Engine.s: src/Simulator/Engine.cpp.s
 
-.PHONY : src/Intersection.s
+.PHONY : src/Simulator/Engine.s
 
 # target to generate assembly for a file
-src/Intersection.cpp.s:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Intersection.cpp.s
-.PHONY : src/Intersection.cpp.s
+src/Simulator/Engine.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.s
+.PHONY : src/Simulator/Engine.cpp.s
 
-src/Lane.o: src/Lane.cpp.o
+src/Simulator/Map/Intersection.o: src/Simulator/Map/Intersection.cpp.o
 
-.PHONY : src/Lane.o
+.PHONY : src/Simulator/Map/Intersection.o
 
 # target to build an object file
-src/Lane.cpp.o:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.o
-.PHONY : src/Lane.cpp.o
+src/Simulator/Map/Intersection.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Intersection.cpp.o
+.PHONY : src/Simulator/Map/Intersection.cpp.o
 
-src/Lane.i: src/Lane.cpp.i
+src/Simulator/Map/Intersection.i: src/Simulator/Map/Intersection.cpp.i
 
-.PHONY : src/Lane.i
+.PHONY : src/Simulator/Map/Intersection.i
 
 # target to preprocess a source file
-src/Lane.cpp.i:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.i
-.PHONY : src/Lane.cpp.i
+src/Simulator/Map/Intersection.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Intersection.cpp.i
+.PHONY : src/Simulator/Map/Intersection.cpp.i
 
-src/Lane.s: src/Lane.cpp.s
+src/Simulator/Map/Intersection.s: src/Simulator/Map/Intersection.cpp.s
 
-.PHONY : src/Lane.s
+.PHONY : src/Simulator/Map/Intersection.s
 
 # target to generate assembly for a file
-src/Lane.cpp.s:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Lane.cpp.s
-.PHONY : src/Lane.cpp.s
+src/Simulator/Map/Intersection.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Intersection.cpp.s
+.PHONY : src/Simulator/Map/Intersection.cpp.s
 
-src/Map.o: src/Map.cpp.o
+src/Simulator/Map/Lane.o: src/Simulator/Map/Lane.cpp.o
 
-.PHONY : src/Map.o
+.PHONY : src/Simulator/Map/Lane.o
 
 # target to build an object file
-src/Map.cpp.o:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Map.cpp.o
-.PHONY : src/Map.cpp.o
+src/Simulator/Map/Lane.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Lane.cpp.o
+.PHONY : src/Simulator/Map/Lane.cpp.o
 
-src/Map.i: src/Map.cpp.i
+src/Simulator/Map/Lane.i: src/Simulator/Map/Lane.cpp.i
 
-.PHONY : src/Map.i
+.PHONY : src/Simulator/Map/Lane.i
 
 # target to preprocess a source file
-src/Map.cpp.i:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Map.cpp.i
-.PHONY : src/Map.cpp.i
+src/Simulator/Map/Lane.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Lane.cpp.i
+.PHONY : src/Simulator/Map/Lane.cpp.i
 
-src/Map.s: src/Map.cpp.s
+src/Simulator/Map/Lane.s: src/Simulator/Map/Lane.cpp.s
 
-.PHONY : src/Map.s
+.PHONY : src/Simulator/Map/Lane.s
 
 # target to generate assembly for a file
-src/Map.cpp.s:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Map.cpp.s
-.PHONY : src/Map.cpp.s
+src/Simulator/Map/Lane.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Lane.cpp.s
+.PHONY : src/Simulator/Map/Lane.cpp.s
 
-src/Road.o: src/Road.cpp.o
+src/Simulator/Map/Map.o: src/Simulator/Map/Map.cpp.o
 
-.PHONY : src/Road.o
+.PHONY : src/Simulator/Map/Map.o
 
 # target to build an object file
-src/Road.cpp.o:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Road.cpp.o
-.PHONY : src/Road.cpp.o
+src/Simulator/Map/Map.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Map.cpp.o
+.PHONY : src/Simulator/Map/Map.cpp.o
 
-src/Road.i: src/Road.cpp.i
+src/Simulator/Map/Map.i: src/Simulator/Map/Map.cpp.i
 
-.PHONY : src/Road.i
+.PHONY : src/Simulator/Map/Map.i
 
 # target to preprocess a source file
-src/Road.cpp.i:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Road.cpp.i
-.PHONY : src/Road.cpp.i
+src/Simulator/Map/Map.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Map.cpp.i
+.PHONY : src/Simulator/Map/Map.cpp.i
 
-src/Road.s: src/Road.cpp.s
+src/Simulator/Map/Map.s: src/Simulator/Map/Map.cpp.s
 
-.PHONY : src/Road.s
+.PHONY : src/Simulator/Map/Map.s
 
 # target to generate assembly for a file
-src/Road.cpp.s:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Road.cpp.s
-.PHONY : src/Road.cpp.s
+src/Simulator/Map/Map.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Map.cpp.s
+.PHONY : src/Simulator/Map/Map.cpp.s
 
-src/Vehicle.o: src/Vehicle.cpp.o
+src/Simulator/Map/Road.o: src/Simulator/Map/Road.cpp.o
 
-.PHONY : src/Vehicle.o
+.PHONY : src/Simulator/Map/Road.o
 
 # target to build an object file
-src/Vehicle.cpp.o:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.o
-.PHONY : src/Vehicle.cpp.o
+src/Simulator/Map/Road.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Road.cpp.o
+.PHONY : src/Simulator/Map/Road.cpp.o
 
-src/Vehicle.i: src/Vehicle.cpp.i
+src/Simulator/Map/Road.i: src/Simulator/Map/Road.cpp.i
 
-.PHONY : src/Vehicle.i
+.PHONY : src/Simulator/Map/Road.i
 
 # target to preprocess a source file
-src/Vehicle.cpp.i:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.i
-.PHONY : src/Vehicle.cpp.i
+src/Simulator/Map/Road.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Road.cpp.i
+.PHONY : src/Simulator/Map/Road.cpp.i
 
-src/Vehicle.s: src/Vehicle.cpp.s
+src/Simulator/Map/Road.s: src/Simulator/Map/Road.cpp.s
 
-.PHONY : src/Vehicle.s
+.PHONY : src/Simulator/Map/Road.s
 
 # target to generate assembly for a file
-src/Vehicle.cpp.s:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Vehicle.cpp.s
-.PHONY : src/Vehicle.cpp.s
+src/Simulator/Map/Road.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Road.cpp.s
+.PHONY : src/Simulator/Map/Road.cpp.s
+
+src/Simulator/Vehicle.o: src/Simulator/Vehicle.cpp.o
+
+.PHONY : src/Simulator/Vehicle.o
+
+# target to build an object file
+src/Simulator/Vehicle.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o
+.PHONY : src/Simulator/Vehicle.cpp.o
+
+src/Simulator/Vehicle.i: src/Simulator/Vehicle.cpp.i
+
+.PHONY : src/Simulator/Vehicle.i
+
+# target to preprocess a source file
+src/Simulator/Vehicle.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.i
+.PHONY : src/Simulator/Vehicle.cpp.i
+
+src/Simulator/Vehicle.s: src/Simulator/Vehicle.cpp.s
+
+.PHONY : src/Simulator/Vehicle.s
+
+# target to generate assembly for a file
+src/Simulator/Vehicle.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.s
+.PHONY : src/Simulator/Vehicle.cpp.s
+
+src/UI/QsfmlCanvas.o: src/UI/QsfmlCanvas.cpp.o
+
+.PHONY : src/UI/QsfmlCanvas.o
+
+# target to build an object file
+src/UI/QsfmlCanvas.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/QsfmlCanvas.cpp.o
+.PHONY : src/UI/QsfmlCanvas.cpp.o
+
+src/UI/QsfmlCanvas.i: src/UI/QsfmlCanvas.cpp.i
+
+.PHONY : src/UI/QsfmlCanvas.i
+
+# target to preprocess a source file
+src/UI/QsfmlCanvas.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/QsfmlCanvas.cpp.i
+.PHONY : src/UI/QsfmlCanvas.cpp.i
+
+src/UI/QsfmlCanvas.s: src/UI/QsfmlCanvas.cpp.s
+
+.PHONY : src/UI/QsfmlCanvas.s
+
+# target to generate assembly for a file
+src/UI/QsfmlCanvas.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/QsfmlCanvas.cpp.s
+.PHONY : src/UI/QsfmlCanvas.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -321,24 +348,27 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... SimulatorSFML"
-	@echo "... src/Engine.o"
-	@echo "... src/Engine.i"
-	@echo "... src/Engine.s"
-	@echo "... src/Intersection.o"
-	@echo "... src/Intersection.i"
-	@echo "... src/Intersection.s"
-	@echo "... src/Lane.o"
-	@echo "... src/Lane.i"
-	@echo "... src/Lane.s"
-	@echo "... src/Map.o"
-	@echo "... src/Map.i"
-	@echo "... src/Map.s"
-	@echo "... src/Road.o"
-	@echo "... src/Road.i"
-	@echo "... src/Road.s"
-	@echo "... src/Vehicle.o"
-	@echo "... src/Vehicle.i"
-	@echo "... src/Vehicle.s"
+	@echo "... src/Simulator/Engine.o"
+	@echo "... src/Simulator/Engine.i"
+	@echo "... src/Simulator/Engine.s"
+	@echo "... src/Simulator/Map/Intersection.o"
+	@echo "... src/Simulator/Map/Intersection.i"
+	@echo "... src/Simulator/Map/Intersection.s"
+	@echo "... src/Simulator/Map/Lane.o"
+	@echo "... src/Simulator/Map/Lane.i"
+	@echo "... src/Simulator/Map/Lane.s"
+	@echo "... src/Simulator/Map/Map.o"
+	@echo "... src/Simulator/Map/Map.i"
+	@echo "... src/Simulator/Map/Map.s"
+	@echo "... src/Simulator/Map/Road.o"
+	@echo "... src/Simulator/Map/Road.i"
+	@echo "... src/Simulator/Map/Road.s"
+	@echo "... src/Simulator/Vehicle.o"
+	@echo "... src/Simulator/Vehicle.i"
+	@echo "... src/Simulator/Vehicle.s"
+	@echo "... src/UI/QsfmlCanvas.o"
+	@echo "... src/UI/QsfmlCanvas.i"
+	@echo "... src/UI/QsfmlCanvas.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

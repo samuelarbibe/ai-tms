@@ -81,6 +81,7 @@ void Vehicle::ClearVehicles()
     }
 }
 
+/// add a vehicle with an instruction set
 Vehicle * Vehicle::AddVehicle(Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection,
                               VehicleTypeOptions vehicleType, int vehicleNumber){
 
@@ -99,6 +100,7 @@ Vehicle * Vehicle::AddVehicle(Lane * sourceLane, Lane * destinationLane, Interse
     return temp;
 }
 
+/// load textures as required
 bool Vehicle::LoadVehicleTextures(VehicleType * vehicleType)
 {
     if(vehicleType->Textures == nullptr)
@@ -131,6 +133,7 @@ bool Vehicle::LoadVehicleTextures(VehicleType * vehicleType)
     return false;
 }
 
+/// set a vehicle's max speed
 void Vehicle::SetMaxSpeed(VehicleTypeOptions vehicleType, float max_speed, float max_acceleration)
 {
     VehicleType * temp = GetVehicleTypeByOption(vehicleType);
@@ -139,11 +142,11 @@ void Vehicle::SetMaxSpeed(VehicleTypeOptions vehicleType, float max_speed, float
     temp->MinAcceleration = -max_acceleration;
 }
 
+/// convert vehicleTypeOption to VehicleType struct
 VehicleType * Vehicle::GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions)
 {
     switch (vehicleTypeOptions)
     {
-
         case TRUCK:
             return &(Vehicle::Truck);
         case MOTORCYCLE:
@@ -154,6 +157,7 @@ VehicleType * Vehicle::GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOpti
     }
 }
 
+/// get vehicle by vehicleNumber
 Vehicle * Vehicle::GetVehicle(int vehicleNumber)
 {
     for(Vehicle *v : ActiveVehicles)
@@ -167,6 +171,7 @@ Vehicle * Vehicle::GetVehicle(int vehicleNumber)
     return nullptr;
 }
 
+/// transfer a vehicle from a lane to another lane
 void Vehicle::TransferVehicle(Vehicle * vehicle, Lane * fromLane, Lane * toLane)
 {
     if(vehicle == nullptr)
@@ -195,7 +200,7 @@ void Vehicle::TransferVehicle(Vehicle * vehicle, Lane * fromLane, Lane * toLane)
     vehicle->m_currentLane->SetLastCar(vehicle->m_vehicleNumber);
 }
 
-
+/// do drive cycle
 State Vehicle::drive()
 {
     // check for distance with car in front
@@ -275,11 +280,13 @@ State Vehicle::drive()
         return DELETE;
     }
 
+    // default = just drive
     m_acceleration = m_maxAcceleration;
     m_state = DRIVE;
     return DRIVE;
 }
 
+/// calculate a distance between two vectors
 float Vehicle::calculateDistance(Vector2f a, Vector2f b)
 {
     float xDist = abs(a.x - b.x);
@@ -288,12 +295,14 @@ float Vehicle::calculateDistance(Vector2f a, Vector2f b)
     return sqrt(xDist*xDist + yDist*yDist);
 }
 
+/// update a vehicle's location
 void Vehicle::Update(float elapsedTime){
 
     drive();
     applyChanges(elapsedTime);
 }
 
+/// apply the calculated next position
 void Vehicle::applyChanges(float elapsedTime)
 {
     // apply acceleration
@@ -324,6 +333,8 @@ void Vehicle::applyChanges(float elapsedTime)
     m_sprite.setRotation(m_rotation);
 }
 
+
+/// render the vehicle
 void Vehicle::Draw(RenderWindow *window)
 {
     (*window).draw(this->m_sprite);

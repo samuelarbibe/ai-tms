@@ -16,6 +16,7 @@ Engine::Engine(QWidget *Parent, const QPoint &Position, const QSize &Size) : QSF
 
 }
 
+/// set up the map according to the selected presets
 void Engine::OnInit()
 {
     cout << "Setting up max speeds..." << endl;
@@ -58,6 +59,7 @@ void Engine::OnInit()
     map->AddLane(0, 5, true);
 }
 
+/// get use input, and make changes accordingly
 void Engine::input(){
     
     if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
@@ -80,6 +82,7 @@ void Engine::input(){
     }
 }
 
+/// do the game cycle (input->update->draw)
 void Engine::OnUpdate()
 {
     if(DRAW_FPS)cout << "FPS : " << 1.f/myTimer.interval() * 1000 << endl;
@@ -88,6 +91,7 @@ void Engine::OnUpdate()
     OnDraw();
 }
 
+/// update all the engine's objects
 void Engine::update(float elapsedTime)
 {
     map->Update(elapsedTime);
@@ -103,6 +107,7 @@ void Engine::update(float elapsedTime)
     OnDraw();
 }
 
+/// render the engine's objects
 void Engine::OnDraw()
 {
     // Clean out the last frame
