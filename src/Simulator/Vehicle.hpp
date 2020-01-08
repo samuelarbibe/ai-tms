@@ -11,8 +11,9 @@
 
 #include <iostream>
 #include <cstring>
+#include <queue>
 #include <SFML/Graphics.hpp>
-#include "Map/Intersection.hpp"
+#include "Map/Map.hpp"
 #include "Flags.hpp"
 
 using namespace std;
@@ -44,13 +45,13 @@ public:
 
     static void ClearVehicles();
     static void SetMaxSpeed(VehicleTypeOptions vehicleType, float max_speed, float max_acceleration);
-    static void TransferVehicle(Vehicle * vehicle, Lane * fromLane, Lane * toLane);
+    static void TransferVehicle(Vehicle * vehicle, Lane * toLane, Lane * fromLane = nullptr);
     static bool LoadVehicleTextures(VehicleType * vehicleType);
     static VehicleType * GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions);
     static Vehicle * GetVehicle(int vehicleNumber);
-    static Vehicle * AddVehicle(Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection, VehicleTypeOptions vehicleType = CAR, int vehicleNumber = VehicleCount + 1);
+    static Vehicle * AddVehicle(queue<Lane*> * instructionSet, Map * map, VehicleTypeOptions vehicleType = CAR, int vehicleNumber = VehicleCount + 1);
 
-    Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, Lane * sourceLane, Lane * destinationLane, Intersection * currentIntersection);
+    Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane*> * instructionSet, Map * map);
     ~Vehicle(){if(DRAW_DELETE)cout << "Vehicle " << m_vehicleNumber << " deleted" << endl;};
 
     void Draw(RenderWindow * window);
@@ -86,10 +87,12 @@ private:
     Vehicle *m_vehicleInFront;
 
     int      m_vehicleNumber;
+    queue<Lane *> * m_instructionSet;
 
+    Map  *   m_currentMap;
     Lane *   m_sourceLane;
     Lane *   m_targetLane;
-    Lane *   m_currentLane;
+    //Lane *   m_currentLane;
     Intersection * m_currentIntersection;
 
     State    m_state;

@@ -8,10 +8,11 @@
 
 #include "Lane.hpp"
 
-Lane::Lane(int laneNumber, int roadNumber, Vector2f startPosition, float width, float length, float direction)
+Lane::Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f startPosition, float width, float length, float direction)
 {
     m_laneNumber    = laneNumber;
     m_roadNumber    = roadNumber;
+    m_intersectionNumber = intersectionNumber;
     m_startPosition = startPosition;
     m_width         = width;
     m_length        = length;

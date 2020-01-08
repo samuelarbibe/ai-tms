@@ -110,6 +110,13 @@ Intersection * Map::GetIntersection(int intersectionNumber)
     return nullptr;
 }
 
+/// get intersection by lane number
+Intersection * Map::GetIntersectionByLaneNumber(int laneNumber) {
+
+    Lane * l = this->GetLane(laneNumber);
+    Road * r = this->GetRoad(l->GetRoadNumber());
+    return this->GetIntersection(r->GetIntersectionNumber(0));
+}
 
 /// get road by roadNumber
 Road * Map::GetRoad(int roadNumber)
@@ -209,5 +216,7 @@ void Map::Draw(RenderWindow * window)
         m_intersections[i]->Draw(window);
     }
 }
+
+
 
 

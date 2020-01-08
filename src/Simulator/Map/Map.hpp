@@ -30,6 +30,7 @@ public:
     Road * AddRoad(int roadNumber, int intersectionNumber, int connectionSide, float length);
     Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
     Road * AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2 ,int connectionSide1, int connectionSide2);
+    Intersection * GetIntersectionByLaneNumber(int laneNumber);
     Intersection * GetIntersection(int intersectionNumber);
     Road * GetRoad(int roadNumber);
     Lane * GetLane(int laneNumber);

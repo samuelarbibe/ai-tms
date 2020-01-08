@@ -14,6 +14,7 @@ Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f
     m_isConnecting       = false;
     m_roadNumber         = roadNumber;
     m_intersectionNumber[0] = intersectionNumber;
+    m_intersectionNumber[1] = intersectionNumber;
     m_connectionSide[0]     = connectionSide;
     m_startPosition      = startPosition;
     m_length             = length;
@@ -80,11 +81,11 @@ Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
     }
     
     if (isInRoadDirection) {
-        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_startPosition, m_laneWidth, m_length, m_direction));
+        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_intersectionNumber[isInRoadDirection], m_startPosition, m_laneWidth, m_length, m_direction));
     }
     else
     {
-        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_endPosition, m_laneWidth, m_length, (m_direction + 180.f)));
+        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_intersectionNumber[isInRoadDirection], m_endPosition, m_laneWidth, m_length, (m_direction + 180.f)));
     }
     
     m_numberOfLanes++;
@@ -151,7 +152,7 @@ void Road::reAssignLanePositions()
         if(tempLaneDirection == m_direction)
         {
             // send calculated starting point
-            m_lanes[i] = new Lane(tempLaneNumber, m_roadNumber, firstLanePoint + z.transformPoint(laneDifference), m_laneWidth, m_length, m_direction);
+            m_lanes[i] = new Lane(tempLaneNumber, m_roadNumber, m_intersectionNumber[1], firstLanePoint + z.transformPoint(laneDifference), m_laneWidth, m_length, m_direction);
         }
         else
         {
@@ -159,7 +160,7 @@ void Road::reAssignLanePositions()
             y.rotate(m_direction);
             lengthVec = y.transformPoint(Vector2f(0.f, -1.f)) * m_length;
             
-            m_lanes[i] = new Lane(tempLaneNumber, m_roadNumber, firstLanePoint + z.transformPoint(laneDifference) + lengthVec,
+            m_lanes[i] = new Lane(tempLaneNumber, m_roadNumber, m_intersectionNumber[0], firstLanePoint + z.transformPoint(laneDifference) + lengthVec,
                            m_laneWidth, m_length, (m_direction + 180.f));
         }
     }

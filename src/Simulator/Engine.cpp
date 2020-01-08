@@ -28,6 +28,7 @@ void Engine::OnInit()
 
     map = new Map(0, Vector2f(this->width()/2, this->height()/2), this->width(), this->height());
 
+
     map->AddIntersection(0,Vector2f(this->width()/2, this->height()/2));
 
     map->AddIntersection(0,Vector2f(this->width()/2, this->height()/2));
@@ -42,8 +43,6 @@ void Engine::OnInit()
 
 
     map->AddLane(0, 1, false);
-    map->AddLane(0, 1, false);
-    map->AddLane(0, 1, true);
     map->AddLane(0, 1, true);
 
     map->AddLane(0, 2, false);
@@ -57,6 +56,21 @@ void Engine::OnInit()
 
     map->AddLane(0, 5, false);
     map->AddLane(0, 5, true);
+
+
+    /*
+    map->AddIntersection(0, Vector2f(this->width()/2, this->height()/2));
+    map->AddRoad(0, 1, 1, 300);
+    map->AddRoad(0, 1, 2, 300);
+
+    map->AddLane(0, 1, false);
+    map->AddLane(0, 1, true);
+    map->AddLane(0, 2, false);
+    map->AddLane(0, 2, true);
+     */
+
+
+
 }
 
 /// get use input, and make changes accordingly
@@ -64,7 +78,13 @@ void Engine::input(){
     
     if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
-        Vehicle::AddVehicle(map->GetLane(1), map->GetLane(1), map->GetIntersection(1));
+        queue<Lane*> * tempQueue = new queue<Lane*>();
+
+        tempQueue->push(map->GetLane(5));
+        tempQueue->push(map->GetLane(2));
+        tempQueue->push(map->GetLane(10));
+
+        Vehicle::AddVehicle(tempQueue, this->map);
     }
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left))

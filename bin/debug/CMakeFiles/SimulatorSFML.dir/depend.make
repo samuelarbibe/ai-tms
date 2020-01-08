@@ -40,6 +40,7 @@ CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Road.cpp.o: ../../src/Simulator/M
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Flags.hpp
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Map/Intersection.hpp
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Map/Lane.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Map/Map.hpp
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Map/Road.hpp
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Vehicle.cpp
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o: ../../src/Simulator/Vehicle.hpp
