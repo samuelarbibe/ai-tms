@@ -18,7 +18,7 @@ class Map {
 
 public:
     Map(int mapNumber, Vector2f position, int width, int height);
-    ~Map(){if(DRAW_DELETE)cout << "Intersection " << m_mapNumber << "deleted" << endl;};
+    ~Map(){if(DRAW_DELETE)cout << "Intersection " << m_mapNumber << "deleted" << endl;}
 
     bool   reAssignIntersectionPositions(Intersection * intersection1, Intersection * intersection2 ,int connectionSide1, int connectionSide2);
     void   assignAvaialablePosition();

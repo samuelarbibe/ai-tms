@@ -131,9 +131,9 @@ Lane * Intersection::AddLane(int laneNumber, int roadNumber, bool isInRoadDirect
     Road * r2 = GetRoadByConnectionSide(2);
     Road * r3 = GetRoadByConnectionSide(3);
     Road * r4 = GetRoadByConnectionSide(4);
-    
-    
-    m_width = r1->GetWidth();
+
+
+    if(r1 != nullptr)m_width = r1->GetWidth();
     if(r2 != nullptr)m_height = r2->GetWidth();
     
     if(r3 != nullptr && r3->GetWidth() > m_width)

@@ -8,21 +8,16 @@
 
 #include <iostream>
 #include <QApplication>
+#include <QWidget>
 #include <QFrame>
-#include "Simulator/Engine.hpp"
+#include "UI/mainwindow.h"
 
 int main(int argc, char **argv)
 {
     QApplication Application(argc, argv);
 
-    // Create the main frame
-    QFrame* MainFrame = new QFrame;
-    MainFrame->setWindowTitle("Qt SFML");
-    MainFrame->resize(1000, 1000);
-    MainFrame->show();
-
-    Engine * SimulatorEngine = new Engine(MainFrame, QPoint(0, 0), QSize(1000, 1000));
-    SimulatorEngine->show();
+    MainWindow * main = new MainWindow;
+    main->show();
 
     return Application.exec();
 }

@@ -1,0 +1,5 @@
+-I/Users/samuelarbibe/Github/SimulatorSFML
+-I/Users/samuelarbibe/Github/SimulatorSFML/bin/release
+-o
+/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/Map/moc_Intersection.cpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Intersection.hpp

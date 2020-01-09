@@ -12,7 +12,7 @@
 #include <iostream>
 #include <list>
 #include <SFML/Graphics.hpp>
-#include "../UI/QsfmlCanvas.hpp"
+#include "../UI/Widgets/QsfmlCanvas.hpp"
 #include "Map/Map.hpp"
 #include "Vehicle.hpp"
 #include "Flags.hpp"
@@ -23,7 +23,7 @@ class Engine : public QSFMLCanvas
 {
 public:
 
-    Engine(QWidget* Parent, const QPoint& Position, const QSize& Size);
+    Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000.f/MAX_FPS){}
 
 private:
 

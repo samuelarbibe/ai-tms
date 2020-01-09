@@ -11,11 +11,6 @@
 int Vehicle::VehicleCount = 0;
 list<Vehicle*> Vehicle::ActiveVehicles;
 
-Engine::Engine(QWidget *Parent, const QPoint &Position, const QSize &Size) : QSFMLCanvas(Parent, Position, Size, 1000.f/MAX_FPS)
-{
-
-}
-
 /// set up the map according to the selected presets
 void Engine::OnInit()
 {

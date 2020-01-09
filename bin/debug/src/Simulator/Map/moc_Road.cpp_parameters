@@ -1,0 +1,5 @@
+-I/Users/samuelarbibe/Github/SimulatorSFML
+-I/Users/samuelarbibe/Github/SimulatorSFML/bin/debug
+-o
+/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/Map/moc_Road.cpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Road.hpp

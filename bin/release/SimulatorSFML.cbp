@@ -5,7 +5,7 @@
 		<Option title="SimulatorSFML"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\Cellar\;CMake Files\..\..\..\..\usr\local\Cellar\qt\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\;CMake Files\..\..\..\..\Library\;CMake Files\..\..\..\..\Library\Frameworks\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\CMake\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\Cellar\;CMake Files\..\..\..\..\usr\local\Cellar\qt\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\;CMake Files\..\..\..\..\Library\;CMake Files\..\..\..\..\Library\Frameworks\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\CMake\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/Users/samuelarbibe/Github/SimulatorSFML/bin/release"/>
@@ -48,6 +48,9 @@
 					<Add option="-DQT_GUI_LIB"/>
 					<Add option="-DQT_CORE_LIB"/>
 					<Add option="-DQT_NO_DEBUG"/>
+					<Add directory="/Users/samuelarbibe/Github/SimulatorSFML/bin/release"/>
+					<Add directory="/Users/samuelarbibe/Github/SimulatorSFML"/>
+					<Add directory="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/SimulatorSFML_autogen/include"/>
 					<Add directory="/Library/Frameworks/SFML.framework"/>
 					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework"/>
 					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers"/>
@@ -82,6 +85,9 @@
 					<Add option="-DQT_GUI_LIB"/>
 					<Add option="-DQT_CORE_LIB"/>
 					<Add option="-DQT_NO_DEBUG"/>
+					<Add directory="/Users/samuelarbibe/Github/SimulatorSFML/bin/release"/>
+					<Add directory="/Users/samuelarbibe/Github/SimulatorSFML"/>
+					<Add directory="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/SimulatorSFML_autogen/include"/>
 					<Add directory="/Library/Frameworks/SFML.framework"/>
 					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework"/>
 					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers"/>
@@ -105,7 +111,74 @@
 					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="SimulatorSFML_autogen">
+				<Option working_dir="/Users/samuelarbibe/Github/SimulatorSFML/bin/release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 SimulatorSFML_autogen"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/samuelarbibe/Github/SimulatorSFML/bin/release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 		</Build>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/Map/moc_Intersection.cpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/Map/moc_Intersection.cpp.rule">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/Map/moc_Lane.cpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/Map/moc_Lane.cpp.rule">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/Map/moc_Map.cpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/Map/moc_Map.cpp.rule">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/Map/moc_Road.cpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/Map/moc_Road.cpp.rule">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/moc_Engine.cpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/moc_Engine.cpp.rule">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/moc_Flags.cpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/moc_Flags.cpp.rule">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/moc_Vehicle.cpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/Simulator/moc_Vehicle.cpp.rule">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/UI/Widgets/moc_QsfmlCanvas.cpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/UI/Widgets/moc_QsfmlCanvas.cpp.rule">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/UI/moc_mainwindow.cpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/src/UI/moc_mainwindow.cpp.rule">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/release/ui_mainwindow.h">
+			<Option target="SimulatorSFML"/>
+		</Unit>
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/resources/Cars/car_image_1.png">
 			<Option target="SimulatorSFML"/>
 		</Unit>
@@ -160,10 +233,19 @@
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Vehicle.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/UI/QsfmlCanvas.cpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/UI/Widgets/QsfmlCanvas.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/UI/QsfmlCanvas.hpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/UI/Widgets/QsfmlCanvas.hpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.cpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.h">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.ui">
 			<Option target="SimulatorSFML"/>
 		</Unit>
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/main.cpp">
@@ -172,20 +254,29 @@
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5/Qt5Config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5/Qt5ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5/Qt5ModuleLocation.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5Widgets_QMacStylePlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
 		</Unit>
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
@@ -253,20 +344,20 @@
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QXdgDesktopPortalThemePlugin.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreMacros.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5Widgets_QMacStylePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
 		</Unit>
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../Library/Frameworks/SFML.framework/Resources/CMake/SFMLConfig.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\CMake\"/>

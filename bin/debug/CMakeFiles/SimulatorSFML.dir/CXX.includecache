@@ -6,6 +6,16 @@
 
 #IncludeRegexTransform: 
 
+/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Flags.cpp
+
+/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/UI/moc_mainwindow.cpp
+../../../../src/UI/mainwindow.h
+/Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.h
+QtCore/qbytearray.h
+-
+QtCore/qmetatype.h
+-
+
 /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Engine.cpp
 Engine.hpp
 /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Engine.hpp
@@ -17,8 +27,8 @@ list
 -
 SFML/Graphics.hpp
 -
-../UI/QsfmlCanvas.hpp
-/Users/samuelarbibe/Github/SimulatorSFML/src/UI/QsfmlCanvas.hpp
+../UI/Widgets/QsfmlCanvas.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/UI/Widgets/QsfmlCanvas.hpp
 Map/Map.hpp
 /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Map.hpp
 Vehicle.hpp
@@ -110,7 +120,7 @@ Map/Map.hpp
 Flags.hpp
 /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Flags.hpp
 
-/Users/samuelarbibe/Github/SimulatorSFML/src/UI/QsfmlCanvas.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/UI/Widgets/QsfmlCanvas.hpp
 SFML/Graphics.hpp
 -
 QWidget
@@ -120,21 +130,35 @@ QTimer
 iostream
 -
 
+/Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.cpp
+mainwindow.h
+/Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.h
+ui_mainwindow.h
+/Users/samuelarbibe/Github/SimulatorSFML/src/UI/ui_mainwindow.h
+
+/Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.h
+QMainWindow
+-
+../Simulator/Engine.hpp
+/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Engine.hpp
+
 /Users/samuelarbibe/Github/SimulatorSFML/src/main.cpp
 iostream
 -
 QApplication
 -
+QWidget
+-
 QFrame
 -
-Simulator/Engine.hpp
-/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Engine.hpp
+UI/mainwindow.h
+/Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.h
 
-/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/QTimer
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/QTimer
 qtimer.h
-/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/qtimer.h
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/qtimer.h
 
-/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/qtimer.h
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/qtimer.h
 QtCore/qglobal.h
 -
 QtCore/qbasictimer.h
@@ -144,19 +168,23 @@ QtCore/qobject.h
 chrono
 -
 
-/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/QApplication
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QApplication
 qapplication.h
-/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qapplication.h
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 
-/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/QFrame
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QFrame
 qframe.h
-/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qframe.h
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qframe.h
 
-/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/QWidget
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow
+qmainwindow.h
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h
+
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QWidget
 qwidget.h
-/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qwidget.h
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h
 
-/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qapplication.h
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 QtWidgets/qtwidgetsglobal.h
 -
 QtCore/qcoreapplication.h
@@ -174,13 +202,21 @@ QtWidgets/qdesktopwidget.h
 QtGui/qguiapplication.h
 -
 
-/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qframe.h
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qframe.h
 QtWidgets/qtwidgetsglobal.h
 -
 QtWidgets/qwidget.h
 -
 
-/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qwidget.h
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h
+QtWidgets/qtwidgetsglobal.h
+-
+QtWidgets/qwidget.h
+-
+QtWidgets/qtabwidget.h
+-
+
+/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h
 QtWidgets/qtwidgetsglobal.h
 -
 QtGui/qwindowdefs.h
@@ -210,5 +246,23 @@ QtGui/qcursor.h
 QtGui/qkeysequence.h
 -
 QtGui/qevent.h
+-
+
+ui_mainwindow.h
+QtCore/QVariant
+-
+QtWidgets/QApplication
+-
+QtWidgets/QFrame
+-
+QtWidgets/QMainWindow
+-
+QtWidgets/QMenuBar
+-
+QtWidgets/QPushButton
+-
+QtWidgets/QStatusBar
+-
+QtWidgets/QWidget
 -
 

@@ -10,11 +10,11 @@ CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Map.hpp
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Road.hpp
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Vehicle.hpp
- /Users/samuelarbibe/Github/SimulatorSFML/src/UI/QsfmlCanvas.hpp
- /usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/QTimer
- /usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/qtimer.h
- /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/QWidget
- /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qwidget.h
+ /Users/samuelarbibe/Github/SimulatorSFML/src/UI/Widgets/QsfmlCanvas.hpp
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/QTimer
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/qtimer.h
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QWidget
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Intersection.cpp.o
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Flags.hpp
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Intersection.cpp
@@ -37,6 +37,14 @@ CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Road.cpp.o
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Lane.hpp
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Road.cpp
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Road.hpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Intersection.cpp.o
+ /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/Map/moc_Intersection.cpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Lane.cpp.o
+ /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/Map/moc_Lane.cpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Map.cpp.o
+ /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/Map/moc_Map.cpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Road.cpp.o
+ /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/Map/moc_Road.cpp
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Flags.hpp
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Intersection.hpp
@@ -45,13 +53,56 @@ CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Road.hpp
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Vehicle.cpp
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Vehicle.hpp
-CMakeFiles/SimulatorSFML.dir/src/UI/QsfmlCanvas.cpp.o
- /Users/samuelarbibe/Github/SimulatorSFML/src/UI/QsfmlCanvas.cpp
- /Users/samuelarbibe/Github/SimulatorSFML/src/UI/QsfmlCanvas.hpp
- /usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/QTimer
- /usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/qtimer.h
- /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/QWidget
- /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qwidget.h
+CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Engine.cpp.o
+ /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Engine.cpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.o
+ /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Flags.cpp
+CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.o
+ /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Vehicle.cpp
+CMakeFiles/SimulatorSFML.dir/src/UI/Widgets/QsfmlCanvas.cpp.o
+ /Users/samuelarbibe/Github/SimulatorSFML/src/UI/Widgets/QsfmlCanvas.cpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/UI/Widgets/QsfmlCanvas.hpp
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/QTimer
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/qtimer.h
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QWidget
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h
+CMakeFiles/SimulatorSFML.dir/src/UI/Widgets/moc_QsfmlCanvas.cpp.o
+ /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/UI/Widgets/moc_QsfmlCanvas.cpp
+CMakeFiles/SimulatorSFML.dir/src/UI/mainwindow.cpp.o
+ /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Engine.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Flags.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Intersection.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Lane.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Map.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Road.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Vehicle.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/UI/Widgets/QsfmlCanvas.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.cpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.h
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/QTimer
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/qtimer.h
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QWidget
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h
+ ui_mainwindow.h
+CMakeFiles/SimulatorSFML.dir/src/UI/moc_mainwindow.cpp.o
+ /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/UI/moc_mainwindow.cpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Engine.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Flags.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Intersection.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Lane.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Map.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Road.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Vehicle.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/UI/Widgets/QsfmlCanvas.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.h
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/QTimer
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/qtimer.h
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QWidget
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h
 CMakeFiles/SimulatorSFML.dir/src/main.cpp.o
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Engine.hpp
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Flags.hpp
@@ -60,13 +111,16 @@ CMakeFiles/SimulatorSFML.dir/src/main.cpp.o
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Map.hpp
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Road.hpp
  /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Vehicle.hpp
- /Users/samuelarbibe/Github/SimulatorSFML/src/UI/QsfmlCanvas.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/UI/Widgets/QsfmlCanvas.hpp
+ /Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.h
  /Users/samuelarbibe/Github/SimulatorSFML/src/main.cpp
- /usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/QTimer
- /usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/qtimer.h
- /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/QApplication
- /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/QFrame
- /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/QWidget
- /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qapplication.h
- /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qframe.h
- /usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers/qwidget.h
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/QTimer
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/qtimer.h
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QApplication
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QFrame
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QWidget
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qframe.h
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h
+ /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h

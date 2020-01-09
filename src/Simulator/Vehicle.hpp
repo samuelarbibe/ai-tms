@@ -33,7 +33,8 @@ typedef struct
     float MaxAcceleration{};
     float MinAcceleration{};
     vector<Texture> * Textures;
-}VehicleType;
+}
+VehicleType;
 
 class Vehicle
 {
@@ -52,15 +53,15 @@ public:
     static Vehicle * AddVehicle(queue<Lane*> * instructionSet, Map * map, VehicleTypeOptions vehicleType = CAR, int vehicleNumber = VehicleCount + 1);
 
     Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane*> * instructionSet, Map * map);
-    ~Vehicle(){if(DRAW_DELETE)cout << "Vehicle " << m_vehicleNumber << " deleted" << endl;};
+    ~Vehicle(){if(DRAW_DELETE)cout << "Vehicle " << m_vehicleNumber << " deleted" << endl;}
 
     void Draw(RenderWindow * window);
     void Update(float elapsedTime);
 
-    Lane * GetSourceLane(){return m_sourceLane;};
-    Lane * GetTargetLane(){return m_targetLane;};
-    State       GetState(){return m_state;};
-    int GetVehicleNumber(){return m_vehicleNumber;};
+    Lane * GetSourceLane(){return m_sourceLane;}
+    Lane * GetTargetLane(){return m_targetLane;}
+    State       GetState(){return m_state;}
+    int GetVehicleNumber(){return m_vehicleNumber;}
 
 private:
 

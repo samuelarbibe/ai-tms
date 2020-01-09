@@ -123,6 +123,19 @@ SimulatorSFML/fast:
 	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/build
 .PHONY : SimulatorSFML/fast
 
+#=============================================================================
+# Target rules for targets named SimulatorSFML_autogen
+
+# Build rule for target.
+SimulatorSFML_autogen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 SimulatorSFML_autogen
+.PHONY : SimulatorSFML_autogen
+
+# fast build rule for target.
+SimulatorSFML_autogen/fast:
+	$(MAKE) -f CMakeFiles/SimulatorSFML_autogen.dir/build.make CMakeFiles/SimulatorSFML_autogen.dir/build
+.PHONY : SimulatorSFML_autogen/fast
+
 src/Simulator/Engine.o: src/Simulator/Engine.cpp.o
 
 .PHONY : src/Simulator/Engine.o
@@ -258,6 +271,114 @@ src/Simulator/Map/Road.cpp.s:
 	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Road.cpp.s
 .PHONY : src/Simulator/Map/Road.cpp.s
 
+src/Simulator/Map/moc_Intersection.o: src/Simulator/Map/moc_Intersection.cpp.o
+
+.PHONY : src/Simulator/Map/moc_Intersection.o
+
+# target to build an object file
+src/Simulator/Map/moc_Intersection.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Intersection.cpp.o
+.PHONY : src/Simulator/Map/moc_Intersection.cpp.o
+
+src/Simulator/Map/moc_Intersection.i: src/Simulator/Map/moc_Intersection.cpp.i
+
+.PHONY : src/Simulator/Map/moc_Intersection.i
+
+# target to preprocess a source file
+src/Simulator/Map/moc_Intersection.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Intersection.cpp.i
+.PHONY : src/Simulator/Map/moc_Intersection.cpp.i
+
+src/Simulator/Map/moc_Intersection.s: src/Simulator/Map/moc_Intersection.cpp.s
+
+.PHONY : src/Simulator/Map/moc_Intersection.s
+
+# target to generate assembly for a file
+src/Simulator/Map/moc_Intersection.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Intersection.cpp.s
+.PHONY : src/Simulator/Map/moc_Intersection.cpp.s
+
+src/Simulator/Map/moc_Lane.o: src/Simulator/Map/moc_Lane.cpp.o
+
+.PHONY : src/Simulator/Map/moc_Lane.o
+
+# target to build an object file
+src/Simulator/Map/moc_Lane.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Lane.cpp.o
+.PHONY : src/Simulator/Map/moc_Lane.cpp.o
+
+src/Simulator/Map/moc_Lane.i: src/Simulator/Map/moc_Lane.cpp.i
+
+.PHONY : src/Simulator/Map/moc_Lane.i
+
+# target to preprocess a source file
+src/Simulator/Map/moc_Lane.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Lane.cpp.i
+.PHONY : src/Simulator/Map/moc_Lane.cpp.i
+
+src/Simulator/Map/moc_Lane.s: src/Simulator/Map/moc_Lane.cpp.s
+
+.PHONY : src/Simulator/Map/moc_Lane.s
+
+# target to generate assembly for a file
+src/Simulator/Map/moc_Lane.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Lane.cpp.s
+.PHONY : src/Simulator/Map/moc_Lane.cpp.s
+
+src/Simulator/Map/moc_Map.o: src/Simulator/Map/moc_Map.cpp.o
+
+.PHONY : src/Simulator/Map/moc_Map.o
+
+# target to build an object file
+src/Simulator/Map/moc_Map.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Map.cpp.o
+.PHONY : src/Simulator/Map/moc_Map.cpp.o
+
+src/Simulator/Map/moc_Map.i: src/Simulator/Map/moc_Map.cpp.i
+
+.PHONY : src/Simulator/Map/moc_Map.i
+
+# target to preprocess a source file
+src/Simulator/Map/moc_Map.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Map.cpp.i
+.PHONY : src/Simulator/Map/moc_Map.cpp.i
+
+src/Simulator/Map/moc_Map.s: src/Simulator/Map/moc_Map.cpp.s
+
+.PHONY : src/Simulator/Map/moc_Map.s
+
+# target to generate assembly for a file
+src/Simulator/Map/moc_Map.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Map.cpp.s
+.PHONY : src/Simulator/Map/moc_Map.cpp.s
+
+src/Simulator/Map/moc_Road.o: src/Simulator/Map/moc_Road.cpp.o
+
+.PHONY : src/Simulator/Map/moc_Road.o
+
+# target to build an object file
+src/Simulator/Map/moc_Road.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Road.cpp.o
+.PHONY : src/Simulator/Map/moc_Road.cpp.o
+
+src/Simulator/Map/moc_Road.i: src/Simulator/Map/moc_Road.cpp.i
+
+.PHONY : src/Simulator/Map/moc_Road.i
+
+# target to preprocess a source file
+src/Simulator/Map/moc_Road.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Road.cpp.i
+.PHONY : src/Simulator/Map/moc_Road.cpp.i
+
+src/Simulator/Map/moc_Road.s: src/Simulator/Map/moc_Road.cpp.s
+
+.PHONY : src/Simulator/Map/moc_Road.s
+
+# target to generate assembly for a file
+src/Simulator/Map/moc_Road.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Road.cpp.s
+.PHONY : src/Simulator/Map/moc_Road.cpp.s
+
 src/Simulator/Vehicle.o: src/Simulator/Vehicle.cpp.o
 
 .PHONY : src/Simulator/Vehicle.o
@@ -285,32 +406,194 @@ src/Simulator/Vehicle.cpp.s:
 	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.s
 .PHONY : src/Simulator/Vehicle.cpp.s
 
-src/UI/QsfmlCanvas.o: src/UI/QsfmlCanvas.cpp.o
+src/Simulator/moc_Engine.o: src/Simulator/moc_Engine.cpp.o
 
-.PHONY : src/UI/QsfmlCanvas.o
+.PHONY : src/Simulator/moc_Engine.o
 
 # target to build an object file
-src/UI/QsfmlCanvas.cpp.o:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/QsfmlCanvas.cpp.o
-.PHONY : src/UI/QsfmlCanvas.cpp.o
+src/Simulator/moc_Engine.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Engine.cpp.o
+.PHONY : src/Simulator/moc_Engine.cpp.o
 
-src/UI/QsfmlCanvas.i: src/UI/QsfmlCanvas.cpp.i
+src/Simulator/moc_Engine.i: src/Simulator/moc_Engine.cpp.i
 
-.PHONY : src/UI/QsfmlCanvas.i
+.PHONY : src/Simulator/moc_Engine.i
 
 # target to preprocess a source file
-src/UI/QsfmlCanvas.cpp.i:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/QsfmlCanvas.cpp.i
-.PHONY : src/UI/QsfmlCanvas.cpp.i
+src/Simulator/moc_Engine.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Engine.cpp.i
+.PHONY : src/Simulator/moc_Engine.cpp.i
 
-src/UI/QsfmlCanvas.s: src/UI/QsfmlCanvas.cpp.s
+src/Simulator/moc_Engine.s: src/Simulator/moc_Engine.cpp.s
 
-.PHONY : src/UI/QsfmlCanvas.s
+.PHONY : src/Simulator/moc_Engine.s
 
 # target to generate assembly for a file
-src/UI/QsfmlCanvas.cpp.s:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/QsfmlCanvas.cpp.s
-.PHONY : src/UI/QsfmlCanvas.cpp.s
+src/Simulator/moc_Engine.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Engine.cpp.s
+.PHONY : src/Simulator/moc_Engine.cpp.s
+
+src/Simulator/moc_Flags.o: src/Simulator/moc_Flags.cpp.o
+
+.PHONY : src/Simulator/moc_Flags.o
+
+# target to build an object file
+src/Simulator/moc_Flags.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.o
+.PHONY : src/Simulator/moc_Flags.cpp.o
+
+src/Simulator/moc_Flags.i: src/Simulator/moc_Flags.cpp.i
+
+.PHONY : src/Simulator/moc_Flags.i
+
+# target to preprocess a source file
+src/Simulator/moc_Flags.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.i
+.PHONY : src/Simulator/moc_Flags.cpp.i
+
+src/Simulator/moc_Flags.s: src/Simulator/moc_Flags.cpp.s
+
+.PHONY : src/Simulator/moc_Flags.s
+
+# target to generate assembly for a file
+src/Simulator/moc_Flags.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.s
+.PHONY : src/Simulator/moc_Flags.cpp.s
+
+src/Simulator/moc_Vehicle.o: src/Simulator/moc_Vehicle.cpp.o
+
+.PHONY : src/Simulator/moc_Vehicle.o
+
+# target to build an object file
+src/Simulator/moc_Vehicle.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.o
+.PHONY : src/Simulator/moc_Vehicle.cpp.o
+
+src/Simulator/moc_Vehicle.i: src/Simulator/moc_Vehicle.cpp.i
+
+.PHONY : src/Simulator/moc_Vehicle.i
+
+# target to preprocess a source file
+src/Simulator/moc_Vehicle.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.i
+.PHONY : src/Simulator/moc_Vehicle.cpp.i
+
+src/Simulator/moc_Vehicle.s: src/Simulator/moc_Vehicle.cpp.s
+
+.PHONY : src/Simulator/moc_Vehicle.s
+
+# target to generate assembly for a file
+src/Simulator/moc_Vehicle.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.s
+.PHONY : src/Simulator/moc_Vehicle.cpp.s
+
+src/UI/Widgets/QsfmlCanvas.o: src/UI/Widgets/QsfmlCanvas.cpp.o
+
+.PHONY : src/UI/Widgets/QsfmlCanvas.o
+
+# target to build an object file
+src/UI/Widgets/QsfmlCanvas.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/Widgets/QsfmlCanvas.cpp.o
+.PHONY : src/UI/Widgets/QsfmlCanvas.cpp.o
+
+src/UI/Widgets/QsfmlCanvas.i: src/UI/Widgets/QsfmlCanvas.cpp.i
+
+.PHONY : src/UI/Widgets/QsfmlCanvas.i
+
+# target to preprocess a source file
+src/UI/Widgets/QsfmlCanvas.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/Widgets/QsfmlCanvas.cpp.i
+.PHONY : src/UI/Widgets/QsfmlCanvas.cpp.i
+
+src/UI/Widgets/QsfmlCanvas.s: src/UI/Widgets/QsfmlCanvas.cpp.s
+
+.PHONY : src/UI/Widgets/QsfmlCanvas.s
+
+# target to generate assembly for a file
+src/UI/Widgets/QsfmlCanvas.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/Widgets/QsfmlCanvas.cpp.s
+.PHONY : src/UI/Widgets/QsfmlCanvas.cpp.s
+
+src/UI/Widgets/moc_QsfmlCanvas.o: src/UI/Widgets/moc_QsfmlCanvas.cpp.o
+
+.PHONY : src/UI/Widgets/moc_QsfmlCanvas.o
+
+# target to build an object file
+src/UI/Widgets/moc_QsfmlCanvas.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/Widgets/moc_QsfmlCanvas.cpp.o
+.PHONY : src/UI/Widgets/moc_QsfmlCanvas.cpp.o
+
+src/UI/Widgets/moc_QsfmlCanvas.i: src/UI/Widgets/moc_QsfmlCanvas.cpp.i
+
+.PHONY : src/UI/Widgets/moc_QsfmlCanvas.i
+
+# target to preprocess a source file
+src/UI/Widgets/moc_QsfmlCanvas.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/Widgets/moc_QsfmlCanvas.cpp.i
+.PHONY : src/UI/Widgets/moc_QsfmlCanvas.cpp.i
+
+src/UI/Widgets/moc_QsfmlCanvas.s: src/UI/Widgets/moc_QsfmlCanvas.cpp.s
+
+.PHONY : src/UI/Widgets/moc_QsfmlCanvas.s
+
+# target to generate assembly for a file
+src/UI/Widgets/moc_QsfmlCanvas.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/Widgets/moc_QsfmlCanvas.cpp.s
+.PHONY : src/UI/Widgets/moc_QsfmlCanvas.cpp.s
+
+src/UI/mainwindow.o: src/UI/mainwindow.cpp.o
+
+.PHONY : src/UI/mainwindow.o
+
+# target to build an object file
+src/UI/mainwindow.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/mainwindow.cpp.o
+.PHONY : src/UI/mainwindow.cpp.o
+
+src/UI/mainwindow.i: src/UI/mainwindow.cpp.i
+
+.PHONY : src/UI/mainwindow.i
+
+# target to preprocess a source file
+src/UI/mainwindow.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/mainwindow.cpp.i
+.PHONY : src/UI/mainwindow.cpp.i
+
+src/UI/mainwindow.s: src/UI/mainwindow.cpp.s
+
+.PHONY : src/UI/mainwindow.s
+
+# target to generate assembly for a file
+src/UI/mainwindow.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/mainwindow.cpp.s
+.PHONY : src/UI/mainwindow.cpp.s
+
+src/UI/moc_mainwindow.o: src/UI/moc_mainwindow.cpp.o
+
+.PHONY : src/UI/moc_mainwindow.o
+
+# target to build an object file
+src/UI/moc_mainwindow.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/moc_mainwindow.cpp.o
+.PHONY : src/UI/moc_mainwindow.cpp.o
+
+src/UI/moc_mainwindow.i: src/UI/moc_mainwindow.cpp.i
+
+.PHONY : src/UI/moc_mainwindow.i
+
+# target to preprocess a source file
+src/UI/moc_mainwindow.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/moc_mainwindow.cpp.i
+.PHONY : src/UI/moc_mainwindow.cpp.i
+
+src/UI/moc_mainwindow.s: src/UI/moc_mainwindow.cpp.s
+
+.PHONY : src/UI/moc_mainwindow.s
+
+# target to generate assembly for a file
+src/UI/moc_mainwindow.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/UI/moc_mainwindow.cpp.s
+.PHONY : src/UI/moc_mainwindow.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -348,6 +631,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... SimulatorSFML"
+	@echo "... SimulatorSFML_autogen"
 	@echo "... src/Simulator/Engine.o"
 	@echo "... src/Simulator/Engine.i"
 	@echo "... src/Simulator/Engine.s"
@@ -363,12 +647,42 @@ help:
 	@echo "... src/Simulator/Map/Road.o"
 	@echo "... src/Simulator/Map/Road.i"
 	@echo "... src/Simulator/Map/Road.s"
+	@echo "... src/Simulator/Map/moc_Intersection.o"
+	@echo "... src/Simulator/Map/moc_Intersection.i"
+	@echo "... src/Simulator/Map/moc_Intersection.s"
+	@echo "... src/Simulator/Map/moc_Lane.o"
+	@echo "... src/Simulator/Map/moc_Lane.i"
+	@echo "... src/Simulator/Map/moc_Lane.s"
+	@echo "... src/Simulator/Map/moc_Map.o"
+	@echo "... src/Simulator/Map/moc_Map.i"
+	@echo "... src/Simulator/Map/moc_Map.s"
+	@echo "... src/Simulator/Map/moc_Road.o"
+	@echo "... src/Simulator/Map/moc_Road.i"
+	@echo "... src/Simulator/Map/moc_Road.s"
 	@echo "... src/Simulator/Vehicle.o"
 	@echo "... src/Simulator/Vehicle.i"
 	@echo "... src/Simulator/Vehicle.s"
-	@echo "... src/UI/QsfmlCanvas.o"
-	@echo "... src/UI/QsfmlCanvas.i"
-	@echo "... src/UI/QsfmlCanvas.s"
+	@echo "... src/Simulator/moc_Engine.o"
+	@echo "... src/Simulator/moc_Engine.i"
+	@echo "... src/Simulator/moc_Engine.s"
+	@echo "... src/Simulator/moc_Flags.o"
+	@echo "... src/Simulator/moc_Flags.i"
+	@echo "... src/Simulator/moc_Flags.s"
+	@echo "... src/Simulator/moc_Vehicle.o"
+	@echo "... src/Simulator/moc_Vehicle.i"
+	@echo "... src/Simulator/moc_Vehicle.s"
+	@echo "... src/UI/Widgets/QsfmlCanvas.o"
+	@echo "... src/UI/Widgets/QsfmlCanvas.i"
+	@echo "... src/UI/Widgets/QsfmlCanvas.s"
+	@echo "... src/UI/Widgets/moc_QsfmlCanvas.o"
+	@echo "... src/UI/Widgets/moc_QsfmlCanvas.i"
+	@echo "... src/UI/Widgets/moc_QsfmlCanvas.s"
+	@echo "... src/UI/mainwindow.o"
+	@echo "... src/UI/mainwindow.i"
+	@echo "... src/UI/mainwindow.s"
+	@echo "... src/UI/moc_mainwindow.o"
+	@echo "... src/UI/moc_mainwindow.i"
+	@echo "... src/UI/moc_mainwindow.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -5,8 +5,8 @@
 #ifndef SIMULATORSFML_FLAGS_HPP
 #define SIMULATORSFML_FLAGS_HPP
 
-#define DRAW_FPS    true
-#define DRAW_ACTIVE false
+#define DRAW_FPS    false
+#define DRAW_ACTIVE true
 #define DRAW_DELETE false
 #define DRAW_ADDED  true
 
@@ -20,6 +20,6 @@
 #define LANE_WIDTH 80
 
 #define SCALE 0.1
-#define SPEED 10
+#define SPEED 7
 
 #endif //SIMULATORSFML_FLAGS_HPP
