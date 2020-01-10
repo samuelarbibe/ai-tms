@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    SimulatorEngine = new Engine(ui->frame);
+    SimulatorEngine = new Engine(ui->SimulatorFrame);
 }
 
 MainWindow::~MainWindow()

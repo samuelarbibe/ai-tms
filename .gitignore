@@ -1,4 +1,4 @@
 
 *.xcuserstate
-SimulatorSFML.xcodeproj/xcuserdata/samuelarbibe.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
 *.xcbkptlist
+/bin/
