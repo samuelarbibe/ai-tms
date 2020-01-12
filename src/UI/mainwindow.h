@@ -16,6 +16,13 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_AddIntersectionButton_clicked();
+
+    void on_AddConnectingRoadButton_clicked();
+
+    void on_AddRoadButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     Engine * SimulatorEngine;

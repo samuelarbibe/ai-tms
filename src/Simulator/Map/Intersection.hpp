@@ -22,7 +22,7 @@ using namespace std;
 typedef enum {DRY = 8, MOIST = 7 ,RAIN = 5, HEAVY_RAIN = 4, SNOW = 3, ICE = 1} WeatherCondition; // the friction coefficient, defining the cars breaking distance
 typedef enum {UP = 1, RIGHT, DOWN, LEFT} ConnectionSides;
 
-static int IntersectionCount = 0;
+
 
 class Intersection: public RectangleShape
 {
@@ -52,6 +52,8 @@ public:
     Road * AddRoad(int roadNumber, int connectionSide, float length);
     
     vector<Road*> * GetRoads(){return &(m_roads);};
+
+    static int IntersectionCount;
     
 private:
     
@@ -65,6 +67,8 @@ private:
     Vector2f m_position;
     
     vector<Road*>  m_roads;
+
+
 };
 
 #endif /* Intersection_hpp */

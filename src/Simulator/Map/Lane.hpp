@@ -22,7 +22,6 @@ const Color LaneColor(45, 45, 45);
 const Color WhiteColor(230, 230, 230);
 const Color BackgroundColor(150, 150, 150);
 
-static int laneCount = 0;
 
 class Lane : public RectangleShape
 {
@@ -51,9 +50,10 @@ public:
     void  RemoveVehicleCount(){m_currentVehicleCount--;};
     void  SetIsBlocked(bool blocked) {m_isBlocked = blocked; if(DRAW_ACTIVE)cout << "Lane " << m_laneNumber << " blocked : "<< blocked << endl;};
     void  SetLastCar(int lastCar){m_lastEnteredCarNumber = lastCar;};
-
     
     void  Draw(RenderWindow * window);
+
+    static int LaneCount;
     
 private:
     

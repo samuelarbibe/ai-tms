@@ -23,13 +23,7 @@ void Engine::OnInit()
 
     map = new Map(0, Vector2f(this->width()/2, this->height()/2), this->width(), this->height());
 
-
-    map->AddIntersection(0,Vector2f(this->width()/2, this->height()/2));
-
-    map->AddIntersection(0,Vector2f(this->width()/2, this->height()/2));
-
-    map->AddConnectingRoad(1, 1, 2, ConnectionSides::RIGHT, ConnectionSides::LEFT);
-
+    /*
     map->AddRoad(2, 1, ConnectionSides::UP, 200);
     map->AddRoad(3, 1, ConnectionSides::DOWN, 200);
 
@@ -53,7 +47,7 @@ void Engine::OnInit()
     map->AddLane(0, 5, true);
 
 
-    /*
+
     map->AddIntersection(0, Vector2f(this->width()/2, this->height()/2));
     map->AddRoad(0, 1, 1, 300);
     map->AddRoad(0, 1, 2, 300);
@@ -62,9 +56,9 @@ void Engine::OnInit()
     map->AddLane(0, 1, true);
     map->AddLane(0, 2, false);
     map->AddLane(0, 2, true);
-     */
 
 
+*/
 
 }
 

@@ -24,6 +24,7 @@ class Engine : public QSFMLCanvas
 public:
 
     Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000.f/MAX_FPS){}
+    Map * map;
 
 private:
 
@@ -34,7 +35,7 @@ private:
     void input();
     void update(float elapsedTime);
 
-    Map * map;
+
 };
 
 

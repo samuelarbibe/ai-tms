@@ -24,15 +24,13 @@ Intersection * Map::AddIntersection(int intersectionNumber, Vector2f position,
                                    WeatherCondition weatherCondition) {
     if(!intersectionNumber)
     {
-        intersectionNumber = IntersectionCount + 1;
+        intersectionNumber = Intersection::IntersectionCount + 1;
     }
-
-    //TODO: add position finding algorithm
 
     m_intersections.push_back(new Intersection(position, intersectionNumber, weatherCondition));
 
     m_numberOfIntersections++;
-    IntersectionCount++;
+    Intersection::IntersectionCount++;
 
     if(DRAW_ADDED)std::cout << "Intersection " << intersectionNumber << " added" << endl;
 
@@ -72,24 +70,35 @@ Lane * Map::AddLane(int laneNumber, int roadNumber, bool isInRoadDirection)
 }
 
 /// add a road connecting between two intersections
-Road * Map::AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2 ,int connectionSide1, int connectionSide2)
+Road * Map::AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2)
 {
     Intersection * inter1 = GetIntersection(intersectionNumber1);
     Intersection * inter2 = GetIntersection(intersectionNumber2);
 
     if(inter1 == nullptr || inter2 == nullptr)
     {
-        if(DRAW_ADDED)cerr << "one of the given intersections was not found..." << endl;
+        cerr << "one of the given intersections was not found..." << endl;
         return nullptr;
     }
 
+    // if intersection do not align on one of the axis, return error
+    if(((int)inter1->getPosition().x != (int)inter2->getPosition().x && (int)inter1->getPosition().y != (int)inter2->getPosition().y)
+            || ((int)inter1->getPosition().x == (int)inter2->getPosition().x && (int)inter1->getPosition().y == (int)inter2->getPosition().y))
+    {
+        cerr << "the intersections must align on one of the axis" << endl;
+        return nullptr;
+    }
+    /*
     if(!reAssignIntersectionPositions(inter1, inter2 ,connectionSide1, connectionSide2))
     {
         cerr << "Connection Failed..." << endl;
         return nullptr;
     }
+    */
+    pair<ConnectionSides, ConnectionSides> connections;
+    connections = AssignConnectionSides(inter1->getPosition(), inter2->getPosition());
 
-    return inter1->AddConnectingRoad(roadNumber, connectionSide1, connectionSide2, inter2);
+    return inter1->AddConnectingRoad(roadNumber, connections.first, connections.second, inter2);
 }
 
 /// get intersection by intersectionNumber
@@ -154,6 +163,36 @@ Lane * Map::GetLane(int laneNumber)
     return nullptr;
 }
 
+/// set 2 relative connection sides, by intersection positions
+pair<ConnectionSides, ConnectionSides> Map::AssignConnectionSides( Vector2f pos1, Vector2f pos2)
+{
+    ConnectionSides con1, con2;
+    if(pos1.x > pos2.x)
+    {
+        con1 = ConnectionSides::LEFT;
+        con2 = ConnectionSides::RIGHT;
+    }
+    else if(pos1.x < pos2.x)
+    {
+        con1 = ConnectionSides::RIGHT;
+        con2 = ConnectionSides::LEFT;
+    }
+    else if(pos1.y > pos2.y)
+    {
+        con1 = ConnectionSides::UP;
+        con2 = ConnectionSides::DOWN;
+    }
+    else if(pos1.y < pos2.y)
+    {
+        con1 = ConnectionSides::DOWN;
+        con2 = ConnectionSides::UP;
+    }
+
+    pair<ConnectionSides, ConnectionSides> connections(con1, con2);
+    return connections;
+}
+
+/*
 /// re-locate 2 connected intersections, to fit the map
 bool Map::reAssignIntersectionPositions(Intersection * intersection1, Intersection * intersection2 ,int connectionSide1, int connectionSide2)
 {
@@ -201,6 +240,7 @@ bool Map::reAssignIntersectionPositions(Intersection * intersection1, Intersecti
 
     return true;
 }
+*/
 
 /// update, for future use
 void Map::Update(float elapsedTime)

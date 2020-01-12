@@ -17,7 +17,7 @@
 #define MIN_DISTANCE_FROM_STOP 65
 #define ACC_WHILE_TURNING true
 
-#define LANE_WIDTH 80
+#define LANE_WIDTH 70
 
 #define SCALE 0.1
 #define SPEED 7

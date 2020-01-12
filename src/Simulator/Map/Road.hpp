@@ -17,7 +17,7 @@
 
 using namespace std;
 
-static int roadCount = 0;
+
 
 class Road : public RectangleShape
 {
@@ -47,6 +47,8 @@ public:
 
     void   Update(float elapsedTime);
     void   Draw(RenderWindow * window);
+
+    static int RoadCount;
     
 private:
 

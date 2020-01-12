@@ -8,6 +8,8 @@
 
 #include "Intersection.hpp"
 
+int Intersection::IntersectionCount = 0;
+
 Intersection::Intersection(Vector2f position, int intersectionNumber, WeatherCondition weatherCondition)
 {
     m_intersectionNumber = intersectionNumber;
@@ -31,13 +33,13 @@ Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
 {
     if(!roadNumber)
     {
-        roadNumber = roadCount + 1;
+        roadNumber = Road::RoadCount + 1;
     }
     
     m_roads.push_back(new Road(roadNumber, m_intersectionNumber, connectionSide ,GetPositionByConnectionSide(connectionSide), length, LANE_WIDTH, (connectionSide-1)*90));
             
     m_numberOfRoads++;
-    roadCount++;
+    Road::RoadCount++;
     
     if(DRAW_ADDED)std::cout << "Road " << roadNumber << " added" << endl;
     
@@ -49,7 +51,7 @@ Road * Intersection::AddConnectingRoad(int roadNumber, int connectionSide1, int 
 {
     if(!roadNumber)
     {
-        roadNumber = roadCount + 1;
+        Road::RoadCount =  Road::RoadCount + 1;
     }
 
     m_roads.push_back(new Road(roadNumber, this->m_intersectionNumber, connectedIntersection->m_intersectionNumber, connectionSide1, connectionSide2 ,
@@ -59,7 +61,7 @@ Road * Intersection::AddConnectingRoad(int roadNumber, int connectionSide1, int 
     connectedIntersection->m_numberOfRoads++;
 
     m_numberOfRoads++;
-    roadCount++;
+    Road::RoadCount++;
 
     if(DRAW_ADDED)std::cout << "Road " << roadNumber << " added" << endl;
 

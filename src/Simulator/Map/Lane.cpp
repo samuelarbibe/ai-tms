@@ -8,6 +8,8 @@
 
 #include "Lane.hpp"
 
+int  Lane::LaneCount = 0;
+
 Lane::Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f startPosition, float width, float length, float direction)
 {
     m_laneNumber    = laneNumber;
@@ -36,7 +38,7 @@ Lane::Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f star
     this->setOrigin(m_width/2.f, 0.f);
     this->setPosition(m_startPosition);
     this->setOutlineColor(WhiteColor);
-    this->setOutlineThickness(1.5f);
+    this->setOutlineThickness(1.f);
     this->setRotation(m_direction + 180);
     this->setSize(Vector2f(m_width, m_length));
     

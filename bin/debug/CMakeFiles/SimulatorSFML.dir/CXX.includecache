@@ -6,20 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Flags.cpp
-
-/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/UI/moc_mainwindow.cpp
-../../../../src/UI/mainwindow.h
-/Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.h
-QtCore/qbytearray.h
--
-QtCore/qmetatype.h
--
-
-/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Engine.cpp
-Engine.hpp
-/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Engine.hpp
-
 /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Engine.hpp
 iostream
 -
@@ -70,10 +56,6 @@ math.h
 ../Flags.hpp
 /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Flags.hpp
 
-/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Map.cpp
-Map.hpp
-/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Map.hpp
-
 /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Map.hpp
 iostream
 -
@@ -101,10 +83,6 @@ Lane.hpp
 /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Lane.hpp
 ../Flags.hpp
 /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Flags.hpp
-
-/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Vehicle.cpp
-Vehicle.hpp
-/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Vehicle.hpp
 
 /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Vehicle.hpp
 iostream
@@ -142,18 +120,6 @@ QMainWindow
 ../Simulator/Engine.hpp
 /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Engine.hpp
 
-/Users/samuelarbibe/Github/SimulatorSFML/src/main.cpp
-iostream
--
-QApplication
--
-QWidget
--
-QFrame
--
-UI/mainwindow.h
-/Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.h
-
 /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/QTimer
 qtimer.h
 /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers/qtimer.h
@@ -168,14 +134,6 @@ QtCore/qobject.h
 chrono
 -
 
-/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QApplication
-qapplication.h
-/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
-
-/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QFrame
-qframe.h
-/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qframe.h
-
 /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow
 qmainwindow.h
 /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h
@@ -183,30 +141,6 @@ qmainwindow.h
 /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/QWidget
 qwidget.h
 /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h
-
-/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
-QtWidgets/qtwidgetsglobal.h
--
-QtCore/qcoreapplication.h
--
-QtGui/qwindowdefs.h
--
-QtCore/qpoint.h
--
-QtCore/qsize.h
--
-QtGui/qcursor.h
--
-QtWidgets/qdesktopwidget.h
--
-QtGui/qguiapplication.h
--
-
-/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qframe.h
-QtWidgets/qtwidgetsglobal.h
--
-QtWidgets/qwidget.h
--
 
 /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h
 QtWidgets/qtwidgetsglobal.h
@@ -253,15 +187,37 @@ QtCore/QVariant
 -
 QtWidgets/QApplication
 -
+QtWidgets/QCheckBox
+-
+QtWidgets/QComboBox
+-
 QtWidgets/QFrame
+-
+QtWidgets/QGridLayout
+-
+QtWidgets/QGroupBox
+-
+QtWidgets/QHBoxLayout
+-
+QtWidgets/QLabel
+-
+QtWidgets/QLineEdit
 -
 QtWidgets/QMainWindow
 -
-QtWidgets/QMenuBar
--
 QtWidgets/QPushButton
 -
+QtWidgets/QSlider
+-
+QtWidgets/QSpacerItem
+-
+QtWidgets/QSpinBox
+-
 QtWidgets/QStatusBar
+-
+QtWidgets/QTabWidget
+-
+QtWidgets/QVBoxLayout
 -
 QtWidgets/QWidget
 -

@@ -1,6 +1,0 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" /Users/samuelarbibe/Github/SimulatorSFML
--- Found SFML 2.5.1 in /Library/Frameworks/SFML.framework/Resources/CMake
-/Users/samuelarbibe/Github/SimulatorSFML/bin/release/ui_mainwindow.h
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/samuelarbibe/Github/SimulatorSFML/bin/release

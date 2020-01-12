@@ -8,6 +8,9 @@
 
 #include "Road.hpp"
 
+
+int Road::RoadCount = 0;
+
 /// ctor for a normal road
 Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f startPosition, float length, float laneWidth, float direction)
 {
@@ -77,7 +80,7 @@ Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
 {
     if(!laneNumber)
     {
-        laneNumber = laneCount + 1;
+        laneNumber = Lane::LaneCount + 1;
     }
     
     if (isInRoadDirection) {
@@ -89,7 +92,7 @@ Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
     }
     
     m_numberOfLanes++;
-    laneCount++;
+    Lane::LaneCount++;
     
     // adjust road size
     m_width = m_numberOfLanes * m_laneWidth;
