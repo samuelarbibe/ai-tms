@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-//int Road::RoadCount;
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -14,6 +12,29 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+// When mouse is clicked, use click coordinates in Map setup
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    QPoint clickPoint;
+    Vector2i point;
+
+    clickPoint = SimulatorEngine->mapFromGlobal(QCursor::pos());
+    point.x = clickPoint.x();
+    point.y = clickPoint.y();
+
+
+    if(point.x > 0 && point.y > 0)
+    {
+        // draw a point on simulator canvas to indicate last clicked position
+        point = SimulatorEngine->DrawPoint(point);
+
+        ui->IntersectionXEdit->setText(QString::number(point.x));
+        ui->IntersectionYEdit->setText(QString::number(point.y));
+
+        ui->statusbar->showMessage(tr("You can now Click 'Add Intersection' to add an intersection at the clicked position "));
+    }
 }
 
 void MainWindow::on_AddIntersectionButton_clicked()
@@ -67,5 +88,38 @@ void MainWindow::on_AddConnectingRoadButton_clicked()
 
 void MainWindow::on_AddRoadButton_clicked()
 {
+    int intersectionNumber = ui->IntersectionSpinBox->value();
+    int connectionSide     = ui->ConSideComboBox->currentIndex()+1;
 
+    if(SimulatorEngine->map->AddRoad(0, intersectionNumber, connectionSide, 100))
+    {
+        ui->ToRoadSpinBox->setRange(1, Road::RoadCount);
+
+        ui->statusbar->clearMessage();
+        ui->statusbar->showMessage(tr("Road Succefully added."), 5000);
+        return; // success
+    }
+    ui->statusbar->showMessage(tr("Could not add Road. please check that the entered values are correct. "));
+}
+
+void MainWindow::on_AddLanePushButton_clicked()
+{
+    int roadNumber         = ui->ToRoadSpinBox->value();
+    bool isInRoadDirection = ui->InDirectionCheckBox->isChecked();
+
+    if(SimulatorEngine->map->AddLane(0, roadNumber, isInRoadDirection))
+    {
+        ui->statusbar->clearMessage();
+        ui->statusbar->showMessage(tr("Lane Succefully added."), 5000);
+        return; // success
+    }
+    ui->statusbar->showMessage(tr("Could not add Lane. please check that the entered values are correct. "));
+
+}
+
+void MainWindow::on_SnapToGridCheckBox_stateChanged(int arg1)
+{
+    bool isChecked = ui->SnapToGridCheckBox->isChecked();
+
+    SimulatorEngine->SetSnapToGrid(isChecked);
 }

@@ -5,7 +5,7 @@
 
 #include "Map.hpp"
 
-Map::Map(int mapNumber, Vector2f position, int width, int height)
+Map::Map(int mapNumber, Vector2i position, int width, int height)
 {
     if(mapNumber == 0)
     {
@@ -82,8 +82,8 @@ Road * Map::AddConnectingRoad(int roadNumber, int intersectionNumber1, int inter
     }
 
     // if intersection do not align on one of the axis, return error
-    if(((int)inter1->getPosition().x != (int)inter2->getPosition().x && (int)inter1->getPosition().y != (int)inter2->getPosition().y)
-            || ((int)inter1->getPosition().x == (int)inter2->getPosition().x && (int)inter1->getPosition().y == (int)inter2->getPosition().y))
+    if((int(inter1->getPosition().x) != int(inter2->getPosition().x) && int(inter1->getPosition().y) != int(inter2->getPosition().y))
+            || (int(inter1->getPosition().x) == int(inter2->getPosition().x) && int(inter1->getPosition().y) == int(inter2->getPosition().y)))
     {
         cerr << "the intersections must align on one of the axis" << endl;
         return nullptr;
@@ -251,6 +251,7 @@ void Map::Update(float elapsedTime)
 /// draw the map, and all of its belongings
 void Map::Draw(RenderWindow * window)
 {
+    // Draw all intersections
     for (int i = 0 ; i < m_numberOfIntersections; i++)
     {
         m_intersections[i]->Draw(window);

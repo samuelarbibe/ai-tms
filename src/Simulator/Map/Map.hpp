@@ -17,7 +17,7 @@ using namespace std;
 class Map {
 
 public:
-    Map(int mapNumber, Vector2f position, int width, int height);
+    Map(int mapNumber, Vector2i position, int width, int height);
     ~Map(){if(DRAW_DELETE)cout << "Intersection " << m_mapNumber << "deleted" << endl;}
 
     //bool   reAssignIntersectionPositions(Intersection * intersection1, Intersection * intersection2 ,int connectionSide1 = 0, int connectionSide2 = 0);
@@ -45,7 +45,7 @@ private:
     int m_width;
     int m_height;
 
-    Vector2f m_position;
+    Vector2i m_position;
 
     vector<Intersection*> m_intersections;
 

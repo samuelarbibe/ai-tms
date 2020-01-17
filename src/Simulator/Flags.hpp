@@ -22,4 +22,7 @@
 #define SCALE 0.1
 #define SPEED 7
 
+#define GRID_COLOUMNS 10
+#define GRID_ROWS 10
+
 #endif //SIMULATORSFML_FLAGS_HPP

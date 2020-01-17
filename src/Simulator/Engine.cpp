@@ -14,6 +14,15 @@ list<Vehicle*> Vehicle::ActiveVehicles;
 /// set up the map according to the selected presets
 void Engine::OnInit()
 {
+    m_snapToGrid = true;
+
+    cout << "Setting up snap grid..." << endl;
+    m_snapGrid = Grid();
+    m_snapGrid.Rows = GRID_COLOUMNS;
+    m_snapGrid.Coloumns = GRID_ROWS;
+    m_snapGrid.ColoumnWidth = this->width()/m_snapGrid.Coloumns;
+    m_snapGrid.RowHeight = this->height()/m_snapGrid.Rows;
+
     cout << "Setting up max speeds..." << endl;
     Vehicle::SetMaxSpeed(VehicleTypeOptions::CAR, 100.f, 1.5f);
     Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 80.f, 1.f);
@@ -21,50 +30,44 @@ void Engine::OnInit()
     cout << "Setting up weather conditions..." << endl;
     //Vehicle::SetWeatherCondition(WeatherCondition::DRY);
 
-    map = new Map(0, Vector2f(this->width()/2, this->height()/2), this->width(), this->height());
+    map = new Map(0, Vector2i(this->width()/2, this->height()/2), this->width(), this->height());
 
-    /*
-    map->AddRoad(2, 1, ConnectionSides::UP, 200);
-    map->AddRoad(3, 1, ConnectionSides::DOWN, 200);
+}
 
-    map->AddRoad(4, 2, ConnectionSides::UP, 200);
-    map->AddRoad(5, 2, ConnectionSides::DOWN, 200);
+Vector2i Engine::DrawPoint(Vector2i position)
+{
+    Vector2i temp;
+    if(m_snapToGrid)
+    {
+        temp = GetSnappedPoint(position);
+    }
+    else
+    {
+        temp = position;
+    }
 
+    m_clickPoint = CircleShape(5.f);
+    m_clickPoint.setOrigin(m_clickPoint.getRadius(), m_clickPoint.getRadius());
+    m_clickPoint.setFillColor(Color::Red);
+    m_clickPoint.setPosition(temp.x, temp.y);
 
-    map->AddLane(0, 1, false);
-    map->AddLane(0, 1, true);
+    return temp;
+}
 
-    map->AddLane(0, 2, false);
-    map->AddLane(0, 2, true);
+Vector2i Engine::GetSnappedPoint(Vector2i point)
+{
+    int x, y;
 
-    map->AddLane(0, 3, false);
-    map->AddLane(0, 3, true);
+    x = int(round(point.x / m_snapGrid.ColoumnWidth)) * m_snapGrid.ColoumnWidth;
+    y = int(round(point.y / m_snapGrid.RowHeight)) * m_snapGrid.RowHeight;
 
-    map->AddLane(0, 4, false);
-    map->AddLane(0, 4, true);
-
-    map->AddLane(0, 5, false);
-    map->AddLane(0, 5, true);
-
-
-
-    map->AddIntersection(0, Vector2f(this->width()/2, this->height()/2));
-    map->AddRoad(0, 1, 1, 300);
-    map->AddRoad(0, 1, 2, 300);
-
-    map->AddLane(0, 1, false);
-    map->AddLane(0, 1, true);
-    map->AddLane(0, 2, false);
-    map->AddLane(0, 2, true);
-
-
-*/
-
+    return Vector2i(x,y);
 }
 
 /// get use input, and make changes accordingly
 void Engine::input(){
     
+    /*
     if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
         queue<Lane*> * tempQueue = new queue<Lane*>();
@@ -75,12 +78,7 @@ void Engine::input(){
 
         Vehicle::AddVehicle(tempQueue, this->map);
     }
-
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-    {
-        //Vehicle::AddVehicle(inter->GetLane(2), inter->GetLane(7), inter);
-    }
-    
+    */
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
         //inter->GetLane(2)->SetIsBlocked(true);
@@ -96,7 +94,7 @@ void Engine::OnUpdate()
 {
     if(DRAW_FPS)cout << "FPS : " << 1.f/myTimer.interval() * 1000 << endl;
     input();
-    update((myTimer.interval()/1000.f) / (float)SCALE * (float)SPEED);
+    update((myTimer.interval()/1000.f) / float(SCALE) * float(SPEED));
     OnDraw();
 }
 
@@ -122,11 +120,15 @@ void Engine::OnDraw()
     // Clean out the last frame
     clear(BackgroundColor);
  
-    // Draw the objects
+    // Draw the map
     this->map->Draw(this);
 
+    // Draw all vehicles
     for(Vehicle * v : Vehicle::ActiveVehicles)
     {
         v->Draw(this);
     }
+
+    // Draw the click index
+    this->draw(this->m_clickPoint);
 }

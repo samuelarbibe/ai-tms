@@ -51,7 +51,7 @@ Road * Intersection::AddConnectingRoad(int roadNumber, int connectionSide1, int 
 {
     if(!roadNumber)
     {
-        Road::RoadCount =  Road::RoadCount + 1;
+        roadNumber =  Road::RoadCount + 1;
     }
 
     m_roads.push_back(new Road(roadNumber, this->m_intersectionNumber, connectedIntersection->m_intersectionNumber, connectionSide1, connectionSide2 ,

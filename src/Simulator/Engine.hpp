@@ -13,17 +13,30 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 #include "../UI/Widgets/QsfmlCanvas.hpp"
+#include <math.h>
 #include "Map/Map.hpp"
 #include "Vehicle.hpp"
 #include "Flags.hpp"
 
 using namespace sf;
 
+struct Grid
+{
+    int Coloumns;
+    int Rows;
+    int ColoumnWidth;
+    int RowHeight;
+};
+
 class Engine : public QSFMLCanvas
 {
 public:
 
-    Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000.f/MAX_FPS){}
+    Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000/MAX_FPS){}
+
+    void SetSnapToGrid(bool snapToGrid){this->m_snapToGrid = snapToGrid;}
+    Vector2i GetSnappedPoint(Vector2i point);
+    Vector2i DrawPoint(Vector2i position);
     Map * map;
 
 private:
@@ -35,7 +48,9 @@ private:
     void input();
     void update(float elapsedTime);
 
-
+    CircleShape m_clickPoint;
+    bool m_snapToGrid;
+    Grid m_snapGrid;
 };
 
 

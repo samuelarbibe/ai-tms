@@ -37,7 +37,6 @@ public:
     QWidget *centralwidget;
     QGridLayout *gridLayout_5;
     QGridLayout *gridLayout_4;
-    QFrame *SimulatorFrame;
     QVBoxLayout *verticalLayout;
     QLabel *label_8;
     QTabWidget *MapSetupTab;
@@ -73,15 +72,17 @@ public:
     QHBoxLayout *horizontalLayout_9;
     QLabel *label_7;
     QSpinBox *ToRoadSpinBox;
-    QCheckBox *checkBox;
+    QCheckBox *InDirectionCheckBox;
     QSpacerItem *horizontalSpacer_3;
-    QPushButton *pushButton_6;
+    QPushButton *AddLanePushButton;
     QHBoxLayout *horizontalLayout_11;
     QLabel *label_9;
     QSlider *horizontalSlider;
     QLabel *LaneWidthLabel;
     QComboBox *comboBox;
     QSpacerItem *horizontalSpacer_9;
+    QCheckBox *SnapToGridCheckBox;
+    QSpacerItem *horizontalSpacer_14;
     QHBoxLayout *horizontalLayout_10;
     QPushButton *pushButton_8;
     QPushButton *pushButton_3;
@@ -128,6 +129,7 @@ public:
     QPushButton *pushButton_18;
     QPushButton *pushButton_19;
     QPushButton *pushButton_20;
+    QFrame *SimulatorFrame;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -148,19 +150,6 @@ public:
         gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
         gridLayout_4 = new QGridLayout();
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
-        SimulatorFrame = new QFrame(centralwidget);
-        SimulatorFrame->setObjectName(QString::fromUtf8("SimulatorFrame"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(100);
-        sizePolicy1.setVerticalStretch(100);
-        sizePolicy1.setHeightForWidth(SimulatorFrame->sizePolicy().hasHeightForWidth());
-        SimulatorFrame->setSizePolicy(sizePolicy1);
-        SimulatorFrame->setMinimumSize(QSize(600, 600));
-        SimulatorFrame->setFrameShape(QFrame::StyledPanel);
-        SimulatorFrame->setFrameShadow(QFrame::Raised);
-
-        gridLayout_4->addWidget(SimulatorFrame, 0, 1, 1, 1);
-
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(10);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
@@ -179,11 +168,11 @@ public:
 
         MapSetupTab = new QTabWidget(centralwidget);
         MapSetupTab->setObjectName(QString::fromUtf8("MapSetupTab"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(MapSetupTab->sizePolicy().hasHeightForWidth());
-        MapSetupTab->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(MapSetupTab->sizePolicy().hasHeightForWidth());
+        MapSetupTab->setSizePolicy(sizePolicy1);
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         gridLayout = new QGridLayout(tab);
@@ -198,21 +187,21 @@ public:
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         label_3 = new QLabel(tab);
         label_3->setObjectName(QString::fromUtf8("label_3"));
-        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Preferred);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
-        label_3->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
+        label_3->setSizePolicy(sizePolicy2);
 
         horizontalLayout_3->addWidget(label_3);
 
         IntersectionXEdit = new QLineEdit(tab);
         IntersectionXEdit->setObjectName(QString::fromUtf8("IntersectionXEdit"));
-        QSizePolicy sizePolicy4(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(IntersectionXEdit->sizePolicy().hasHeightForWidth());
-        IntersectionXEdit->setSizePolicy(sizePolicy4);
+        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(IntersectionXEdit->sizePolicy().hasHeightForWidth());
+        IntersectionXEdit->setSizePolicy(sizePolicy3);
         IntersectionXEdit->setMaximumSize(QSize(30, 16777215));
 
         horizontalLayout_3->addWidget(IntersectionXEdit);
@@ -223,15 +212,15 @@ public:
 
         label_4 = new QLabel(tab);
         label_4->setObjectName(QString::fromUtf8("label_4"));
-        sizePolicy3.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
-        label_4->setSizePolicy(sizePolicy3);
+        sizePolicy2.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
+        label_4->setSizePolicy(sizePolicy2);
 
         horizontalLayout_3->addWidget(label_4);
 
         IntersectionYEdit = new QLineEdit(tab);
         IntersectionYEdit->setObjectName(QString::fromUtf8("IntersectionYEdit"));
-        sizePolicy4.setHeightForWidth(IntersectionYEdit->sizePolicy().hasHeightForWidth());
-        IntersectionYEdit->setSizePolicy(sizePolicy4);
+        sizePolicy3.setHeightForWidth(IntersectionYEdit->sizePolicy().hasHeightForWidth());
+        IntersectionYEdit->setSizePolicy(sizePolicy3);
         IntersectionYEdit->setMaximumSize(QSize(30, 16777215));
 
         horizontalLayout_3->addWidget(IntersectionYEdit);
@@ -350,10 +339,10 @@ public:
 
         horizontalLayout_9->addWidget(ToRoadSpinBox);
 
-        checkBox = new QCheckBox(tab);
-        checkBox->setObjectName(QString::fromUtf8("checkBox"));
+        InDirectionCheckBox = new QCheckBox(tab);
+        InDirectionCheckBox->setObjectName(QString::fromUtf8("InDirectionCheckBox"));
 
-        horizontalLayout_9->addWidget(checkBox);
+        horizontalLayout_9->addWidget(InDirectionCheckBox);
 
 
         horizontalLayout_8->addLayout(horizontalLayout_9);
@@ -362,10 +351,10 @@ public:
 
         horizontalLayout_8->addItem(horizontalSpacer_3);
 
-        pushButton_6 = new QPushButton(tab);
-        pushButton_6->setObjectName(QString::fromUtf8("pushButton_6"));
+        AddLanePushButton = new QPushButton(tab);
+        AddLanePushButton->setObjectName(QString::fromUtf8("AddLanePushButton"));
 
-        horizontalLayout_8->addWidget(pushButton_6);
+        horizontalLayout_8->addWidget(AddLanePushButton);
 
 
         verticalLayout_2->addLayout(horizontalLayout_8);
@@ -405,6 +394,16 @@ public:
         horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_11->addItem(horizontalSpacer_9);
+
+        SnapToGridCheckBox = new QCheckBox(tab);
+        SnapToGridCheckBox->setObjectName(QString::fromUtf8("SnapToGridCheckBox"));
+        SnapToGridCheckBox->setChecked(true);
+
+        horizontalLayout_11->addWidget(SnapToGridCheckBox);
+
+        horizontalSpacer_14 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_11->addItem(horizontalSpacer_14);
 
 
         verticalLayout_2->addLayout(horizontalLayout_11);
@@ -475,8 +474,8 @@ public:
 
         lineEdit_3 = new QLineEdit(tab_2);
         lineEdit_3->setObjectName(QString::fromUtf8("lineEdit_3"));
-        sizePolicy4.setHeightForWidth(lineEdit_3->sizePolicy().hasHeightForWidth());
-        lineEdit_3->setSizePolicy(sizePolicy4);
+        sizePolicy3.setHeightForWidth(lineEdit_3->sizePolicy().hasHeightForWidth());
+        lineEdit_3->setSizePolicy(sizePolicy3);
         lineEdit_3->setMaximumSize(QSize(30, 16777215));
 
         horizontalLayout_12->addWidget(lineEdit_3);
@@ -506,8 +505,8 @@ public:
 
         lineEdit_4 = new QLineEdit(tab_2);
         lineEdit_4->setObjectName(QString::fromUtf8("lineEdit_4"));
-        sizePolicy4.setHeightForWidth(lineEdit_4->sizePolicy().hasHeightForWidth());
-        lineEdit_4->setSizePolicy(sizePolicy4);
+        sizePolicy3.setHeightForWidth(lineEdit_4->sizePolicy().hasHeightForWidth());
+        lineEdit_4->setSizePolicy(sizePolicy3);
         lineEdit_4->setMaximumSize(QSize(30, 16777215));
 
         horizontalLayout_13->addWidget(lineEdit_4);
@@ -537,8 +536,8 @@ public:
 
         lineEdit_5 = new QLineEdit(tab_2);
         lineEdit_5->setObjectName(QString::fromUtf8("lineEdit_5"));
-        sizePolicy4.setHeightForWidth(lineEdit_5->sizePolicy().hasHeightForWidth());
-        lineEdit_5->setSizePolicy(sizePolicy4);
+        sizePolicy3.setHeightForWidth(lineEdit_5->sizePolicy().hasHeightForWidth());
+        lineEdit_5->setSizePolicy(sizePolicy3);
         lineEdit_5->setMaximumSize(QSize(30, 16777215));
 
         horizontalLayout_14->addWidget(lineEdit_5);
@@ -606,8 +605,8 @@ public:
         groupBox_2 = new QGroupBox(centralwidget);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
         groupBox_2->setEnabled(true);
-        sizePolicy3.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
-        groupBox_2->setSizePolicy(sizePolicy3);
+        sizePolicy2.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
+        groupBox_2->setSizePolicy(sizePolicy2);
         groupBox_2->setBaseSize(QSize(100, 100));
         gridLayout_2 = new QGridLayout(groupBox_2);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
@@ -631,8 +630,8 @@ public:
         groupBox_3 = new QGroupBox(centralwidget);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
         groupBox_3->setEnabled(true);
-        sizePolicy3.setHeightForWidth(groupBox_3->sizePolicy().hasHeightForWidth());
-        groupBox_3->setSizePolicy(sizePolicy3);
+        sizePolicy2.setHeightForWidth(groupBox_3->sizePolicy().hasHeightForWidth());
+        groupBox_3->setSizePolicy(sizePolicy2);
         groupBox_3->setMaximumSize(QSize(16777215, 100));
         groupBox_3->setBaseSize(QSize(100, 100));
         groupBox_3->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
@@ -673,6 +672,19 @@ public:
 
         gridLayout_4->addLayout(verticalLayout, 0, 0, 1, 1);
 
+        SimulatorFrame = new QFrame(centralwidget);
+        SimulatorFrame->setObjectName(QString::fromUtf8("SimulatorFrame"));
+        QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy4.setHorizontalStretch(100);
+        sizePolicy4.setVerticalStretch(100);
+        sizePolicy4.setHeightForWidth(SimulatorFrame->sizePolicy().hasHeightForWidth());
+        SimulatorFrame->setSizePolicy(sizePolicy4);
+        SimulatorFrame->setMinimumSize(QSize(600, 600));
+        SimulatorFrame->setFrameShape(QFrame::StyledPanel);
+        SimulatorFrame->setFrameShadow(QFrame::Raised);
+
+        gridLayout_4->addWidget(SimulatorFrame, 0, 1, 1, 1);
+
 
         gridLayout_5->addLayout(gridLayout_4, 0, 0, 1, 1);
 
@@ -711,8 +723,8 @@ public:
 
         AddRoadButton->setText(QApplication::translate("MainWindow", "Add Road", nullptr));
         label_7->setText(QApplication::translate("MainWindow", "To Road:", nullptr));
-        checkBox->setText(QApplication::translate("MainWindow", "Is In road Direction", nullptr));
-        pushButton_6->setText(QApplication::translate("MainWindow", "Add Lane", nullptr));
+        InDirectionCheckBox->setText(QApplication::translate("MainWindow", "Is In road Direction", nullptr));
+        AddLanePushButton->setText(QApplication::translate("MainWindow", "Add Lane", nullptr));
         label_9->setText(QApplication::translate("MainWindow", "Lane Width:", nullptr));
         LaneWidthLabel->setText(QApplication::translate("MainWindow", "100", nullptr));
         comboBox->setItemText(0, QApplication::translate("MainWindow", "m", nullptr));
@@ -721,6 +733,7 @@ public:
         comboBox->setItemText(3, QApplication::translate("MainWindow", "inch", nullptr));
         comboBox->setItemText(4, QApplication::translate("MainWindow", "px", nullptr));
 
+        SnapToGridCheckBox->setText(QApplication::translate("MainWindow", "Snap To Grid", nullptr));
         pushButton_8->setText(QApplication::translate("MainWindow", "Load Map", nullptr));
         pushButton_3->setText(QApplication::translate("MainWindow", "Save Map", nullptr));
         pushButton_2->setText(QApplication::translate("MainWindow", "Delete", nullptr));

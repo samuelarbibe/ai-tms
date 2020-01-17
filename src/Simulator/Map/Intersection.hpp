@@ -30,17 +30,17 @@ class Intersection: public RectangleShape
 public:
     
     Intersection(Vector2f position, int intersectionNumber, WeatherCondition weatherCondition = WeatherCondition::DRY);
-    ~Intersection(){if(DRAW_DELETE)cout << "Intersection " << m_intersectionNumber << "deleted" << endl;};
+    ~Intersection(){if(DRAW_DELETE)cout << "Intersection " << m_intersectionNumber << "deleted" << endl;}
 
     void   reAssignIntersectionPosition(Vector2f position);
     void   reAssignRoadPositions();
     void   Update(float elapsedTime);
     void   Draw(RenderWindow *window);
 
-    void   SetWeatherCondition(WeatherCondition weatherCondition){m_weatherCondition = weatherCondition;};
-    WeatherCondition   GetWeatherCondition(){return m_weatherCondition;};
+    void   SetWeatherCondition(WeatherCondition weatherCondition){m_weatherCondition = weatherCondition;}
+    WeatherCondition   GetWeatherCondition(){return m_weatherCondition;}
 
-    int GetIntersectionNumber(){return m_intersectionNumber;};
+    int GetIntersectionNumber(){return m_intersectionNumber;}
     Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
     Road * AddConnectingRoad(int roadNumber, int connectionSide1, int connectionSide2, Intersection * connectedIntersection);
     Road * GetRoad(int roadNumber);
@@ -51,7 +51,7 @@ public:
     
     Road * AddRoad(int roadNumber, int connectionSide, float length);
     
-    vector<Road*> * GetRoads(){return &(m_roads);};
+    vector<Road*> * GetRoads(){return &(m_roads);}
 
     static int IntersectionCount;
     
@@ -66,7 +66,7 @@ private:
     
     Vector2f m_position;
     
-    vector<Road*>  m_roads;
+    vector<Road*> m_roads;
 
 
 };
