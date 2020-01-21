@@ -17,26 +17,49 @@ void Engine::OnInit()
     m_snapToGrid = true;
 
     cout << "Setting up snap grid..." << endl;
-    m_snapGrid = Grid();
-    m_snapGrid.Rows = GRID_COLOUMNS;
-    m_snapGrid.Coloumns = GRID_ROWS;
-    m_snapGrid.ColoumnWidth = this->width()/m_snapGrid.Coloumns;
-    m_snapGrid.RowHeight = this->height()/m_snapGrid.Rows;
+    BuildGrid(Settings::GridRows, Settings::GridColumns);
 
-    cout << "Setting up max speeds..." << endl;
+    cout << "Setting up max Settings::Speeds..." << endl;
     Vehicle::SetMaxSpeed(VehicleTypeOptions::CAR, 100.f, 1.5f);
     Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 80.f, 1.f);
-
-    cout << "Setting up weather conditions..." << endl;
-    //Vehicle::SetWeatherCondition(WeatherCondition::DRY);
 
     map = new Map(0, Vector2i(this->width()/2, this->height()/2), this->width(), this->height());
 
 }
 
-Vector2i Engine::DrawPoint(Vector2i position)
+void Engine::BuildGrid(int rows, int cols)
 {
-    Vector2i temp;
+    m_snapGrid.Lines.clear(); // clear the old lines list
+    m_snapGrid.Rows = rows;
+    m_snapGrid.Columns = cols;
+    m_snapGrid.ColumnWidth = this->width()/m_snapGrid.Columns;
+    m_snapGrid.RowHeight = this->height()/m_snapGrid.Rows;
+
+    // create all vertical lines of the grid
+    for (int i = 1; i < m_snapGrid.Columns; i++)
+    {
+        Vertex * line = new Vertex[2];
+
+        line[0] = sf::Vertex(sf::Vector2f(i * m_snapGrid.ColumnWidth, 0));
+        line[1] = sf::Vertex(sf::Vector2f(i * m_snapGrid.ColumnWidth, this->height()));
+
+        m_snapGrid.Lines.push_back(line);
+    }
+    // create all horizontal lines of snap grid
+    for (int i = 1; i < m_snapGrid.Rows; i++)
+    {
+        Vertex * line = new Vertex[2];
+
+        line[0] = sf::Vertex(sf::Vector2f(0, i * m_snapGrid.RowHeight));
+        line[1] = sf::Vertex(sf::Vector2f(this->width(), i * m_snapGrid.RowHeight));
+
+        m_snapGrid.Lines.push_back(line);
+    }
+}
+
+Vector2f Engine::DrawPoint(Vector2f position)
+{
+    Vector2f temp;
     if(m_snapToGrid)
     {
         temp = GetSnappedPoint(position);
@@ -54,14 +77,29 @@ Vector2i Engine::DrawPoint(Vector2i position)
     return temp;
 }
 
-Vector2i Engine::GetSnappedPoint(Vector2i point)
+Vector2f Engine::GetSnappedPoint(Vector2f point)
 {
-    int x, y;
+    float x = 0, y = 0;
 
-    x = int(round(point.x / m_snapGrid.ColoumnWidth)) * m_snapGrid.ColoumnWidth;
-    y = int(round(point.y / m_snapGrid.RowHeight)) * m_snapGrid.RowHeight;
+    if(int(point.x) % m_snapGrid.ColumnWidth > m_snapGrid.ColumnWidth/2)
+    {
+        x = int(ceil(point.x / m_snapGrid.ColumnWidth)) * m_snapGrid.ColumnWidth;
+    }
+    else
+    {
+        x = int(floor(point.x / m_snapGrid.ColumnWidth)) * m_snapGrid.ColumnWidth;
+    }
 
-    return Vector2i(x,y);
+    if(int(point.y) % m_snapGrid.RowHeight > m_snapGrid.RowHeight/2)
+    {
+        y = int(ceil(point.y / m_snapGrid.RowHeight)) * m_snapGrid.RowHeight;
+    }
+    else
+    {
+        y = int(floor(point.y / m_snapGrid.RowHeight)) * m_snapGrid.RowHeight;
+    }
+
+    return Vector2f(x,y);
 }
 
 /// get use input, and make changes accordingly
@@ -92,9 +130,9 @@ void Engine::input(){
 /// do the game cycle (input->update->draw)
 void Engine::OnUpdate()
 {
-    if(DRAW_FPS)cout << "FPS : " << 1.f/myTimer.interval() * 1000 << endl;
+    if(Settings::DrawFps)cout << "FPS : " << 1.f/myTimer.interval() * 1000 << endl;
     input();
-    update((myTimer.interval()/1000.f) / float(SCALE) * float(SPEED));
+    update((myTimer.interval()/1000.f) / float(Settings::Scale) * float(Settings::Speed));
     OnDraw();
 }
 
@@ -131,4 +169,12 @@ void Engine::OnDraw()
 
     // Draw the click index
     this->draw(this->m_clickPoint);
+
+    // Draw the grid
+    if(this->m_showGrid == true)
+    {
+        for (Vertex *l : this->m_snapGrid.Lines) {
+            this->draw(l, 2, Lines);
+        }
+    }
 }

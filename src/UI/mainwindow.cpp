@@ -7,6 +7,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     SimulatorEngine = new Engine(ui->SimulatorFrame);
+
+    // load presets
+    ui->LaneWidthSlider->setMinimum(Settings::MinLaneWidth);
+    ui->LaneWidthSlider->setMaximum(Settings::MaxLaneWidth);
+    this->on_LaneWidthSlider_sliderMoved(Settings::LaneWidth);
 }
 
 MainWindow::~MainWindow()
@@ -18,7 +23,7 @@ MainWindow::~MainWindow()
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     QPoint clickPoint;
-    Vector2i point;
+    Vector2f point;
 
     clickPoint = SimulatorEngine->mapFromGlobal(QCursor::pos());
     point.x = clickPoint.x();
@@ -30,8 +35,8 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         // draw a point on simulator canvas to indicate last clicked position
         point = SimulatorEngine->DrawPoint(point);
 
-        ui->IntersectionXEdit->setText(QString::number(point.x));
-        ui->IntersectionYEdit->setText(QString::number(point.y));
+        ui->IntersectionXEdit->setText(QString::number(int(point.x)));
+        ui->IntersectionYEdit->setText(QString::number(int(point.y)));
 
         ui->statusbar->showMessage(tr("You can now Click 'Add Intersection' to add an intersection at the clicked position "));
     }
@@ -91,7 +96,7 @@ void MainWindow::on_AddRoadButton_clicked()
     int intersectionNumber = ui->IntersectionSpinBox->value();
     int connectionSide     = ui->ConSideComboBox->currentIndex()+1;
 
-    if(SimulatorEngine->map->AddRoad(0, intersectionNumber, connectionSide, 100))
+    if(SimulatorEngine->map->AddRoad(0, intersectionNumber, connectionSide, Settings::DefaultLaneLength / Settings::Scale))
     {
         ui->ToRoadSpinBox->setRange(1, Road::RoadCount);
 
@@ -121,5 +126,42 @@ void MainWindow::on_SnapToGridCheckBox_stateChanged(int arg1)
 {
     bool isChecked = ui->SnapToGridCheckBox->isChecked();
 
+    ui->ShowGridCheckBox->setChecked(isChecked);
+    ui->ShowGridCheckBox->setEnabled(isChecked);
     SimulatorEngine->SetSnapToGrid(isChecked);
+}
+
+void MainWindow::on_ShowGridCheckBox_stateChanged(int arg1)
+{
+    bool isChecked = ui->ShowGridCheckBox->isChecked();
+
+    SimulatorEngine->ShowGrid(isChecked);
+}
+
+
+
+void MainWindow::on_LaneWidthSlider_sliderMoved(int position)
+{
+    Units unit = static_cast<Units>(ui->UnitComboBox->currentIndex());
+    ui->LaneWidthSlider->setValue(position);
+    ui->LaneWidthValueEdit->setText(QString::number(position * Settings::UnitScales[unit]));
+    Settings::LaneWidth = position;
+    SimulatorEngine->map->ReloadMap();
+}
+
+void MainWindow::on_UnitComboBox_currentIndexChanged(int index)
+{
+    int position = ui->LaneWidthSlider->value();
+    ui->LaneWidthValueEdit->setText(QString::number(position * Settings::UnitScales[index]));
+}
+
+void MainWindow::on_LaneWidthValueEdit_editingFinished()
+{
+    float value = ui->LaneWidthValueEdit->text().toFloat();
+
+    // convert to slider units (cm)
+    Units unit = static_cast<Units>(ui->UnitComboBox->currentIndex());
+    int position = int(value / Settings::UnitScales[unit]);
+
+    this->on_LaneWidthSlider_sliderMoved(position);
 }

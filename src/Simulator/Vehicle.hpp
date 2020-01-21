@@ -14,7 +14,7 @@
 #include <queue>
 #include <SFML/Graphics.hpp>
 #include "Map/Map.hpp"
-#include "Flags.hpp"
+#include "Settings.hpp"
 
 using namespace std;
 using namespace sf;
@@ -53,7 +53,7 @@ public:
     static Vehicle * AddVehicle(queue<Lane*> * instructionSet, Map * map, VehicleTypeOptions vehicleType = CAR, int vehicleNumber = VehicleCount + 1);
 
     Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane*> * instructionSet, Map * map);
-    ~Vehicle(){if(DRAW_DELETE)cout << "Vehicle " << m_vehicleNumber << " deleted" << endl;}
+    ~Vehicle(){if(Settings::DrawDelete)cout << "Vehicle " << m_vehicleNumber << " deleted" << endl;}
 
     void Draw(RenderWindow * window);
     void Update(float elapsedTime);

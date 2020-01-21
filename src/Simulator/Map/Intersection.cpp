@@ -36,12 +36,12 @@ Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
         roadNumber = Road::RoadCount + 1;
     }
     
-    m_roads.push_back(new Road(roadNumber, m_intersectionNumber, connectionSide ,GetPositionByConnectionSide(connectionSide), length, LANE_WIDTH, (connectionSide-1)*90));
+    m_roads.push_back(new Road(roadNumber, m_intersectionNumber, connectionSide ,GetPositionByConnectionSide(connectionSide), length, Settings::LaneWidth / Settings::Scale, (connectionSide-1)*90));
             
     m_numberOfRoads++;
     Road::RoadCount++;
     
-    if(DRAW_ADDED)std::cout << "Road " << roadNumber << " added" << endl;
+    if(Settings::DrawAdded)std::cout << "Road " << roadNumber << " added" << endl;
     
     return m_roads[m_numberOfRoads-1];
 }
@@ -55,7 +55,7 @@ Road * Intersection::AddConnectingRoad(int roadNumber, int connectionSide1, int 
     }
 
     m_roads.push_back(new Road(roadNumber, this->m_intersectionNumber, connectedIntersection->m_intersectionNumber, connectionSide1, connectionSide2 ,
-            this->GetPositionByConnectionSide(connectionSide1) ,connectedIntersection->GetPositionByConnectionSide(connectionSide2), LANE_WIDTH, (connectionSide1-1)*90));
+            this->GetPositionByConnectionSide(connectionSide1) ,connectedIntersection->GetPositionByConnectionSide(connectionSide2), Settings::LaneWidth / Settings::Scale, (connectionSide1-1)*90));
 
     connectedIntersection->m_roads.push_back(m_roads[m_numberOfRoads]);
     connectedIntersection->m_numberOfRoads++;
@@ -63,7 +63,7 @@ Road * Intersection::AddConnectingRoad(int roadNumber, int connectionSide1, int 
     m_numberOfRoads++;
     Road::RoadCount++;
 
-    if(DRAW_ADDED)std::cout << "Road " << roadNumber << " added" << endl;
+    if(Settings::DrawAdded)std::cout << "Road " << roadNumber << " added" << endl;
 
     return m_roads[m_numberOfRoads-1];
 }
@@ -127,32 +127,7 @@ Lane * Intersection::AddLane(int laneNumber, int roadNumber, bool isInRoadDirect
     Lane * l;
     
     l = temp->AddLane(laneNumber, isInRoadDirection);
-    
-    // update intersection dimensions
-    Road * r1 = GetRoadByConnectionSide(1);
-    Road * r2 = GetRoadByConnectionSide(2);
-    Road * r3 = GetRoadByConnectionSide(3);
-    Road * r4 = GetRoadByConnectionSide(4);
 
-
-    if(r1 != nullptr)m_width = r1->GetWidth();
-    if(r2 != nullptr)m_height = r2->GetWidth();
-    
-    if(r3 != nullptr && r3->GetWidth() > m_width)
-    {
-        m_width = r3->GetWidth();
-    }
-    
-    if(r4 != nullptr && r4->GetWidth() > m_height)
-    {
-        m_height = r4->GetWidth();
-    }
-    
-    this->setSize(Vector2f(m_width, m_height));
-    this->setOrigin(m_width/2, m_height/2);
-    
-    reAssignRoadPositions();
-    
     return l;
 }
 
@@ -208,6 +183,35 @@ void Intersection::reAssignRoadPositions()
             }
         }
     }
+}
+
+
+void Intersection::ReloadIntersection()
+{
+    // update intersection dimensions
+    Road * r1 = GetRoadByConnectionSide(1);
+    Road * r2 = GetRoadByConnectionSide(2);
+    Road * r3 = GetRoadByConnectionSide(3);
+    Road * r4 = GetRoadByConnectionSide(4);
+
+
+    if(r1 != nullptr)m_width = r1->GetWidth();
+    if(r2 != nullptr)m_height = r2->GetWidth();
+
+    if(r3 != nullptr && r3->GetWidth() > m_width)
+    {
+        m_width = r3->GetWidth();
+    }
+
+    if(r4 != nullptr && r4->GetWidth() > m_height)
+    {
+        m_height = r4->GetWidth();
+    }
+
+    this->setSize(Vector2f(m_width, m_height));
+    this->setOrigin(m_width/2, m_height/2);
+
+    reAssignRoadPositions();
 }
 
 /// update , for future use

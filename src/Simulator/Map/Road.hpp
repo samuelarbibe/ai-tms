@@ -13,7 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include <list>
 #include "Lane.hpp"
-#include "../Flags.hpp"
+#include "../Settings.hpp"
 
 using namespace std;
 
@@ -26,7 +26,7 @@ public:
     
     Road(int roadNumber, int intersectionNumber, int connectionSide, Vector2f startPosition, float length, float laneWidth, float direction);
     Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int connectionSide1, int connectionSide2, Vector2f conPosition1, Vector2f conPosition2, float laneWidth, float direction);
-    ~Road(){if(DRAW_DELETE)cout << "Road " << m_roadNumber << "deleted" << endl;}
+    ~Road(){if(Settings::DrawDelete)cout << "Road " << m_roadNumber << "deleted" << endl;}
     
     
     Lane * AddLane(int laneNumber, bool isInRoadDirection);

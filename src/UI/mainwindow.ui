@@ -364,27 +364,36 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSlider" name="horizontalSlider">
+                 <widget class="QSlider" name="LaneWidthSlider">
+                  <property name="maximum">
+                   <number>300</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>10</number>
+                  </property>
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="LaneWidthLabel">
-                  <property name="font">
-                   <font>
-                    <weight>75</weight>
-                    <bold>true</bold>
-                   </font>
+                 <widget class="QLineEdit" name="LaneWidthValueEdit">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
                   </property>
-                  <property name="text">
-                   <string>100</string>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>16777215</height>
+                   </size>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="comboBox">
+                 <widget class="QComboBox" name="UnitComboBox">
                   <item>
                    <property name="text">
                     <string>m</string>
@@ -405,25 +414,7 @@
                     <string>inch</string>
                    </property>
                   </item>
-                  <item>
-                   <property name="text">
-                    <string>px</string>
-                   </property>
-                  </item>
                  </widget>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_9">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
                 </item>
                 <item>
                  <widget class="QCheckBox" name="SnapToGridCheckBox">
@@ -436,17 +427,20 @@
                  </widget>
                 </item>
                 <item>
-                 <spacer name="horizontalSpacer_14">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                 <widget class="QCheckBox" name="ShowGridCheckBox">
+                  <property name="enabled">
+                   <bool>true</bool>
                   </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
+                  <property name="text">
+                   <string>Show Grid</string>
                   </property>
-                 </spacer>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <property name="checked">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </item>
@@ -545,7 +539,7 @@
                   <item>
                    <widget class="QLabel" name="label_11">
                     <property name="text">
-                     <string>Car Max Speed</string>
+                     <string>Car Max Settings::Speed</string>
                     </property>
                    </widget>
                   </item>
@@ -609,7 +603,7 @@
                   <item>
                    <widget class="QLabel" name="label_12">
                     <property name="text">
-                     <string>Motorcycle Max Speed</string>
+                     <string>Motorcycle Max Settings::Speed</string>
                     </property>
                    </widget>
                   </item>
@@ -673,7 +667,7 @@
                   <item>
                    <widget class="QLabel" name="label_13">
                     <property name="text">
-                     <string>Truck Max Speed</string>
+                     <string>Truck Max Settings::Speed</string>
                     </property>
                    </widget>
                   </item>

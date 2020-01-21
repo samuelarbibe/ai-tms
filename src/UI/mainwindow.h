@@ -30,6 +30,14 @@ private slots:
 
     void on_SnapToGridCheckBox_stateChanged(int arg1);
 
+    void on_ShowGridCheckBox_stateChanged(int arg1);
+
+    void on_LaneWidthSlider_sliderMoved(int position);
+
+    void on_UnitComboBox_currentIndexChanged(int index);
+
+    void on_LaneWidthValueEdit_editingFinished();
+
 private:
     Ui::MainWindow *ui;
     Engine * SimulatorEngine;

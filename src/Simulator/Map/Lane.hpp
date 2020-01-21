@@ -13,7 +13,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <math.h>
-#include "../Flags.hpp"
+#include "../Settings.hpp"
 
 using namespace std;
 using namespace sf;
@@ -29,7 +29,7 @@ class Lane : public RectangleShape
 public:
     
     Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f startPosition, float width, float length, float direction);
-    ~Lane(){if(DRAW_DELETE)cout << "Lane " << m_laneNumber << " deleted" << endl;};
+    ~Lane(){if(Settings::DrawDelete)cout << "Lane " << m_laneNumber << " deleted" << endl;};
     
     void  Update(float elapsedTime);
 
@@ -48,7 +48,7 @@ public:
     // Set
     void  AddVehicleCount(){m_currentVehicleCount++; m_totalVehicleCount++;};
     void  RemoveVehicleCount(){m_currentVehicleCount--;};
-    void  SetIsBlocked(bool blocked) {m_isBlocked = blocked; if(DRAW_ACTIVE)cout << "Lane " << m_laneNumber << " blocked : "<< blocked << endl;};
+    void  SetIsBlocked(bool blocked) {m_isBlocked = blocked; if(Settings::DrawActive)cout << "Lane " << m_laneNumber << " blocked: " << blocked << endl;};
     void  SetLastCar(int lastCar){m_lastEnteredCarNumber = lastCar;};
     
     void  Draw(RenderWindow * window);

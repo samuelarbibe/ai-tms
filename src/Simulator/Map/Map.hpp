@@ -8,7 +8,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <list>
-#include "../Flags.hpp"
+#include "../Settings.hpp"
 #include "Intersection.hpp"
 
 using namespace sf;
@@ -18,13 +18,14 @@ class Map {
 
 public:
     Map(int mapNumber, Vector2i position, int width, int height);
-    ~Map(){if(DRAW_DELETE)cout << "Intersection " << m_mapNumber << "deleted" << endl;}
+    ~Map(){if(Settings::DrawDelete)cout << "Intersection " << m_mapNumber << "deleted" << endl;}
 
     //bool   reAssignIntersectionPositions(Intersection * intersection1, Intersection * intersection2 ,int connectionSide1 = 0, int connectionSide2 = 0);
 
     void   assignAvaialablePosition();
     void   Update(float elapsedTime);
     void   Draw(RenderWindow *window);
+    void   ReloadMap();
 
 
     Vector2f GetSize(){return Vector2f(m_width, m_height);}

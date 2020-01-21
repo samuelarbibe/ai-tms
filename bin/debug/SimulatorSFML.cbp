@@ -150,10 +150,10 @@
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Engine.cpp.rule">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Flags.cpp">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Settings.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Flags.cpp.rule">
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Settings.cpp.rule">
 			<Option target="SimulatorSFML"/>
 		</Unit>
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Vehicle.cpp">
@@ -198,9 +198,6 @@
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Engine.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Flags.hpp">
-			<Option target="SimulatorSFML"/>
-		</Unit>
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Intersection.cpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
@@ -223,6 +220,12 @@
 			<Option target="SimulatorSFML"/>
 		</Unit>
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Road.hpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Settings.cpp">
+			<Option target="SimulatorSFML"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Settings.hpp">
 			<Option target="SimulatorSFML"/>
 		</Unit>
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Vehicle.cpp">

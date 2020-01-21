@@ -77,12 +77,11 @@ public:
     QPushButton *AddLanePushButton;
     QHBoxLayout *horizontalLayout_11;
     QLabel *label_9;
-    QSlider *horizontalSlider;
-    QLabel *LaneWidthLabel;
-    QComboBox *comboBox;
-    QSpacerItem *horizontalSpacer_9;
+    QSlider *LaneWidthSlider;
+    QLineEdit *LaneWidthValueEdit;
+    QComboBox *UnitComboBox;
     QCheckBox *SnapToGridCheckBox;
-    QSpacerItem *horizontalSpacer_14;
+    QCheckBox *ShowGridCheckBox;
     QHBoxLayout *horizontalLayout_10;
     QPushButton *pushButton_8;
     QPushButton *pushButton_3;
@@ -366,34 +365,33 @@ public:
 
         horizontalLayout_11->addWidget(label_9);
 
-        horizontalSlider = new QSlider(tab);
-        horizontalSlider->setObjectName(QString::fromUtf8("horizontalSlider"));
-        horizontalSlider->setOrientation(Qt::Horizontal);
+        LaneWidthSlider = new QSlider(tab);
+        LaneWidthSlider->setObjectName(QString::fromUtf8("LaneWidthSlider"));
+        LaneWidthSlider->setMaximum(300);
+        LaneWidthSlider->setSingleStep(10);
+        LaneWidthSlider->setOrientation(Qt::Horizontal);
 
-        horizontalLayout_11->addWidget(horizontalSlider);
+        horizontalLayout_11->addWidget(LaneWidthSlider);
 
-        LaneWidthLabel = new QLabel(tab);
-        LaneWidthLabel->setObjectName(QString::fromUtf8("LaneWidthLabel"));
-        QFont font1;
-        font1.setBold(true);
-        font1.setWeight(75);
-        LaneWidthLabel->setFont(font1);
+        LaneWidthValueEdit = new QLineEdit(tab);
+        LaneWidthValueEdit->setObjectName(QString::fromUtf8("LaneWidthValueEdit"));
+        QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(LaneWidthValueEdit->sizePolicy().hasHeightForWidth());
+        LaneWidthValueEdit->setSizePolicy(sizePolicy4);
+        LaneWidthValueEdit->setMaximumSize(QSize(40, 16777215));
 
-        horizontalLayout_11->addWidget(LaneWidthLabel);
+        horizontalLayout_11->addWidget(LaneWidthValueEdit);
 
-        comboBox = new QComboBox(tab);
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->setObjectName(QString::fromUtf8("comboBox"));
+        UnitComboBox = new QComboBox(tab);
+        UnitComboBox->addItem(QString());
+        UnitComboBox->addItem(QString());
+        UnitComboBox->addItem(QString());
+        UnitComboBox->addItem(QString());
+        UnitComboBox->setObjectName(QString::fromUtf8("UnitComboBox"));
 
-        horizontalLayout_11->addWidget(comboBox);
-
-        horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_11->addItem(horizontalSpacer_9);
+        horizontalLayout_11->addWidget(UnitComboBox);
 
         SnapToGridCheckBox = new QCheckBox(tab);
         SnapToGridCheckBox->setObjectName(QString::fromUtf8("SnapToGridCheckBox"));
@@ -401,9 +399,13 @@ public:
 
         horizontalLayout_11->addWidget(SnapToGridCheckBox);
 
-        horizontalSpacer_14 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        ShowGridCheckBox = new QCheckBox(tab);
+        ShowGridCheckBox->setObjectName(QString::fromUtf8("ShowGridCheckBox"));
+        ShowGridCheckBox->setEnabled(true);
+        ShowGridCheckBox->setCheckable(true);
+        ShowGridCheckBox->setChecked(false);
 
-        horizontalLayout_11->addItem(horizontalSpacer_14);
+        horizontalLayout_11->addWidget(ShowGridCheckBox);
 
 
         verticalLayout_2->addLayout(horizontalLayout_11);
@@ -674,11 +676,11 @@ public:
 
         SimulatorFrame = new QFrame(centralwidget);
         SimulatorFrame->setObjectName(QString::fromUtf8("SimulatorFrame"));
-        QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy4.setHorizontalStretch(100);
-        sizePolicy4.setVerticalStretch(100);
-        sizePolicy4.setHeightForWidth(SimulatorFrame->sizePolicy().hasHeightForWidth());
-        SimulatorFrame->setSizePolicy(sizePolicy4);
+        QSizePolicy sizePolicy5(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy5.setHorizontalStretch(100);
+        sizePolicy5.setVerticalStretch(100);
+        sizePolicy5.setHeightForWidth(SimulatorFrame->sizePolicy().hasHeightForWidth());
+        SimulatorFrame->setSizePolicy(sizePolicy5);
         SimulatorFrame->setMinimumSize(QSize(600, 600));
         SimulatorFrame->setFrameShape(QFrame::StyledPanel);
         SimulatorFrame->setFrameShadow(QFrame::Raised);
@@ -726,33 +728,32 @@ public:
         InDirectionCheckBox->setText(QApplication::translate("MainWindow", "Is In road Direction", nullptr));
         AddLanePushButton->setText(QApplication::translate("MainWindow", "Add Lane", nullptr));
         label_9->setText(QApplication::translate("MainWindow", "Lane Width:", nullptr));
-        LaneWidthLabel->setText(QApplication::translate("MainWindow", "100", nullptr));
-        comboBox->setItemText(0, QApplication::translate("MainWindow", "m", nullptr));
-        comboBox->setItemText(1, QApplication::translate("MainWindow", "cm", nullptr));
-        comboBox->setItemText(2, QApplication::translate("MainWindow", "ft", nullptr));
-        comboBox->setItemText(3, QApplication::translate("MainWindow", "inch", nullptr));
-        comboBox->setItemText(4, QApplication::translate("MainWindow", "px", nullptr));
+        UnitComboBox->setItemText(0, QApplication::translate("MainWindow", "m", nullptr));
+        UnitComboBox->setItemText(1, QApplication::translate("MainWindow", "cm", nullptr));
+        UnitComboBox->setItemText(2, QApplication::translate("MainWindow", "ft", nullptr));
+        UnitComboBox->setItemText(3, QApplication::translate("MainWindow", "inch", nullptr));
 
         SnapToGridCheckBox->setText(QApplication::translate("MainWindow", "Snap To Grid", nullptr));
+        ShowGridCheckBox->setText(QApplication::translate("MainWindow", "Show Grid", nullptr));
         pushButton_8->setText(QApplication::translate("MainWindow", "Load Map", nullptr));
         pushButton_3->setText(QApplication::translate("MainWindow", "Save Map", nullptr));
         pushButton_2->setText(QApplication::translate("MainWindow", "Delete", nullptr));
         pushButton_7->setText(QApplication::translate("MainWindow", "Reset", nullptr));
         MapSetupTab->setTabText(MapSetupTab->indexOf(tab), QApplication::translate("MainWindow", "Map", nullptr));
         checkBox_2->setText(QApplication::translate("MainWindow", "Multi Color", nullptr));
-        label_11->setText(QApplication::translate("MainWindow", "Car Max Speed", nullptr));
+        label_11->setText(QApplication::translate("MainWindow", "Car Max Settings::Speed", nullptr));
         comboBox_2->setItemText(0, QApplication::translate("MainWindow", "km/h", nullptr));
         comboBox_2->setItemText(1, QApplication::translate("MainWindow", "mph", nullptr));
         comboBox_2->setItemText(2, QApplication::translate("MainWindow", "m/s", nullptr));
         comboBox_2->setItemText(3, QApplication::translate("MainWindow", "ft/s", nullptr));
 
-        label_12->setText(QApplication::translate("MainWindow", "Motorcycle Max Speed", nullptr));
+        label_12->setText(QApplication::translate("MainWindow", "Motorcycle Max Settings::Speed", nullptr));
         comboBox_3->setItemText(0, QApplication::translate("MainWindow", "km/h", nullptr));
         comboBox_3->setItemText(1, QApplication::translate("MainWindow", "mph", nullptr));
         comboBox_3->setItemText(2, QApplication::translate("MainWindow", "m/s", nullptr));
         comboBox_3->setItemText(3, QApplication::translate("MainWindow", "ft/s", nullptr));
 
-        label_13->setText(QApplication::translate("MainWindow", "Truck Max Speed", nullptr));
+        label_13->setText(QApplication::translate("MainWindow", "Truck Max Settings::Speed", nullptr));
         comboBox_4->setItemText(0, QApplication::translate("MainWindow", "km/h", nullptr));
         comboBox_4->setItemText(1, QApplication::translate("MainWindow", "mph", nullptr));
         comboBox_4->setItemText(2, QApplication::translate("MainWindow", "m/s", nullptr));

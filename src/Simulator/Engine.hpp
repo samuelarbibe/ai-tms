@@ -16,27 +16,30 @@
 #include <math.h>
 #include "Map/Map.hpp"
 #include "Vehicle.hpp"
-#include "Flags.hpp"
+#include "Settings.hpp"
 
 using namespace sf;
 
 struct Grid
 {
-    int Coloumns;
+    int Columns;
     int Rows;
-    int ColoumnWidth;
+    int ColumnWidth;
     int RowHeight;
+    list<Vertex*> Lines;
 };
 
 class Engine : public QSFMLCanvas
 {
 public:
 
-    Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000/MAX_FPS){}
+    Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000/Settings::MaxFps){}
 
     void SetSnapToGrid(bool snapToGrid){this->m_snapToGrid = snapToGrid;}
-    Vector2i GetSnappedPoint(Vector2i point);
-    Vector2i DrawPoint(Vector2i position);
+    void ShowGrid(bool showGrid){this->m_showGrid = showGrid;}
+    void BuildGrid(int rows, int cols);
+    Vector2f GetSnappedPoint(Vector2f point);
+    Vector2f DrawPoint(Vector2f position);
     Map * map;
 
 private:
@@ -50,6 +53,7 @@ private:
 
     CircleShape m_clickPoint;
     bool m_snapToGrid;
+    bool m_showGrid;
     Grid m_snapGrid;
 };
 

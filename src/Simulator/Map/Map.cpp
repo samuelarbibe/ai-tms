@@ -2,7 +2,6 @@
 // Created by Samuel Arbibe on 28/12/2019.
 //
 
-
 #include "Map.hpp"
 
 Map::Map(int mapNumber, Vector2i position, int width, int height)
@@ -32,7 +31,7 @@ Intersection * Map::AddIntersection(int intersectionNumber, Vector2f position,
     m_numberOfIntersections++;
     Intersection::IntersectionCount++;
 
-    if(DRAW_ADDED)std::cout << "Intersection " << intersectionNumber << " added" << endl;
+    if(Settings::DrawAdded)std::cout << "Intersection " << intersectionNumber << " added" << endl;
 
     return m_intersections[m_numberOfIntersections-1];
 }
@@ -55,6 +54,7 @@ Lane * Map::AddLane(int laneNumber, int roadNumber, bool isInRoadDirection)
 {
     Road *tempRoad = GetRoad(roadNumber);
     Intersection *temp = nullptr;
+    Lane * tempLane = nullptr;
 
     if (tempRoad)
     {
@@ -63,10 +63,12 @@ Lane * Map::AddLane(int laneNumber, int roadNumber, bool isInRoadDirection)
 
     if(temp)
     {
-        return temp->AddLane(laneNumber, roadNumber, isInRoadDirection);
+        tempLane =  temp->AddLane(laneNumber, roadNumber, isInRoadDirection);
     }
 
-    return nullptr;
+    this->ReloadMap();
+
+    return tempLane;
 }
 
 /// add a road connecting between two intersections
@@ -192,55 +194,14 @@ pair<ConnectionSides, ConnectionSides> Map::AssignConnectionSides( Vector2f pos1
     return connections;
 }
 
-/*
-/// re-locate 2 connected intersections, to fit the map
-bool Map::reAssignIntersectionPositions(Intersection * intersection1, Intersection * intersection2 ,int connectionSide1, int connectionSide2)
+/// Reload all intersection in this map
+void Map::ReloadMap()
 {
-    Vector2f pos1, pos2;
-
-    if(abs(connectionSide1 - connectionSide2) != 2)
+    for(Intersection * i : m_intersections)
     {
-        cerr << "requested connection not possible in current configuration" << endl;
-        return false;
+        i->ReloadIntersection();
     }
-
-    if(connectionSide1 > connectionSide2)
-    {
-        if(connectionSide1 == 3)
-        {
-            // 1 above, 2 below
-            pos1 = Vector2f(m_width/2, m_height/4);
-            pos2 = Vector2f(m_width/2, m_height/4 * 3);
-        }
-        else
-        {
-            // 1 right, 2 left
-            pos1 = Vector2f(m_width/4 * 3, m_height/2);
-            pos2 = Vector2f(m_width/4, m_height/2);
-        }
-    }
-    else
-    {
-        if(connectionSide1 == 1)
-        {
-            // 1 below, 2 above
-            pos2 = Vector2f(m_width/2, m_height/4);
-            pos1 = Vector2f(m_width/2, m_height/4 * 3);
-        }
-        else
-        {
-            // 1 left, 2 right
-            pos2 = Vector2f(m_width/4 * 3, m_height/2);
-            pos1 = Vector2f(m_width/4, m_height/2);
-        }
-    }
-
-    intersection1->reAssignIntersectionPosition(pos1);
-    intersection2->reAssignIntersectionPosition(pos2);
-
-    return true;
 }
-*/
 
 /// update, for future use
 void Map::Update(float elapsedTime)

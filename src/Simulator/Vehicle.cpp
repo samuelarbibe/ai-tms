@@ -47,7 +47,7 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane*>
 
         // set up sprite
         int textureNumber;
-        if(MULTI_COLOR)
+        if(Settings::MultiColor)
         {
             textureNumber = (m_vehicleNumber % m_vehicleType->ImageCount);
         }
@@ -79,7 +79,7 @@ void Vehicle::ClearVehicles()
             delete temp;
 
             toBeDeleted--;
-            if(DRAW_ACTIVE)cout << "active vehicles : " << ActiveVehicles.size() << endl;
+            if(Settings::DrawActive)cout << "active vehicles : " << ActiveVehicles.size() << endl;
         }
         else
         {
@@ -102,7 +102,7 @@ Vehicle * Vehicle::AddVehicle(queue<Lane*> * instructionSet,Map * map, VehicleTy
     temp->m_sourceLane->AddVehicleCount();
     VehicleCount++;
 
-    if(DRAW_ADDED)cout << "car " << vehicleNumber << " added to lane " << temp->m_sourceLane->GetLaneNumber() << endl;
+    if(Settings::DrawAdded)cout << "car " << vehicleNumber << " added to lane " << temp->m_sourceLane->GetLaneNumber() << endl;
 
     return temp;
 }
@@ -140,7 +140,7 @@ bool Vehicle::LoadVehicleTextures(VehicleType * vehicleType)
     return false;
 }
 
-/// set a vehicle's max speed
+/// set a vehicle's max Settings::Speed
 void Vehicle::SetMaxSpeed(VehicleTypeOptions vehicleType, float max_speed, float max_acceleration)
 {
     VehicleType * temp = GetVehicleTypeByOption(vehicleType);
@@ -231,7 +231,7 @@ State Vehicle::drive()
         float distanceFromNextCar = calculateDistance(m_position, m_vehicleInFront->m_position);
         float brakingDistance = -(m_speed * m_speed)/ (2 * m_minAcceleration);
 
-        if(distanceFromNextCar < brakingDistance + MIN_DISTANCE_FROM_NEXT_CAR || distanceFromNextCar < MIN_DISTANCE_FROM_NEXT_CAR)
+        if(distanceFromNextCar < brakingDistance + Settings::MinDistanceFromNextCar || distanceFromNextCar < Settings::MinDistanceFromNextCar)
         {
             m_state = STOP;
             m_acceleration = m_minAcceleration;
@@ -268,7 +268,7 @@ State Vehicle::drive()
         m_state = TURN;
 
         //set rotation
-        m_acceleration = (ACC_WHILE_TURNING)?m_maxAcceleration/2.f : 0;
+        m_acceleration = (Settings::AccWhileTurning)?m_maxAcceleration/2.f : 0;
         return TURN;
     }
 
@@ -278,7 +278,7 @@ State Vehicle::drive()
         float distanceFromStop = calculateDistance(this->m_position, m_sourceLane->GetEndPosition());
         float brakingDistance = -(m_speed * m_speed)/ (2 * m_minAcceleration * m_currentIntersection->GetWeatherCondition()/10.f);
 
-        if(distanceFromStop < brakingDistance + MIN_DISTANCE_FROM_STOP)
+        if(distanceFromStop < brakingDistance + Settings::MinDistanceFromStop)
         {
             m_state = STOP;
             m_acceleration = m_minAcceleration;
@@ -334,13 +334,13 @@ void Vehicle::applyChanges(float elapsedTime)
     // apply acceleration
     m_speed += m_acceleration * elapsedTime;
 
-    // apply max speed limit
+    // apply max Settings::Speed limit
     if(m_speed > m_maxSpeed) m_acceleration = m_minAcceleration;
 
-    // apply min speed limit
+    // apply min Settings::Speed limit
     if(m_speed < 0) m_speed = 0;
 
-    // set rotation relative to current speed, to create a constant turning radius
+    // set rotation relative to current Settings::Speed, to create a constant turning radius
     Transform t;
 
     m_rotation += m_angularV * elapsedTime * m_speed ;
@@ -351,7 +351,7 @@ void Vehicle::applyChanges(float elapsedTime)
     m_movementVec = t.transformPoint(m_forwardVec);
 
     // apply movement vector on position, relative to elapsed time to ensure
-    // a constant speed at any FPS
+    // a constant Settings::Speed at any FPS
     m_position += m_movementVec * m_speed * elapsedTime;
 
     // apply rotation and position changes to the actual car sprite

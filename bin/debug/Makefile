@@ -379,6 +379,33 @@ src/Simulator/Map/moc_Road.cpp.s:
 	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Road.cpp.s
 .PHONY : src/Simulator/Map/moc_Road.cpp.s
 
+src/Simulator/Settings.o: src/Simulator/Settings.cpp.o
+
+.PHONY : src/Simulator/Settings.o
+
+# target to build an object file
+src/Simulator/Settings.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.o
+.PHONY : src/Simulator/Settings.cpp.o
+
+src/Simulator/Settings.i: src/Simulator/Settings.cpp.i
+
+.PHONY : src/Simulator/Settings.i
+
+# target to preprocess a source file
+src/Simulator/Settings.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.i
+.PHONY : src/Simulator/Settings.cpp.i
+
+src/Simulator/Settings.s: src/Simulator/Settings.cpp.s
+
+.PHONY : src/Simulator/Settings.s
+
+# target to generate assembly for a file
+src/Simulator/Settings.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.s
+.PHONY : src/Simulator/Settings.cpp.s
+
 src/Simulator/Vehicle.o: src/Simulator/Vehicle.cpp.o
 
 .PHONY : src/Simulator/Vehicle.o
@@ -433,32 +460,32 @@ src/Simulator/moc_Engine.cpp.s:
 	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Engine.cpp.s
 .PHONY : src/Simulator/moc_Engine.cpp.s
 
-src/Simulator/moc_Flags.o: src/Simulator/moc_Flags.cpp.o
+src/Simulator/moc_Settings.o: src/Simulator/moc_Settings.cpp.o
 
-.PHONY : src/Simulator/moc_Flags.o
+.PHONY : src/Simulator/moc_Settings.o
 
 # target to build an object file
-src/Simulator/moc_Flags.cpp.o:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.o
-.PHONY : src/Simulator/moc_Flags.cpp.o
+src/Simulator/moc_Settings.cpp.o:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.o
+.PHONY : src/Simulator/moc_Settings.cpp.o
 
-src/Simulator/moc_Flags.i: src/Simulator/moc_Flags.cpp.i
+src/Simulator/moc_Settings.i: src/Simulator/moc_Settings.cpp.i
 
-.PHONY : src/Simulator/moc_Flags.i
+.PHONY : src/Simulator/moc_Settings.i
 
 # target to preprocess a source file
-src/Simulator/moc_Flags.cpp.i:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.i
-.PHONY : src/Simulator/moc_Flags.cpp.i
+src/Simulator/moc_Settings.cpp.i:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.i
+.PHONY : src/Simulator/moc_Settings.cpp.i
 
-src/Simulator/moc_Flags.s: src/Simulator/moc_Flags.cpp.s
+src/Simulator/moc_Settings.s: src/Simulator/moc_Settings.cpp.s
 
-.PHONY : src/Simulator/moc_Flags.s
+.PHONY : src/Simulator/moc_Settings.s
 
 # target to generate assembly for a file
-src/Simulator/moc_Flags.cpp.s:
-	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.s
-.PHONY : src/Simulator/moc_Flags.cpp.s
+src/Simulator/moc_Settings.cpp.s:
+	$(MAKE) -f CMakeFiles/SimulatorSFML.dir/build.make CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.s
+.PHONY : src/Simulator/moc_Settings.cpp.s
 
 src/Simulator/moc_Vehicle.o: src/Simulator/moc_Vehicle.cpp.o
 
@@ -659,15 +686,18 @@ help:
 	@echo "... src/Simulator/Map/moc_Road.o"
 	@echo "... src/Simulator/Map/moc_Road.i"
 	@echo "... src/Simulator/Map/moc_Road.s"
+	@echo "... src/Simulator/Settings.o"
+	@echo "... src/Simulator/Settings.i"
+	@echo "... src/Simulator/Settings.s"
 	@echo "... src/Simulator/Vehicle.o"
 	@echo "... src/Simulator/Vehicle.i"
 	@echo "... src/Simulator/Vehicle.s"
 	@echo "... src/Simulator/moc_Engine.o"
 	@echo "... src/Simulator/moc_Engine.i"
 	@echo "... src/Simulator/moc_Engine.s"
-	@echo "... src/Simulator/moc_Flags.o"
-	@echo "... src/Simulator/moc_Flags.i"
-	@echo "... src/Simulator/moc_Flags.s"
+	@echo "... src/Simulator/moc_Settings.o"
+	@echo "... src/Simulator/moc_Settings.i"
+	@echo "... src/Simulator/moc_Settings.s"
 	@echo "... src/Simulator/moc_Vehicle.o"
 	@echo "... src/Simulator/moc_Vehicle.i"
 	@echo "... src/Simulator/moc_Vehicle.s"

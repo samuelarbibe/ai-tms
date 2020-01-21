@@ -6,6 +6,7 @@ a2f0b3b804c65098536afc7e4651fcf4 src/Simulator/Map/moc_Lane.cpp
 9d77d627abd894429da81bdc07ba52dd src/Simulator/Map/moc_Road.cpp
 17d1a8f88e792080433bc2b1a00fef36 src/Simulator/moc_Engine.cpp
 c2b2e8c52bc4047427a123ab9bd093b0 src/Simulator/moc_Flags.cpp
+d55f2c8c9cc8c930d9e8f3807005f0c8 src/Simulator/moc_Settings.cpp
 af1c00d0a16b4f738158b2e81490fcfe src/Simulator/moc_Vehicle.cpp
 a19e328973f538c25cd69fe9ced72e37 src/UI/Widgets/moc_QsfmlCanvas.cpp
 a543ac8af98345eeab7d4e580978a114 src/UI/moc_mainwindow.cpp

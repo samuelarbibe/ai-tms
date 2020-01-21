@@ -14,7 +14,7 @@
 #include <SFML/Graphics.hpp>
 #include <list>
 #include "Road.hpp"
-#include "../Flags.hpp"
+#include "../Settings.hpp"
 
 using namespace sf;
 using namespace std;
@@ -30,8 +30,9 @@ class Intersection: public RectangleShape
 public:
     
     Intersection(Vector2f position, int intersectionNumber, WeatherCondition weatherCondition = WeatherCondition::DRY);
-    ~Intersection(){if(DRAW_DELETE)cout << "Intersection " << m_intersectionNumber << "deleted" << endl;}
+    ~Intersection(){if(Settings::DrawDelete)cout << "Intersection " << m_intersectionNumber << "deleted" << endl;}
 
+    void   ReloadIntersection();
     void   reAssignIntersectionPosition(Vector2f position);
     void   reAssignRoadPositions();
     void   Update(float elapsedTime);

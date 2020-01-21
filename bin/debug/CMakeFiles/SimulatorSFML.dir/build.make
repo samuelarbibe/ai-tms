@@ -81,21 +81,21 @@ src/Simulator/moc_Vehicle.cpp: ../../src/Simulator/Vehicle.hpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating src/Simulator/moc_Vehicle.cpp"
 	cd /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator && /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/bin/moc @/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Vehicle.cpp_parameters
 
-src/Simulator/moc_Flags.cpp: ../../src/Simulator/Flags.hpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating src/Simulator/moc_Flags.cpp"
-	cd /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator && /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/bin/moc @/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Flags.cpp_parameters
-
 src/Simulator/Map/moc_Map.cpp: ../../src/Simulator/Map/Map.hpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating src/Simulator/Map/moc_Map.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating src/Simulator/Map/moc_Map.cpp"
 	cd /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/Map && /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/bin/moc @/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/Map/moc_Map.cpp_parameters
 
 src/UI/Widgets/moc_QsfmlCanvas.cpp: ../../src/UI/Widgets/QsfmlCanvas.hpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating src/UI/Widgets/moc_QsfmlCanvas.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating src/UI/Widgets/moc_QsfmlCanvas.cpp"
 	cd /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/UI/Widgets && /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/bin/moc @/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/UI/Widgets/moc_QsfmlCanvas.cpp_parameters
 
 src/UI/moc_mainwindow.cpp: ../../src/UI/mainwindow.h
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating src/UI/moc_mainwindow.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating src/UI/moc_mainwindow.cpp"
 	cd /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/UI && /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/bin/moc @/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/UI/moc_mainwindow.cpp_parameters
+
+src/Simulator/moc_Settings.cpp: ../../src/Simulator/Settings.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating src/Simulator/moc_Settings.cpp"
+	cd /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator && /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/bin/moc @/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Settings.cpp_parameters
 
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o: ../../src/Simulator/Engine.cpp
@@ -214,9 +214,22 @@ CMakeFiles/SimulatorSFML.dir/src/UI/mainwindow.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SimulatorSFML.dir/src/UI/mainwindow.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Github/SimulatorSFML/src/UI/mainwindow.cpp -o CMakeFiles/SimulatorSFML.dir/src/UI/mainwindow.cpp.s
 
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.o: ../../src/Simulator/Settings.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.o -c /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Settings.cpp
+
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Settings.cpp > CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.i
+
+CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Settings.cpp -o CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.s
+
 CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Engine.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
 CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Engine.cpp.o: src/Simulator/moc_Engine.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Engine.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Engine.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Engine.cpp.o -c /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Engine.cpp
 
 CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Engine.cpp.i: cmake_force
@@ -229,7 +242,7 @@ CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Engine.cpp.s: cmake_force
 
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Intersection.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Intersection.cpp.o: src/Simulator/Map/moc_Intersection.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Intersection.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Intersection.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Intersection.cpp.o -c /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/Map/moc_Intersection.cpp
 
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Intersection.cpp.i: cmake_force
@@ -242,7 +255,7 @@ CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Intersection.cpp.s: cmake_for
 
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Lane.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Lane.cpp.o: src/Simulator/Map/moc_Lane.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Lane.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Lane.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Lane.cpp.o -c /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/Map/moc_Lane.cpp
 
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Lane.cpp.i: cmake_force
@@ -255,7 +268,7 @@ CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Lane.cpp.s: cmake_force
 
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Road.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Road.cpp.o: src/Simulator/Map/moc_Road.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Road.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Road.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Road.cpp.o -c /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/Map/moc_Road.cpp
 
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Road.cpp.i: cmake_force
@@ -268,7 +281,7 @@ CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Road.cpp.s: cmake_force
 
 CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
 CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.o: src/Simulator/moc_Vehicle.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.o -c /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Vehicle.cpp
 
 CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.i: cmake_force
@@ -278,19 +291,6 @@ CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.i: cmake_force
 CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Vehicle.cpp -o CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.s
-
-CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
-CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.o: src/Simulator/moc_Flags.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.o -c /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Flags.cpp
-
-CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Flags.cpp > CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.i
-
-CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Flags.cpp -o CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.s
 
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Map.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
 CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Map.cpp.o: src/Simulator/Map/moc_Map.cpp
@@ -331,6 +331,19 @@ CMakeFiles/SimulatorSFML.dir/src/UI/moc_mainwindow.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SimulatorSFML.dir/src/UI/moc_mainwindow.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/UI/moc_mainwindow.cpp -o CMakeFiles/SimulatorSFML.dir/src/UI/moc_mainwindow.cpp.s
 
+CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.o: CMakeFiles/SimulatorSFML.dir/flags.make
+CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.o: src/Simulator/moc_Settings.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.o -c /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Settings.cpp
+
+CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Settings.cpp > CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.i
+
+CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/src/Simulator/moc_Settings.cpp -o CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.s
+
 # Object files for target SimulatorSFML
 SimulatorSFML_OBJECTS = \
 "CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o" \
@@ -342,15 +355,16 @@ SimulatorSFML_OBJECTS = \
 "CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Map.cpp.o" \
 "CMakeFiles/SimulatorSFML.dir/src/UI/Widgets/QsfmlCanvas.cpp.o" \
 "CMakeFiles/SimulatorSFML.dir/src/UI/mainwindow.cpp.o" \
+"CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.o" \
 "CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Engine.cpp.o" \
 "CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Intersection.cpp.o" \
 "CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Lane.cpp.o" \
 "CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Road.cpp.o" \
 "CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.o" \
-"CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.o" \
 "CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Map.cpp.o" \
 "CMakeFiles/SimulatorSFML.dir/src/UI/Widgets/moc_QsfmlCanvas.cpp.o" \
-"CMakeFiles/SimulatorSFML.dir/src/UI/moc_mainwindow.cpp.o"
+"CMakeFiles/SimulatorSFML.dir/src/UI/moc_mainwindow.cpp.o" \
+"CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.o"
 
 # External object files for target SimulatorSFML
 SimulatorSFML_EXTERNAL_OBJECTS =
@@ -364,15 +378,16 @@ SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/Simulator/Vehicle.cpp.o
 SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/Map.cpp.o
 SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/UI/Widgets/QsfmlCanvas.cpp.o
 SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/UI/mainwindow.cpp.o
+SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/Simulator/Settings.cpp.o
 SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Engine.cpp.o
 SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Intersection.cpp.o
 SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Lane.cpp.o
 SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Road.cpp.o
 SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Vehicle.cpp.o
-SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Flags.cpp.o
 SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/Simulator/Map/moc_Map.cpp.o
 SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/UI/Widgets/moc_QsfmlCanvas.cpp.o
 SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/UI/moc_mainwindow.cpp.o
+SimulatorSFML: CMakeFiles/SimulatorSFML.dir/src/Simulator/moc_Settings.cpp.o
 SimulatorSFML: CMakeFiles/SimulatorSFML.dir/build.make
 SimulatorSFML: /Library/Frameworks/./sfml-graphics.framework/Versions/2.5.1/sfml-graphics
 SimulatorSFML: /Library/Frameworks/./sfml-window.framework/Versions/2.5.1/sfml-window
@@ -381,7 +396,7 @@ SimulatorSFML: /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framew
 SimulatorSFML: /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtGui.framework/QtGui
 SimulatorSFML: /Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/QtCore
 SimulatorSFML: CMakeFiles/SimulatorSFML.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Linking CXX executable SimulatorSFML"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Linking CXX executable SimulatorSFML"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SimulatorSFML.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -399,10 +414,10 @@ CMakeFiles/SimulatorSFML.dir/depend: src/Simulator/Map/moc_Intersection.cpp
 CMakeFiles/SimulatorSFML.dir/depend: src/Simulator/Map/moc_Lane.cpp
 CMakeFiles/SimulatorSFML.dir/depend: src/Simulator/Map/moc_Road.cpp
 CMakeFiles/SimulatorSFML.dir/depend: src/Simulator/moc_Vehicle.cpp
-CMakeFiles/SimulatorSFML.dir/depend: src/Simulator/moc_Flags.cpp
 CMakeFiles/SimulatorSFML.dir/depend: src/Simulator/Map/moc_Map.cpp
 CMakeFiles/SimulatorSFML.dir/depend: src/UI/Widgets/moc_QsfmlCanvas.cpp
 CMakeFiles/SimulatorSFML.dir/depend: src/UI/moc_mainwindow.cpp
+CMakeFiles/SimulatorSFML.dir/depend: src/Simulator/moc_Settings.cpp
 	cd /Users/samuelarbibe/Github/SimulatorSFML/bin/debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/samuelarbibe/Github/SimulatorSFML /Users/samuelarbibe/Github/SimulatorSFML /Users/samuelarbibe/Github/SimulatorSFML/bin/debug /Users/samuelarbibe/Github/SimulatorSFML/bin/debug /Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/SimulatorSFML.dir/depend
 

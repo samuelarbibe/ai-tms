@@ -13,11 +13,6 @@
 			""
 		],
 		[
-			"/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Flags.hpp",
-			"mU",
-			""
-		],
-		[
 			"/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Intersection.hpp",
 			"mU",
 			""
@@ -34,6 +29,11 @@
 		],
 		[
 			"/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Road.hpp",
+			"mU",
+			""
+		],
+		[
+			"/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Settings.hpp",
 			"mU",
 			""
 		],
@@ -82,6 +82,10 @@
 		],
 		[
 			"/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Map/Road.cpp",
+			"mU"
+		],
+		[
+			"/Users/samuelarbibe/Github/SimulatorSFML/src/Simulator/Settings.cpp",
 			"mU"
 		],
 		[

@@ -8,7 +8,6 @@
 
 #include "Road.hpp"
 
-
 int Road::RoadCount = 0;
 
 /// ctor for a normal road
@@ -99,8 +98,7 @@ Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
     this->setSize(Vector2f(m_width, m_length));
     this->setOrigin(m_width/2, 0.f);
 
-
-    if(DRAW_ADDED)std::cout << "lane " << m_lanes[m_numberOfLanes - 1]->GetLaneNumber() << " added to road " << m_roadNumber << std::endl;
+    if(Settings::DrawAdded)std::cout << "lane " << m_lanes[m_numberOfLanes - 1]->GetLaneNumber() << " added to road " << m_roadNumber << std::endl;
     
     return m_lanes[m_numberOfLanes - 1];
 }
@@ -126,6 +124,9 @@ void Road::reAssignLanePositions()
     Vector2f  firstLaneDifference;
     Vector2f  laneDifference;
     Vector2f  lengthVec;
+
+    this->m_laneWidth = Settings::LaneWidth / Settings::Scale;
+    cout << m_laneWidth << endl;
     
     Transform t, x;
     
