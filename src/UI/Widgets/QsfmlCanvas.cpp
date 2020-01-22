@@ -2,6 +2,7 @@
 // Created by Samuel Arbibe on 01/01/2020.
 //
 
+#include <src/Simulator/Settings.hpp>
 #include "QsfmlCanvas.hpp"
 
 #ifdef Q_WS_X11
@@ -22,10 +23,18 @@ QSFMLCanvas::QSFMLCanvas(QWidget* Parent, unsigned int FrameTime) :
     setFocusPolicy(Qt::StrongFocus);
 
     // Setup the widget geometry
+    // setup for high DPI devices, adjust sfml widget size to actual size
+
+    Settings::SFMLRatio = Parent->devicePixelRatio(); // save ratio for later use
     resize(Parent->size());
 
     // Setup the timer
     myTimer.setInterval(FrameTime);
+}
+
+void QSFMLCanvas::resizeEvent(QResizeEvent* event)
+{
+    setSize(sf::Vector2u(QWidget::width(), QWidget::height()));
 }
 
 void QSFMLCanvas::showEvent(QShowEvent*)

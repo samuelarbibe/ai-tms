@@ -39,14 +39,14 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../../"
   "SimulatorSFML_autogen/include"
   "/Library/Frameworks/SFML.framework"
-  "/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework"
-  "/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers"
-  "/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtGui.framework"
-  "/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtGui.framework/Headers"
+  "/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework"
+  "/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers"
+  "/usr/local/Cellar/qt/5.14.0/lib/QtGui.framework"
+  "/usr/local/Cellar/qt/5.14.0/lib/QtGui.framework/Headers"
   "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/OpenGL.framework/Headers"
-  "/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework"
-  "/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers"
-  "/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/./mkspecs/macx-clang"
+  "/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework"
+  "/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers"
+  "/usr/local/Cellar/qt/5.14.0/./mkspecs/macx-clang"
   )
 
 # Targets to which this target links.

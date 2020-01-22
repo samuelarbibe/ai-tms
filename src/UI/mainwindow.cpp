@@ -26,9 +26,11 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     Vector2f point;
 
     clickPoint = SimulatorEngine->mapFromGlobal(QCursor::pos());
+
     point.x = clickPoint.x();
     point.y = clickPoint.y();
 
+    //cout << point.x << point.y << endl;
 
     if(point.x > 0 && point.y > 0)
     {
@@ -71,7 +73,6 @@ void MainWindow::on_AddIntersectionButton_clicked()
 
 void MainWindow::on_AddConnectingRoadButton_clicked()
 {
-
     int intersection1 = ui->FromIntersectionSpinBox->value();
     int intersection2 = ui->ToIntersectionSpinBox->value();
 
@@ -146,7 +147,7 @@ void MainWindow::on_LaneWidthSlider_sliderMoved(int position)
     ui->LaneWidthSlider->setValue(position);
     ui->LaneWidthValueEdit->setText(QString::number(position * Settings::UnitScales[unit]));
     Settings::LaneWidth = position;
-    SimulatorEngine->map->ReloadMap();
+    if(SimulatorEngine->map != nullptr)SimulatorEngine->map->ReloadMap(); // check if init was called
 }
 
 void MainWindow::on_UnitComboBox_currentIndexChanged(int index)

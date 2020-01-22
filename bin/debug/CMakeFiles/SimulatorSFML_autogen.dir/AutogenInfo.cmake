@@ -1,6 +1,6 @@
 # Meta
 set(AM_MULTI_CONFIG "FALSE")
-set(AM_PARALLEL "4")
+set(AM_PARALLEL "2")
 set(AM_VERBOSITY "")
 # Directories
 set(AM_CMAKE_SOURCE_DIR "/Users/samuelarbibe/Github/SimulatorSFML")
@@ -13,7 +13,7 @@ set(AM_INCLUDE_DIR "/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/Simulator
 # Qt
 set(AM_QT_VERSION_MAJOR 5)
 set(AM_QT_MOC_EXECUTABLE "")
-set(AM_QT_UIC_EXECUTABLE "/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/bin/uic")
+set(AM_QT_UIC_EXECUTABLE "/usr/local/Cellar/qt/5.14.0/bin/uic")
 # Files
 set(AM_CMAKE_EXECUTABLE "/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake")
 set(AM_SETTINGS_FILE "/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML_autogen.dir/AutogenOldSettings.txt")

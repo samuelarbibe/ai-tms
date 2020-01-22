@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/SimulatorSFML_autogen.dir/AutogenUsed.txt"
+  "CMakeFiles/SimulatorSFML_autogen.dir/AutogenOldSettings.txt"
   "CMakeFiles/SimulatorSFML_autogen.dir/ParseCache.txt"
   "SimulatorSFML_autogen"
   "CMakeFiles/SimulatorSFML.dir/src/Simulator/Engine.cpp.o"

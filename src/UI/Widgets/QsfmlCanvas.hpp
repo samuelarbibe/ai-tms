@@ -17,7 +17,7 @@ class QSFMLCanvas : public QWidget, public RenderWindow
 public :
 
     QSFMLCanvas(QWidget* Parent, unsigned int FrameTime = 0);
-
+    void resizeEvent(QResizeEvent* event);
     virtual ~QSFMLCanvas(){std::cout << "QSFML Canvas destroyed" << std::endl;}
 
 private :

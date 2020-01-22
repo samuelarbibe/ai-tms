@@ -5,7 +5,7 @@
 		<Option title="SimulatorSFML"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\Qt5.12.6\;CMake Files\..\..\Qt5.12.6\5.12.6\;CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\;CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\;CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\;CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5\;CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Core\;CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\;CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Widgets\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\Library\;CMake Files\..\..\..\..\Library\Frameworks\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\CMake\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\Cellar\;CMake Files\..\..\..\..\usr\local\Cellar\qt\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\;CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\;CMake Files\..\..\..\..\Library\;CMake Files\..\..\..\..\Library\Frameworks\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\;CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\CMake\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/Users/samuelarbibe/Github/SimulatorSFML/bin/debug"/>
@@ -51,14 +51,14 @@
 					<Add directory="/Users/samuelarbibe/Github/SimulatorSFML"/>
 					<Add directory="/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/SimulatorSFML_autogen/include"/>
 					<Add directory="/Library/Frameworks/SFML.framework"/>
-					<Add directory="/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework"/>
-					<Add directory="/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers"/>
-					<Add directory="/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtGui.framework"/>
-					<Add directory="/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtGui.framework/Headers"/>
+					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework"/>
+					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers"/>
+					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtGui.framework"/>
+					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtGui.framework/Headers"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/OpenGL.framework/Headers"/>
-					<Add directory="/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework"/>
-					<Add directory="/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers"/>
-					<Add directory="/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/./mkspecs/macx-clang"/>
+					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework"/>
+					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers"/>
+					<Add directory="/usr/local/Cellar/qt/5.14.0/./mkspecs/macx-clang"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include"/>
@@ -87,14 +87,14 @@
 					<Add directory="/Users/samuelarbibe/Github/SimulatorSFML"/>
 					<Add directory="/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/SimulatorSFML_autogen/include"/>
 					<Add directory="/Library/Frameworks/SFML.framework"/>
-					<Add directory="/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework"/>
-					<Add directory="/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtWidgets.framework/Headers"/>
-					<Add directory="/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtGui.framework"/>
-					<Add directory="/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtGui.framework/Headers"/>
+					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework"/>
+					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtWidgets.framework/Headers"/>
+					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtGui.framework"/>
+					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtGui.framework/Headers"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/OpenGL.framework/Headers"/>
-					<Add directory="/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework"/>
-					<Add directory="/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/lib/QtCore.framework/Headers"/>
-					<Add directory="/Users/samuelarbibe/Qt5.12.6/5.12.6/clang_64/./mkspecs/macx-clang"/>
+					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework"/>
+					<Add directory="/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers"/>
+					<Add directory="/usr/local/Cellar/qt/5.14.0/./mkspecs/macx-clang"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include"/>
@@ -255,98 +255,110 @@
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5/Qt5Config.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5/Qt5Config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5/Qt5ConfigVersion.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5/Qt5ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5/Qt5ModuleLocation.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5/Qt5ModuleLocation.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Core/Qt5CoreConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Core\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Core\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Core\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Core\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Core/Qt5CoreMacros.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Core\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Core/Qt5CoreMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Core\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QCocoaIntegrationPlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QCocoaIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QICNSPlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QICNSPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QMacHeifPlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QMacHeifPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QMacJp2Plugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QMacJp2Plugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QTgaPlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QSvgIconPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QTiffPlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QSvgPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QTgaPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QWbmpPlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QTiffPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QWebpPlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QXdgDesktopPortalThemePlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Gui\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QVirtualKeyboardPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Widgets\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QWbmpPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Widgets\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QWebGLIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Widgets\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QWebpPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Widgets\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Gui/Qt5Gui_QXdgDesktopPortalThemePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Gui\"/>
 		</Unit>
-		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../Qt5.12.6/5.12.6/clang_64/lib/cmake/Qt5Widgets/Qt5Widgets_QMacStylePlugin.cmake">
-			<Option virtualFolder="CMake Files\..\..\Qt5.12.6\5.12.6\clang_64\lib\cmake\Qt5Widgets\"/>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../usr/local/Cellar/qt/5.14.0/lib/cmake/Qt5Widgets/Qt5Widgets_QMacStylePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\Cellar\qt\5.14.0\lib\cmake\Qt5Widgets\"/>
 		</Unit>
 		<Unit filename="/Users/samuelarbibe/Github/SimulatorSFML/../../../../Library/Frameworks/SFML.framework/Resources/CMake/SFMLConfig.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\Library\Frameworks\SFML.framework\Resources\CMake\"/>

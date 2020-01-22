@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.6
+** Created by: Qt User Interface Compiler version 5.14.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -708,69 +708,69 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
-        label_8->setText(QApplication::translate("MainWindow", "Setup", nullptr));
-        label_3->setText(QApplication::translate("MainWindow", "X Position:", nullptr));
-        label_4->setText(QApplication::translate("MainWindow", "Y Position:", nullptr));
-        AddIntersectionButton->setText(QApplication::translate("MainWindow", "Add Intersection", nullptr));
-        label->setText(QApplication::translate("MainWindow", "From Intersection: ", nullptr));
-        label_2->setText(QApplication::translate("MainWindow", "To Intersection: ", nullptr));
-        AddConnectingRoadButton->setText(QApplication::translate("MainWindow", "Add Connecting Road", nullptr));
-        label_5->setText(QApplication::translate("MainWindow", "Intersection: ", nullptr));
-        label_6->setText(QApplication::translate("MainWindow", "Connection Side:", nullptr));
-        ConSideComboBox->setItemText(0, QApplication::translate("MainWindow", "Up", nullptr));
-        ConSideComboBox->setItemText(1, QApplication::translate("MainWindow", "Right", nullptr));
-        ConSideComboBox->setItemText(2, QApplication::translate("MainWindow", "Down", nullptr));
-        ConSideComboBox->setItemText(3, QApplication::translate("MainWindow", "Left", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        label_8->setText(QCoreApplication::translate("MainWindow", "Setup", nullptr));
+        label_3->setText(QCoreApplication::translate("MainWindow", "X Position:", nullptr));
+        label_4->setText(QCoreApplication::translate("MainWindow", "Y Position:", nullptr));
+        AddIntersectionButton->setText(QCoreApplication::translate("MainWindow", "Add Intersection", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "From Intersection: ", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "To Intersection: ", nullptr));
+        AddConnectingRoadButton->setText(QCoreApplication::translate("MainWindow", "Add Connecting Road", nullptr));
+        label_5->setText(QCoreApplication::translate("MainWindow", "Intersection: ", nullptr));
+        label_6->setText(QCoreApplication::translate("MainWindow", "Connection Side:", nullptr));
+        ConSideComboBox->setItemText(0, QCoreApplication::translate("MainWindow", "Up", nullptr));
+        ConSideComboBox->setItemText(1, QCoreApplication::translate("MainWindow", "Right", nullptr));
+        ConSideComboBox->setItemText(2, QCoreApplication::translate("MainWindow", "Down", nullptr));
+        ConSideComboBox->setItemText(3, QCoreApplication::translate("MainWindow", "Left", nullptr));
 
-        AddRoadButton->setText(QApplication::translate("MainWindow", "Add Road", nullptr));
-        label_7->setText(QApplication::translate("MainWindow", "To Road:", nullptr));
-        InDirectionCheckBox->setText(QApplication::translate("MainWindow", "Is In road Direction", nullptr));
-        AddLanePushButton->setText(QApplication::translate("MainWindow", "Add Lane", nullptr));
-        label_9->setText(QApplication::translate("MainWindow", "Lane Width:", nullptr));
-        UnitComboBox->setItemText(0, QApplication::translate("MainWindow", "m", nullptr));
-        UnitComboBox->setItemText(1, QApplication::translate("MainWindow", "cm", nullptr));
-        UnitComboBox->setItemText(2, QApplication::translate("MainWindow", "ft", nullptr));
-        UnitComboBox->setItemText(3, QApplication::translate("MainWindow", "inch", nullptr));
+        AddRoadButton->setText(QCoreApplication::translate("MainWindow", "Add Road", nullptr));
+        label_7->setText(QCoreApplication::translate("MainWindow", "To Road:", nullptr));
+        InDirectionCheckBox->setText(QCoreApplication::translate("MainWindow", "Is In road Direction", nullptr));
+        AddLanePushButton->setText(QCoreApplication::translate("MainWindow", "Add Lane", nullptr));
+        label_9->setText(QCoreApplication::translate("MainWindow", "Lane Width:", nullptr));
+        UnitComboBox->setItemText(0, QCoreApplication::translate("MainWindow", "m", nullptr));
+        UnitComboBox->setItemText(1, QCoreApplication::translate("MainWindow", "cm", nullptr));
+        UnitComboBox->setItemText(2, QCoreApplication::translate("MainWindow", "ft", nullptr));
+        UnitComboBox->setItemText(3, QCoreApplication::translate("MainWindow", "inch", nullptr));
 
-        SnapToGridCheckBox->setText(QApplication::translate("MainWindow", "Snap To Grid", nullptr));
-        ShowGridCheckBox->setText(QApplication::translate("MainWindow", "Show Grid", nullptr));
-        pushButton_8->setText(QApplication::translate("MainWindow", "Load Map", nullptr));
-        pushButton_3->setText(QApplication::translate("MainWindow", "Save Map", nullptr));
-        pushButton_2->setText(QApplication::translate("MainWindow", "Delete", nullptr));
-        pushButton_7->setText(QApplication::translate("MainWindow", "Reset", nullptr));
-        MapSetupTab->setTabText(MapSetupTab->indexOf(tab), QApplication::translate("MainWindow", "Map", nullptr));
-        checkBox_2->setText(QApplication::translate("MainWindow", "Multi Color", nullptr));
-        label_11->setText(QApplication::translate("MainWindow", "Car Max Settings::Speed", nullptr));
-        comboBox_2->setItemText(0, QApplication::translate("MainWindow", "km/h", nullptr));
-        comboBox_2->setItemText(1, QApplication::translate("MainWindow", "mph", nullptr));
-        comboBox_2->setItemText(2, QApplication::translate("MainWindow", "m/s", nullptr));
-        comboBox_2->setItemText(3, QApplication::translate("MainWindow", "ft/s", nullptr));
+        SnapToGridCheckBox->setText(QCoreApplication::translate("MainWindow", "Snap To Grid", nullptr));
+        ShowGridCheckBox->setText(QCoreApplication::translate("MainWindow", "Show Grid", nullptr));
+        pushButton_8->setText(QCoreApplication::translate("MainWindow", "Load Map", nullptr));
+        pushButton_3->setText(QCoreApplication::translate("MainWindow", "Save Map", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("MainWindow", "Delete", nullptr));
+        pushButton_7->setText(QCoreApplication::translate("MainWindow", "Reset", nullptr));
+        MapSetupTab->setTabText(MapSetupTab->indexOf(tab), QCoreApplication::translate("MainWindow", "Map", nullptr));
+        checkBox_2->setText(QCoreApplication::translate("MainWindow", "Multi Color", nullptr));
+        label_11->setText(QCoreApplication::translate("MainWindow", "Car Max Settings::Speed", nullptr));
+        comboBox_2->setItemText(0, QCoreApplication::translate("MainWindow", "km/h", nullptr));
+        comboBox_2->setItemText(1, QCoreApplication::translate("MainWindow", "mph", nullptr));
+        comboBox_2->setItemText(2, QCoreApplication::translate("MainWindow", "m/s", nullptr));
+        comboBox_2->setItemText(3, QCoreApplication::translate("MainWindow", "ft/s", nullptr));
 
-        label_12->setText(QApplication::translate("MainWindow", "Motorcycle Max Settings::Speed", nullptr));
-        comboBox_3->setItemText(0, QApplication::translate("MainWindow", "km/h", nullptr));
-        comboBox_3->setItemText(1, QApplication::translate("MainWindow", "mph", nullptr));
-        comboBox_3->setItemText(2, QApplication::translate("MainWindow", "m/s", nullptr));
-        comboBox_3->setItemText(3, QApplication::translate("MainWindow", "ft/s", nullptr));
+        label_12->setText(QCoreApplication::translate("MainWindow", "Motorcycle Max Settings::Speed", nullptr));
+        comboBox_3->setItemText(0, QCoreApplication::translate("MainWindow", "km/h", nullptr));
+        comboBox_3->setItemText(1, QCoreApplication::translate("MainWindow", "mph", nullptr));
+        comboBox_3->setItemText(2, QCoreApplication::translate("MainWindow", "m/s", nullptr));
+        comboBox_3->setItemText(3, QCoreApplication::translate("MainWindow", "ft/s", nullptr));
 
-        label_13->setText(QApplication::translate("MainWindow", "Truck Max Settings::Speed", nullptr));
-        comboBox_4->setItemText(0, QApplication::translate("MainWindow", "km/h", nullptr));
-        comboBox_4->setItemText(1, QApplication::translate("MainWindow", "mph", nullptr));
-        comboBox_4->setItemText(2, QApplication::translate("MainWindow", "m/s", nullptr));
-        comboBox_4->setItemText(3, QApplication::translate("MainWindow", "ft/s", nullptr));
+        label_13->setText(QCoreApplication::translate("MainWindow", "Truck Max Settings::Speed", nullptr));
+        comboBox_4->setItemText(0, QCoreApplication::translate("MainWindow", "km/h", nullptr));
+        comboBox_4->setItemText(1, QCoreApplication::translate("MainWindow", "mph", nullptr));
+        comboBox_4->setItemText(2, QCoreApplication::translate("MainWindow", "m/s", nullptr));
+        comboBox_4->setItemText(3, QCoreApplication::translate("MainWindow", "ft/s", nullptr));
 
-        pushButton_9->setText(QApplication::translate("MainWindow", "Load Setup", nullptr));
-        pushButton_10->setText(QApplication::translate("MainWindow", "Save Setup", nullptr));
-        pushButton_12->setText(QApplication::translate("MainWindow", "Reset", nullptr));
-        MapSetupTab->setTabText(MapSetupTab->indexOf(tab_2), QApplication::translate("MainWindow", "Vehicles", nullptr));
-        label_10->setText(QApplication::translate("MainWindow", "Data", nullptr));
+        pushButton_9->setText(QCoreApplication::translate("MainWindow", "Load Setup", nullptr));
+        pushButton_10->setText(QCoreApplication::translate("MainWindow", "Save Setup", nullptr));
+        pushButton_12->setText(QCoreApplication::translate("MainWindow", "Reset", nullptr));
+        MapSetupTab->setTabText(MapSetupTab->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Vehicles", nullptr));
+        label_10->setText(QCoreApplication::translate("MainWindow", "Data", nullptr));
         groupBox_2->setTitle(QString());
-        label_19->setText(QApplication::translate("MainWindow", "Run", nullptr));
+        label_19->setText(QCoreApplication::translate("MainWindow", "Run", nullptr));
         groupBox_3->setTitle(QString());
-        pushButton_17->setText(QApplication::translate("MainWindow", "Run Simulation", nullptr));
-        pushButton_18->setText(QApplication::translate("MainWindow", "Pause", nullptr));
-        pushButton_19->setText(QApplication::translate("MainWindow", "Continue", nullptr));
-        pushButton_20->setText(QApplication::translate("MainWindow", "Abort", nullptr));
+        pushButton_17->setText(QCoreApplication::translate("MainWindow", "Run Simulation", nullptr));
+        pushButton_18->setText(QCoreApplication::translate("MainWindow", "Pause", nullptr));
+        pushButton_19->setText(QCoreApplication::translate("MainWindow", "Continue", nullptr));
+        pushButton_20->setText(QCoreApplication::translate("MainWindow", "Abort", nullptr));
     } // retranslateUi
 
 };

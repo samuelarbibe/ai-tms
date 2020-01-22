@@ -16,14 +16,20 @@ void Engine::OnInit()
 {
     m_snapToGrid = true;
 
+    cout << "Setting Up Camera..." << endl;
+    m_view = View(sf::FloatRect(0.f,0.f, Settings::DefaultMapWidth,  Settings::DefaultMapHeight));
+    m_view.zoom(Settings::Zoom);
+
+    map = new Map(0, Vector2i(this->width()/2, this->height()/2), Settings::DefaultMapWidth, Settings::DefaultMapWidth);
+
     cout << "Setting up snap grid..." << endl;
     BuildGrid(Settings::GridRows, Settings::GridColumns);
 
-    cout << "Setting up max Settings::Speeds..." << endl;
+    cout << "Setting up max speeds..." << endl;
     Vehicle::SetMaxSpeed(VehicleTypeOptions::CAR, 100.f, 1.5f);
     Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 80.f, 1.f);
 
-    map = new Map(0, Vector2i(this->width()/2, this->height()/2), this->width(), this->height());
+    this->setView(m_view);
 
 }
 
@@ -32,8 +38,8 @@ void Engine::BuildGrid(int rows, int cols)
     m_snapGrid.Lines.clear(); // clear the old lines list
     m_snapGrid.Rows = rows;
     m_snapGrid.Columns = cols;
-    m_snapGrid.ColumnWidth = this->width()/m_snapGrid.Columns;
-    m_snapGrid.RowHeight = this->height()/m_snapGrid.Rows;
+    m_snapGrid.ColumnWidth = map->GetSize().x/m_snapGrid.Columns;
+    m_snapGrid.RowHeight = map->GetSize().y/m_snapGrid.Rows;
 
     // create all vertical lines of the grid
     for (int i = 1; i < m_snapGrid.Columns; i++)
@@ -41,7 +47,7 @@ void Engine::BuildGrid(int rows, int cols)
         Vertex * line = new Vertex[2];
 
         line[0] = sf::Vertex(sf::Vector2f(i * m_snapGrid.ColumnWidth, 0));
-        line[1] = sf::Vertex(sf::Vector2f(i * m_snapGrid.ColumnWidth, this->height()));
+        line[1] = sf::Vertex(sf::Vector2f(i * m_snapGrid.ColumnWidth, map->GetSize().y));
 
         m_snapGrid.Lines.push_back(line);
     }
@@ -51,7 +57,7 @@ void Engine::BuildGrid(int rows, int cols)
         Vertex * line = new Vertex[2];
 
         line[0] = sf::Vertex(sf::Vector2f(0, i * m_snapGrid.RowHeight));
-        line[1] = sf::Vertex(sf::Vector2f(this->width(), i * m_snapGrid.RowHeight));
+        line[1] = sf::Vertex(sf::Vector2f(map->GetSize().x, i * m_snapGrid.RowHeight));
 
         m_snapGrid.Lines.push_back(line);
     }
@@ -59,6 +65,12 @@ void Engine::BuildGrid(int rows, int cols)
 
 Vector2f Engine::DrawPoint(Vector2f position)
 {
+    position = position * 2.f;
+    // convert it to world coordinates
+    position = this->mapPixelToCoords(Vector2i(position), m_view);
+
+    cout << position.x << position.y << endl;
+
     Vector2f temp;
     if(m_snapToGrid)
     {
@@ -69,7 +81,7 @@ Vector2f Engine::DrawPoint(Vector2f position)
         temp = position;
     }
 
-    m_clickPoint = CircleShape(5.f);
+    m_clickPoint = CircleShape(m_snapGrid.ColumnWidth/3.f);
     m_clickPoint.setOrigin(m_clickPoint.getRadius(), m_clickPoint.getRadius());
     m_clickPoint.setFillColor(Color::Red);
     m_clickPoint.setPosition(temp.x, temp.y);
@@ -171,7 +183,7 @@ void Engine::OnDraw()
     this->draw(this->m_clickPoint);
 
     // Draw the grid
-    if(this->m_showGrid == true)
+    if(this->m_showGrid)
     {
         for (Vertex *l : this->m_snapGrid.Lines) {
             this->draw(l, 2, Lines);

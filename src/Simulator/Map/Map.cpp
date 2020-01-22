@@ -10,6 +10,7 @@ Map::Map(int mapNumber, Vector2i position, int width, int height)
     {
         mapNumber = 1;
     }
+    m_intersections = vector<Intersection*>();
     m_mapNumber = mapNumber;
     m_position = position;
     m_width    = width;
@@ -197,9 +198,10 @@ pair<ConnectionSides, ConnectionSides> Map::AssignConnectionSides( Vector2f pos1
 /// Reload all intersection in this map
 void Map::ReloadMap()
 {
-    for(Intersection * i : m_intersections)
-    {
-        i->ReloadIntersection();
+    if(!m_intersections.empty()) {
+        for (Intersection *i : m_intersections) {
+            i->ReloadIntersection();
+        }
     }
 }
 

@@ -30,6 +30,12 @@ public:
     static int GridColumns;
     static int GridRows;
 
+    static int SFMLRatio;
+    static int DefaultMapWidth;
+    static int DefaultMapHeight;
+
+    static float Zoom;
+
     // an array of scales for each distance unit
     static float UnitScales[4];
     // 0 - M
