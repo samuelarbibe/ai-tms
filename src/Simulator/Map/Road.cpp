@@ -125,9 +125,9 @@ void Road::reAssignLanePositions()
     Vector2f  laneDifference;
     Vector2f  lengthVec;
 
-    this->m_laneWidth = Settings::LaneWidth / Settings::Scale;
-    cout << m_laneWidth << endl;
-    
+    this->m_laneWidth = Settings::LaneWidth;
+    this->setSize(Vector2f(m_width, m_length));
+
     Transform t, x;
     
     t.rotate(m_direction+90);

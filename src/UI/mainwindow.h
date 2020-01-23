@@ -38,6 +38,8 @@ private slots:
 
     void on_LaneWidthValueEdit_editingFinished();
 
+    void on_ZoomSlider_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
     Engine * SimulatorEngine;

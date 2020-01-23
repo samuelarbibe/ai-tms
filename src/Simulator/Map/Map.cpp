@@ -198,8 +198,10 @@ pair<ConnectionSides, ConnectionSides> Map::AssignConnectionSides( Vector2f pos1
 /// Reload all intersection in this map
 void Map::ReloadMap()
 {
-    if(!m_intersections.empty()) {
-        for (Intersection *i : m_intersections) {
+    if(!m_intersections.empty())
+    {
+        for (Intersection *i : m_intersections)
+        {
             i->ReloadIntersection();
         }
     }

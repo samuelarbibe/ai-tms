@@ -17,8 +17,7 @@ void Engine::OnInit()
     m_snapToGrid = true;
 
     cout << "Setting Up Camera..." << endl;
-    m_view = View(sf::FloatRect(0.f,0.f, Settings::DefaultMapWidth,  Settings::DefaultMapHeight));
-    m_view.zoom(Settings::Zoom);
+    SetView(Settings::Zoom, Vector2f(0,0));
 
     map = new Map(0, Vector2i(this->width()/2, this->height()/2), Settings::DefaultMapWidth, Settings::DefaultMapWidth);
 
@@ -28,9 +27,30 @@ void Engine::OnInit()
     cout << "Setting up max speeds..." << endl;
     Vehicle::SetMaxSpeed(VehicleTypeOptions::CAR, 100.f, 1.5f);
     Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 80.f, 1.f);
+}
+
+void Engine::SetView(float zoom, Vector2f pos)
+{
+    m_view.reset(sf::FloatRect(pos.x,pos.y, Settings::DefaultMapWidth,  Settings::DefaultMapHeight));
+    m_view.zoom(zoom);
+
+    float size = 200;
+    m_minimap.reset(sf::FloatRect(0, 0, Settings::DefaultMapWidth,  Settings::DefaultMapWidth));
+    m_minimap.setSize(Vector2f(size, size));
+    m_minimap.setViewport(sf::FloatRect(0.75f, 0.f, 0.25f, 0.25f));
+    float zoomFactor =   Settings::DefaultMapWidth / size;
+    m_minimap.zoom(zoomFactor);
+    m_minimapBackground = RectangleShape(Vector2f(Settings::DefaultMapWidth, Settings::DefaultMapWidth));
+    m_minimapBackground.setFillColor(Color::White);
+    m_minimapBackground.setOutlineColor(Color::Black);
+    m_minimapBackground.setOutlineThickness(2);
+
+/*
+    m_minimap.reset(sf::FloatRect(pos.x,pos.y, Settings::DefaultMapWidth,  Settings::DefaultMapHeight));
+    m_minimap.zoom( 5.f);
+*/
 
     this->setView(m_view);
-
 }
 
 void Engine::BuildGrid(int rows, int cols)
@@ -189,4 +209,22 @@ void Engine::OnDraw()
             this->draw(l, 2, Lines);
         }
     }
+
+    // draw the minimap
+    this->setView(m_minimap); // switch to minimap for rendering
+    DrawMinimap(); // render minimap
+    this->setView(m_view); // switch back to main view
+}
+
+/// drawing the minimap is drawing everything but the vehicles and the grid, on a smaller scale
+void Engine::DrawMinimap()
+{
+    // Draw the minimap's background
+    this->draw(m_minimapBackground);
+
+    // Draw the map
+    this->map->Draw(this);
+
+    // Draw the click index
+    this->draw(this->m_clickPoint);
 }

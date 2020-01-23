@@ -82,6 +82,10 @@ public:
     QComboBox *UnitComboBox;
     QCheckBox *SnapToGridCheckBox;
     QCheckBox *ShowGridCheckBox;
+    QHBoxLayout *horizontalLayout_16;
+    QLabel *ZoomLabel;
+    QSlider *ZoomSlider;
+    QSpacerItem *horizontalSpacer_9;
     QHBoxLayout *horizontalLayout_10;
     QPushButton *pushButton_8;
     QPushButton *pushButton_3;
@@ -410,6 +414,29 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_11);
 
+        horizontalLayout_16 = new QHBoxLayout();
+        horizontalLayout_16->setObjectName(QString::fromUtf8("horizontalLayout_16"));
+        ZoomLabel = new QLabel(tab);
+        ZoomLabel->setObjectName(QString::fromUtf8("ZoomLabel"));
+
+        horizontalLayout_16->addWidget(ZoomLabel);
+
+        ZoomSlider = new QSlider(tab);
+        ZoomSlider->setObjectName(QString::fromUtf8("ZoomSlider"));
+        ZoomSlider->setSingleStep(10);
+        ZoomSlider->setOrientation(Qt::Horizontal);
+        ZoomSlider->setInvertedAppearance(false);
+        ZoomSlider->setInvertedControls(false);
+
+        horizontalLayout_16->addWidget(ZoomSlider);
+
+        horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_16->addItem(horizontalSpacer_9);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_16);
+
         horizontalLayout_10 = new QHBoxLayout();
         horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
         pushButton_8 = new QPushButton(tab);
@@ -735,6 +762,7 @@ public:
 
         SnapToGridCheckBox->setText(QCoreApplication::translate("MainWindow", "Snap To Grid", nullptr));
         ShowGridCheckBox->setText(QCoreApplication::translate("MainWindow", "Show Grid", nullptr));
+        ZoomLabel->setText(QCoreApplication::translate("MainWindow", "Zoom:", nullptr));
         pushButton_8->setText(QCoreApplication::translate("MainWindow", "Load Map", nullptr));
         pushButton_3->setText(QCoreApplication::translate("MainWindow", "Save Map", nullptr));
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "Delete", nullptr));
