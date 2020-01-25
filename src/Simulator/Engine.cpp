@@ -14,8 +14,6 @@ list<Vehicle*> Vehicle::ActiveVehicles;
 /// set up the map according to the selected presets
 void Engine::OnInit()
 {
-    m_snapToGrid = true;
-
     cout << "Setting Up Camera..." << endl;
     SetView(Settings::Zoom, Vector2f(0,0));
 
@@ -31,24 +29,26 @@ void Engine::OnInit()
 
 void Engine::SetView(float zoom, Vector2f pos)
 {
+    // normal view setup
     m_view.reset(sf::FloatRect(pos.x,pos.y, Settings::DefaultMapWidth,  Settings::DefaultMapHeight));
     m_view.zoom(zoom);
 
-    float size = 200;
+    // minimap viewPort setup
+    float size = Settings::MinimapSize;
+    float margin = Settings::MinimapMargin;
     m_minimap.reset(sf::FloatRect(0, 0, Settings::DefaultMapWidth,  Settings::DefaultMapWidth));
     m_minimap.setSize(Vector2f(size, size));
-    m_minimap.setViewport(sf::FloatRect(0.75f, 0.f, 0.25f, 0.25f));
-    float zoomFactor =   Settings::DefaultMapWidth / size;
+    m_minimap.setViewport(sf::FloatRect(1.f - (size/this->width()) - (margin/this->height()), margin/this->height() , size/this->width(), size/this->height()));
+    float zoomFactor = Settings::DefaultMapWidth / size;
     m_minimap.zoom(zoomFactor);
-    m_minimapBackground = RectangleShape(Vector2f(Settings::DefaultMapWidth, Settings::DefaultMapWidth));
-    m_minimapBackground.setFillColor(Color::White);
-    m_minimapBackground.setOutlineColor(Color::Black);
-    m_minimapBackground.setOutlineThickness(2);
+    float outlineThickness = 30;
 
-/*
-    m_minimap.reset(sf::FloatRect(pos.x,pos.y, Settings::DefaultMapWidth,  Settings::DefaultMapHeight));
-    m_minimap.zoom( 5.f);
-*/
+    // background setup
+    m_minimapBackground = RectangleShape(Vector2f(Settings::DefaultMapWidth - outlineThickness*2, Settings::DefaultMapWidth - outlineThickness*2));
+    m_minimapBackground.setPosition(outlineThickness, outlineThickness);
+    m_minimapBackground.setFillColor(Color(110, 110, 110, 220));
+    m_minimapBackground.setOutlineColor(Color::Black);
+    m_minimapBackground.setOutlineThickness(outlineThickness);
 
     this->setView(m_view);
 }
@@ -85,11 +85,9 @@ void Engine::BuildGrid(int rows, int cols)
 
 Vector2f Engine::DrawPoint(Vector2f position)
 {
-    position = position * 2.f;
+     position = position * float(Settings::SFMLRatio);
     // convert it to world coordinates
     position = this->mapPixelToCoords(Vector2i(position), m_view);
-
-    cout << position.x << position.y << endl;
 
     Vector2f temp;
     if(m_snapToGrid)

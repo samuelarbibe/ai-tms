@@ -24,8 +24,8 @@ class Road : public RectangleShape
     
 public:
     
-    Road(int roadNumber, int intersectionNumber, int connectionSide, Vector2f startPosition, float length, float laneWidth, float direction);
-    Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int connectionSide1, int connectionSide2, Vector2f conPosition1, Vector2f conPosition2, float laneWidth, float direction);
+    Road(int roadNumber, int intersectionNumber, int connectionSide, Vector2f startPosition, float length, float direction);
+    Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int connectionSide1, int connectionSide2, Vector2f conPosition1, Vector2f conPosition2, float direction);
     ~Road(){if(Settings::DrawDelete)cout << "Road " << m_roadNumber << "deleted" << endl;}
     
     
@@ -62,7 +62,6 @@ private:
     Vector2f   m_endPosition;
     
     float      m_direction;
-    float      m_laneWidth;
     float      m_length;
     float      m_width;
     

@@ -28,7 +28,7 @@ class Lane : public RectangleShape
     
 public:
     
-    Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f startPosition, float width, float length, float direction);
+    Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f startPosition, float length, float direction);
     ~Lane(){if(Settings::DrawDelete)cout << "Lane " << m_laneNumber << " deleted" << endl;};
     
     void  Update(float elapsedTime);

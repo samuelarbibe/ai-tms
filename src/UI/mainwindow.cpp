@@ -98,7 +98,7 @@ void MainWindow::on_AddRoadButton_clicked()
     int intersectionNumber = ui->IntersectionSpinBox->value();
     int connectionSide     = ui->ConSideComboBox->currentIndex()+1;
 
-    if(SimulatorEngine->map->AddRoad(0, intersectionNumber, connectionSide, Settings::DefaultLaneLength / Settings::Scale))
+    if(SimulatorEngine->map->AddRoad(0, intersectionNumber, connectionSide, Settings::DefaultLaneLength))
     {
         ui->ToRoadSpinBox->setRange(1, Road::RoadCount);
 
@@ -140,32 +140,36 @@ void MainWindow::on_ShowGridCheckBox_stateChanged(int arg1)
     SimulatorEngine->ShowGrid(isChecked);
 }
 
-
-
 void MainWindow::on_LaneWidthSlider_sliderMoved(int position)
 {
     Units unit = static_cast<Units>(ui->UnitComboBox->currentIndex());
+    // setting the value will cut the value to the current range
     ui->LaneWidthSlider->setValue(position);
-    ui->LaneWidthValueEdit->setText(QString::number(position * Settings::UnitScales[unit]));
-    Settings::LaneWidth = position * Settings::Scale;
-    if(SimulatorEngine->map != nullptr)SimulatorEngine->map->ReloadMap(); // check if init was called
+    Settings::LaneWidth = ui->LaneWidthSlider->value();
+    ui->LaneWidthValueEdit->setText(QString::number(Settings::GetLaneWidthAs(unit)));
+    // check if init was called, if was then reload map
+    if(SimulatorEngine->map != nullptr)SimulatorEngine->map->ReloadMap();
 }
 
 void MainWindow::on_UnitComboBox_currentIndexChanged(int index)
 {
+    // get slider position -> lane with as px
     int position = ui->LaneWidthSlider->value();
-    ui->LaneWidthValueEdit->setText(QString::number(position * Settings::UnitScales[index]));
+    ui->LaneWidthValueEdit->setText(QString::number(Settings::GetLaneWidthAs(static_cast<Units>(index))));
 }
 
 void MainWindow::on_LaneWidthValueEdit_editingFinished()
 {
-    float value = ui->LaneWidthValueEdit->text().toFloat();
+    // get the entered value in the current unit
+    float enteredValue = ui->LaneWidthValueEdit->text().toFloat();
 
-    // convert to slider units (cm)
-    Units unit = static_cast<Units>(ui->UnitComboBox->currentIndex());
-    int position = int(value / Settings::UnitScales[unit]);
+    // get the current unit
+    Units currentUnit = static_cast<Units>(int(ui->UnitComboBox->currentIndex()));
 
-    this->on_LaneWidthSlider_sliderMoved(position);
+    // convert the entered unit to PX
+    enteredValue = Settings::ConvertSize(currentUnit, Units::PX, enteredValue);
+    // send it to this function that simulate a slider movement
+    on_LaneWidthSlider_sliderMoved(enteredValue);
 }
 
 void MainWindow::on_ZoomSlider_valueChanged(int value)

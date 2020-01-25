@@ -5,10 +5,14 @@
 #ifndef SIMULATORSFML_SETTINGS_HPP
 #define SIMULATORSFML_SETTINGS_HPP
 
-enum Units {M, CM, FEET, INCH};
+enum Units {M, CM, FEET, INCH, PX};
 
 class Settings {
 public:
+
+    static float GetLaneWidthAs(Units unit);
+    static float ConvertSize(Units fromUnit, Units toUnit, float value);
+
     static bool DrawFps;
     static bool DrawActive;
     static bool DrawDelete;
@@ -36,13 +40,16 @@ public:
 
     static float Zoom;
 
+    static float MinimapSize;
+    static float MinimapMargin;
+
     // an array of scales for each distance unit
-    static float UnitScales[4];
     // 0 - M
     // 1 - CM
     // 2 - Feet
     // 3 - Inches
-
+    // 4 - Pixels
+    static float UnitScales[5];
 };
 
 

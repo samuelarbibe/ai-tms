@@ -1,6 +1,6 @@
 # Meta
 set(AM_MULTI_CONFIG "FALSE")
-set(AM_PARALLEL "2")
+set(AM_PARALLEL "4")
 set(AM_VERBOSITY "")
 # Directories
 set(AM_CMAKE_SOURCE_DIR "/Users/samuelarbibe/Github/SimulatorSFML")

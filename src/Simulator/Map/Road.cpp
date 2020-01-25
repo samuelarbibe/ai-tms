@@ -11,7 +11,7 @@
 int Road::RoadCount = 0;
 
 /// ctor for a normal road
-Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f startPosition, float length, float laneWidth, float direction)
+Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f startPosition, float length, float direction)
 {
     m_isConnecting       = false;
     m_roadNumber         = roadNumber;
@@ -21,9 +21,8 @@ Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f
     m_startPosition      = startPosition;
     m_length             = length;
     m_direction          = direction;
-    m_laneWidth          = laneWidth;
     m_numberOfLanes      = 0;
-    m_width              = m_numberOfLanes * laneWidth;
+    m_width              = 0;
     
     // calculate end position:
     Vector2f lengthVec;
@@ -31,8 +30,7 @@ Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f
     Transform t;
     t.rotate(direction + 180);
     
-    lengthVec     = t.transformPoint(Vector2f(0.f, -1.f)) * length;
-    
+    lengthVec = t.transformPoint(Vector2f(0.f, -1.f)) * length;
     m_endPosition = lengthVec + m_startPosition;
     
     // init rectangle shape
@@ -46,7 +44,7 @@ Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f
 }
 
 /// ctor for a connecting road
-Road::Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int connectionSide1, int connectionSide2, Vector2f conPosition1, Vector2f conPosition2, float laneWidth, float direction)
+Road::Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int connectionSide1, int connectionSide2, Vector2f conPosition1, Vector2f conPosition2, float direction)
 {
     m_isConnecting          = true;
     m_roadNumber            = roadNumber;
@@ -57,9 +55,8 @@ Road::Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int
     m_startPosition      = conPosition1;
     m_endPosition        = conPosition2;
     m_direction          = direction;
-    m_laneWidth          = laneWidth;
     m_numberOfLanes      = 0;
-    m_width              = m_numberOfLanes * laneWidth;
+    m_width              = 0;
     m_length             = calculateDistance(m_startPosition, m_endPosition);
 
     // calculate end position:
@@ -83,18 +80,18 @@ Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
     }
     
     if (isInRoadDirection) {
-        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_intersectionNumber[isInRoadDirection], m_startPosition, m_laneWidth, m_length, m_direction));
+        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_intersectionNumber[isInRoadDirection], m_startPosition, m_length, m_direction));
     }
     else
     {
-        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_intersectionNumber[isInRoadDirection], m_endPosition, m_laneWidth, m_length, (m_direction + 180.f)));
+        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_intersectionNumber[isInRoadDirection], m_endPosition, m_length, (m_direction + 180.f)));
     }
     
     m_numberOfLanes++;
     Lane::LaneCount++;
     
     // adjust road size
-    m_width = m_numberOfLanes * m_laneWidth;
+    m_width = m_numberOfLanes * Settings::LaneWidth;
     this->setSize(Vector2f(m_width, m_length));
     this->setOrigin(m_width/2, 0.f);
 
@@ -125,13 +122,13 @@ void Road::reAssignLanePositions()
     Vector2f  laneDifference;
     Vector2f  lengthVec;
 
-    this->m_laneWidth = Settings::LaneWidth;
+    this->m_width = Settings::LaneWidth * m_numberOfLanes;
     this->setSize(Vector2f(m_width, m_length));
 
     Transform t, x;
     
     t.rotate(m_direction+90);
-    laneDifference = t.transformPoint(0.f, -1.f) * m_laneWidth;
+    laneDifference = t.transformPoint(0.f, -1.f) * Settings::LaneWidth;
     
     (m_numberOfLanes % 2) ?
     x.scale(m_numberOfLanes/2, m_numberOfLanes/2) :
@@ -156,7 +153,7 @@ void Road::reAssignLanePositions()
         if(tempLaneDirection == m_direction)
         {
             // send calculated starting point
-            m_lanes[i] = new Lane(tempLaneNumber, m_roadNumber, m_intersectionNumber[1], firstLanePoint + z.transformPoint(laneDifference), m_laneWidth, m_length, m_direction);
+            m_lanes[i] = new Lane(tempLaneNumber, m_roadNumber, m_intersectionNumber[1], firstLanePoint + z.transformPoint(laneDifference), m_length, m_direction);
         }
         else
         {
@@ -165,7 +162,7 @@ void Road::reAssignLanePositions()
             lengthVec = y.transformPoint(Vector2f(0.f, -1.f)) * m_length;
             
             m_lanes[i] = new Lane(tempLaneNumber, m_roadNumber, m_intersectionNumber[0], firstLanePoint + z.transformPoint(laneDifference) + lengthVec,
-                           m_laneWidth, m_length, (m_direction + 180.f));
+                           m_length, (m_direction + 180.f));
         }
     }
 }

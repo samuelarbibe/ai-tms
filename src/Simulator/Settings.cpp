@@ -15,13 +15,13 @@ float Settings::MinDistanceFromNextCar = 180;
 float Settings::MinDistanceFromStop = 65;
 bool Settings::AccWhileTurning = true;
 
-float Settings::MinLaneWidth = 250;
-float Settings::LaneWidth = 300; // lane width in px.
-float Settings::MaxLaneWidth = 320;
+float Settings::MinLaneWidth = 83;
+float Settings::LaneWidth = 100; // lane width in px.
+float Settings::MaxLaneWidth = 107;
 float Settings::Scale = 3; // 1 px = [scale] * 1 cm
 float Settings::Speed = 7; // running speed
 
-float Settings::DefaultLaneLength = 150;
+float Settings::DefaultLaneLength = 500; // lane length in px
 
 int Settings::GridColumns = 50;
 int Settings::GridRows = 50;
@@ -34,5 +34,30 @@ int Settings::DefaultMapHeight = 3000;
 // camera setting
 float Settings::Zoom = 0.5f;
 
-// [LaneWidth in px] * unitScale = represented Width
-float Settings::UnitScales[4]{0.01, 1, 0.0328, 0.3937};
+// minimap Settings
+float Settings::MinimapSize = 120.f;
+float Settings::MinimapMargin = 10.f;
+
+// [LaneWidth in px] * Scale * unitScale = laneWidth in Unit
+// M, CM, Feet, Inch
+float Settings::UnitScales[5]{0.01, 1, 0.0328, 0.3937, 1/Scale};
+
+// [LaneWidth in px] * Scale * unitScale = laneWidth in Unit
+float Settings::GetLaneWidthAs(Units unit)
+{
+    // base
+    float len = Settings::LaneWidth * Settings::Scale;
+
+    return len * UnitScales[int(unit)];
+}
+
+// convert a given value from a unit to another unit
+float Settings::ConvertSize(Units fromUnit, Units toUnit, float value)
+{
+    // first, convert value to px
+    // LaneWidth in px = laneWidth in unit / Scale / unitScale
+    float valueInPx =  value / Scale / UnitScales[int(fromUnit)];
+
+    // convert it to the target unit
+    return valueInPx * Scale * UnitScales[int(toUnit)];
+}
