@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->LaneWidthSlider->setMinimum(Settings::MinLaneWidth);
     ui->LaneWidthSlider->setMaximum(Settings::MaxLaneWidth);
     ui->ZoomSlider->setSliderPosition(Settings::Zoom * 99);
-    this->on_LaneWidthSlider_sliderMoved(Settings::LaneWidth);
+    //this->on_LaneWidthSlider_sliderMoved(Settings::LaneWidth);
 }
 
 MainWindow::~MainWindow()
@@ -175,6 +175,6 @@ void MainWindow::on_LaneWidthValueEdit_editingFinished()
 void MainWindow::on_ZoomSlider_valueChanged(int value)
 {
     float zoomValue = 1.f - value/100.f;
-
+    Settings::Zoom = zoomValue;
     SimulatorEngine->SetView(zoomValue, Vector2f(0,0));
 }

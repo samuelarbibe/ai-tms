@@ -41,6 +41,7 @@ public:
     Vector2f GetSnappedPoint(Vector2f point);
     Vector2f DrawPoint(Vector2f position);
     void SetView(float zoom, Vector2f pos);
+    void SetMinimap(float size, float margin);
 
     View GetView(){return m_view;}
 
@@ -54,6 +55,8 @@ private:
 
     void input();
     void DrawMinimap();
+    void updateShownArea();
+    void updateView(Vector2f posDelta);
     void update(float elapsedTime);
 
     CircleShape m_clickPoint;
@@ -65,6 +68,7 @@ private:
     View m_minimap;
 
     RectangleShape m_minimapBackground;
+    RectangleShape m_shownArea;
 };
 
 

@@ -41,7 +41,6 @@ Lane::Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f star
     this->setOutlineThickness(1.f);
     this->setRotation(m_direction + 180);
     this->setSize(Vector2f(m_width, m_length));
-    
     this->setFillColor(LaneColor);
     
     // create direction arrow shape

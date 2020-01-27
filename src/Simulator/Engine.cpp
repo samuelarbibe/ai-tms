@@ -14,10 +14,13 @@ list<Vehicle*> Vehicle::ActiveVehicles;
 /// set up the map according to the selected presets
 void Engine::OnInit()
 {
+    cout << "Setting Up Map..." << endl;
+    map = new Map(0, Vector2i(this->width()/2, this->height()/2), Settings::DefaultMapWidth, Settings::DefaultMapWidth);
+
     cout << "Setting Up Camera..." << endl;
     SetView(Settings::Zoom, Vector2f(0,0));
-
-    map = new Map(0, Vector2i(this->width()/2, this->height()/2), Settings::DefaultMapWidth, Settings::DefaultMapWidth);
+    SetMinimap(Settings::MinimapSize, Settings::MinimapMargin);
+    this->setView(m_view);
 
     cout << "Setting up snap grid..." << endl;
     BuildGrid(Settings::GridRows, Settings::GridColumns);
@@ -33,9 +36,13 @@ void Engine::SetView(float zoom, Vector2f pos)
     m_view.reset(sf::FloatRect(pos.x,pos.y, Settings::DefaultMapWidth,  Settings::DefaultMapHeight));
     m_view.zoom(zoom);
 
+    // update the shown area index rectangle
+    updateShownArea();
+}
+
+void Engine::SetMinimap(float size, float margin)
+{
     // minimap viewPort setup
-    float size = Settings::MinimapSize;
-    float margin = Settings::MinimapMargin;
     m_minimap.reset(sf::FloatRect(0, 0, Settings::DefaultMapWidth,  Settings::DefaultMapWidth));
     m_minimap.setSize(Vector2f(size, size));
     m_minimap.setViewport(sf::FloatRect(1.f - (size/this->width()) - (margin/this->height()), margin/this->height() , size/this->width(), size/this->height()));
@@ -50,7 +57,33 @@ void Engine::SetView(float zoom, Vector2f pos)
     m_minimapBackground.setOutlineColor(Color::Black);
     m_minimapBackground.setOutlineThickness(outlineThickness);
 
-    this->setView(m_view);
+    m_shownArea = RectangleShape(Vector2f(0,0));
+    m_shownArea.setOutlineColor(Color::Red);
+    m_shownArea.setOutlineThickness(30.f);
+    m_shownArea.setFillColor(Color::Transparent);
+    updateShownArea();
+}
+
+
+void Engine::updateView(Vector2f posDelta)
+{
+    Vector2f newPos = Vector2f(m_view.getViewport().left + posDelta.x, m_view.getViewport().top + posDelta.y);
+    SetView(Settings::Zoom, newPos);
+}
+
+void Engine::updateShownArea()
+{
+    // calculate the actual position of the shown area
+    Vector2f position = m_view.getCenter();
+
+    // to calculate shown area dimensions,
+    // we multiply the map size by the zoom
+    // view_size = map_size * zoom
+    Vector2f size = m_view.getSize();
+
+    this->m_shownArea.setSize(size);
+    this->m_shownArea.setOrigin(size/2.f);
+    this->m_shownArea.setPosition(position);
 }
 
 void Engine::BuildGrid(int rows, int cols)
@@ -85,7 +118,7 @@ void Engine::BuildGrid(int rows, int cols)
 
 Vector2f Engine::DrawPoint(Vector2f position)
 {
-     position = position * float(Settings::SFMLRatio);
+    position = position * float(Settings::SFMLRatio);
     // convert it to world coordinates
     position = this->mapPixelToCoords(Vector2i(position), m_view);
 
@@ -133,8 +166,30 @@ Vector2f Engine::GetSnappedPoint(Vector2f point)
 }
 
 /// get use input, and make changes accordingly
-void Engine::input(){
-    
+void Engine::input() {
+    // implementation of mouse dragging
+
+    static bool dragging = false;
+    static Vector2i startPos = Vector2i(0.0f, 0.0f);
+
+    Vector2i mousePos = Vector2i(Mouse::getPosition());
+
+    if (Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        if (!dragging)
+            startPos = mousePos;
+        dragging = true;
+    }
+    else
+    {
+        dragging = false;
+    }
+
+    if (dragging)
+    {
+        updateView(Vector2f(startPos.x - mousePos.x, startPos.y - mousePos.y));
+    }
+
     /*
     if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
@@ -160,9 +215,8 @@ void Engine::input(){
 /// do the game cycle (input->update->draw)
 void Engine::OnUpdate()
 {
-    if(Settings::DrawFps)cout << "FPS : " << 1.f/myTimer.interval() * 1000 << endl;
     input();
-    update((myTimer.interval()/1000.f) / float(Settings::Scale) * float(Settings::Speed));
+    update((myTimer.interval()/1000.f));
     OnDraw();
 }
 
@@ -176,6 +230,7 @@ void Engine::update(float elapsedTime)
         v->Update(elapsedTime);
     }
 
+    if(Settings::DrawFps)cout << "FPS : " << 1.f/elapsedTime << endl;
     //clear all cars to be deleted
     Vehicle::ClearVehicles();
 
@@ -225,4 +280,7 @@ void Engine::DrawMinimap()
 
     // Draw the click index
     this->draw(this->m_clickPoint);
+
+    // Draw the shown area index
+    this->draw(m_shownArea);
 }
