@@ -1,4 +1,4 @@
 
 *.xcuserstate
 *.xcbkptlist
-/bin/
+bin/

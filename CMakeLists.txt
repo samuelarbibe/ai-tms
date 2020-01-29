@@ -32,6 +32,7 @@ set(project_sources
     src/Simulator/Vehicle.cpp
     src/Simulator/Map/Map.cpp
     src/UI/Widgets/QsfmlCanvas.cpp
+    src/Simulator/Settings.cpp
     src/UI/mainwindow.cpp)
 
 set(project_headers
@@ -40,9 +41,11 @@ set(project_headers
     src/Simulator/Map/Lane.hpp
     src/Simulator/Map/Road.hpp
     src/Simulator/Vehicle.hpp
-        src/Simulator/Map/Map.hpp
+    src/Simulator/Map/Map.hpp
     src/UI/Widgets/QsfmlCanvas.hpp
-    src/UI/mainwindow.h src/Simulator/Settings.cpp src/Simulator/Settings.hpp)
+    src/UI/mainwindow.h
+
+    src/Simulator/Settings.hpp)
 
 set(project_ui src/UI/mainwindow.ui)
 # wrap the ui file to a c++ header

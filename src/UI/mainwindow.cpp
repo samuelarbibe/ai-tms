@@ -21,27 +21,32 @@ MainWindow::~MainWindow()
 }
 
 // When mouse is clicked, use click coordinates in Map setup
-void MainWindow::mousePressEvent(QMouseEvent *event)
+void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    QPoint clickPoint;
-    Vector2f point;
+    if(event->buttons() == Qt::LeftButton)
+        {
 
-    clickPoint = SimulatorEngine->mapFromGlobal(QCursor::pos());
+        QPoint clickPoint;
+        Vector2f point;
 
-    point.x = clickPoint.x();
-    point.y = clickPoint.y();
+        clickPoint = SimulatorEngine->mapFromGlobal(QCursor::pos());
 
-    //cout << point.x << point.y << endl;
+        point.x = clickPoint.x();
+        point.y = clickPoint.y();
 
-    if(point.x > 0 && point.y > 0)
-    {
-        // draw a point on simulator canvas to indicate last clicked position
-        point = SimulatorEngine->DrawPoint(point);
+        //cout << point.x << point.y << endl;
 
-        ui->IntersectionXEdit->setText(QString::number(int(point.x)));
-        ui->IntersectionYEdit->setText(QString::number(int(point.y)));
+        if(point.x > 0 && point.y > 0)
+        {
+            // draw a point on simulator canvas to indicate last clicked position
+            point = SimulatorEngine->DrawPoint(point);
 
-        ui->statusbar->showMessage(tr("You can now Click 'Add Intersection' to add an intersection at the clicked position "));
+            ui->IntersectionXEdit->setText(QString::number(int(point.x)));
+            ui->IntersectionYEdit->setText(QString::number(int(point.y)));
+
+            ui->statusbar->showMessage(tr("You can now Click 'Add Intersection' to add an intersection at the clicked position "));
+        }
+
     }
 }
 
@@ -175,6 +180,5 @@ void MainWindow::on_LaneWidthValueEdit_editingFinished()
 void MainWindow::on_ZoomSlider_valueChanged(int value)
 {
     float zoomValue = 1.f - value/100.f;
-    Settings::Zoom = zoomValue;
-    SimulatorEngine->SetView(zoomValue, Vector2f(0,0));
+    SimulatorEngine->UpdateView(Vector2f(0,0), zoomValue);
 }

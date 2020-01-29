@@ -11,6 +11,9 @@
 const Vector2f       m_forwardVec{0.f, -1.f};
 
 int         Vehicle::toBeDeleted{0};
+int Vehicle::VehicleCount = 0;
+list<Vehicle*> Vehicle::ActiveVehicles;
+
 VehicleType Vehicle::Car{CAR, "Car", "../../resources/Cars/car_image_", 5,  Vector2f(0.6f, 0.6f)};
 VehicleType Vehicle::Truck{TRUCK, "Truck",  "../../resources/Cars/car_image_",5, Vector2f(0.12f, 0.12f)};
 VehicleType Vehicle::Motorcycle{MOTORCYCLE,  "Motorcycle", "../resources/Cars/motorcycle_image_",5, Vector2f(0.12f, 0.12f)};

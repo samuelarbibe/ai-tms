@@ -31,6 +31,8 @@ int Settings::SFMLRatio = 1;
 int Settings::DefaultMapWidth = 3000;
 int Settings::DefaultMapHeight = 3000;
 
+bool Settings::MapOverflow = false;
+
 // camera setting
 float Settings::Zoom = 0.5f;
 

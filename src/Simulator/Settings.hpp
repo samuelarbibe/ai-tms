@@ -37,6 +37,7 @@ public:
     static int SFMLRatio;
     static int DefaultMapWidth;
     static int DefaultMapHeight;
+    static bool MapOverflow;
 
     static float Zoom;
 
@@ -50,6 +51,12 @@ public:
     // 3 - Inches
     // 4 - Pixels
     static float UnitScales[5];
+
+    // and array of max speeds for each vehicle
+    // 0 - Car
+    // 1 - Truck
+    // 2 - Motorcycle
+    static float MaxSpeeds[3];
 };
 
 

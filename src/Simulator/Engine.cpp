@@ -8,8 +8,7 @@
 
 #include "Engine.hpp"
 
-int Vehicle::VehicleCount = 0;
-list<Vehicle*> Vehicle::ActiveVehicles;
+
 
 /// set up the map according to the selected presets
 void Engine::OnInit()
@@ -18,7 +17,9 @@ void Engine::OnInit()
     map = new Map(0, Vector2i(this->width()/2, this->height()/2), Settings::DefaultMapWidth, Settings::DefaultMapWidth);
 
     cout << "Setting Up Camera..." << endl;
-    SetView(Settings::Zoom, Vector2f(0,0));
+    m_viewPosition = Vector2f(0,0);
+    m_viewTempPosition = Vector2f(0,0);
+    SetView();
     SetMinimap(Settings::MinimapSize, Settings::MinimapMargin);
     this->setView(m_view);
 
@@ -30,12 +31,11 @@ void Engine::OnInit()
     Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 80.f, 1.f);
 }
 
-void Engine::SetView(float zoom, Vector2f pos)
+void Engine::SetView()
 {
-    // normal view setup
-    m_view.reset(sf::FloatRect(pos.x,pos.y, Settings::DefaultMapWidth,  Settings::DefaultMapHeight));
-    m_view.zoom(zoom);
-
+    // view setup
+    m_view.reset(sf::FloatRect(m_viewTempPosition.x,m_viewTempPosition.y, Settings::DefaultMapWidth,  Settings::DefaultMapHeight));
+    m_view.zoom(Settings::Zoom);
     // update the shown area index rectangle
     updateShownArea();
 }
@@ -51,24 +51,47 @@ void Engine::SetMinimap(float size, float margin)
     float outlineThickness = 30;
 
     // background setup
-    m_minimapBackground = RectangleShape(Vector2f(Settings::DefaultMapWidth - outlineThickness*2, Settings::DefaultMapWidth - outlineThickness*2));
+    m_minimapBackground = RectangleShape(Vector2f(Settings::DefaultMapWidth - outlineThickness*2,
+            Settings::DefaultMapWidth - outlineThickness*2));
     m_minimapBackground.setPosition(outlineThickness, outlineThickness);
     m_minimapBackground.setFillColor(Color(110, 110, 110, 220));
     m_minimapBackground.setOutlineColor(Color::Black);
     m_minimapBackground.setOutlineThickness(outlineThickness);
 
     m_shownArea = RectangleShape(Vector2f(0,0));
-    m_shownArea.setOutlineColor(Color::Red);
+    m_shownArea.setOutlineColor(Color(255, 0, 0, 100));
     m_shownArea.setOutlineThickness(30.f);
     m_shownArea.setFillColor(Color::Transparent);
     updateShownArea();
 }
 
 
-void Engine::updateView(Vector2f posDelta)
+void Engine::UpdateView(Vector2f posDelta, float newZoom)
 {
-    Vector2f newPos = Vector2f(m_view.getViewport().left + posDelta.x, m_view.getViewport().top + posDelta.y);
-    SetView(Settings::Zoom, newPos);
+    // m_viewPosition is position before dragging
+    // m_viewTempPosition is the current view position
+    m_viewTempPosition = m_viewPosition + posDelta;
+
+    // TODO: enforce overflow
+    /*
+    Vector2f mapPosition = this->mapPixelToCoords(Vector2i(m_viewTempPosition), m_view);
+    cout << m_viewTempPosition.x << ", " << m_viewTempPosition.y << endl;
+    // enforce overflow blocking
+    if(Settings::MapOverflow == false)
+    {
+        if(false)
+        {
+            m_viewTempPosition = m_viewPosition;
+        }
+    }
+     */
+
+    if(newZoom != 0)
+    {
+        Settings::Zoom = newZoom;
+    }
+    // set view
+    SetView();
 }
 
 void Engine::updateShownArea()
@@ -118,7 +141,7 @@ void Engine::BuildGrid(int rows, int cols)
 
 Vector2f Engine::DrawPoint(Vector2f position)
 {
-    position = position * float(Settings::SFMLRatio);
+    //position *= float(Settings::SFMLRatio);
     // convert it to world coordinates
     position = this->mapPixelToCoords(Vector2i(position), m_view);
 
@@ -166,15 +189,16 @@ Vector2f Engine::GetSnappedPoint(Vector2f point)
 }
 
 /// get use input, and make changes accordingly
-void Engine::input() {
+void Engine::input()
+{
     // implementation of mouse dragging
-
     static bool dragging = false;
     static Vector2i startPos = Vector2i(0.0f, 0.0f);
 
-    Vector2i mousePos = Vector2i(Mouse::getPosition());
+    QPoint clickPoint = this->mapFromGlobal(QCursor::pos());
+    Vector2i mousePos = Vector2i(clickPoint.x(), clickPoint.y());
 
-    if (Mouse::isButtonPressed(sf::Mouse::Left))
+    if (Mouse::isButtonPressed(sf::Mouse::Left) && this->getViewport(m_view).contains(mousePos))
     {
         if (!dragging)
             startPos = mousePos;
@@ -182,13 +206,17 @@ void Engine::input() {
     }
     else
     {
+        if(dragging)
+        {
+            m_viewPosition = m_viewTempPosition;
+        }
         dragging = false;
     }
 
-    if (dragging)
-    {
-        updateView(Vector2f(startPos.x - mousePos.x, startPos.y - mousePos.y));
+    if (dragging) {
+        UpdateView(Vector2f(startPos.x - mousePos.x, startPos.y - mousePos.y));
     }
+
 
     /*
     if(sf::Mouse::isButtonPressed(sf::Mouse::Right))

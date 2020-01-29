@@ -14,6 +14,7 @@
 #include <SFML/Graphics.hpp>
 #include "../UI/Widgets/QsfmlCanvas.hpp"
 #include <math.h>
+#include <QtWidgets>
 #include "Map/Map.hpp"
 #include "Vehicle.hpp"
 #include "Settings.hpp"
@@ -40,10 +41,9 @@ public:
     void BuildGrid(int rows, int cols);
     Vector2f GetSnappedPoint(Vector2f point);
     Vector2f DrawPoint(Vector2f position);
-    void SetView(float zoom, Vector2f pos);
+    void SetView();
+    void UpdateView(Vector2f posDelta = Vector2f(0,0), float zoom = 0);
     void SetMinimap(float size, float margin);
-
-    View GetView(){return m_view;}
 
     Map * map;
 
@@ -56,7 +56,6 @@ private:
     void input();
     void DrawMinimap();
     void updateShownArea();
-    void updateView(Vector2f posDelta);
     void update(float elapsedTime);
 
     CircleShape m_clickPoint;
@@ -67,8 +66,12 @@ private:
     View m_view;
     View m_minimap;
 
+    Vector2f m_viewPosition;
+    Vector2f m_viewTempPosition;
+
     RectangleShape m_minimapBackground;
     RectangleShape m_shownArea;
+
 };
 
 

@@ -1,4 +1,0 @@
-/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles/rebuild_cache.dir
-/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles/edit_cache.dir
-/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML.dir
-/Users/samuelarbibe/Github/SimulatorSFML/bin/debug/CMakeFiles/SimulatorSFML_autogen.dir
