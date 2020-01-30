@@ -6,7 +6,7 @@ project(${PROJECT_NAME})
 file(COPY ${ALL_REQUIRED_DLL} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOUIC ON)
-set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.14.0)
+set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.14.1)
 # find Qt5 and required components
 find_package(Qt5 COMPONENTS REQUIRED Core Gui Widgets)
 find_package(Qt5Widgets REQUIRED)

@@ -89,7 +89,6 @@ private:
     Map  *   m_currentMap;
     Lane *   m_sourceLane;
     Lane *   m_targetLane;
-    //Lane *   m_currentLane;
     Intersection * m_currentIntersection;
 
     State    m_state;

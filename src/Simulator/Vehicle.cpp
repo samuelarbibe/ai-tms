@@ -8,9 +8,9 @@
 
 #include "Vehicle.hpp"
 
-const Vector2f       m_forwardVec{0.f, -1.f};
+const Vector2f m_forwardVec{0.f, -1.f};
 
-int         Vehicle::toBeDeleted{0};
+int Vehicle::toBeDeleted{0};
 int Vehicle::VehicleCount = 0;
 list<Vehicle*> Vehicle::ActiveVehicles;
 
@@ -21,7 +21,6 @@ VehicleType Vehicle::Motorcycle{MOTORCYCLE,  "Motorcycle", "../resources/Cars/mo
 Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane*> * instructionSet, Map * map)
 {
     // set initial values for the movable object
-
     m_vehicleType    = GetVehicleTypeByOption(vehicleType);
     m_vehicleNumber  = vehicleNumber;
     m_speed          = 0.f;
@@ -30,7 +29,6 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane*>
     m_currentMap     = map;
     m_instructionSet = instructionSet;
     m_sourceLane     = m_instructionSet->front();
-    //m_currentLane    = m_sourceLane;
     m_instructionSet->pop();
     m_targetLane     = m_instructionSet->front();
 
@@ -196,8 +194,8 @@ void Vehicle::TransferVehicle(Vehicle * vehicle, Lane * toLane, Lane * fromLane)
     }
 
     vehicle->m_sourceLane    = toLane;
-    vehicle->m_rotation       = vehicle->m_sourceLane->GetDirection();
-    vehicle->m_angularV       = 0;
+    vehicle->m_rotation      = vehicle->m_sourceLane->GetDirection();
+    vehicle->m_angularV      = 0;
     vehicle->m_currentIntersection = vehicle->m_currentMap->GetIntersection(vehicle->m_sourceLane->GetIntersectionNumber());
     vehicle->m_vehicleInFront = (vehicle->m_sourceLane->GetLastCar()) ? GetVehicle(vehicle->m_sourceLane->GetLastCar()) : nullptr;
     vehicle->m_sourceLane->SetLastCar(vehicle->m_vehicleNumber);
@@ -329,20 +327,18 @@ void Vehicle::Update(float elapsedTime){
 /// apply the calculated next position
 void Vehicle::applyChanges(float elapsedTime)
 {
-    m_speed *= Settings::Speed;
     // apply acceleration
     m_speed += m_acceleration * elapsedTime * Settings::Speed;
 
     // apply max Settings::Speed limit
-    if(m_speed > m_maxSpeed) m_acceleration = m_minAcceleration;
+    if(m_speed > m_maxSpeed) m_acceleration = m_minAcceleration * Settings::Speed;
 
     // apply min Settings::Speed limit
     if(m_speed < 0) m_speed = 0;
 
     // set rotation relative to current Settings::Speed, to create a constant turning radius
     Transform t;
-
-    m_rotation += m_angularV * elapsedTime * m_speed;
+    m_rotation += m_angularV * elapsedTime * m_speed * Settings::Speed;
 
     t.rotate(m_rotation);
 
@@ -351,7 +347,8 @@ void Vehicle::applyChanges(float elapsedTime)
 
     // apply movement vector on position, relative to elapsed time to ensure
     // a constant Settings::Speed at any FPS
-    m_position += m_movementVec * m_speed * elapsedTime;
+
+    m_position += m_movementVec * m_speed * elapsedTime * Settings::Speed;
 
     // apply rotation and position changes to the actual car sprite
     m_sprite.setPosition(m_position);

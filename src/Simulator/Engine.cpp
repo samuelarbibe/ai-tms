@@ -31,9 +31,6 @@ void Engine::OnInit()
     Settings::MaxSpeeds[VehicleTypeOptions::TRUCK] = Settings::ConvertVelocity(VelocityUnits::KMH, VelocityUnits::PXS, 90.f);
     Settings::MaxSpeeds[VehicleTypeOptions::MOTORCYCLE] = Settings::ConvertVelocity(VelocityUnits::KMH, VelocityUnits::PXS, 110.f);
 
-    Settings::MinDistanceFromNextCar = Settings::ConvertSize(M, PX, 5);
-    Settings::MinDistanceFromStop = Settings::ConvertSize(M, PX, 2);
-
     map->AddIntersection(0, map->GetSize()/2.f);
 
     map->AddRoad(0, 1, DOWN, Settings::DefaultLaneLength);
@@ -42,7 +39,7 @@ void Engine::OnInit()
     map->AddLane(0, 1, false);
     map->AddLane(0, 2, true);
 
-    map->GetLane(1)->SetIsBlocked(true);
+    map->GetLane(1)->SetIsBlocked(false);
 }
 
 void Engine::SetView()
