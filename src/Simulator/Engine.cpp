@@ -27,8 +27,22 @@ void Engine::OnInit()
     BuildGrid(Settings::GridRows, Settings::GridColumns);
 
     cout << "Setting up max speeds..." << endl;
-    Vehicle::SetMaxSpeed(VehicleTypeOptions::CAR, 100.f, 1.5f);
-    Vehicle::SetMaxSpeed(VehicleTypeOptions::TRUCK, 80.f, 1.f);
+    Settings::MaxSpeeds[VehicleTypeOptions::CAR] = Settings::ConvertVelocity(VelocityUnits::KMH, VelocityUnits::PXS, 100.f);
+    Settings::MaxSpeeds[VehicleTypeOptions::TRUCK] = Settings::ConvertVelocity(VelocityUnits::KMH, VelocityUnits::PXS, 90.f);
+    Settings::MaxSpeeds[VehicleTypeOptions::MOTORCYCLE] = Settings::ConvertVelocity(VelocityUnits::KMH, VelocityUnits::PXS, 110.f);
+
+    Settings::MinDistanceFromNextCar = Settings::ConvertSize(M, PX, 5);
+    Settings::MinDistanceFromStop = Settings::ConvertSize(M, PX, 2);
+
+    map->AddIntersection(0, map->GetSize()/2.f);
+
+    map->AddRoad(0, 1, DOWN, Settings::DefaultLaneLength);
+    map->AddRoad(0, 1, RIGHT, Settings::DefaultLaneLength);
+
+    map->AddLane(0, 1, false);
+    map->AddLane(0, 2, true);
+
+    map->GetLane(1)->SetIsBlocked(true);
 }
 
 void Engine::SetView()
@@ -141,7 +155,8 @@ void Engine::BuildGrid(int rows, int cols)
 
 Vector2f Engine::DrawPoint(Vector2f position)
 {
-    //position *= float(Settings::SFMLRatio);
+    // convert it to units according to screen pixel to display ratio
+    position *= float(Settings::SFMLRatio);
     // convert it to world coordinates
     position = this->mapPixelToCoords(Vector2i(position), m_view);
 
@@ -217,22 +232,19 @@ void Engine::input()
         UpdateView(Vector2f(startPos.x - mousePos.x, startPos.y - mousePos.y));
     }
 
-
-    /*
     if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+    {
+
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
         queue<Lane*> * tempQueue = new queue<Lane*>();
 
-        tempQueue->push(map->GetLane(5));
+        tempQueue->push(map->GetLane(1));
         tempQueue->push(map->GetLane(2));
-        tempQueue->push(map->GetLane(10));
 
         Vehicle::AddVehicle(tempQueue, this->map);
-    }
-    */
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    {
-        //inter->GetLane(2)->SetIsBlocked(true);
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {

@@ -37,9 +37,10 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane*>
     // get a pointer to the current intersection
     m_currentIntersection = map->GetIntersection(m_sourceLane->GetIntersectionNumber());
 
-    m_maxAcceleration= m_vehicleType->MaxAcceleration * m_currentIntersection->GetWeatherCondition()/10.f;
-    m_minAcceleration= m_vehicleType->MinAcceleration * m_currentIntersection->GetWeatherCondition()/10.f;
-    m_maxSpeed       = m_vehicleType->MaxSpeed * m_currentIntersection->GetWeatherCondition()/10.f;
+    m_maxSpeed       = Settings::MaxSpeeds[m_vehicleType->Type];
+    m_maxAcceleration= Settings::MaxAcceleration[m_vehicleType->Type];
+    m_minAcceleration= Settings::MinAcceleration[m_vehicleType->Type];
+
     m_angularV       = 0;
     m_rotation       = m_sourceLane->GetDirection();
     m_position       = m_sourceLane->GetStartPosition();
@@ -92,13 +93,16 @@ void Vehicle::ClearVehicles()
 }
 
 /// add a vehicle with an instruction set
-Vehicle * Vehicle::AddVehicle(queue<Lane*> * instructionSet,Map * map, VehicleTypeOptions vehicleType, int vehicleNumber)
+Vehicle * Vehicle::AddVehicle(queue<Lane*> * instructionSet, Map * map, VehicleTypeOptions vehicleType, int vehicleNumber)
 {
-
     auto * temp = new Vehicle(vehicleType, vehicleNumber, instructionSet, map);
     ActiveVehicles.push_back(temp);
 
     temp->m_vehicleInFront = (temp->m_sourceLane->GetLastCar()) ? GetVehicle(temp->m_sourceLane->GetLastCar()) : nullptr;
+    /*
+    if(temp->m_vehicleInFront != nullptr)
+        cout << temp->m_vehicleNumber << " -> " << temp->m_vehicleInFront->m_vehicleNumber << endl;
+    */
 
     //set this car as the last car that entered the lane
     temp->m_sourceLane->SetLastCar(vehicleNumber);
@@ -141,15 +145,6 @@ bool Vehicle::LoadVehicleTextures(VehicleType * vehicleType)
     }
     if(vehicleType->ImageCount > 0)return true;
     return false;
-}
-
-/// set a vehicle's max Settings::Speed
-void Vehicle::SetMaxSpeed(VehicleTypeOptions vehicleType, float max_speed, float max_acceleration)
-{
-    VehicleType * temp = GetVehicleTypeByOption(vehicleType);
-    temp->MaxSpeed = max_speed;
-    temp->MaxAcceleration = max_acceleration;
-    temp->MinAcceleration = -max_acceleration;
 }
 
 /// convert vehicleTypeOption to VehicleType struct
@@ -204,9 +199,6 @@ void Vehicle::TransferVehicle(Vehicle * vehicle, Lane * toLane, Lane * fromLane)
     vehicle->m_rotation       = vehicle->m_sourceLane->GetDirection();
     vehicle->m_angularV       = 0;
     vehicle->m_currentIntersection = vehicle->m_currentMap->GetIntersection(vehicle->m_sourceLane->GetIntersectionNumber());
-    vehicle->m_maxAcceleration= vehicle->m_vehicleType->MaxAcceleration * vehicle->m_currentIntersection->GetWeatherCondition()/10.f;
-    vehicle->m_maxSpeed       = vehicle->m_vehicleType->MaxSpeed * vehicle->m_currentIntersection->GetWeatherCondition()/10.f;
-    vehicle->m_minAcceleration= vehicle->m_vehicleType->MinAcceleration * vehicle->m_currentIntersection->GetWeatherCondition()/10.f;
     vehicle->m_vehicleInFront = (vehicle->m_sourceLane->GetLastCar()) ? GetVehicle(vehicle->m_sourceLane->GetLastCar()) : nullptr;
     vehicle->m_sourceLane->SetLastCar(vehicle->m_vehicleNumber);
     vehicle->m_sourceLane->AddVehicleCount();
@@ -226,12 +218,15 @@ void Vehicle::TransferVehicle(Vehicle * vehicle, Lane * toLane, Lane * fromLane)
 /// do drive cycle
 State Vehicle::drive()
 {
+    // upon creation, all cars are stacked on each other.
+    // while cars dont have a min distance, they wont start driving
 
 
     // check for distance with car in front
     if(m_vehicleInFront != nullptr && m_vehicleInFront->m_state != DELETE)
     {
         float distanceFromNextCar = calculateDistance(m_position, m_vehicleInFront->m_position);
+        //cout << distanceFromNextCar << endl;
         float brakingDistance = -(m_speed * m_speed)/ (2 * m_minAcceleration);
 
         if(distanceFromNextCar < brakingDistance + Settings::MinDistanceFromNextCar || distanceFromNextCar < Settings::MinDistanceFromNextCar)
@@ -279,7 +274,7 @@ State Vehicle::drive()
     if(m_sourceLane != nullptr && m_sourceLane != m_targetLane && m_sourceLane->GetIsBlocked() && !m_sprite.getGlobalBounds().contains(m_sourceLane->GetEndPosition()))
     {
         float distanceFromStop = calculateDistance(this->m_position, m_sourceLane->GetEndPosition());
-        float brakingDistance = -(m_speed * m_speed)/ (2 * m_minAcceleration * m_currentIntersection->GetWeatherCondition()/10.f);
+        float brakingDistance = -(m_speed * m_speed)/ (2 * m_minAcceleration);
 
         if(distanceFromStop < brakingDistance + Settings::MinDistanceFromStop)
         {
@@ -334,8 +329,9 @@ void Vehicle::Update(float elapsedTime){
 /// apply the calculated next position
 void Vehicle::applyChanges(float elapsedTime)
 {
+    m_speed *= Settings::Speed;
     // apply acceleration
-    m_speed += m_acceleration * elapsedTime;
+    m_speed += m_acceleration * elapsedTime * Settings::Speed;
 
     // apply max Settings::Speed limit
     if(m_speed > m_maxSpeed) m_acceleration = m_minAcceleration;
@@ -346,7 +342,7 @@ void Vehicle::applyChanges(float elapsedTime)
     // set rotation relative to current Settings::Speed, to create a constant turning radius
     Transform t;
 
-    m_rotation += m_angularV * elapsedTime * m_speed ;
+    m_rotation += m_angularV * elapsedTime * m_speed;
 
     t.rotate(m_rotation);
 
@@ -360,8 +356,9 @@ void Vehicle::applyChanges(float elapsedTime)
     // apply rotation and position changes to the actual car sprite
     m_sprite.setPosition(m_position);
     m_sprite.setRotation(m_rotation);
-}
 
+    //cout << "Speed is now: " << Settings::ConvertVelocity(PXS, KMH, m_speed) << " km/s" << endl;
+}
 
 /// render the vehicle
 void Vehicle::Draw(RenderWindow *window)

@@ -29,9 +29,6 @@ typedef struct
     string ImageDir;
     int ImageCount;
     Vector2f Scale;
-    float MaxSpeed{100};
-    float MaxAcceleration{};
-    float MinAcceleration{};
     vector<Texture> * Textures;
 }
 VehicleType;
@@ -45,7 +42,6 @@ public:
     static int VehicleCount;
 
     static void ClearVehicles();
-    static void SetMaxSpeed(VehicleTypeOptions vehicleType, float max_speed, float max_acceleration);
     static void TransferVehicle(Vehicle * vehicle, Lane * toLane, Lane * fromLane = nullptr);
     static bool LoadVehicleTextures(VehicleType * vehicleType);
     static VehicleType * GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions);

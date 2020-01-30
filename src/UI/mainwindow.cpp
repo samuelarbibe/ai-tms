@@ -147,7 +147,7 @@ void MainWindow::on_ShowGridCheckBox_stateChanged(int arg1)
 
 void MainWindow::on_LaneWidthSlider_sliderMoved(int position)
 {
-    Units unit = static_cast<Units>(ui->UnitComboBox->currentIndex());
+    DistanceUnits unit = static_cast<DistanceUnits>(ui->UnitComboBox->currentIndex());
     // setting the value will cut the value to the current range
     ui->LaneWidthSlider->setValue(position);
     Settings::LaneWidth = ui->LaneWidthSlider->value();
@@ -160,7 +160,7 @@ void MainWindow::on_UnitComboBox_currentIndexChanged(int index)
 {
     // get slider position -> lane with as px
     int position = ui->LaneWidthSlider->value();
-    ui->LaneWidthValueEdit->setText(QString::number(Settings::GetLaneWidthAs(static_cast<Units>(index))));
+    ui->LaneWidthValueEdit->setText(QString::number(Settings::GetLaneWidthAs(static_cast<DistanceUnits>(index))));
 }
 
 void MainWindow::on_LaneWidthValueEdit_editingFinished()
@@ -169,10 +169,10 @@ void MainWindow::on_LaneWidthValueEdit_editingFinished()
     float enteredValue = ui->LaneWidthValueEdit->text().toFloat();
 
     // get the current unit
-    Units currentUnit = static_cast<Units>(int(ui->UnitComboBox->currentIndex()));
+    DistanceUnits currentUnit = static_cast<DistanceUnits>(int(ui->UnitComboBox->currentIndex()));
 
     // convert the entered unit to PX
-    enteredValue = Settings::ConvertSize(currentUnit, Units::PX, enteredValue);
+    enteredValue = Settings::ConvertSize(currentUnit, DistanceUnits::PX, enteredValue);
     // send it to this function that simulate a slider movement
     on_LaneWidthSlider_sliderMoved(enteredValue);
 }
