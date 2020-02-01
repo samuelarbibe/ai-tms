@@ -5,13 +5,17 @@
 #ifndef SIMULATORSFML_SETTINGS_HPP
 #define SIMULATORSFML_SETTINGS_HPP
 
+//#include "Vehicle.hpp"
+
 enum DistanceUnits {M, CM, FEET, INCH, PX};
 enum VelocityUnits{CMS, KMH, MS, MPH, PXS};
+enum VehicleTypeOptions{CAR, TRUCK, MOTORCYCLE};
 
 class Settings {
 public:
 
     static float GetLaneWidthAs(DistanceUnits unit);
+    static float GetMaxSpeedAs(VehicleTypeOptions vehicleType, VelocityUnits unit);
     static float ConvertSize(DistanceUnits fromUnit, DistanceUnits toUnit, float value);
     static float ConvertVelocity(VelocityUnits fromUnit, VelocityUnits toUnit, float value);
 

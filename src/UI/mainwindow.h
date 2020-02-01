@@ -35,11 +35,21 @@ private slots:
 
     void on_LaneWidthSlider_sliderMoved(int position);
 
-    void on_UnitComboBox_currentIndexChanged(int index);
+    void on_DistanceUnitComboBox_currentIndexChanged(int index);
 
     void on_LaneWidthValueEdit_editingFinished();
 
     void on_ZoomSlider_valueChanged(int value);
+
+    void on_CarMaxSpeed_editingFinished();
+
+    void on_MotorcycleMaxSpeed_editingFinished();
+
+    void on_TruckMaxSpeed_editingFinished();
+
+    void on_VelocityUnitComboBox_currentIndexChanged(int index);
+
+    void on_MultiColorCheckBox_stateChanged(int arg1);
 
 private:
     Ui::MainWindow *ui;

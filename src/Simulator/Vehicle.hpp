@@ -19,8 +19,7 @@
 using namespace std;
 using namespace sf;
 
-typedef enum {STOP, DRIVE, TURN, DELETE} State;
-typedef enum {CAR, TRUCK, MOTORCYCLE} VehicleTypeOptions;
+enum State{STOP, DRIVE, TURN, DELETE};
 
 typedef struct
 {

@@ -8,11 +8,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     SimulatorEngine = new Engine(ui->SimulatorFrame);
 
+    DistanceUnits currentDistanceUnit = static_cast<DistanceUnits>(ui->DistanceUnitComboBox->currentIndex());
+    VelocityUnits currentUnit = static_cast<VelocityUnits>(ui->VelocityUnitComboBox->currentIndex());
+
     // load presets
     ui->LaneWidthSlider->setMinimum(Settings::MinLaneWidth);
     ui->LaneWidthSlider->setMaximum(Settings::MaxLaneWidth);
+    ui->LaneWidthSlider->setSliderPosition(Settings::LaneWidth);
     ui->ZoomSlider->setSliderPosition(Settings::Zoom * 99);
-    //this->on_LaneWidthSlider_sliderMoved(Settings::LaneWidth);
+    ui->LaneWidthValueEdit->setText(QString::number(Settings::GetLaneWidthAs(currentDistanceUnit)));
+    ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::CAR, currentUnit)));
+    ui->MotorcycleMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MOTORCYCLE, currentUnit)));
+    ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::TRUCK, currentUnit)));
 }
 
 MainWindow::~MainWindow()
@@ -147,7 +154,7 @@ void MainWindow::on_ShowGridCheckBox_stateChanged(int arg1)
 
 void MainWindow::on_LaneWidthSlider_sliderMoved(int position)
 {
-    DistanceUnits unit = static_cast<DistanceUnits>(ui->UnitComboBox->currentIndex());
+    DistanceUnits unit = static_cast<DistanceUnits>(ui->DistanceUnitComboBox->currentIndex());
     // setting the value will cut the value to the current range
     ui->LaneWidthSlider->setValue(position);
     Settings::LaneWidth = ui->LaneWidthSlider->value();
@@ -156,7 +163,7 @@ void MainWindow::on_LaneWidthSlider_sliderMoved(int position)
     if(SimulatorEngine->map != nullptr)SimulatorEngine->map->ReloadMap();
 }
 
-void MainWindow::on_UnitComboBox_currentIndexChanged(int index)
+void MainWindow::on_DistanceUnitComboBox_currentIndexChanged(int index)
 {
     // get slider position -> lane with as px
     int position = ui->LaneWidthSlider->value();
@@ -169,7 +176,7 @@ void MainWindow::on_LaneWidthValueEdit_editingFinished()
     float enteredValue = ui->LaneWidthValueEdit->text().toFloat();
 
     // get the current unit
-    DistanceUnits currentUnit = static_cast<DistanceUnits>(int(ui->UnitComboBox->currentIndex()));
+    DistanceUnits currentUnit = static_cast<DistanceUnits>(int(ui->DistanceUnitComboBox->currentIndex()));
 
     // convert the entered unit to PX
     enteredValue = Settings::ConvertSize(currentUnit, DistanceUnits::PX, enteredValue);
@@ -181,4 +188,64 @@ void MainWindow::on_ZoomSlider_valueChanged(int value)
 {
     float zoomValue = 1.f - value/100.f;
     SimulatorEngine->UpdateView(Vector2f(0,0), zoomValue);
+}
+
+void MainWindow::on_CarMaxSpeed_editingFinished()
+{
+    // get the entered value for the max speed
+    float enteredValue = ui->CarMaxSpeed->text().toFloat();
+
+    // get the current unit
+    VelocityUnits currentUnit = static_cast<VelocityUnits>(int(ui->VelocityUnitComboBox->currentIndex()));
+
+    // convert the entered value to px
+    enteredValue = Settings::ConvertVelocity(currentUnit, VelocityUnits::PXS, enteredValue);
+
+    // save the changes
+    Settings::MaxSpeeds[VehicleTypeOptions::CAR] = enteredValue;
+}
+
+void MainWindow::on_MotorcycleMaxSpeed_editingFinished()
+{
+    // get the entered value for the max speed
+    float enteredValue = ui->CarMaxSpeed->text().toFloat();
+
+    // get the current unit
+    VelocityUnits currentUnit = static_cast<VelocityUnits>(int(ui->VelocityUnitComboBox->currentIndex()));
+
+    // convert the entered value to px
+    enteredValue = Settings::ConvertVelocity(currentUnit, VelocityUnits::PXS, enteredValue);
+
+    // save the changes
+    Settings::MaxSpeeds[VehicleTypeOptions::MOTORCYCLE] = enteredValue;
+}
+
+void MainWindow::on_TruckMaxSpeed_editingFinished()
+{
+    // get the entered value for the max speed
+    float enteredValue = ui->CarMaxSpeed->text().toFloat();
+
+    // get the current unit
+    VelocityUnits currentUnit = static_cast<VelocityUnits>(int(ui->VelocityUnitComboBox->currentIndex()));
+
+    // convert the entered value to px
+    enteredValue = Settings::ConvertVelocity(currentUnit, VelocityUnits::PXS, enteredValue);
+
+    // save the changes
+    Settings::MaxSpeeds[VehicleTypeOptions::TRUCK] = enteredValue;
+}
+
+void MainWindow::on_VelocityUnitComboBox_currentIndexChanged(int index)
+{
+    VelocityUnits currentUnit = static_cast<VelocityUnits>(index);
+    // re-display all the velocities
+    ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::CAR, currentUnit)));
+    ui->MotorcycleMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MOTORCYCLE, currentUnit)));
+    ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::TRUCK, currentUnit)));
+
+}
+
+void MainWindow::on_MultiColorCheckBox_stateChanged(int arg1)
+{
+    Settings::MultiColor = ui->MultiColorCheckBox->isChecked();
 }

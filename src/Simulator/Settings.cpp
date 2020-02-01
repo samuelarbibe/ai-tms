@@ -105,3 +105,8 @@ float Settings::MinAcceleration[3]
     ConvertVelocity(KMH, PXS, -7.f),
     ConvertVelocity(KMH, PXS, -12.f)
 };
+
+float Settings::GetMaxSpeedAs(VehicleTypeOptions vehicleType, VelocityUnits unit)
+{
+    return Settings::ConvertVelocity(PXS, unit, Settings::MaxSpeeds[vehicleType]);
+}
