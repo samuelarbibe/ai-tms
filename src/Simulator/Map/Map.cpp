@@ -10,11 +10,11 @@ Map::Map(int mapNumber, Vector2i position, int width, int height)
     {
         mapNumber = 1;
     }
-    m_intersections = vector<Intersection*>();
     m_mapNumber = mapNumber;
     m_position = position;
     m_width    = width;
     m_height   = height;
+    SelectedLane = nullptr;
 
     m_numberOfIntersections = 0;
 }
@@ -64,7 +64,7 @@ Lane * Map::AddLane(int laneNumber, int roadNumber, bool isInRoadDirection)
 
     if(temp)
     {
-        tempLane =  temp->AddLane(laneNumber, roadNumber, isInRoadDirection);
+        tempLane = temp->AddLane(laneNumber, roadNumber, isInRoadDirection);
     }
 
     this->ReloadMap();
@@ -195,19 +195,88 @@ pair<ConnectionSides, ConnectionSides> Map::AssignConnectionSides( Vector2f pos1
     return connections;
 }
 
+Lane * Map::CheckSelection(Vector2f position)
+{
+    // for each intersection in map
+    Lane * temp;
+    for(Intersection * inter : m_intersections)
+    {
+        // if selection found
+        temp = inter->CheckSelection(position);
+        if(temp != nullptr) return temp;
+    }
+    return nullptr;
+}
+
 /// Reload all intersection in this map
 void Map::ReloadMap()
 {
+    // disable delete output temporarily for reload
+    bool showDeleted = Settings::DrawDelete;
+    Settings::DrawDelete = false;
     for (Intersection *i : m_intersections)
     {
         i->ReloadIntersection();
     }
+    Settings::DrawDelete = showDeleted;
 }
 
 /// update, for future use
 void Map::Update(float elapsedTime)
 {
 
+}
+
+int Map::GetRoadCount()
+{
+    int sum = 0;
+
+    for(Intersection * inter : m_intersections)
+    {
+        sum += inter->GetRoadCount();
+    }
+
+    return sum;
+}
+
+int Map::GetLaneCount()
+{
+    int sum = 0;
+
+    for(Intersection * inter : m_intersections)
+    {
+        sum += inter->GetLaneCount();
+    }
+
+    return sum;
+}
+
+bool Map::DeleteLane(int laneNumber)
+{
+    Intersection * targetIntersection = GetIntersectionByLaneNumber(laneNumber);
+
+    if(targetIntersection != nullptr)
+    {
+        // delete the given lane
+        targetIntersection->DeleteLane(laneNumber);
+
+        // if intersection has no roads left, delete it as well
+        if(targetIntersection->GetRoadCount() == 0)
+        {
+            auto it = find(m_intersections.begin(), m_intersections.end(), targetIntersection);
+            m_intersections.erase(it);
+            m_numberOfIntersections --;
+        }
+
+        // set selected as nullptr
+        this->SelectedLane = nullptr;
+
+        // reload the map to display the changes
+        this->ReloadMap();
+
+        return true;
+    }
+    return false;
 }
 
 /// draw the map, and all of its belongings

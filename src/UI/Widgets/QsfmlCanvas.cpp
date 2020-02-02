@@ -35,7 +35,6 @@ QSFMLCanvas::QSFMLCanvas(QWidget* Parent, unsigned int FrameTime) :
 void QSFMLCanvas::resizeEvent(QResizeEvent* event)
 {
     setSize(sf::Vector2u(QWidget::width(), QWidget::height()));
-    std::cout << "resize called" << std::endl;
 }
 
 void QSFMLCanvas::showEvent(QShowEvent*)

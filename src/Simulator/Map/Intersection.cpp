@@ -28,6 +28,11 @@ Intersection::Intersection(Vector2f position, int intersectionNumber, WeatherCon
     this->setSize(Vector2f(m_width, m_height));
 };
 
+Intersection::~Intersection()
+{
+    if(Settings::DrawDelete)cout << "Intersection " << m_intersectionNumber << "deleted" << endl;
+}
+
 /// add a road to an intersection
 Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
 {
@@ -213,6 +218,31 @@ void Intersection::ReloadIntersection()
     reAssignRoadPositions();
 }
 
+Lane * Intersection::CheckSelection(Vector2f position)
+{
+    // for each intersection in map
+    Lane * temp;
+    for(Road * road : m_roads)
+    {
+        // if selection found
+        temp = road->CheckSelection(position);
+        if(temp != nullptr) return temp;
+    }
+    return nullptr;
+}
+
+int Intersection::GetLaneCount()
+{
+    int sum = 0;
+
+    for (Road * road : m_roads)
+    {
+        sum += road->GetLaneCount();
+    }
+
+    return sum;
+}
+
 /// update , for future use
 void Intersection::Update(float elapsedTime)
 {
@@ -222,6 +252,28 @@ void Intersection::Update(float elapsedTime)
     }
 }
 
+bool Intersection::DeleteLane(int laneNumber)
+{
+    Lane * targetLane = this->GetLane(laneNumber);
+    if(targetLane != nullptr)
+    {
+        Road * targetRoad = this->GetRoad(targetLane->GetRoadNumber());
+        if (targetRoad != nullptr)
+        {
+            targetRoad->DeleteLane(laneNumber);
+            // check if no lanes are left in road.
+            // if so, delete road as well
+            if(targetRoad->GetLaneCount() == 0)
+            {
+                auto it = find(m_roads.begin(), m_roads.end(), targetRoad);
+                this->m_roads.erase(it);
+                m_numberOfRoads --;
+            }
+            return true;
+        }
+    }
+    return false;
+}
 
 /// draw the intersection and everything that belongs to it
 void Intersection::Draw(RenderWindow *window)

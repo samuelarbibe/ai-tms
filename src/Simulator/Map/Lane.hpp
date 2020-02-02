@@ -29,9 +29,10 @@ class Lane : public RectangleShape
 public:
     
     Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f startPosition, float length, float direction);
-    ~Lane(){if(Settings::DrawDelete)cout << "Lane " << m_laneNumber << " deleted" << endl;};
+    ~Lane();
     
-    void  Update(float elapsedTime);
+    void Update(float elapsedTime);
+    void Delete();
 
     // Get
     bool  GetIsBlocked() {return m_isBlocked;};
@@ -46,6 +47,8 @@ public:
     Vector2f GetEndPosition(){return m_endPosition;};
 
     // Set
+    void  Select();
+    void  Unselect();
     void  AddVehicleCount(){m_currentVehicleCount++; m_totalVehicleCount++;};
     void  RemoveVehicleCount(){m_currentVehicleCount--;};
     void  SetIsBlocked(bool blocked) {m_isBlocked = blocked; if(Settings::DrawActive)cout << "Lane " << m_laneNumber << " blocked: " << blocked << endl;};

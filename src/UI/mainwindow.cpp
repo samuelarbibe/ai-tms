@@ -20,6 +20,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::CAR, currentUnit)));
     ui->MotorcycleMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MOTORCYCLE, currentUnit)));
     ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::TRUCK, currentUnit)));
+
+    // set spinbox ranges
+    ui->FromIntersectionSpinBox->setRange(0, 0);
+    ui->ToIntersectionSpinBox->setRange(0, 0);
+    ui->IntersectionSpinBox->setRange(0, 0);
+
+    ui->ToRoadSpinBox->setRange(0,0);
 }
 
 MainWindow::~MainWindow()
@@ -27,11 +34,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::reloadOptionData()
+{
+    // set intersection number range for future use
+    ui->FromIntersectionSpinBox->setRange(1, SimulatorEngine->map->GetIntersectionCount());
+    ui->ToIntersectionSpinBox->setRange(1, SimulatorEngine->map->GetIntersectionCount());
+    ui->IntersectionSpinBox->setRange(1, SimulatorEngine->map->GetIntersectionCount());
+
+    ui->ToRoadSpinBox->setRange(1, SimulatorEngine->map->GetRoadCount());
+}
+
+
 // When mouse is clicked, use click coordinates in Map setup
 void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 {
     if(event->buttons() == Qt::LeftButton)
-        {
+    {
 
         QPoint clickPoint;
         Vector2f point;
@@ -46,12 +64,31 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
         if(point.x > 0 && point.y > 0)
         {
             // draw a point on simulator canvas to indicate last clicked position
+
             point = SimulatorEngine->DrawPoint(point);
 
             ui->IntersectionXEdit->setText(QString::number(int(point.x)));
             ui->IntersectionYEdit->setText(QString::number(int(point.y)));
 
             ui->statusbar->showMessage(tr("You can now Click 'Add Intersection' to add an intersection at the clicked position "));
+
+            Lane * selectedLane = SimulatorEngine->map->SelectedLane;
+            bool isSelected = (selectedLane != nullptr);
+            ui->DeleteButton->setEnabled(isSelected);
+            if(isSelected)
+            {
+                QString selectionText = "Selected: Lane {";
+                selectionText.append(QString::number(selectedLane->GetLaneNumber()));
+                selectionText.append("}, Road {");
+                selectionText.append(QString::number(selectedLane->GetRoadNumber()));
+                selectionText.append("}, Intersection {");
+                selectionText.append(QString::number(selectedLane->GetIntersectionNumber()));
+                selectionText.append("}");
+
+                ui->statusbar->showMessage(selectionText);
+
+            }
+
         }
 
     }
@@ -70,10 +107,8 @@ void MainWindow::on_AddIntersectionButton_clicked()
             Vector2f position(x, y);
             if(SimulatorEngine->map->AddIntersection(0, position) != nullptr)
             {
-                // set intersection number range for future use
-                ui->FromIntersectionSpinBox->setRange(1, Intersection::IntersectionCount);
-                ui->ToIntersectionSpinBox->setRange(1, Intersection::IntersectionCount);
-                ui->IntersectionSpinBox->setRange(1, Intersection::IntersectionCount);
+                // set data for future use
+                reloadOptionData();
                 ui->statusbar->clearMessage();
                 ui->statusbar->showMessage(tr("Intersection Succefully added."), 5000);
                 return; // success
@@ -112,7 +147,8 @@ void MainWindow::on_AddRoadButton_clicked()
 
     if(SimulatorEngine->map->AddRoad(0, intersectionNumber, connectionSide, Settings::DefaultLaneLength))
     {
-        ui->ToRoadSpinBox->setRange(1, Road::RoadCount);
+        // refresh spinboxes data
+        reloadOptionData();
 
         ui->statusbar->clearMessage();
         ui->statusbar->showMessage(tr("Road Succefully added."), 5000);
@@ -242,10 +278,29 @@ void MainWindow::on_VelocityUnitComboBox_currentIndexChanged(int index)
     ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::CAR, currentUnit)));
     ui->MotorcycleMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MOTORCYCLE, currentUnit)));
     ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::TRUCK, currentUnit)));
-
 }
 
 void MainWindow::on_MultiColorCheckBox_stateChanged(int arg1)
 {
     Settings::MultiColor = ui->MultiColorCheckBox->isChecked();
+}
+
+void MainWindow::on_DeleteButton_clicked()
+{
+    Lane * selectedLane = SimulatorEngine->map->SelectedLane;
+    if(selectedLane != nullptr)
+    {
+        int laneNumber = selectedLane->GetLaneNumber();
+        // if deletion was successful
+        if(SimulatorEngine->map->DeleteLane(selectedLane->GetLaneNumber()))
+        {
+            QString text = "Lane ";
+            text.append(QString::number(laneNumber));
+            text.append(" has been deleted. ");
+            ui->statusbar->showMessage(text);
+
+            // set spinbox ranges
+            reloadOptionData();
+        }
+    }
 }

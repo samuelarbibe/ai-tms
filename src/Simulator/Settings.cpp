@@ -6,8 +6,8 @@
 
 bool Settings::DrawFps = false;
 bool Settings::DrawActive = false;
-bool Settings::DrawDelete = false;
-bool Settings::DrawAdded = false;
+bool Settings::DrawDelete = true;
+bool Settings::DrawAdded = true;
 
 int Settings::MaxFps = 200;
 bool Settings::MultiColor = true;

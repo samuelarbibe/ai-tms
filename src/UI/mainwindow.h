@@ -51,6 +51,10 @@ private slots:
 
     void on_MultiColorCheckBox_stateChanged(int arg1);
 
+    void on_DeleteButton_clicked();
+
+    void reloadOptionData();
+
 private:
     Ui::MainWindow *ui;
     Engine * SimulatorEngine;

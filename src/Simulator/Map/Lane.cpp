@@ -47,6 +47,11 @@ Lane::Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f star
     m_createArrowShape(t);
 }
 
+Lane::~Lane()
+{
+    if(Settings::DrawDelete)cout << "Lane " << m_laneNumber << " deleted" << endl;
+}
+
 /// create the arrow shapes indicating the lane's direction
 void Lane::m_createArrowShape(Transform t)
 {
@@ -79,6 +84,23 @@ void Lane::m_createArrowShape(Transform t)
 void Lane::Update(float elapsedTime)
 {
 
+}
+
+void Lane::Select()
+{
+    this->setOutlineColor(Color::Red);
+    this->setOutlineThickness(3.f);
+}
+
+void Lane::Unselect()
+{
+    this->setOutlineColor(WhiteColor);
+    this->setOutlineThickness(1.f);
+}
+
+void Lane::Delete()
+{
+    delete this;
 }
 
 /// draw the road

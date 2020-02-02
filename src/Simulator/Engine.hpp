@@ -57,6 +57,7 @@ private:
     void DrawMinimap();
     void updateShownArea();
     void update(float elapsedTime);
+    void checkSelection(Vector2f position);
 
     CircleShape m_clickPoint;
     bool m_snapToGrid = true;

@@ -71,6 +71,11 @@ Road::Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int
     this->setSize(Vector2f(m_width, m_length));
 }
 
+Road::~Road()
+{
+    if(Settings::DrawDelete)cout << "Road " << m_roadNumber << "deleted" << endl;
+}
+
 /// add a lane to a road
 Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
 {
@@ -199,6 +204,21 @@ float Road::calculateDistance(Vector2f a, Vector2f b)
     return sqrt(xDist*xDist + yDist*yDist);
 }
 
+Lane * Road::CheckSelection(Vector2f position)
+{
+    // for each intersection in map
+    Lane * temp;
+    for(Lane * lane : m_lanes)
+    {
+        // if selection found
+        if(lane->getGlobalBounds().contains(position))
+        {
+            return lane;
+        }
+    }
+    return nullptr;
+}
+
 /// update, for future use
 void Road::Update(float elapsedTime)
 {
@@ -206,6 +226,22 @@ void Road::Update(float elapsedTime)
     {
         l->Update(elapsedTime);
     }
+}
+
+bool Road::DeleteLane(int laneNumber)
+{
+    Lane * targetLane = this->GetLane(laneNumber);
+
+    // if lane was found
+    if(targetLane != nullptr)
+    {
+        // remove the targetLane from the list by iterator
+        auto it = find(m_lanes.begin(), m_lanes.end(), targetLane);
+        m_lanes.erase(it);
+        m_numberOfLanes --;
+        return true;
+    }
+    return false;
 }
 
 /// draw the road and al of its lanes

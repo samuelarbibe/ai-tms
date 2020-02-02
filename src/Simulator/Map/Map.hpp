@@ -25,6 +25,7 @@ public:
     void   assignAvaialablePosition();
     void   Update(float elapsedTime);
     void   Draw(RenderWindow *window);
+    bool   DeleteLane(int laneNumber);
     void   ReloadMap();
 
 
@@ -37,7 +38,12 @@ public:
     Intersection * GetIntersection(int intersectionNumber); 
     Road * GetRoad(int roadNumber);
     Lane * GetLane(int laneNumber);
+    int GetIntersectionCount(){return m_numberOfIntersections;};
+    int GetRoadCount();
+    int GetLaneCount();
     pair<ConnectionSides, ConnectionSides> AssignConnectionSides(Vector2f pos1, Vector2f pos2);
+    Lane * SelectedLane;
+    Lane * CheckSelection(Vector2f position);
 
 private:
 
@@ -46,10 +52,11 @@ private:
     int m_width;
     int m_height;
 
+
+
     Vector2i m_position;
 
     vector<Intersection*> m_intersections;
-
 };
 
 

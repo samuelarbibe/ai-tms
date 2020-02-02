@@ -8,8 +8,6 @@
 
 #include "Engine.hpp"
 
-
-
 /// set up the map according to the selected presets
 void Engine::OnInit()
 {
@@ -157,6 +155,9 @@ Vector2f Engine::DrawPoint(Vector2f position)
     // convert it to world coordinates
     position = this->mapPixelToCoords(Vector2i(position), m_view);
 
+    // check if a lane exists in the choosen location
+    checkSelection(position);
+
     Vector2f temp;
     if(m_snapToGrid)
     {
@@ -198,6 +199,23 @@ Vector2f Engine::GetSnappedPoint(Vector2f point)
     }
 
     return Vector2f(x,y);
+}
+
+void Engine::checkSelection(Vector2f position)
+{
+    Lane * temp = map->CheckSelection(position);
+
+    if(map->SelectedLane != nullptr)
+    {
+        map->SelectedLane->Unselect();
+        map->SelectedLane = nullptr;
+    }
+    // if another lane is selected
+    if(temp != nullptr)
+    {
+        map->SelectedLane = temp;
+        map->SelectedLane->Select();
+    }
 }
 
 /// get use input, and make changes accordingly

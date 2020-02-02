@@ -26,18 +26,20 @@ public:
     
     Road(int roadNumber, int intersectionNumber, int connectionSide, Vector2f startPosition, float length, float direction);
     Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int connectionSide1, int connectionSide2, Vector2f conPosition1, Vector2f conPosition2, float direction);
-    ~Road(){if(Settings::DrawDelete)cout << "Road " << m_roadNumber << "deleted" << endl;}
+    ~Road();
     
     
     Lane * AddLane(int laneNumber, bool isInRoadDirection);
     Lane * GetLane(int laneNumber);
 
-    // ge
+    bool DeleteLane(int laneNumber);
+    // get
     float  GetWidth(){return m_width;}
     int    GetRoadNumber(){return m_roadNumber;}
     int    GetIntersectionNumber(int index = 0){return m_intersectionNumber[index];}
     int    GetConnectionSide(int index = 0){return m_connectionSide[index];}
     bool   GetIsConnecting(){return m_isConnecting;}
+    int    GetLaneCount(){return m_lanes.size();};
     
     void   reAssignLanePositions();
     void   UpdateStartPosition(Vector2f position);
@@ -47,6 +49,8 @@ public:
 
     void   Update(float elapsedTime);
     void   Draw(RenderWindow * window);
+
+    Lane * CheckSelection(Vector2f position);
 
     static int RoadCount;
     
@@ -66,7 +70,6 @@ private:
     float      m_width;
     
     vector<Lane*> m_lanes;
-        
 };
 
 
