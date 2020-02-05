@@ -32,7 +32,6 @@ public:
     ~Lane();
     
     void Update(float elapsedTime);
-    void Delete();
 
     // Get
     bool  GetIsBlocked() {return m_isBlocked;};

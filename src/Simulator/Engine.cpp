@@ -81,19 +81,20 @@ void Engine::UpdateView(Vector2f posDelta, float newZoom)
     // m_viewTempPosition is the current view position
     m_viewTempPosition = m_viewPosition + posDelta;
 
-    // TODO: enforce overflow
-    /*
     Vector2f mapPosition = this->mapPixelToCoords(Vector2i(m_viewTempPosition), m_view);
-    cout << m_viewTempPosition.x << ", " << m_viewTempPosition.y << endl;
+
     // enforce overflow blocking
-    if(Settings::MapOverflow == false)
+    if(!Settings::MapOverflow && map != nullptr)
     {
-        if(false)
+        if(abs(m_viewTempPosition.x) > map->GetSize().x / 2 - m_shownArea.getSize().x/2)
         {
-            m_viewTempPosition = m_viewPosition;
+            m_viewTempPosition.x = (map->GetSize().x / 2 - m_shownArea.getSize().x/2) * m_viewTempPosition.x / abs(m_viewTempPosition.x);
+        }
+        if (abs(m_viewTempPosition.y) > map->GetSize().y / 2 - m_shownArea.getSize().y/2)
+        {
+            m_viewTempPosition.y = (map->GetSize().y / 2 - m_shownArea.getSize().y/2) * m_viewTempPosition.y / abs(m_viewTempPosition.y);
         }
     }
-     */
 
     if(newZoom != 0)
     {
@@ -267,6 +268,13 @@ void Engine::input()
     }
 }
 
+void Engine::ResetMap()
+{
+    // TODO: really delete everything
+    delete map;
+    map = new Map(0, Vector2i(this->width()/2, this->height()/2), Settings::DefaultMapWidth, Settings::DefaultMapWidth);
+}
+
 /// do the game cycle (input->update->draw)
 void Engine::OnUpdate()
 {
@@ -339,3 +347,4 @@ void Engine::DrawMinimap()
     // Draw the shown area index
     this->draw(m_shownArea);
 }
+

@@ -55,6 +55,8 @@ private slots:
 
     void reloadOptionData();
 
+    void on_ResetButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     Engine * SimulatorEngine;

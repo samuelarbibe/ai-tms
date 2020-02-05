@@ -20,13 +20,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::CAR, currentUnit)));
     ui->MotorcycleMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MOTORCYCLE, currentUnit)));
     ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::TRUCK, currentUnit)));
-
-    // set spinbox ranges
-    ui->FromIntersectionSpinBox->setRange(0, 0);
-    ui->ToIntersectionSpinBox->setRange(0, 0);
-    ui->IntersectionSpinBox->setRange(0, 0);
-
-    ui->ToRoadSpinBox->setRange(0,0);
 }
 
 MainWindow::~MainWindow()
@@ -37,11 +30,12 @@ MainWindow::~MainWindow()
 void MainWindow::reloadOptionData()
 {
     // set intersection number range for future use
-    ui->FromIntersectionSpinBox->setRange(1, SimulatorEngine->map->GetIntersectionCount());
-    ui->ToIntersectionSpinBox->setRange(1, SimulatorEngine->map->GetIntersectionCount());
-    ui->IntersectionSpinBox->setRange(1, SimulatorEngine->map->GetIntersectionCount());
+    QStringList itemList = SimulatorEngine->map->GetIntersectionIdList();
+    ui->FromIntersectionComboBox->addItems(itemList);
+    ui->ToIntersectionComboBox->addItems(itemList);
+    ui->IntersectionComboBox->addItems(itemList);
 
-    ui->ToRoadSpinBox->setRange(1, SimulatorEngine->map->GetRoadCount());
+    ui->ToRoadComboBox->addItems(SimulatorEngine->map->GetRoadIdList());
 }
 
 
@@ -121,15 +115,15 @@ void MainWindow::on_AddIntersectionButton_clicked()
 
 void MainWindow::on_AddConnectingRoadButton_clicked()
 {
-    int intersection1 = ui->FromIntersectionSpinBox->value();
-    int intersection2 = ui->ToIntersectionSpinBox->value();
+    int intersection1 = ui->FromIntersectionComboBox->currentText().toInt();
+    int intersection2 = ui->ToIntersectionComboBox->currentText().toInt();
 
     // check for usable data
     if(intersection1 != intersection2)
     {
         if(SimulatorEngine->map->AddConnectingRoad(0, intersection1, intersection2) != nullptr)
         {
-            ui->ToRoadSpinBox->setRange(1, Road::RoadCount);
+            ui->ToRoadComboBox->addItems(SimulatorEngine->map->GetRoadIdList());
 
             ui->statusbar->clearMessage();
             ui->statusbar->showMessage(tr("Connecting Road Succefully added."), 5000);
@@ -142,7 +136,7 @@ void MainWindow::on_AddConnectingRoadButton_clicked()
 
 void MainWindow::on_AddRoadButton_clicked()
 {
-    int intersectionNumber = ui->IntersectionSpinBox->value();
+    int intersectionNumber = ui->IntersectionComboBox->currentText().toInt();
     int connectionSide     = ui->ConSideComboBox->currentIndex()+1;
 
     if(SimulatorEngine->map->AddRoad(0, intersectionNumber, connectionSide, Settings::DefaultLaneLength))
@@ -159,7 +153,7 @@ void MainWindow::on_AddRoadButton_clicked()
 
 void MainWindow::on_AddLanePushButton_clicked()
 {
-    int roadNumber         = ui->ToRoadSpinBox->value();
+    int roadNumber         = ui->ToRoadComboBox->currentText().toInt();
     bool isInRoadDirection = ui->InDirectionCheckBox->isChecked();
 
     if(SimulatorEngine->map->AddLane(0, roadNumber, isInRoadDirection))
@@ -303,4 +297,11 @@ void MainWindow::on_DeleteButton_clicked()
             reloadOptionData();
         }
     }
+}
+
+void MainWindow::on_ResetButton_clicked()
+{
+    // TODO: add a confirm dialog
+    SimulatorEngine->ResetMap();
+    ui->statusbar->showMessage(tr("Map has been reset."));
 }

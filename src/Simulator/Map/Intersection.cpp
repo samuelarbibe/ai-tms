@@ -30,7 +30,7 @@ Intersection::Intersection(Vector2f position, int intersectionNumber, WeatherCon
 
 Intersection::~Intersection()
 {
-    if(Settings::DrawDelete)cout << "Intersection " << m_intersectionNumber << "deleted" << endl;
+    if(Settings::DrawDelete)cout << "Intersection " << m_intersectionNumber << " deleted" << endl;
 }
 
 /// add a road to an intersection

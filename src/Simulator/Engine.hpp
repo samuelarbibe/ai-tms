@@ -44,6 +44,7 @@ public:
     void SetView();
     void UpdateView(Vector2f posDelta = Vector2f(0,0), float zoom = 0);
     void SetMinimap(float size, float margin);
+    void ResetMap();
 
     Map * map;
 

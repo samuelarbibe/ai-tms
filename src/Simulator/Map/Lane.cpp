@@ -98,11 +98,6 @@ void Lane::Unselect()
     this->setOutlineThickness(1.f);
 }
 
-void Lane::Delete()
-{
-    delete this;
-}
-
 /// draw the road
 void Lane::Draw(RenderWindow *window)
 {

@@ -2,6 +2,7 @@
 // Created by Samuel Arbibe on 28/12/2019.
 //
 
+#include <QStringList>
 #include "Map.hpp"
 
 Map::Map(int mapNumber, Vector2i position, int width, int height)
@@ -212,13 +213,10 @@ Lane * Map::CheckSelection(Vector2f position)
 void Map::ReloadMap()
 {
     // disable delete output temporarily for reload
-    bool showDeleted = Settings::DrawDelete;
-    Settings::DrawDelete = false;
     for (Intersection *i : m_intersections)
     {
         i->ReloadIntersection();
     }
-    Settings::DrawDelete = showDeleted;
 }
 
 /// update, for future use
@@ -287,6 +285,48 @@ void Map::Draw(RenderWindow * window)
     {
         m_intersections[i]->Draw(window);
     }
+}
+
+QStringList Map::GetLaneIdList()
+{
+    QStringList idList = QStringList();
+    for(Intersection * inter : m_intersections)
+    {
+        for(Road * road : *inter->GetRoads())
+        {
+            for (Lane * lane : *road->GetLanes())
+            {
+                idList.append(QString::number(lane->GetLaneNumber()));
+            }
+        }
+    }
+
+    return idList;
+}
+
+QStringList Map::GetRoadIdList()
+{
+    QStringList idList = QStringList();
+    for(Intersection * inter : m_intersections)
+    {
+        for(Road * road : *inter->GetRoads())
+        {
+            idList.append(QString::number(road->GetRoadNumber()));
+        }
+    }
+
+    return idList;
+}
+
+QStringList Map::GetIntersectionIdList()
+{
+    QStringList idList = QStringList();
+    for(Intersection * inter : m_intersections)
+    {
+        idList.append(QString::number(inter->GetIntersectionNumber()));
+    }
+
+    return idList;
 }
 
 

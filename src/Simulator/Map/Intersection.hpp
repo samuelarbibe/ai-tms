@@ -38,7 +38,6 @@ public:
     void   Update(float elapsedTime);
     void   Draw(RenderWindow *window);
     bool   DeleteLane(int laneNumber);
-    void   Delete();
 
     void   SetWeatherCondition(WeatherCondition weatherCondition){m_weatherCondition = weatherCondition;}
     WeatherCondition   GetWeatherCondition(){return m_weatherCondition;}

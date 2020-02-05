@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1187</width>
-    <height>653</height>
+    <height>672</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -198,7 +198,14 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="FromIntersectionSpinBox"/>
+                   <widget class="QComboBox" name="FromIntersectionComboBox">
+                    <property name="maximumSize">
+                     <size>
+                      <width>70</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                   </widget>
                   </item>
                   <item>
                    <widget class="QLabel" name="label_2">
@@ -208,7 +215,14 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="ToIntersectionSpinBox"/>
+                   <widget class="QComboBox" name="ToIntersectionComboBox">
+                    <property name="maximumSize">
+                     <size>
+                      <width>70</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -249,7 +263,14 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="IntersectionSpinBox"/>
+                   <widget class="QComboBox" name="IntersectionComboBox">
+                    <property name="maximumSize">
+                     <size>
+                      <width>70</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                   </widget>
                   </item>
                   <item>
                    <widget class="QLabel" name="label_6">
@@ -321,7 +342,14 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="ToRoadSpinBox"/>
+                   <widget class="QComboBox" name="ToRoadComboBox">
+                    <property name="maximumSize">
+                     <size>
+                      <width>70</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                   </widget>
                   </item>
                   <item>
                    <widget class="QCheckBox" name="InDirectionCheckBox">
@@ -537,7 +565,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_7">
+                 <widget class="QPushButton" name="ResetButton">
                   <property name="text">
                    <string>Reset</string>
                   </property>

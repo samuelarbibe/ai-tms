@@ -8,6 +8,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <list>
+#include <QString>
 #include "../Settings.hpp"
 #include "Intersection.hpp"
 
@@ -18,9 +19,7 @@ class Map {
 
 public:
     Map(int mapNumber, Vector2i position, int width, int height);
-    ~Map(){if(Settings::DrawDelete)cout << "Intersection " << m_mapNumber << "deleted" << endl;}
-
-    //bool   reAssignIntersectionPositions(Intersection * intersection1, Intersection * intersection2 ,int connectionSide1 = 0, int connectionSide2 = 0);
+    ~Map(){if(Settings::DrawDelete)cout << "Map " << m_mapNumber << " deleted" << endl;}
 
     void   assignAvaialablePosition();
     void   Update(float elapsedTime);
@@ -38,6 +37,9 @@ public:
     Intersection * GetIntersection(int intersectionNumber); 
     Road * GetRoad(int roadNumber);
     Lane * GetLane(int laneNumber);
+    QStringList GetLaneIdList();
+    QStringList GetRoadIdList();
+    QStringList GetIntersectionIdList();
     int GetIntersectionCount(){return m_numberOfIntersections;};
     int GetRoadCount();
     int GetLaneCount();

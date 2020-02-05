@@ -40,6 +40,7 @@ public:
     int    GetConnectionSide(int index = 0){return m_connectionSide[index];}
     bool   GetIsConnecting(){return m_isConnecting;}
     int    GetLaneCount(){return m_lanes.size();};
+    vector<Lane*> *  GetLanes(){return &(m_lanes);};
     
     void   reAssignLanePositions();
     void   UpdateStartPosition(Vector2f position);
