@@ -40,6 +40,7 @@ public:
     static list<Vehicle*> ActiveVehicles;
     static int VehicleCount;
 
+    static void DeleteAllVehicles();
     static void ClearVehicles();
     static void TransferVehicle(Vehicle * vehicle, Lane * toLane, Lane * fromLane = nullptr);
     static bool LoadVehicleTextures(VehicleType * vehicleType);

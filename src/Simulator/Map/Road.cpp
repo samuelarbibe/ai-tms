@@ -73,7 +73,11 @@ Road::Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int
 
 Road::~Road()
 {
-    if(Settings::DrawDelete)cout << "Road " << m_roadNumber << "deleted" << endl;
+    for(Lane * lane : m_lanes)
+    {
+        delete lane;
+    }
+    if(Settings::DrawDelete)cout << "Road " << m_roadNumber << " deleted" << endl;
 }
 
 /// add a lane to a road
@@ -85,11 +89,11 @@ Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
     }
     
     if (isInRoadDirection) {
-        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_intersectionNumber[isInRoadDirection], m_startPosition, m_length, m_direction));
+        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_intersectionNumber[isInRoadDirection], m_startPosition, m_length, m_direction, isInRoadDirection));
     }
     else
     {
-        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_intersectionNumber[isInRoadDirection], m_endPosition, m_length, (m_direction + 180.f)));
+        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_intersectionNumber[isInRoadDirection], m_endPosition, m_length, (m_direction + 180.f), isInRoadDirection));
     }
     
     m_numberOfLanes++;
@@ -158,7 +162,7 @@ void Road::reAssignLanePositions()
         if(tempLaneDirection == m_direction)
         {
             // send calculated starting point
-            m_lanes[i] = new Lane(tempLaneNumber, m_roadNumber, m_intersectionNumber[1], firstLanePoint + z.transformPoint(laneDifference), m_length, m_direction);
+            m_lanes[i] = new Lane(tempLaneNumber, m_roadNumber, m_intersectionNumber[1], firstLanePoint + z.transformPoint(laneDifference), m_length, m_direction, true);
         }
         else
         {
@@ -167,7 +171,7 @@ void Road::reAssignLanePositions()
             lengthVec = y.transformPoint(Vector2f(0.f, -1.f)) * m_length;
             
             m_lanes[i] = new Lane(tempLaneNumber, m_roadNumber, m_intersectionNumber[0], firstLanePoint + z.transformPoint(laneDifference) + lengthVec,
-                           m_length, (m_direction + 180.f));
+                           m_length, (m_direction + 180.f), false);
         }
     }
 }

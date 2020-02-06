@@ -28,13 +28,14 @@ class Lane : public RectangleShape
     
 public:
     
-    Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f startPosition, float length, float direction);
+    Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f startPosition, float length, float direction, bool isInRoadDirection);
     ~Lane();
     
     void Update(float elapsedTime);
 
     // Get
     bool  GetIsBlocked() {return m_isBlocked;};
+    bool  GetIsInRoadDirection() {return m_isInRoadDirection;};
     float GetDirection() {return m_direction;};
     int   GetLaneNumber(){return m_laneNumber;};
     int   GetIntersectionNumber(){return m_intersectionNumber;};
@@ -60,6 +61,7 @@ public:
 private:
     
     bool     m_isBlocked;
+    bool     m_isInRoadDirection;
     int      m_intersectionNumber;
     int      m_roadNumber;
     int      m_laneNumber;

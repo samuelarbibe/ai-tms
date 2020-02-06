@@ -36,8 +36,6 @@ void Engine::OnInit()
 
     map->AddLane(0, 1, false);
     map->AddLane(0, 2, true);
-
-    map->GetLane(1)->SetIsBlocked(false);
 }
 
 void Engine::SetView()
@@ -268,11 +266,115 @@ void Engine::input()
     }
 }
 
+/// build a map using instructions from a given json file
+void Engine::LoadMap(string loadDirectory)
+{
+    // first, delete the old map.
+    ResetMap();
+
+    try
+    {
+        json j;
+        // open the given file, read it to a json variable
+        ifstream i(loadDirectory);
+        i >> j;
+
+        // build intersections
+        for (auto data : j["intersections"]) {
+            map->AddIntersection(data["id"], Vector2f(data["position"][0], data["position"][1]));
+        }
+
+        // build connecting roads
+        for (auto data : j["connecting_roads"]) {
+            map->AddConnectingRoad(data["id"], data["intersection_number"][0], data["intersection_number"][1]);
+        }
+
+        // build roads
+        for (auto data : j["roads"]) {
+            map->AddRoad(data["id"], data["intersection_number"], data["connection_side"], Settings::DefaultLaneLength);
+        }
+
+        for (auto data : j["lanes"]) {
+            map->AddLane(data["id"], data["road_number"], data["is_in_road_direction"]);
+        }
+
+        cout << "Map has been successfully loaded from '" << loadDirectory << "'. " << endl;
+    }
+    catch(const std::exception& e)
+    {
+        cout << "Could not load map from this directory." << endl;
+        cout << e.what() << endl;
+        cout << "Reloading Previous map..." << endl;
+        // TODO: find solution for backing up map
+    }
+}
+
+/// save the current map to a json file
+void Engine::SaveMap(string saveDirectory)
+{
+    // first save intersections, then save connecting roads, then save roads, then save lanes
+    json j;
+
+    for(Intersection * inter : *map->GetIntersections())
+    {
+        j["intersections"].push_back(
+                                      {
+                                              {"id", inter->GetIntersectionNumber()},
+                                              {"position", {inter->getPosition().x, inter->getPosition().y}}
+                                      });
+        for(Road * road : *inter->GetRoads())
+        {
+            // check if road is a connecting road
+            if(!road->GetIsConnecting())
+            {
+                j["roads"].push_back(
+                                     {
+                                          {"id", road->GetRoadNumber()},
+                                          {"intersection_number", road->GetIntersectionNumber()},
+                                          {"connection_side", road->GetConnectionSide()}
+                                      });
+            }
+            else
+            {
+                j["connecting_roads"].push_back(
+                                      {
+                                              {"id", road->GetRoadNumber()},
+                                              {"intersection_number", {road->GetIntersectionNumber(0), road->GetIntersectionNumber(1)}}
+                                      });
+            }
+
+            for (Lane * lane : *road->GetLanes())
+            {
+                j["lanes"].push_back(
+                                      {
+                                              {"id", lane->GetRoadNumber()},
+                                              {"road_number", lane->GetRoadNumber()},
+                                              {"is_in_road_direction", lane->GetIsInRoadDirection()}
+                                      });
+            }
+        }
+    }
+
+    // write to file
+    ofstream o(saveDirectory);
+    o << setw(4) << j << endl;
+    o.close();
+
+    cout << "Map saved to '" << saveDirectory << "' successfully." << endl;
+}
+
+/// reset the whole map, delete everything
 void Engine::ResetMap()
 {
-    // TODO: really delete everything
+    cout << "Deleting Vehicles..." << endl;
+    Vehicle::DeleteAllVehicles();
+
+    cout << "Resetting Map..." << endl;
     delete map;
     map = new Map(0, Vector2i(this->width()/2, this->height()/2), Settings::DefaultMapWidth, Settings::DefaultMapWidth);
+
+
+    cout << "*** Map has been reset. ***" << endl;
 }
 
 /// do the game cycle (input->update->draw)
@@ -347,4 +449,8 @@ void Engine::DrawMinimap()
     // Draw the shown area index
     this->draw(m_shownArea);
 }
+
+
+
+
 

@@ -10,16 +10,20 @@
 #define Engine_hpp
 
 #include <iostream>
+#include <fstream>
 #include <list>
 #include <SFML/Graphics.hpp>
 #include "../UI/Widgets/QsfmlCanvas.hpp"
-#include <math.h>
+#include <cmath>
 #include <QtWidgets>
+#include <nlohmann/json.hpp>
 #include "Map/Map.hpp"
 #include "Vehicle.hpp"
 #include "Settings.hpp"
 
+
 using namespace sf;
+using json = nlohmann::json;
 
 struct Grid
 {
@@ -35,6 +39,7 @@ class Engine : public QSFMLCanvas
 public:
 
     Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000/Settings::MaxFps){}
+    ~Engine(){};
 
     void SetSnapToGrid(bool snapToGrid){this->m_snapToGrid = snapToGrid;}
     void ShowGrid(bool showGrid){this->m_showGrid = showGrid;}
@@ -45,6 +50,8 @@ public:
     void UpdateView(Vector2f posDelta = Vector2f(0,0), float zoom = 0);
     void SetMinimap(float size, float margin);
     void ResetMap();
+    void SaveMap(string saveDirectory);
+    void LoadMap(string loadDirectory);
 
     Map * map;
 

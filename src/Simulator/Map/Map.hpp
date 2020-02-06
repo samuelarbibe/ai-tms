@@ -18,10 +18,10 @@ using namespace std;
 class Map {
 
 public:
-    Map(int mapNumber, Vector2i position, int width, int height);
-    ~Map(){if(Settings::DrawDelete)cout << "Map " << m_mapNumber << " deleted" << endl;}
 
-    void   assignAvaialablePosition();
+    Map(int mapNumber, Vector2i position, int width, int height);
+    ~Map();
+
     void   Update(float elapsedTime);
     void   Draw(RenderWindow *window);
     bool   DeleteLane(int laneNumber);
@@ -35,6 +35,7 @@ public:
     Road * AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2);
     Intersection * GetIntersectionByLaneNumber(int laneNumber);
     Intersection * GetIntersection(int intersectionNumber); 
+    vector<Intersection*> * GetIntersections(){return &(m_intersections);};
     Road * GetRoad(int roadNumber);
     Lane * GetLane(int laneNumber);
     QStringList GetLaneIdList();
@@ -53,8 +54,6 @@ private:
     int m_numberOfIntersections;
     int m_width;
     int m_height;
-
-
 
     Vector2i m_position;
 

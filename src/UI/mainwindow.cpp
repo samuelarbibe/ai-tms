@@ -301,7 +301,44 @@ void MainWindow::on_DeleteButton_clicked()
 
 void MainWindow::on_ResetButton_clicked()
 {
-    // TODO: add a confirm dialog
-    SimulatorEngine->ResetMap();
-    ui->statusbar->showMessage(tr("Map has been reset."));
+    QMessageBox msgBox;
+    msgBox.setText("Are you sure you want to reset map?");
+    msgBox.setInformativeText("The map and all the active vehicles will be deleted.");
+    msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    int ret = msgBox.exec();
+
+    switch (ret)
+    {
+        case QMessageBox::Ok:
+            SimulatorEngine->ResetMap();
+            ui->statusbar->showMessage(tr("Map has been reset."));
+            break;
+        case QMessageBox::Cancel:
+            break;
+    }
+}
+
+void MainWindow::on_LoadMapButton_clicked()
+{
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::ExistingFile);
+    dialog.setNameFilter(tr("JSON Files (*.json)"));
+    dialog.setViewMode(QFileDialog::Detail);
+
+    QStringList fileNames;
+    if (dialog.exec())
+    {
+        fileNames = dialog.selectedFiles();
+
+        SimulatorEngine->LoadMap(fileNames.front().toStdString());
+    }
+}
+
+void MainWindow::on_SaveMapButton_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                                    "map.json",
+                                                    tr("JSON Files (*.json"));
+    SimulatorEngine->SaveMap(fileName.toStdString());
 }

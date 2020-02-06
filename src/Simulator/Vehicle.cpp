@@ -65,6 +65,14 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane*>
     m_sprite.setOrigin(m_sprite.getTextureRect().width/2, m_sprite.getTextureRect().height/3);
 }
 
+void Vehicle::DeleteAllVehicles()
+{
+    for (Vehicle * v : Vehicle::ActiveVehicles)
+    {
+        v->m_state = DELETE;
+    }
+}
+
 void Vehicle::ClearVehicles()
 {
     auto it = ActiveVehicles.begin();
@@ -362,4 +370,6 @@ void Vehicle::Draw(RenderWindow *window)
 {
     (*window).draw(this->m_sprite);
 }
+
+
 

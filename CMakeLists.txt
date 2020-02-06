@@ -11,6 +11,9 @@ set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.14.1)
 find_package(Qt5 COMPONENTS REQUIRED Core Gui Widgets)
 find_package(Qt5Widgets REQUIRED)
 
+# find json c++ support and required components
+find_package(nlohmann_json 3.2.0 REQUIRED)
+
 # find SFML and required components
 find_package(SFML COMPONENTS system window graphics REQUIRED)
 
@@ -67,5 +70,7 @@ target_link_libraries(${PROJECT_NAME}
     sfml-system
     Qt5::Widgets
     Qt5::Core
-    Qt5::Gui)
+    Qt5::Gui
+    nlohmann_json::nlohmann_json
+    )
 

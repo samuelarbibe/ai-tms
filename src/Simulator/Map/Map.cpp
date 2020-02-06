@@ -20,6 +20,16 @@ Map::Map(int mapNumber, Vector2i position, int width, int height)
     m_numberOfIntersections = 0;
 }
 
+Map::~Map()
+{
+    for (Intersection * inter : m_intersections)
+    {
+        delete inter;
+    }
+
+    if(Settings::DrawDelete)cout << "Map " << m_mapNumber << " deleted" << endl;
+}
+
 /// add an intersection to the map
 Intersection * Map::AddIntersection(int intersectionNumber, Vector2f position,
                                    WeatherCondition weatherCondition) {

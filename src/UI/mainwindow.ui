@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1187</width>
-    <height>672</height>
+    <width>1229</width>
+    <height>681</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -111,7 +111,7 @@
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>30</width>
+                      <width>50</width>
                       <height>16777215</height>
                      </size>
                     </property>
@@ -153,7 +153,7 @@
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>30</width>
+                      <width>50</width>
                       <height>16777215</height>
                      </size>
                     </property>
@@ -515,14 +515,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_10">
                 <item>
-                 <widget class="QPushButton" name="pushButton_8">
+                 <widget class="QPushButton" name="LoadMapButton">
                   <property name="text">
                    <string>Load Map</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_3">
+                 <widget class="QPushButton" name="SaveMapButton">
                   <property name="text">
                    <string>Save Map</string>
                   </property>

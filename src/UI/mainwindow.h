@@ -57,6 +57,10 @@ private slots:
 
     void on_ResetButton_clicked();
 
+    void on_LoadMapButton_clicked();
+
+    void on_SaveMapButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     Engine * SimulatorEngine;

@@ -10,8 +10,9 @@
 
 int  Lane::LaneCount = 0;
 
-Lane::Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f startPosition, float length, float direction)
+Lane::Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f startPosition, float length, float direction, bool isInRoadDirection)
 {
+    m_isInRoadDirection = isInRoadDirection;
     m_laneNumber    = laneNumber;
     m_roadNumber    = roadNumber;
     m_intersectionNumber = intersectionNumber;
