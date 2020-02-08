@@ -2,8 +2,8 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+        QMainWindow(parent),
+        ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     SimulatorEngine = new Engine(ui->SimulatorFrame);
@@ -18,8 +18,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->ZoomSlider->setSliderPosition(Settings::Zoom * 99);
     ui->LaneWidthValueEdit->setText(QString::number(Settings::GetLaneWidthAs(currentDistanceUnit)));
     ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::CAR, currentUnit)));
-    ui->MotorcycleMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MOTORCYCLE, currentUnit)));
+    ui->MotorcycleMaxSpeed->setText(
+            QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MOTORCYCLE, currentUnit)));
     ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::TRUCK, currentUnit)));
+
+    reloadOptionData();
 }
 
 MainWindow::~MainWindow()
@@ -31,10 +34,17 @@ void MainWindow::reloadOptionData()
 {
     // set intersection number range for future use
     QStringList itemList = SimulatorEngine->map->GetIntersectionIdList();
+
+    ui->FromIntersectionComboBox->clear();
     ui->FromIntersectionComboBox->addItems(itemList);
+
+    ui->ToIntersectionComboBox->clear();
     ui->ToIntersectionComboBox->addItems(itemList);
+
+    ui->IntersectionComboBox->clear();
     ui->IntersectionComboBox->addItems(itemList);
 
+    ui->ToRoadComboBox->clear();
     ui->ToRoadComboBox->addItems(SimulatorEngine->map->GetRoadIdList());
 }
 
@@ -42,8 +52,7 @@ void MainWindow::reloadOptionData()
 // When mouse is clicked, use click coordinates in Map setup
 void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    if(event->buttons() == Qt::LeftButton)
-    {
+    if (event->buttons() == Qt::LeftButton) {
 
         QPoint clickPoint;
         Vector2f point;
@@ -55,8 +64,7 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 
         //cout << point.x << point.y << endl;
 
-        if(point.x > 0 && point.y > 0)
-        {
+        if (point.x > 0 && point.y > 0) {
             // draw a point on simulator canvas to indicate last clicked position
 
             point = SimulatorEngine->DrawPoint(point);
@@ -64,13 +72,13 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
             ui->IntersectionXEdit->setText(QString::number(int(point.x)));
             ui->IntersectionYEdit->setText(QString::number(int(point.y)));
 
-            ui->statusbar->showMessage(tr("You can now Click 'Add Intersection' to add an intersection at the clicked position "));
+            ui->statusbar->showMessage(
+                    tr("You can now Click 'Add Intersection' to add an intersection at the clicked position "));
 
-            Lane * selectedLane = SimulatorEngine->map->SelectedLane;
+            Lane *selectedLane = SimulatorEngine->map->SelectedLane;
             bool isSelected = (selectedLane != nullptr);
             ui->DeleteButton->setEnabled(isSelected);
-            if(isSelected)
-            {
+            if (isSelected) {
                 QString selectionText = "Selected: Lane {";
                 selectionText.append(QString::number(selectedLane->GetLaneNumber()));
                 selectionText.append("}, Road {");
@@ -90,21 +98,18 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 
 void MainWindow::on_AddIntersectionButton_clicked()
 {
-    if(ui->IntersectionXEdit->text().length() > 0 && ui->IntersectionYEdit->text().length() > 0 )
-    {
+    if (ui->IntersectionXEdit->text().length() > 0 && ui->IntersectionYEdit->text().length() > 0) {
         int x = ui->IntersectionXEdit->text().toInt();
         int y = ui->IntersectionYEdit->text().toInt();
 
         // check for usable data
-        if(x > 0 && x < SimulatorEngine->map->GetSize().x && y > 0 && y < SimulatorEngine->map->GetSize().y)
-        {
+        if (x > 0 && x < SimulatorEngine->map->GetSize().x && y > 0 && y < SimulatorEngine->map->GetSize().y) {
             Vector2f position(x, y);
-            if(SimulatorEngine->map->AddIntersection(0, position) != nullptr)
-            {
+            if (SimulatorEngine->map->AddIntersection(0, position) != nullptr) {
                 // set data for future use
                 reloadOptionData();
                 ui->statusbar->clearMessage();
-                ui->statusbar->showMessage(tr("Intersection Succefully added."), 5000);
+                ui->statusbar->showMessage(tr("Intersection Successfully added."), 5000);
                 return; // success
             }
         }
@@ -119,14 +124,13 @@ void MainWindow::on_AddConnectingRoadButton_clicked()
     int intersection2 = ui->ToIntersectionComboBox->currentText().toInt();
 
     // check for usable data
-    if(intersection1 != intersection2)
-    {
-        if(SimulatorEngine->map->AddConnectingRoad(0, intersection1, intersection2) != nullptr)
-        {
+    if (intersection1 != intersection2) {
+        if (SimulatorEngine->map->AddConnectingRoad(0, intersection1, intersection2) != nullptr) {
+            ui->ToRoadComboBox->clear();
             ui->ToRoadComboBox->addItems(SimulatorEngine->map->GetRoadIdList());
 
             ui->statusbar->clearMessage();
-            ui->statusbar->showMessage(tr("Connecting Road Succefully added."), 5000);
+            ui->statusbar->showMessage(tr("Connecting Road Successfully added."), 5000);
             return; // success
         }
     }
@@ -137,15 +141,14 @@ void MainWindow::on_AddConnectingRoadButton_clicked()
 void MainWindow::on_AddRoadButton_clicked()
 {
     int intersectionNumber = ui->IntersectionComboBox->currentText().toInt();
-    int connectionSide     = ui->ConSideComboBox->currentIndex()+1;
+    int connectionSide = ui->ConSideComboBox->currentIndex() + 1;
 
-    if(SimulatorEngine->map->AddRoad(0, intersectionNumber, connectionSide, Settings::DefaultLaneLength))
-    {
+    if (SimulatorEngine->map->AddRoad(0, intersectionNumber, connectionSide, Settings::DefaultLaneLength)) {
         // refresh spinboxes data
         reloadOptionData();
 
         ui->statusbar->clearMessage();
-        ui->statusbar->showMessage(tr("Road Succefully added."), 5000);
+        ui->statusbar->showMessage(tr("Road Successfully added."), 5000);
         return; // success
     }
     ui->statusbar->showMessage(tr("Could not add Road. please check that the entered values are correct. "));
@@ -153,13 +156,12 @@ void MainWindow::on_AddRoadButton_clicked()
 
 void MainWindow::on_AddLanePushButton_clicked()
 {
-    int roadNumber         = ui->ToRoadComboBox->currentText().toInt();
+    int roadNumber = ui->ToRoadComboBox->currentText().toInt();
     bool isInRoadDirection = ui->InDirectionCheckBox->isChecked();
 
-    if(SimulatorEngine->map->AddLane(0, roadNumber, isInRoadDirection))
-    {
+    if (SimulatorEngine->map->AddLane(0, roadNumber, isInRoadDirection)) {
         ui->statusbar->clearMessage();
-        ui->statusbar->showMessage(tr("Lane Succefully added."), 5000);
+        ui->statusbar->showMessage(tr("Lane Successfully added."), 5000);
         return; // success
     }
     ui->statusbar->showMessage(tr("Could not add Lane. please check that the entered values are correct. "));
@@ -190,13 +192,12 @@ void MainWindow::on_LaneWidthSlider_sliderMoved(int position)
     Settings::LaneWidth = ui->LaneWidthSlider->value();
     ui->LaneWidthValueEdit->setText(QString::number(Settings::GetLaneWidthAs(unit)));
     // check if init was called, if was then reload map
-    if(SimulatorEngine->map != nullptr)SimulatorEngine->map->ReloadMap();
+    if (SimulatorEngine->map != nullptr)SimulatorEngine->map->ReloadMap();
 }
 
 void MainWindow::on_DistanceUnitComboBox_currentIndexChanged(int index)
 {
     // get slider position -> lane with as px
-    int position = ui->LaneWidthSlider->value();
     ui->LaneWidthValueEdit->setText(QString::number(Settings::GetLaneWidthAs(static_cast<DistanceUnits>(index))));
 }
 
@@ -216,8 +217,8 @@ void MainWindow::on_LaneWidthValueEdit_editingFinished()
 
 void MainWindow::on_ZoomSlider_valueChanged(int value)
 {
-    float zoomValue = 1.f - value/100.f;
-    SimulatorEngine->UpdateView(Vector2f(0,0), zoomValue);
+    float zoomValue = 1.f - value / 100.f;
+    SimulatorEngine->UpdateView(Vector2f(0, 0), zoomValue);
 }
 
 void MainWindow::on_CarMaxSpeed_editingFinished()
@@ -270,7 +271,8 @@ void MainWindow::on_VelocityUnitComboBox_currentIndexChanged(int index)
     VelocityUnits currentUnit = static_cast<VelocityUnits>(index);
     // re-display all the velocities
     ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::CAR, currentUnit)));
-    ui->MotorcycleMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MOTORCYCLE, currentUnit)));
+    ui->MotorcycleMaxSpeed->setText(
+            QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MOTORCYCLE, currentUnit)));
     ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::TRUCK, currentUnit)));
 }
 
@@ -281,13 +283,11 @@ void MainWindow::on_MultiColorCheckBox_stateChanged(int arg1)
 
 void MainWindow::on_DeleteButton_clicked()
 {
-    Lane * selectedLane = SimulatorEngine->map->SelectedLane;
-    if(selectedLane != nullptr)
-    {
+    Lane *selectedLane = SimulatorEngine->map->SelectedLane;
+    if (selectedLane != nullptr) {
         int laneNumber = selectedLane->GetLaneNumber();
         // if deletion was successful
-        if(SimulatorEngine->map->DeleteLane(selectedLane->GetLaneNumber()))
-        {
+        if (SimulatorEngine->map->DeleteLane(selectedLane->GetLaneNumber())) {
             QString text = "Lane ";
             text.append(QString::number(laneNumber));
             text.append(" has been deleted. ");
@@ -308,8 +308,7 @@ void MainWindow::on_ResetButton_clicked()
     msgBox.setDefaultButton(QMessageBox::Ok);
     int ret = msgBox.exec();
 
-    switch (ret)
-    {
+    switch (ret) {
         case QMessageBox::Ok:
             SimulatorEngine->ResetMap();
             ui->statusbar->showMessage(tr("Map has been reset."));
@@ -327,8 +326,7 @@ void MainWindow::on_LoadMapButton_clicked()
     dialog.setViewMode(QFileDialog::Detail);
 
     QStringList fileNames;
-    if (dialog.exec())
-    {
+    if (dialog.exec()) {
         fileNames = dialog.selectedFiles();
 
         SimulatorEngine->LoadMap(fileNames.front().toStdString());

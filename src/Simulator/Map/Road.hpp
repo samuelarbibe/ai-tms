@@ -14,7 +14,7 @@
 #include <list>
 #include "Lane.hpp"
 #include "../Settings.hpp"
-
+#include "../../UI/Widgets/DataBox.hpp"
 using namespace std;
 
 
@@ -62,7 +62,9 @@ private:
     int        m_numberOfLanes;
     int        m_intersectionNumber[2];
     int        m_connectionSide[2];
-    
+    int        m_currentVehicleCount;
+    int        m_totalVehicleCount;
+
     Vector2f   m_startPosition;
     Vector2f   m_endPosition;
     
@@ -71,6 +73,8 @@ private:
     float      m_width;
     
     vector<Lane*> m_lanes;
+
+    DataBox * m_dataBox;
 };
 
 

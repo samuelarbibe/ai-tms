@@ -45,6 +45,8 @@ public:
     int GetIntersectionNumber(){return m_intersectionNumber;}
     int GetRoadCount(){return m_roads.size();}
     int GetLaneCount();
+    void  AddVehicleCount(){m_currentVehicleCount++; m_totalVehicleCount++;};
+    void  RemoveVehicleCount(){m_currentVehicleCount--;};
     Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
     Road * AddConnectingRoad(int roadNumber, int connectionSide1, int connectionSide2, Intersection * connectedIntersection);
     Road * GetRoad(int roadNumber);
@@ -62,7 +64,9 @@ public:
     static int IntersectionCount;
     
 private:
-    
+
+    int m_currentVehicleCount;
+    int m_totalVehicleCount;
     int m_intersectionNumber;
     int m_numberOfRoads;
     int m_width;

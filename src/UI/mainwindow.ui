@@ -61,7 +61,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTabWidget" name="MapSetupTab">
+         <widget class="QTabWidget" name="SettingsTab">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -663,7 +663,7 @@
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>30</width>
+                    <width>50</width>
                     <height>16777215</height>
                    </size>
                   </property>
@@ -703,7 +703,7 @@
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>30</width>
+                    <width>50</width>
                     <height>16777215</height>
                    </size>
                   </property>
@@ -743,7 +743,7 @@
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>30</width>
+                    <width>50</width>
                     <height>16777215</height>
                    </size>
                   </property>
@@ -838,6 +838,11 @@
              </layout>
             </item>
            </layout>
+          </widget>
+          <widget class="QWidget" name="Settings">
+           <attribute name="title">
+            <string>Settings</string>
+           </attribute>
           </widget>
          </widget>
         </item>

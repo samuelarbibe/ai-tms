@@ -36,7 +36,7 @@ set(project_sources
     src/Simulator/Map/Map.cpp
     src/UI/Widgets/QsfmlCanvas.cpp
     src/Simulator/Settings.cpp
-    src/UI/mainwindow.cpp)
+    src/UI/mainwindow.cpp src/UI/Widgets/DataBox.cpp src/UI/Widgets/DataBox.hpp)
 
 set(project_headers
     src/Simulator/Engine.hpp
@@ -48,7 +48,7 @@ set(project_headers
     src/UI/Widgets/QsfmlCanvas.hpp
     src/UI/mainwindow.h
 
-    src/Simulator/Settings.hpp)
+    src/Simulator/Settings.hpp src/UI/Widgets/DataBox.cpp src/UI/Widgets/DataBox.hpp)
 
 set(project_ui src/UI/mainwindow.ui)
 # wrap the ui file to a c++ header

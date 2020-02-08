@@ -232,7 +232,10 @@ void Map::ReloadMap()
 /// update, for future use
 void Map::Update(float elapsedTime)
 {
-
+    for(Intersection * i : m_intersections)
+    {
+        i->Update(elapsedTime);
+    }
 }
 
 int Map::GetRoadCount()

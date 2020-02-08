@@ -8,8 +8,10 @@ bool Settings::DrawFps = false;
 bool Settings::DrawActive = false;
 bool Settings::DrawDelete = true;
 bool Settings::DrawAdded = true;
+bool Settings::DrawVehicleDataBoxes = true;
+bool Settings::DrawRoadDataBoxes = true;
 
-int Settings::MaxFps = 200;
+int Settings::MaxFps = 120;
 bool Settings::MultiColor = true;
 float Settings::MinDistanceFromNextCar = 166;
 float Settings::MinDistanceFromStop = 66;
@@ -19,7 +21,7 @@ float Settings::MinLaneWidth = 83;
 float Settings::LaneWidth = 100; // lane width in px.
 float Settings::MaxLaneWidth = 107;
 float Settings::Scale = 3; // 1 px * [scale] = 1 cm
-float Settings::Speed = 80; // running speed
+float Settings::Speed = 1; // running speed
 
 float Settings::DefaultLaneLength = 500; // lane length in px
 
@@ -95,15 +97,15 @@ float Settings::MaxSpeeds[3]
 };
 float Settings::MaxAcceleration[3]
 {
-    ConvertVelocity(KMH, PXS, 4.5f),
     ConvertVelocity(KMH, PXS, 3.f),
-    ConvertVelocity(KMH, PXS, 5.5f)
+    ConvertVelocity(KMH, PXS, 2.5f),
+    ConvertVelocity(KMH, PXS, 3.5f)
 };
 float Settings::MinAcceleration[3]
 {
-    ConvertVelocity(KMH, PXS, -8.5f),
-    ConvertVelocity(KMH, PXS, -7.f),
-    ConvertVelocity(KMH, PXS, -12.f)
+    ConvertVelocity(KMH, PXS, -5.5f),
+    ConvertVelocity(KMH, PXS, -4.f),
+    ConvertVelocity(KMH, PXS, -6.f)
 };
 
 float Settings::GetMaxSpeedAs(VehicleTypeOptions vehicleType, VelocityUnits unit)

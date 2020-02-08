@@ -32,8 +32,13 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane*>
     m_instructionSet->pop();
     m_targetLane     = m_instructionSet->front();
 
+
+
     // get a pointer to the current intersection
+    // current intersection is the intersection that the lane leads to
     m_currentIntersection = map->GetIntersection(m_sourceLane->GetIntersectionNumber());
+    // the previous intersection, or the intersection of the source lane
+    m_previousIntersection = nullptr;
 
     m_maxSpeed       = Settings::MaxSpeeds[m_vehicleType->Type];
     m_maxAcceleration= Settings::MaxAcceleration[m_vehicleType->Type];
@@ -63,6 +68,10 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane*>
     }
     m_sprite.setScale(m_vehicleType->Scale);
     m_sprite.setOrigin(m_sprite.getTextureRect().width/2, m_sprite.getTextureRect().height/3);
+
+    m_dataBox = new DataBox(m_position);
+    m_dataBox->AddData("Speed", m_speed);
+    m_dataBox->AddData("ID", m_vehicleNumber);
 }
 
 void Vehicle::DeleteAllVehicles()
@@ -149,8 +158,7 @@ bool Vehicle::LoadVehicleTextures(VehicleType * vehicleType)
         cout << "----------------------------------------------" << endl;
         vehicleType->ImageCount = vehicleType->Textures->size();
     }
-    if(vehicleType->ImageCount > 0)return true;
-    return false;
+    return vehicleType->ImageCount > 0 ? true : false;
 }
 
 /// convert vehicleTypeOption to VehicleType struct
@@ -243,7 +251,7 @@ State Vehicle::drive()
         }
     }
 
-    // check if car is in between lanes
+    // check if car is in between lanes (inside an intersection)
     if(m_currentIntersection->getGlobalBounds().contains(m_position))
     {
         // TODO: fix turning left
@@ -266,9 +274,12 @@ State Vehicle::drive()
 
         if(m_sourceLane != nullptr)
         {
+            m_previousIntersection = m_currentMap->GetIntersection(m_sourceLane->GetIntersectionNumber());
+            m_previousIntersection->AddVehicleCount();
             m_sourceLane->RemoveVehicleCount();
+            m_sourceLane = nullptr;
         }
-        m_sourceLane = nullptr;
+
         m_state = TURN;
 
         //set rotation
@@ -290,9 +301,13 @@ State Vehicle::drive()
         }
     }
 
-    // check if car is in targetLane
+    // check if car has left intersection and is now in targetLane
     if(m_targetLane != nullptr &&  m_targetLane->getGlobalBounds().contains(m_position))
     {
+        // remove count from previous lane, and set in to nullptr
+        m_previousIntersection->RemoveVehicleCount();
+        m_previousIntersection = nullptr;
+
         // we need to transfer vehicle to target lane
         TransferVehicle(this, m_targetLane, m_sourceLane);
 
@@ -304,6 +319,7 @@ State Vehicle::drive()
     // check if car is no longer in intersection
     if(m_targetLane == nullptr && !m_sourceLane->getGlobalBounds().contains(m_position))
     {
+        m_sourceLane->RemoveVehicleCount();
         toBeDeleted++;
 
         m_state = DELETE;
@@ -328,6 +344,8 @@ float Vehicle::calculateDistance(Vector2f a, Vector2f b)
 /// update a vehicle's location
 void Vehicle::Update(float elapsedTime){
 
+    m_dataBox->Update(m_position);
+    m_dataBox->SetData("Speed", Settings::ConvertVelocity(PXS, KMH, m_speed));
     drive();
     applyChanges(elapsedTime);
 }
@@ -338,13 +356,13 @@ void Vehicle::applyChanges(float elapsedTime)
     // apply acceleration
     m_speed += m_acceleration * elapsedTime * Settings::Speed;
 
-    // apply max Settings::Speed limit
+    // apply max Speed limit
     if(m_speed > m_maxSpeed) m_acceleration = m_minAcceleration * Settings::Speed;
 
-    // apply min Settings::Speed limit
+    // apply min Speed limit
     if(m_speed < 0) m_speed = 0;
 
-    // set rotation relative to current Settings::Speed, to create a constant turning radius
+    // set rotation relative to currentSpeed, to create a constant turning radius
     Transform t;
     m_rotation += m_angularV * elapsedTime * m_speed * Settings::Speed;
 
@@ -354,7 +372,7 @@ void Vehicle::applyChanges(float elapsedTime)
     m_movementVec = t.transformPoint(m_forwardVec);
 
     // apply movement vector on position, relative to elapsed time to ensure
-    // a constant Settings::Speed at any FPS
+    // a constant Speed at any FPS
 
     m_position += m_movementVec * m_speed * elapsedTime * Settings::Speed;
 
@@ -362,13 +380,13 @@ void Vehicle::applyChanges(float elapsedTime)
     m_sprite.setPosition(m_position);
     m_sprite.setRotation(m_rotation);
 
-    //cout << "Speed is now: " << Settings::ConvertVelocity(PXS, KMH, m_speed) << " km/s" << endl;
 }
 
 /// render the vehicle
 void Vehicle::Draw(RenderWindow *window)
 {
     (*window).draw(this->m_sprite);
+    if(Settings::DrawVehicleDataBoxes) m_dataBox->Draw(window);
 }
 
 

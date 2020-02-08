@@ -23,6 +23,8 @@ public:
     static bool DrawActive;
     static bool DrawDelete;
     static bool DrawAdded;
+    static bool DrawVehicleDataBoxes;
+    static bool DrawRoadDataBoxes;
 
     static int MaxFps;
     static bool MultiColor;

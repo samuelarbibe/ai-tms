@@ -8,8 +8,9 @@
 
 #include "Engine.hpp"
 
-/// set up the map according to the selected presets
-void Engine::OnInit()
+
+
+Engine::Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000/Settings::MaxFps)
 {
     cout << "Setting Up Map..." << endl;
     map = new Map(0, Vector2i(this->width()/2, this->height()/2), Settings::DefaultMapWidth, Settings::DefaultMapWidth);
@@ -28,7 +29,11 @@ void Engine::OnInit()
     Settings::MaxSpeeds[VehicleTypeOptions::CAR] = Settings::ConvertVelocity(VelocityUnits::KMH, VelocityUnits::PXS, 100.f);
     Settings::MaxSpeeds[VehicleTypeOptions::TRUCK] = Settings::ConvertVelocity(VelocityUnits::KMH, VelocityUnits::PXS, 90.f);
     Settings::MaxSpeeds[VehicleTypeOptions::MOTORCYCLE] = Settings::ConvertVelocity(VelocityUnits::KMH, VelocityUnits::PXS, 110.f);
+}
 
+/// set up the map according to the selected presets
+void Engine::OnInit()
+{
     map->AddIntersection(0, map->GetSize()/2.f);
 
     map->AddRoad(0, 1, DOWN, Settings::DefaultLaneLength);
@@ -78,8 +83,6 @@ void Engine::UpdateView(Vector2f posDelta, float newZoom)
     // m_viewPosition is position before dragging
     // m_viewTempPosition is the current view position
     m_viewTempPosition = m_viewPosition + posDelta;
-
-    Vector2f mapPosition = this->mapPixelToCoords(Vector2i(m_viewTempPosition), m_view);
 
     // enforce overflow blocking
     if(!Settings::MapOverflow && map != nullptr)

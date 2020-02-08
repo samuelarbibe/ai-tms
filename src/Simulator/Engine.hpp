@@ -38,7 +38,7 @@ class Engine : public QSFMLCanvas
 {
 public:
 
-    Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000/Settings::MaxFps){}
+    Engine(QWidget* Parent);
     ~Engine(){};
 
     void SetSnapToGrid(bool snapToGrid){this->m_snapToGrid = snapToGrid;}

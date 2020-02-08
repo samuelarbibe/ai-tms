@@ -23,7 +23,9 @@ Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f
     m_direction          = direction;
     m_numberOfLanes      = 0;
     m_width              = 0;
-    
+    m_currentVehicleCount = 0;
+    m_totalVehicleCount = 0;
+
     // calculate end position:
     Vector2f lengthVec;
     
@@ -31,7 +33,7 @@ Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f
     t.rotate(direction + 180);
     
     lengthVec = t.transformPoint(Vector2f(0.f, -1.f)) * length;
-    m_endPosition = lengthVec + m_startPosition;
+    m_endPosition = m_startPosition - lengthVec;
     
     // init rectangle shape
     this->setOrigin(m_width/2, 0.f);
@@ -41,6 +43,10 @@ Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f
     this->setFillColor(Color::Transparent);
     this->setRotation(m_direction + 180);
     this->setSize(Vector2f(m_width, m_length));
+
+    m_dataBox = new DataBox(m_endPosition);
+    m_dataBox->AddData("ID", m_roadNumber);
+    m_dataBox->AddData("Count", 0);
 }
 
 /// ctor for a connecting road
@@ -69,6 +75,10 @@ Road::Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int
     this->setFillColor(Color::Transparent);
     this->setRotation(m_direction + 180);
     this->setSize(Vector2f(m_width, m_length));
+
+    m_dataBox = new DataBox(m_endPosition);
+    m_dataBox->AddData("ID", m_roadNumber);
+    m_dataBox->AddData("Count", 0);
 }
 
 Road::~Road()
@@ -78,6 +88,8 @@ Road::~Road()
         delete lane;
     }
     if(Settings::DrawDelete)cout << "Road " << m_roadNumber << " deleted" << endl;
+
+    delete m_dataBox;
 }
 
 /// add a lane to a road
@@ -211,7 +223,6 @@ float Road::calculateDistance(Vector2f a, Vector2f b)
 Lane * Road::CheckSelection(Vector2f position)
 {
     // for each intersection in map
-    Lane * temp;
     for(Lane * lane : m_lanes)
     {
         // if selection found
@@ -226,10 +237,16 @@ Lane * Road::CheckSelection(Vector2f position)
 /// update, for future use
 void Road::Update(float elapsedTime)
 {
+    m_currentVehicleCount = 0;
+    m_totalVehicleCount = 0;
     for(Lane * l : m_lanes)
     {
         l->Update(elapsedTime);
+        m_currentVehicleCount += l->GetCurrentVehicleCount();
+        m_totalVehicleCount += l->GetTotalVehicleCount();
     }
+
+    m_dataBox->SetData("Count", m_currentVehicleCount);
 }
 
 bool Road::DeleteLane(int laneNumber)
@@ -255,5 +272,6 @@ void Road::Draw(RenderWindow * window)
     for (int i = 0; i < m_numberOfLanes; i++) {
         m_lanes[i]->Draw(window);
     }
+    if(Settings::DrawRoadDataBoxes) m_dataBox->Draw(window);
 }
 

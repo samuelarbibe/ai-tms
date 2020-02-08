@@ -15,6 +15,7 @@
 #include <SFML/Graphics.hpp>
 #include "Map/Map.hpp"
 #include "Settings.hpp"
+#include "../UI/Widgets/DataBox.hpp"
 
 using namespace std;
 using namespace sf;
@@ -90,8 +91,11 @@ private:
     Lane *   m_sourceLane;
     Lane *   m_targetLane;
     Intersection * m_currentIntersection;
+    Intersection * m_previousIntersection;
 
     State    m_state;
+
+    DataBox * m_dataBox;
 
     State drive();
     void  applyChanges(float elapsedTime);
