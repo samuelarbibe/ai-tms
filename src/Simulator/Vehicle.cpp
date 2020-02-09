@@ -10,76 +10,71 @@
 
 const Vector2f m_forwardVec{0.f, -1.f};
 
-int Vehicle::toBeDeleted{0};
+int Vehicle::to_be_deleted_{0};
 int Vehicle::VehicleCount = 0;
-list<Vehicle*> Vehicle::ActiveVehicles;
+list<Vehicle *> Vehicle::ActiveVehicles;
 
-VehicleType Vehicle::Car{CAR, "Car", "../../resources/Cars/car_image_", 5,  Vector2f(0.6f, 0.6f)};
-VehicleType Vehicle::Truck{TRUCK, "Truck",  "../../resources/Cars/car_image_",5, Vector2f(0.12f, 0.12f)};
-VehicleType Vehicle::Motorcycle{MOTORCYCLE,  "Motorcycle", "../resources/Cars/motorcycle_image_",5, Vector2f(0.12f, 0.12f)};
+VehicleType Vehicle::Car{CAR, "Car", "../../resources/Cars/car_image_", 5, Vector2f(0.6f, 0.6f)};
+VehicleType Vehicle::Truck{TRUCK, "Truck", "../../resources/Cars/car_image_", 5, Vector2f(0.12f, 0.12f)};
+VehicleType Vehicle::Motorcycle{MOTORCYCLE, "Motorcycle", "../resources/Cars/motorcycle_image_", 5,
+                                Vector2f(0.12f, 0.12f)};
 
-Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane*> * instructionSet, Map * map)
+Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane *> *instructionSet, Map *map)
 {
     // set initial values for the movable object
-    m_vehicleType    = GetVehicleTypeByOption(vehicleType);
-    m_vehicleNumber  = vehicleNumber;
-    m_speed          = 0.f;
-    m_acceleration   = m_maxAcceleration;
-    m_state          = DRIVE;
-    m_currentMap     = map;
-    m_instructionSet = instructionSet;
-    m_sourceLane     = m_instructionSet->front();
-    m_instructionSet->pop();
-    m_targetLane     = m_instructionSet->front();
-
-
+    vehicle_type_ = GetVehicleTypeByOption(vehicleType);
+    vehicle_number_ = vehicleNumber;
+    speed_ = 0.f;
+    acc_ = max_acc_;
+    state_ = DRIVE;
+    curr_map_ = map;
+    instruction_set_ = instructionSet;
+    source_lane_ = instruction_set_->front();
+    instruction_set_->pop();
+    dest_lane_ = instruction_set_->front();
 
     // get a pointer to the current intersection
     // current intersection is the intersection that the lane leads to
-    m_currentIntersection = map->GetIntersection(m_sourceLane->GetIntersectionNumber());
+    curr_intersection_ = map->GetIntersection(source_lane_->GetIntersectionNumber());
     // the previous intersection, or the intersection of the source lane
-    m_previousIntersection = nullptr;
+    prev_intersection_ = nullptr;
 
-    m_maxSpeed       = Settings::MaxSpeeds[m_vehicleType->Type];
-    m_maxAcceleration= Settings::MaxAcceleration[m_vehicleType->Type];
-    m_minAcceleration= Settings::MinAcceleration[m_vehicleType->Type];
+    max_speed_ = Settings::MaxSpeeds[vehicle_type_->Type];
+    max_acc_ = Settings::MaxAcceleration[vehicle_type_->Type];
+    min_acc_ = Settings::MinAcceleration[vehicle_type_->Type];
 
-    m_angularV       = 0;
-    m_rotation       = m_sourceLane->GetDirection();
-    m_position       = m_sourceLane->GetStartPosition();
-    m_vehicleInFront = nullptr;
+    angular_vel_ = 0;
+    rotation_ = source_lane_->GetDirection();
+    position_ = source_lane_->GetStartPosition();
+    vehicle_in_front_ = nullptr;
 
     // if vehicle texture hasn't been loaded yet, load it
-    if(Vehicle::LoadVehicleTextures(m_vehicleType)) {
+    if (Vehicle::LoadVehicleTextures(vehicle_type_)) {
 
         // set up sprite
         int textureNumber;
-        if(Settings::MultiColor)
-        {
-            textureNumber = (m_vehicleNumber % m_vehicleType->ImageCount);
-        }
-        else
-        {
+        if (Settings::MultiColor) {
+            textureNumber = (vehicle_number_ % vehicle_type_->ImageCount);
+        } else {
             textureNumber = 1;
         }
 
-        m_texture = &(m_vehicleType->Textures->at(textureNumber));
-        m_sprite.setTexture(*m_texture);
+        texture_ = &(vehicle_type_->Textures->at(textureNumber));
+        sprite_.setTexture(*texture_);
     }
-    m_sprite.setScale(m_vehicleType->Scale);
-    m_sprite.setOrigin(m_sprite.getTextureRect().width/2, m_sprite.getTextureRect().height/3);
+    sprite_.setScale(vehicle_type_->Scale);
+    sprite_.setOrigin(sprite_.getTextureRect().width / 2, sprite_.getTextureRect().height / 3);
 
-    m_dataBox = new DataBox(m_position);
-    m_dataBox->AddData("Speed", m_speed);
-    m_dataBox->AddData("ID", m_vehicleNumber);
+    data_box_ = new DataBox(position_);
+    data_box_->AddData("Speed", speed_);
+    data_box_->AddData("ID", vehicle_number_);
 }
 
 void Vehicle::DeleteAllVehicles()
 {
-    for (Vehicle * v : Vehicle::ActiveVehicles)
-    {
-        v->m_state = DELETE;
-        toBeDeleted++;
+    for (Vehicle *v : Vehicle::ActiveVehicles) {
+        v->state_ = DELETE;
+        to_be_deleted_++;
     }
 
     ClearVehicles();
@@ -90,74 +85,65 @@ void Vehicle::ClearVehicles()
     auto it = ActiveVehicles.begin();
 
     // while there are cars to delete;
-    while(toBeDeleted != 0 && it != ActiveVehicles.end())
-    {
+    while (to_be_deleted_ != 0 && it != ActiveVehicles.end()) {
         // if is to be deleted
-        if((*it)->GetState() == DELETE)
-        {
-            Vehicle * temp = (*it);
+        if ((*it)->GetState() == DELETE) {
+            Vehicle *temp = (*it);
             it = ActiveVehicles.erase(it);
 
             delete temp;
 
-            toBeDeleted--;
-            if(Settings::DrawActive)cout << "active vehicles : " << ActiveVehicles.size() << endl;
-        }
-        else
-        {
+            to_be_deleted_--;
+            if (Settings::DrawActive)cout << "active vehicles : " << ActiveVehicles.size() << endl;
+        } else {
             it++;
         }
     }
 }
 
 /// add a vehicle with an instruction set
-Vehicle * Vehicle::AddVehicle(queue<Lane*> * instructionSet, Map * map, VehicleTypeOptions vehicleType, int vehicleNumber)
+Vehicle *Vehicle::AddVehicle(queue<Lane *> *instructionSet, Map *map, VehicleTypeOptions vehicleType, int vehicleNumber)
 {
-    auto * temp = new Vehicle(vehicleType, vehicleNumber, instructionSet, map);
+    auto *temp = new Vehicle(vehicleType, vehicleNumber, instructionSet, map);
     ActiveVehicles.push_back(temp);
 
-    temp->m_vehicleInFront = (temp->m_sourceLane->GetLastCar()) ? GetVehicle(temp->m_sourceLane->GetLastCar()) : nullptr;
-    /*
-    if(temp->m_vehicleInFront != nullptr)
-        cout << temp->m_vehicleNumber << " -> " << temp->m_vehicleInFront->m_vehicleNumber << endl;
-    */
+    temp->vehicle_in_front_ = (temp->source_lane_->GetLastCar()) ? GetVehicle(temp->source_lane_->GetLastCar())
+                                                                 : nullptr;
+
 
     //set this car as the last car that entered the lane
-    temp->m_sourceLane->SetLastCar(vehicleNumber);
-    temp->m_sourceLane->AddVehicleCount();
+    temp->source_lane_->SetLastCar(vehicleNumber);
+    temp->source_lane_->AddVehicleCount();
     VehicleCount++;
 
-    if(Settings::DrawAdded)cout << "car " << vehicleNumber << " added to lane " << temp->m_sourceLane->GetLaneNumber() << endl;
+    if (Settings::DrawAdded)
+        cout << "car " << vehicleNumber << " added to lane " << temp->source_lane_->GetLaneNumber() << endl;
 
     return temp;
 }
 
 /// load textures as required
-bool Vehicle::LoadVehicleTextures(VehicleType * vehicleType)
+bool Vehicle::LoadVehicleTextures(VehicleType *vehicleType)
 {
-    if(vehicleType->Textures == nullptr)
-    {
+    if (vehicleType->Textures == nullptr) {
         vehicleType->Textures = new vector<Texture>();
 
         string directory;
         Texture tempTexture;
-        for (int i = 1; i <= vehicleType->ImageCount; ++i)
-        {
+        for (int i = 1; i <= vehicleType->ImageCount; ++i) {
             directory = vehicleType->ImageDir + to_string(i) + ".png";
 
-            if (tempTexture.loadFromFile(directory))
-            {
+            if (tempTexture.loadFromFile(directory)) {
                 tempTexture.setSmooth(true);
                 vehicleType->Textures->push_back(tempTexture);
-            }
-            else
-            {
-                cerr << "loading texture no." << i << " for " << vehicleType->VehicleTypeName <<  " failed" << endl;
+            } else {
+                cerr << "loading texture no." << i << " for " << vehicleType->VehicleTypeName << " failed" << endl;
             }
         }
 
         cout << "----------------------------------------------" << endl;
-        cout << vehicleType->Textures->size() << "/" << vehicleType->ImageCount << " Textures successfully added" << endl;
+        cout << vehicleType->Textures->size() << "/" << vehicleType->ImageCount << " Textures successfully added"
+             << endl;
         cout << "----------------------------------------------" << endl;
         vehicleType->ImageCount = vehicleType->Textures->size();
     }
@@ -165,10 +151,9 @@ bool Vehicle::LoadVehicleTextures(VehicleType * vehicleType)
 }
 
 /// convert vehicleTypeOption to VehicleType struct
-VehicleType * Vehicle::GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions)
+VehicleType *Vehicle::GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions)
 {
-    switch (vehicleTypeOptions)
-    {
+    switch (vehicleTypeOptions) {
         case TRUCK:
             return &(Vehicle::Truck);
         case MOTORCYCLE:
@@ -180,12 +165,10 @@ VehicleType * Vehicle::GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOpti
 }
 
 /// get vehicle by vehicleNumber
-Vehicle * Vehicle::GetVehicle(int vehicleNumber)
+Vehicle *Vehicle::GetVehicle(int vehicleNumber)
 {
-    for(Vehicle *v : ActiveVehicles)
-    {
-        if(v->m_vehicleNumber == vehicleNumber)
-        {
+    for (Vehicle *v : ActiveVehicles) {
+        if (v->vehicle_number_ == vehicleNumber) {
             return v;
         }
     }
@@ -194,41 +177,36 @@ Vehicle * Vehicle::GetVehicle(int vehicleNumber)
 }
 
 /// transfer a vehicle from a lane to another lane
-void Vehicle::TransferVehicle(Vehicle * vehicle, Lane * toLane, Lane * fromLane)
+void Vehicle::TransferVehicle(Vehicle *vehicle, Lane *toLane, Lane *fromLane)
 {
-    if(vehicle == nullptr)
-    {
+    if (vehicle == nullptr) {
         cout << "vehicle not found" << endl;
         return;
     }
 
-    if(fromLane != nullptr)
-    {
-        if(vehicle->m_sourceLane->GetLaneNumber() != fromLane->GetLaneNumber())
-        {
+    if (fromLane != nullptr) {
+        if (vehicle->source_lane_->GetLaneNumber() != fromLane->GetLaneNumber()) {
             cout << "vehicle is not in the given lane" << endl;
             return;
         }
         fromLane->RemoveVehicleCount();
     }
 
-    vehicle->m_sourceLane    = toLane;
-    vehicle->m_rotation      = vehicle->m_sourceLane->GetDirection();
-    vehicle->m_angularV      = 0;
-    vehicle->m_currentIntersection = vehicle->m_currentMap->GetIntersection(vehicle->m_sourceLane->GetIntersectionNumber());
-    vehicle->m_vehicleInFront = (vehicle->m_sourceLane->GetLastCar()) ? GetVehicle(vehicle->m_sourceLane->GetLastCar()) : nullptr;
-    vehicle->m_sourceLane->SetLastCar(vehicle->m_vehicleNumber);
-    vehicle->m_sourceLane->AddVehicleCount();
+    vehicle->source_lane_ = toLane;
+    vehicle->rotation_ = vehicle->source_lane_->GetDirection();
+    vehicle->angular_vel_ = 0;
+    vehicle->curr_intersection_ = vehicle->curr_map_->GetIntersection(vehicle->source_lane_->GetIntersectionNumber());
+    vehicle->vehicle_in_front_ = (vehicle->source_lane_->GetLastCar()) ? GetVehicle(vehicle->source_lane_->GetLastCar())
+                                                                       : nullptr;
+    vehicle->source_lane_->SetLastCar(vehicle->vehicle_number_);
+    vehicle->source_lane_->AddVehicleCount();
 
-    vehicle->m_instructionSet->pop();
+    vehicle->instruction_set_->pop();
     // if there are instructions left, transfer them to vehicle
-    if(!vehicle->m_instructionSet->empty())
-    {
-        vehicle->m_targetLane = vehicle->m_instructionSet->front();
-    }
-    else
-    {
-        vehicle->m_targetLane = nullptr;
+    if (!vehicle->instruction_set_->empty()) {
+        vehicle->dest_lane_ = vehicle->instruction_set_->front();
+    } else {
+        vehicle->dest_lane_ = nullptr;
     }
 }
 
@@ -239,27 +217,27 @@ State Vehicle::drive()
     // while cars dont have a min distance, they wont start driving
 
     // check for distance with car in front
-    if (m_vehicleInFront != nullptr && m_vehicleInFront->m_state != DELETE) {
-        float distanceFromNextCar = calculateDistance(m_position, m_vehicleInFront->m_position);
+    if (vehicle_in_front_ != nullptr && vehicle_in_front_->state_ != DELETE) {
+        float distanceFromNextCar = Settings::CalculateDistance(position_, vehicle_in_front_->position_);
         //cout << distanceFromNextCar << endl;
-        float brakingDistance = -(m_speed * m_speed) / (2 * m_minAcceleration);
+        float brakingDistance = -(speed_ * speed_) / (2 * min_acc_);
 
         if (distanceFromNextCar < brakingDistance + Settings::MinDistanceFromNextCar ||
             distanceFromNextCar < Settings::MinDistanceFromNextCar) {
-            m_state = STOP;
-            m_acceleration = m_minAcceleration;
+            state_ = STOP;
+            acc_ = min_acc_;
             return STOP;
         }
     }
 
     // check if car is in between lanes (inside an intersection)
-    if (m_currentIntersection->getGlobalBounds().contains(m_position)) {
+    if (curr_intersection_->getGlobalBounds().contains(position_)) {
         // TODO: fix turning left
-        if (m_angularV == 0) {
-            float distanceSourceTarget = calculateDistance(m_sourceLane->GetEndPosition(),
-                                                           m_targetLane->GetStartPosition());
+        if (angular_vel_ == 0) {
+            float distanceSourceTarget = Settings::CalculateDistance(source_lane_->GetEndPosition(),
+                                                                     dest_lane_->GetStartPosition());
 
-            float angle = (m_sourceLane->GetDirection() - m_targetLane->GetDirection());
+            float angle = (source_lane_->GetDirection() - dest_lane_->GetDirection());
 
             if (angle > 180) angle -= 360;
 
@@ -269,121 +247,113 @@ State Vehicle::drive()
 
             float turningDistance = (angle / 360.f) * turningParameter;
 
-            m_angularV = -angle / turningDistance;
+            angular_vel_ = -angle / turningDistance;
         }
 
-        if (m_sourceLane != nullptr) {
-            m_previousIntersection = m_currentMap->GetIntersection(m_sourceLane->GetIntersectionNumber());
-            m_previousIntersection->AddVehicleCount();
-            m_sourceLane->RemoveVehicleCount();
-            m_sourceLane = nullptr;
+        if (source_lane_ != nullptr) {
+            prev_intersection_ = curr_map_->GetIntersection(source_lane_->GetIntersectionNumber());
+            prev_intersection_->AddVehicleCount();
+            source_lane_->RemoveVehicleCount();
+            source_lane_ = nullptr;
         }
 
-        m_state = TURN;
+        state_ = TURN;
 
         //set rotation
-        m_acceleration = (Settings::AccWhileTurning) ? m_maxAcceleration / 2.f : 0;
+        acc_ = (Settings::AccWhileTurning) ? max_acc_ / 2.f : 0;
         return TURN;
     }
 
     // check distance from stop (if lane is blocked)
-    if (m_sourceLane != nullptr && m_sourceLane != m_targetLane && m_sourceLane->GetIsBlocked() &&
-        !m_sprite.getGlobalBounds().contains(m_sourceLane->GetEndPosition())) {
-        float distanceFromStop = calculateDistance(this->m_position, m_sourceLane->GetEndPosition());
-        float brakingDistance = -(m_speed * m_speed) / (2 * m_minAcceleration);
+    if (source_lane_ != nullptr && source_lane_ != dest_lane_ && source_lane_->GetIsBlocked() &&
+        !sprite_.getGlobalBounds().contains(source_lane_->GetEndPosition())) {
+        float distanceFromStop = Settings::CalculateDistance(this->position_, source_lane_->GetEndPosition());
+        float brakingDistance = -(speed_ * speed_) / (2 * min_acc_);
 
         if (distanceFromStop < brakingDistance + Settings::MinDistanceFromStop) {
-            m_state = STOP;
-            m_acceleration = m_minAcceleration;
+            state_ = STOP;
+            acc_ = min_acc_;
             return STOP;
         }
     }
 
     // check if car has left intersection and is now in targetLane
-    if (m_targetLane != nullptr && m_targetLane->getGlobalBounds().contains(m_position)) {
+    if (dest_lane_ != nullptr && dest_lane_->getGlobalBounds().contains(position_)) {
         // remove count from previous lane, and set in to nullptr
-        m_previousIntersection->RemoveVehicleCount();
-        m_previousIntersection = nullptr;
+        prev_intersection_->RemoveVehicleCount();
+        prev_intersection_ = nullptr;
 
         // we need to transfer vehicle to target lane
-        TransferVehicle(this, m_targetLane, m_sourceLane);
+        TransferVehicle(this, dest_lane_, source_lane_);
 
-        m_acceleration = m_maxAcceleration;
-        m_state = DRIVE;
+        acc_ = max_acc_;
+        state_ = DRIVE;
         return DRIVE;
     }
 
     // check if car is no longer in intersection
-    if (m_targetLane == nullptr && !m_sourceLane->getGlobalBounds().contains(m_position)) {
-        m_sourceLane->RemoveVehicleCount();
+    if (dest_lane_ == nullptr && !source_lane_->getGlobalBounds().contains(position_)) {
+        source_lane_->RemoveVehicleCount();
 
-        toBeDeleted++;
-        m_state = DELETE;
+        to_be_deleted_++;
+        state_ = DELETE;
         return DELETE;
     }
 
     // default = just drive
-    m_acceleration = m_maxAcceleration;
-    m_state = DRIVE;
+    acc_ = max_acc_;
+    state_ = DRIVE;
     return DRIVE;
 
 }
 
-/// calculate a distance between two vectors
-float Vehicle::calculateDistance(Vector2f a, Vector2f b)
-{
-    float xDist = abs(a.x - b.x);
-    float yDist = abs(a.y - b.y);
-
-    return sqrt(xDist*xDist + yDist*yDist);
-}
-
 /// update a vehicle's location
-void Vehicle::Update(float elapsedTime){
+void Vehicle::Update(float elapsedTime)
+{
 
-    m_dataBox->Update(m_position);
-    m_dataBox->SetData("Speed", Settings::ConvertVelocity(PXS, KMH, m_speed));
+    data_box_->Update(position_);
+    data_box_->SetData("Speed", Settings::ConvertVelocity(PXS, KMH, speed_));
     drive();
-    applyChanges(elapsedTime);
+    apply_changes(elapsedTime);
 }
 
 /// apply the calculated next position
-void Vehicle::applyChanges(float elapsedTime)
+void Vehicle::apply_changes(float elapsed_time)
 {
     // apply acceleration
-    m_speed += m_acceleration * elapsedTime * Settings::Speed;
+    speed_ += acc_ * elapsed_time * Settings::Speed;
 
     // apply max Speed limit
-    if(m_speed > m_maxSpeed) m_speed = m_maxSpeed;
+    if (speed_ > max_speed_) speed_ = max_speed_;
 
     // apply min Speed limit
-    if(m_speed < 0) m_speed = 0;
+    if (speed_ < 0) speed_ = 0;
 
     // set rotation relative to currentSpeed, to create a constant turning radius
     Transform t;
-    m_rotation += m_angularV * elapsedTime * m_speed * Settings::Speed;
+    rotation_ += angular_vel_ * elapsed_time * speed_ * Settings::Speed;
 
-    t.rotate(m_rotation);
+    t.rotate(rotation_);
 
     // rotate the movement vector in relation to the forward vector (0,1)
-    m_movementVec = t.transformPoint(m_forwardVec);
+    movement_vec_ = t.transformPoint(m_forwardVec);
 
     // apply movement vector on position, relative to elapsed time to ensure
     // a constant Speed at any FPS
 
-    m_position += m_movementVec * m_speed * elapsedTime * Settings::Speed;
+    position_ += movement_vec_ * speed_ * elapsed_time * Settings::Speed;
 
     // apply rotation and position changes to the actual car sprite
-    m_sprite.setPosition(m_position);
-    m_sprite.setRotation(m_rotation);
+    sprite_.setPosition(position_);
+    sprite_.setRotation(rotation_);
 
 }
 
 /// render the vehicle
 void Vehicle::Draw(RenderWindow *window)
 {
-    (*window).draw(this->m_sprite);
-    if(Settings::DrawVehicleDataBoxes) m_dataBox->Draw(window);
+    (*window).draw(this->sprite_);
+    if (Settings::DrawVehicleDataBoxes) data_box_->Draw(window);
 }
 
 

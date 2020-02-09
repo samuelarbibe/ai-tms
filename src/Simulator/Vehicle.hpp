@@ -12,7 +12,9 @@
 #include <iostream>
 #include <cstring>
 #include <queue>
+
 #include <SFML/Graphics.hpp>
+
 #include "Map/Map.hpp"
 #include "Settings.hpp"
 #include "../UI/Widgets/DataBox.hpp"
@@ -38,72 +40,70 @@ class Vehicle
 
 public:
 
-    static list<Vehicle*> ActiveVehicles;
-    static int VehicleCount;
+    Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane*> * instructionSet, Map * map);
+    ~Vehicle(){if(Settings::DrawDelete)cout << "Vehicle " << vehicle_number_ << " deleted" << endl;}
+
+    void Draw(RenderWindow * window);
+    void Update(float elapsedTime);
+
+    Lane * GetSourceLane(){return source_lane_;}
+    Lane * GetTargetLane(){return dest_lane_;}
+    State  GetState(){return state_;}
+    int    GetVehicleNumber(){return vehicle_number_;}
+
+    static VehicleType * GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions);
+    static Vehicle *     GetVehicle(int vehicleNumber);
+    static Vehicle *     AddVehicle(queue<Lane*> * instructionSet, Map * map, VehicleTypeOptions vehicleType = CAR, int vehicleNumber = VehicleCount + 1);
 
     static void DeleteAllVehicles();
     static void ClearVehicles();
     static void TransferVehicle(Vehicle * vehicle, Lane * toLane, Lane * fromLane = nullptr);
     static bool LoadVehicleTextures(VehicleType * vehicleType);
-    static VehicleType * GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions);
-    static Vehicle * GetVehicle(int vehicleNumber);
-    static Vehicle * AddVehicle(queue<Lane*> * instructionSet, Map * map, VehicleTypeOptions vehicleType = CAR, int vehicleNumber = VehicleCount + 1);
 
-    Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane*> * instructionSet, Map * map);
-    ~Vehicle(){if(Settings::DrawDelete)cout << "Vehicle " << m_vehicleNumber << " deleted" << endl;}
-
-    void Draw(RenderWindow * window);
-    void Update(float elapsedTime);
-
-    Lane * GetSourceLane(){return m_sourceLane;}
-    Lane * GetTargetLane(){return m_targetLane;}
-    State       GetState(){return m_state;}
-    int GetVehicleNumber(){return m_vehicleNumber;}
+    static list<Vehicle*> ActiveVehicles;
+    static int VehicleCount;
 
 private:
 
-    static int toBeDeleted;
+    static int to_be_deleted_;
+
     static VehicleType Car;
     static VehicleType Truck;
     static VehicleType Motorcycle;
 
-    VehicleType * m_vehicleType;
-    Vector2f m_position;
+    int      vehicle_number_;
+    VehicleType * vehicle_type_;
 
-    Vector2f m_movementVec;
-    Texture *m_texture;
-    Sprite   m_sprite;
+    Texture *texture_;
+    Sprite   sprite_;
 
-    float    m_speed;
-    float    m_maxSpeed;
-    float    m_maxAcceleration;
-    float    m_minAcceleration;
-    float    m_acceleration;
-    float    m_rotation;
-    float    m_angularV;
+    Vector2f movement_vec_;
+    Vector2f position_;
+    float    speed_;
+    float    acc_;
+    float    max_speed_;
+    float    max_acc_;
+    float    min_acc_;
+    float    rotation_;
+    float    angular_vel_;
 
-    Vehicle *m_vehicleInFront;
+    Vehicle * vehicle_in_front_;
 
-    int      m_vehicleNumber;
-    queue<Lane *> * m_instructionSet;
+    queue<Lane *> * instruction_set_;
 
-    Map  *   m_currentMap;
-    Lane *   m_sourceLane;
-    Lane *   m_targetLane;
-    Intersection * m_currentIntersection;
-    Intersection * m_previousIntersection;
+    Map  *   curr_map_;
+    Lane *   source_lane_;
+    Lane *   dest_lane_;
+    Intersection * curr_intersection_;
+    Intersection * prev_intersection_;
 
-    State    m_state;
+    State    state_;
 
-    DataBox * m_dataBox;
+    DataBox * data_box_;
 
     State drive();
-    void  applyChanges(float elapsedTime);
-    static float calculateDistance(Vector2f a, Vector2f b);
-
+    void  apply_changes(float elapsedTime);
 };
-
-
 
 #endif /* Vehicle_hpp */
 

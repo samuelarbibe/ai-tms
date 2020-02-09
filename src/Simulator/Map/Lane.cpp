@@ -12,18 +12,18 @@ int  Lane::LaneCount = 0;
 
 Lane::Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f startPosition, float length, float direction, bool isInRoadDirection)
 {
-    m_isInRoadDirection = isInRoadDirection;
-    m_laneNumber    = laneNumber;
-    m_roadNumber    = roadNumber;
-    m_intersectionNumber = intersectionNumber;
-    m_startPosition = startPosition;
-    m_width         = Settings::LaneWidth;
-    m_length        = length;
-    m_direction     = fmod(direction,360.f);
-    m_isBlocked     = false;
-    m_currentVehicleCount  = 0;
-    m_totalVehicleCount = 0;
-    m_lastEnteredCarNumber = 0;
+    is_in_road_direction_ = isInRoadDirection;
+    lane_number_    = laneNumber;
+    road_number_    = roadNumber;
+    intersection_number_ = intersectionNumber;
+    start_pos_ = startPosition;
+    width_         = Settings::LaneWidth;
+    length_        = length;
+    direction_     = fmod(direction, 360.f);
+    is_blocked_     = false;
+    current_vehicle_count_  = 0;
+    total_vehicle_count_ = 0;
+    last_entered_car_number_ = 0;
     
     // calculate end position:
     Vector2f lengthVec;
@@ -32,53 +32,53 @@ Lane::Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f star
     t.rotate(direction);
     
     lengthVec = t.transformPoint(Vector2f(0.f, -1.f)) * length;
-    
-    m_endPosition = lengthVec + m_startPosition;
+
+    end_pos_ = lengthVec + start_pos_;
     
     // init rectangle shape
-    this->setOrigin(m_width/2.f, 0.f);
-    this->setPosition(m_startPosition);
+    this->setOrigin(width_ / 2.f, 0.f);
+    this->setPosition(start_pos_);
     this->setOutlineColor(WhiteColor);
     this->setOutlineThickness(1.f);
-    this->setRotation(m_direction + 180);
-    this->setSize(Vector2f(m_width, m_length));
+    this->setRotation(direction_ + 180);
+    this->setSize(Vector2f(width_, length_));
     this->setFillColor(LaneColor);
     
     // create direction arrow shape
-    m_createArrowShape(t);
+    create_arrow_shape(t);
 }
 
 Lane::~Lane()
 {
-    if(Settings::DrawDelete)cout << "Lane " << m_laneNumber << " deleted" << endl;
+    if(Settings::DrawDelete)cout << "Lane " << lane_number_ << " deleted" << endl;
 }
 
 /// create the arrow shapes indicating the lane's direction
-void Lane::m_createArrowShape(Transform t)
+void Lane::create_arrow_shape(Transform t)
 {
-    m_arrowShape.setPointCount(7);
+    arrow_shape_.setPointCount(7);
     
-    t.scale(m_width/4, m_width/4);
-    m_arrowShape.setPoint(0, m_endPosition - t.transformPoint(Vector2f(0.f, -2.f)) );
+    t.scale(width_ / 4, width_ / 4);
+    arrow_shape_.setPoint(0, end_pos_ - t.transformPoint(Vector2f(0.f, -2.f)) );
     
     t.rotate(-45);
-    m_arrowShape.setPoint(1, m_arrowShape.getPoint(0) - t.transformPoint(Vector2f(0.f, -1.f)));
+    arrow_shape_.setPoint(1, arrow_shape_.getPoint(0) - t.transformPoint(Vector2f(0.f, -1.f)));
     
     t.rotate(90);
-    m_arrowShape.setPoint(6, m_arrowShape.getPoint(0) - t.transformPoint(Vector2f(0.f, -1.f)));
+    arrow_shape_.setPoint(6, arrow_shape_.getPoint(0) - t.transformPoint(Vector2f(0.f, -1.f)));
     
     t.rotate(45);
-    m_arrowShape.setPoint(2, m_arrowShape.getPoint(1) - t.transformPoint(Vector2f(0.f, -1.0f)));
+    arrow_shape_.setPoint(2, arrow_shape_.getPoint(1) - t.transformPoint(Vector2f(0.f, -1.0f)));
     
     t.rotate(180);
-    m_arrowShape.setPoint(5, m_arrowShape.getPoint(6) - t.transformPoint(Vector2f(0.f, -1.f)));
+    arrow_shape_.setPoint(5, arrow_shape_.getPoint(6) - t.transformPoint(Vector2f(0.f, -1.f)));
     
     t.rotate(90);
-    m_arrowShape.setPoint(3, m_arrowShape.getPoint(2) - t.transformPoint(Vector2f(0.f, -1.f)));
+    arrow_shape_.setPoint(3, arrow_shape_.getPoint(2) - t.transformPoint(Vector2f(0.f, -1.f)));
     
-    m_arrowShape.setPoint(4, m_arrowShape.getPoint(5) - t.transformPoint(Vector2f(0.f, -1.f)));
+    arrow_shape_.setPoint(4, arrow_shape_.getPoint(5) - t.transformPoint(Vector2f(0.f, -1.f)));
     
-    m_arrowShape.setFillColor(WhiteColor);
+    arrow_shape_.setFillColor(WhiteColor);
 }
 
 /// update, for future use
@@ -103,7 +103,7 @@ void Lane::Unselect()
 void Lane::Draw(RenderWindow *window)
 {
     window->draw(*this);
-    window->draw(m_arrowShape);
+    window->draw(arrow_shape_);
 }
 
 

@@ -12,14 +12,16 @@
 #include <iostream>
 #include <fstream>
 #include <list>
-#include <SFML/Graphics.hpp>
-#include "../UI/Widgets/QsfmlCanvas.hpp"
 #include <cmath>
+
+#include <SFML/Graphics.hpp>
 #include <QtWidgets>
 #include <nlohmann/json.hpp>
+
 #include "Map/Map.hpp"
 #include "Vehicle.hpp"
 #include "Settings.hpp"
+#include "../UI/Widgets/QsfmlCanvas.hpp"
 
 
 using namespace sf;
@@ -41,44 +43,46 @@ public:
     Engine(QWidget* Parent);
     ~Engine(){};
 
-    void SetSnapToGrid(bool snapToGrid){this->m_snapToGrid = snapToGrid;}
-    void BuildGrid(int rows, int cols);
-    Vector2f GetSnappedPoint(Vector2f point);
-    Vector2f DrawPoint(Vector2f position);
-    void SetView();
-    void UpdateView(Vector2f posDelta = Vector2f(0,0), float zoom = 0);
+    void SetSnapToGrid(bool snapToGrid){this->snap_to_grid_ = snapToGrid;}
     void SetMinimap(float size, float margin);
-    void ResetMap();
+    void SetView();
+
+    void BuildGrid(int rows, int cols);
+    void UpdateView(Vector2f posDelta = Vector2f(0,0), float zoom = 0);
     void SaveMap(string saveDirectory);
     void LoadMap(string loadDirectory);
+    void ResetMap();
+
+    Vector2f DrawPoint(Vector2f position);
+    Vector2f GetSnappedPoint(Vector2f point);
 
     Map * map;
 
 private:
 
-    void OnInit();
-    void OnUpdate();
-    void OnDraw();
+    void on_init();
+    void on_update();
+    void on_draw();
 
     void input();
-    void DrawMinimap();
-    void updateShownArea();
+    void draw_minimap();
+    void update_shown_area();
     void update(float elapsedTime);
-    void checkSelection(Vector2f position);
+    void check_selection(Vector2f position);
 
-    CircleShape m_clickPoint;
-    bool m_snapToGrid = true;
-    Grid m_snapGrid;
+    CircleShape click_point_;
 
-    View m_view;
-    View m_minimap;
+    bool snap_to_grid_;
+    Grid snap_grid_;
 
-    Vector2f m_viewPosition;
-    Vector2f m_viewTempPosition;
+    View view_;
+    View minimap_;
 
-    RectangleShape m_minimapBackground;
-    RectangleShape m_shownArea;
+    Vector2f view_pos_;
+    Vector2f t_view_pos_;
 
+    RectangleShape minimap_bg_;
+    RectangleShape shown_area_index_;
 };
 
 

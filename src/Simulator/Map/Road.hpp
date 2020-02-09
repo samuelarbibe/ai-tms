@@ -10,13 +10,16 @@
 #define Road_hpp
 
 #include <iostream>
-#include <SFML/Graphics.hpp>
 #include <list>
+
+#include <SFML/Graphics.hpp>
+
 #include "Lane.hpp"
 #include "../Settings.hpp"
 #include "../../UI/Widgets/DataBox.hpp"
-using namespace std;
 
+
+using namespace std;
 
 
 class Road : public RectangleShape
@@ -27,26 +30,22 @@ public:
     Road(int roadNumber, int intersectionNumber, int connectionSide, Vector2f startPosition, float length, float direction);
     Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int connectionSide1, int connectionSide2, Vector2f conPosition1, Vector2f conPosition2, float direction);
     ~Road();
-    
-    
-    Lane * AddLane(int laneNumber, bool isInRoadDirection);
-    Lane * GetLane(int laneNumber);
 
-    bool DeleteLane(int laneNumber);
-    // get
-    float  GetWidth(){return m_width;}
-    int    GetRoadNumber(){return m_roadNumber;}
-    int    GetIntersectionNumber(int index = 0){return m_intersectionNumber[index];}
-    int    GetConnectionSide(int index = 0){return m_connectionSide[index];}
-    bool   GetIsConnecting(){return m_isConnecting;}
-    int    GetLaneCount(){return m_lanes.size();};
-    vector<Lane*> *  GetLanes(){return &(m_lanes);};
+    Lane * AddLane(int laneNumber, bool isInRoadDirection);
+
+    Lane * GetLane(int laneNumber);
+    float  GetWidth(){return width_;}
+    int    GetRoadNumber(){return road_number_;}
+    int    GetIntersectionNumber(int index = 0){return intersection_number_[index];}
+    int    GetConnectionSide(int index = 0){return connection_side_[index];}
+    bool   GetIsConnecting(){return is_connecting_;}
+    int    GetLaneCount(){return lanes_.size();};
+    vector<Lane*> *  GetLanes(){return &(lanes_);};
     
-    void   reAssignLanePositions();
+    void   ReAssignLanePositions();
     void   UpdateStartPosition(Vector2f position);
     void   UpdateEndPosition(Vector2f position);
-
-    static float calculateDistance(Vector2f a, Vector2f b);
+    bool   DeleteLane(int laneNumber);
 
     void   Update(float elapsedTime);
     void   Draw(RenderWindow * window);
@@ -57,24 +56,24 @@ public:
     
 private:
 
-    bool       m_isConnecting;
-    int        m_roadNumber;
-    int        m_numberOfLanes;
-    int        m_intersectionNumber[2];
-    int        m_connectionSide[2];
-    int        m_currentVehicleCount;
-    int        m_totalVehicleCount;
+    bool       is_connecting_;
+    int        road_number_;
+    int        number_of_lanes_;
+    int        intersection_number_[2];
+    int        connection_side_[2];
+    int        current_vehicle_count_;
+    int        total_vehicle_count_;
 
-    Vector2f   m_startPosition;
-    Vector2f   m_endPosition;
+    Vector2f   start_pos_;
+    Vector2f   end_pos_;
     
-    float      m_direction;
-    float      m_length;
-    float      m_width;
+    float      direction_;
+    float      length_;
+    float      width_;
     
-    vector<Lane*> m_lanes;
+    vector<Lane*> lanes_;
 
-    DataBox * m_dataBox;
+    DataBox * data_box_;
 };
 
 

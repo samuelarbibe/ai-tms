@@ -11,41 +11,41 @@ Map::Map(int mapNumber, Vector2i position, int width, int height)
     {
         mapNumber = 1;
     }
-    m_mapNumber = mapNumber;
-    m_position = position;
-    m_width    = width;
-    m_height   = height;
+    map_number_ = mapNumber;
+    position_ = position;
+    width_    = width;
+    height_   = height;
     SelectedLane = nullptr;
 
-    m_numberOfIntersections = 0;
+    number_of_intersections_ = 0;
 }
 
 Map::~Map()
 {
-    for (Intersection * inter : m_intersections)
+    for (Intersection * inter : intersections_)
     {
         delete inter;
     }
 
-    if(Settings::DrawDelete)cout << "Map " << m_mapNumber << " deleted" << endl;
+    if(Settings::DrawDelete)cout << "Map " << map_number_ << " deleted" << endl;
 }
 
 /// add an intersection to the map
-Intersection * Map::AddIntersection(int intersectionNumber, Vector2f position,
-                                   WeatherCondition weatherCondition) {
+Intersection * Map::AddIntersection(int intersectionNumber, Vector2f position)
+{
     if(!intersectionNumber)
     {
         intersectionNumber = Intersection::IntersectionCount + 1;
     }
 
-    m_intersections.push_back(new Intersection(position, intersectionNumber, weatherCondition));
+    intersections_.push_back(new Intersection(position, intersectionNumber));
 
-    m_numberOfIntersections++;
+    number_of_intersections_++;
     Intersection::IntersectionCount++;
 
     if(Settings::DrawAdded)std::cout << "Intersection " << intersectionNumber << " added" << endl;
 
-    return m_intersections[m_numberOfIntersections-1];
+    return intersections_[number_of_intersections_ - 1];
 }
 
 /// add a road to a specific intersection
@@ -120,9 +120,9 @@ Intersection * Map::GetIntersection(int intersectionNumber)
 {
     Intersection * temp;
 
-    for (int i = 0; i < m_numberOfIntersections; i++)
+    for (int i = 0; i < number_of_intersections_; i++)
     {
-        if ((temp = m_intersections[i])->GetIntersectionNumber() == intersectionNumber)
+        if ((temp = intersections_[i])->GetIntersectionNumber() == intersectionNumber)
         {
             return temp;
         }
@@ -146,9 +146,9 @@ Road * Map::GetRoad(int roadNumber)
 {
     Road * temp;
 
-    for (int i = 0; i < m_numberOfIntersections; i++)
+    for (int i = 0; i < number_of_intersections_; i++)
     {
-        if ((temp = m_intersections[i]->GetRoad(roadNumber)) != nullptr)
+        if ((temp = intersections_[i]->GetRoad(roadNumber)) != nullptr)
         {
             return temp;
         }
@@ -164,9 +164,9 @@ Lane * Map::GetLane(int laneNumber)
 {
     Lane * temp;
 
-    for (int i = 0; i < m_numberOfIntersections; i++)
+    for (int i = 0; i < number_of_intersections_; i++)
     {
-        if ((temp = m_intersections[i]->GetLane(laneNumber)) != nullptr)
+        if ((temp = intersections_[i]->GetLane(laneNumber)) != nullptr)
         {
             return temp;
         }
@@ -210,7 +210,7 @@ Lane * Map::CheckSelection(Vector2f position)
 {
     // for each intersection in map
     Lane * temp;
-    for(Intersection * inter : m_intersections)
+    for(Intersection * inter : intersections_)
     {
         // if selection found
         temp = inter->CheckSelection(position);
@@ -223,7 +223,7 @@ Lane * Map::CheckSelection(Vector2f position)
 void Map::ReloadMap()
 {
     // disable delete output temporarily for reload
-    for (Intersection *i : m_intersections)
+    for (Intersection *i : intersections_)
     {
         i->ReloadIntersection();
     }
@@ -232,7 +232,7 @@ void Map::ReloadMap()
 /// update, for future use
 void Map::Update(float elapsedTime)
 {
-    for(Intersection * i : m_intersections)
+    for(Intersection * i : intersections_)
     {
         i->Update(elapsedTime);
     }
@@ -242,7 +242,7 @@ int Map::GetRoadCount()
 {
     int sum = 0;
 
-    for(Intersection * inter : m_intersections)
+    for(Intersection * inter : intersections_)
     {
         sum += inter->GetRoadCount();
     }
@@ -254,7 +254,7 @@ int Map::GetLaneCount()
 {
     int sum = 0;
 
-    for(Intersection * inter : m_intersections)
+    for(Intersection * inter : intersections_)
     {
         sum += inter->GetLaneCount();
     }
@@ -274,9 +274,9 @@ bool Map::DeleteLane(int laneNumber)
         // if intersection has no roads left, delete it as well
         if(targetIntersection->GetRoadCount() == 0)
         {
-            auto it = find(m_intersections.begin(), m_intersections.end(), targetIntersection);
-            m_intersections.erase(it);
-            m_numberOfIntersections --;
+            auto it = find(intersections_.begin(), intersections_.end(), targetIntersection);
+            intersections_.erase(it);
+            number_of_intersections_ --;
         }
 
         // set selected as nullptr
@@ -294,16 +294,16 @@ bool Map::DeleteLane(int laneNumber)
 void Map::Draw(RenderWindow * window)
 {
     // Draw all intersections
-    for (int i = 0 ; i < m_numberOfIntersections; i++)
+    for (int i = 0 ; i < number_of_intersections_; i++)
     {
-        m_intersections[i]->Draw(window);
+        intersections_[i]->Draw(window);
     }
 }
 
 QStringList Map::GetLaneIdList()
 {
     QStringList idList = QStringList();
-    for(Intersection * inter : m_intersections)
+    for(Intersection * inter : intersections_)
     {
         for(Road * road : *inter->GetRoads())
         {
@@ -320,7 +320,7 @@ QStringList Map::GetLaneIdList()
 QStringList Map::GetRoadIdList()
 {
     QStringList idList = QStringList();
-    for(Intersection * inter : m_intersections)
+    for(Intersection * inter : intersections_)
     {
         for(Road * road : *inter->GetRoads())
         {
@@ -334,7 +334,7 @@ QStringList Map::GetRoadIdList()
 QStringList Map::GetIntersectionIdList()
 {
     QStringList idList = QStringList();
-    for(Intersection * inter : m_intersections)
+    for(Intersection * inter : intersections_)
     {
         idList.append(QString::number(inter->GetIntersectionNumber()));
     }

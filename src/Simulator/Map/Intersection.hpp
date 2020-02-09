@@ -11,17 +11,18 @@
 #define Intersection_hpp
 
 #include <iostream>
-#include <SFML/Graphics.hpp>
 #include <list>
+
+#include <SFML/Graphics.hpp>
+
 #include "Road.hpp"
 #include "../Settings.hpp"
 
 using namespace sf;
 using namespace std;
 
-typedef enum {DRY = 8, MOIST = 7 ,RAIN = 5, HEAVY_RAIN = 4, SNOW = 3, ICE = 1} WeatherCondition; // the friction coefficient, defining the cars breaking distance
+//typedef enum {DRY = 8, MOIST = 7 ,RAIN = 5, HEAVY_RAIN = 4, SNOW = 3, ICE = 1} WeatherCondition; // the friction coefficient, defining the cars breaking distance
 typedef enum {UP = 1, RIGHT, DOWN, LEFT} ConnectionSides;
-
 
 
 class Intersection: public RectangleShape
@@ -29,24 +30,21 @@ class Intersection: public RectangleShape
     
 public:
     
-    Intersection(Vector2f position, int intersectionNumber, WeatherCondition weatherCondition = WeatherCondition::DRY);
+    Intersection(Vector2f position, int intersectionNumber);
     ~Intersection();
 
     void   ReloadIntersection();
-    void   reAssignIntersectionPosition(Vector2f position);
-    void   reAssignRoadPositions();
+    void   ReAssignRoadPositions();
     void   Update(float elapsedTime);
     void   Draw(RenderWindow *window);
     bool   DeleteLane(int laneNumber);
 
-    void   SetWeatherCondition(WeatherCondition weatherCondition){m_weatherCondition = weatherCondition;}
-    WeatherCondition   GetWeatherCondition(){return m_weatherCondition;}
 
-    int GetIntersectionNumber(){return m_intersectionNumber;}
-    int GetRoadCount(){return m_roads.size();}
+    int GetIntersectionNumber(){return intersection_number_;}
+    int GetRoadCount(){return roads_.size();}
     int GetLaneCount();
-    void  AddVehicleCount(){m_currentVehicleCount++; m_totalVehicleCount++;};
-    void  RemoveVehicleCount(){m_currentVehicleCount--;};
+    void  AddVehicleCount(){current_vehicle_count_++; total_vehicle_count_++;};
+    void  RemoveVehicleCount(){current_vehicle_count_--;};
     Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
     Road * AddConnectingRoad(int roadNumber, int connectionSide1, int connectionSide2, Intersection * connectedIntersection);
     Road * GetRoad(int roadNumber);
@@ -59,24 +57,22 @@ public:
 
     Lane * CheckSelection(Vector2f position);
     
-    vector<Road*> * GetRoads(){return &(m_roads);}
+    vector<Road*> * GetRoads(){return &(roads_);}
 
     static int IntersectionCount;
     
 private:
 
-    int m_currentVehicleCount;
-    int m_totalVehicleCount;
-    int m_intersectionNumber;
-    int m_numberOfRoads;
-    int m_width;
-    int m_height;
+    int current_vehicle_count_;
+    int total_vehicle_count_;
+    int intersection_number_;
+    int number_of_roads_;
+    int width_;
+    int height_;
 
-    WeatherCondition m_weatherCondition;
+    Vector2f position_;
     
-    Vector2f m_position;
-    
-    vector<Road*> m_roads;
+    vector<Road*> roads_;
 };
 
 #endif /* Intersection_hpp */

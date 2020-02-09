@@ -12,7 +12,7 @@
 
 QSFMLCanvas::QSFMLCanvas(QWidget* Parent, unsigned int FrameTime) :
         QWidget       (Parent),
-        myInitialized (false)
+        is_init_ (false)
 {
     // Setup some states to allow direct rendering into the widget
     setAttribute(Qt::WA_PaintOnScreen);
@@ -29,17 +29,17 @@ QSFMLCanvas::QSFMLCanvas(QWidget* Parent, unsigned int FrameTime) :
     resize(Parent->size());
 
     // Setup the timer
-    myTimer.setInterval(FrameTime);
+    timer_.setInterval(FrameTime);
 }
 
-void QSFMLCanvas::resizeEvent(QResizeEvent* event)
+void QSFMLCanvas::ResizeEvent(QResizeEvent* event)
 {
     setSize(sf::Vector2u(QWidget::width(), QWidget::height()));
 }
 
 void QSFMLCanvas::showEvent(QShowEvent*)
 {
-    if (!myInitialized)
+    if (!is_init_)
     {
         // Under X11, we need to flush the commands sent to the server to ensure that
         // SFML will get an updated view of the windows
@@ -51,13 +51,13 @@ void QSFMLCanvas::showEvent(QShowEvent*)
         RenderWindow::create((sf::WindowHandle)winId());
 
         // Let the derived class do its specific stuff
-        OnInit();
+        on_init();
 
         // Setup the timer to trigger a refresh at specified framerate
-        connect(&myTimer, SIGNAL(timeout()), this, SLOT(repaint()));
-        myTimer.start();
+        connect(&timer_, SIGNAL(timeout()), this, SLOT(repaint()));
+        timer_.start();
 
-        myInitialized = true;
+        is_init_ = true;
     }
 }
 
@@ -69,7 +69,7 @@ QPaintEngine* QSFMLCanvas::paintEngine() const
 void QSFMLCanvas::paintEvent(QPaintEvent*)
 {
     // Let the derived class do its specific stuff
-    OnUpdate();
+    on_update();
 
     // Display on screen
     display();

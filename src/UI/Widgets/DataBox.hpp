@@ -8,8 +8,9 @@
 #include <iostream>
 #include <fstream>
 #include <list>
-#include <SFML/Graphics.hpp>
 #include <cmath>
+
+#include <SFML/Graphics.hpp>
 #include <nlohmann/json.hpp>
 
 using nlohmann::json;
@@ -20,6 +21,7 @@ using namespace std;
 class DataBox : public RectangleShape
 {
 public:
+
     DataBox(Vector2f position);
     ~DataBox(){};
 
@@ -34,18 +36,19 @@ public:
 private:
 
     // dataBox offset relative to owner
-    Vector2f m_offset;
+    Vector2f offset_;
+
     // the list data;
          // string is the name of the data
          // float is its value
-    json m_data;
-
-    Font m_font;
+    json data_;
 
     // the maximum amount of data items allowed
-    int m_maxDataItems;
+    int max_data_items_;
+    int data_count_;
 
-    int m_itemCount;
+    static Font font_;
+    static bool font_loaded_;
 };
 
 

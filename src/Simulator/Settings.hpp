@@ -5,13 +5,18 @@
 #ifndef SIMULATORSFML_SETTINGS_HPP
 #define SIMULATORSFML_SETTINGS_HPP
 
-//#include "Vehicle.hpp"
+#include <math.h>
+
+#include <SFML/Graphics.hpp>
+
+using namespace sf;
 
 enum DistanceUnits {M, CM, FEET, INCH, PX};
 enum VelocityUnits{CMS, KMH, MS, MPH, PXS};
 enum VehicleTypeOptions{CAR, TRUCK, MOTORCYCLE};
 
-class Settings {
+class Settings
+{
 public:
 
     static float GetLaneWidthAs(DistanceUnits unit);
@@ -79,7 +84,7 @@ public:
     // same for braking
     static float MinAcceleration[3];
 
-
+    static float CalculateDistance(Vector2f a, Vector2f b);
 };
 
 

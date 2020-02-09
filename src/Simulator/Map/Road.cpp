@@ -13,18 +13,18 @@ int Road::RoadCount = 0;
 /// ctor for a normal road
 Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f startPosition, float length, float direction)
 {
-    m_isConnecting       = false;
-    m_roadNumber         = roadNumber;
-    m_intersectionNumber[0] = intersectionNumber;
-    m_intersectionNumber[1] = intersectionNumber;
-    m_connectionSide[0]     = connectionSide;
-    m_startPosition      = startPosition;
-    m_length             = length;
-    m_direction          = direction;
-    m_numberOfLanes      = 0;
-    m_width              = 0;
-    m_currentVehicleCount = 0;
-    m_totalVehicleCount = 0;
+    is_connecting_       = false;
+    road_number_         = roadNumber;
+    intersection_number_[0] = intersectionNumber;
+    intersection_number_[1] = intersectionNumber;
+    connection_side_[0]     = connectionSide;
+    start_pos_      = startPosition;
+    length_             = length;
+    direction_          = direction;
+    number_of_lanes_      = 0;
+    width_              = 0;
+    current_vehicle_count_ = 0;
+    total_vehicle_count_ = 0;
 
     // calculate end position:
     Vector2f lengthVec;
@@ -33,63 +33,63 @@ Road::Road(int roadNumber, int intersectionNumber, int connectionSide,  Vector2f
     t.rotate(direction + 180);
     
     lengthVec = t.transformPoint(Vector2f(0.f, -1.f)) * length;
-    m_endPosition = m_startPosition - lengthVec;
+    end_pos_ = start_pos_ - lengthVec;
     
     // init rectangle shape
-    this->setOrigin(m_width/2, 0.f);
-    this->setPosition(m_startPosition);
+    this->setOrigin(width_ / 2, 0.f);
+    this->setPosition(start_pos_);
     this->setOutlineColor(WhiteColor);
     this->setOutlineThickness(1.f);
     this->setFillColor(Color::Transparent);
-    this->setRotation(m_direction + 180);
-    this->setSize(Vector2f(m_width, m_length));
+    this->setRotation(direction_ + 180);
+    this->setSize(Vector2f(width_, length_));
 
-    m_dataBox = new DataBox(m_endPosition);
-    m_dataBox->AddData("ID", m_roadNumber);
-    m_dataBox->AddData("Count", 0);
+    data_box_ = new DataBox(end_pos_);
+    data_box_->AddData("ID", road_number_);
+    data_box_->AddData("Count", 0);
 }
 
 /// ctor for a connecting road
 Road::Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int connectionSide1, int connectionSide2, Vector2f conPosition1, Vector2f conPosition2, float direction)
 {
-    m_isConnecting          = true;
-    m_roadNumber            = roadNumber;
-    m_intersectionNumber[0] = intersectionNumber1;
-    m_intersectionNumber[1] = intersectionNumber2;
-    m_connectionSide[0]     = connectionSide1;
-    m_connectionSide[1]     = connectionSide2;
-    m_startPosition      = conPosition1;
-    m_endPosition        = conPosition2;
-    m_direction          = direction;
-    m_numberOfLanes      = 0;
-    m_width              = 0;
-    m_length             = calculateDistance(m_startPosition, m_endPosition);
+    is_connecting_          = true;
+    road_number_            = roadNumber;
+    intersection_number_[0] = intersectionNumber1;
+    intersection_number_[1] = intersectionNumber2;
+    connection_side_[0]     = connectionSide1;
+    connection_side_[1]     = connectionSide2;
+    start_pos_      = conPosition1;
+    end_pos_        = conPosition2;
+    direction_          = direction;
+    number_of_lanes_      = 0;
+    width_              = 0;
+    length_             = Settings::CalculateDistance(start_pos_, end_pos_);
 
     // calculate end position:
 
     // init rectangle shape
-    this->setOrigin(m_width/2, 0.f);
-    this->setPosition(m_startPosition);
+    this->setOrigin(width_ / 2, 0.f);
+    this->setPosition(start_pos_);
     this->setOutlineColor(WhiteColor);
     this->setOutlineThickness(1.f);
     this->setFillColor(Color::Transparent);
-    this->setRotation(m_direction + 180);
-    this->setSize(Vector2f(m_width, m_length));
+    this->setRotation(direction_ + 180);
+    this->setSize(Vector2f(width_, length_));
 
-    m_dataBox = new DataBox(m_endPosition);
-    m_dataBox->AddData("ID", m_roadNumber);
-    m_dataBox->AddData("Count", 0);
+    data_box_ = new DataBox(end_pos_);
+    data_box_->AddData("ID", road_number_);
+    data_box_->AddData("Count", 0);
 }
 
 Road::~Road()
 {
-    for(Lane * lane : m_lanes)
+    for(Lane * lane : lanes_)
     {
         delete lane;
     }
-    if(Settings::DrawDelete)cout << "Road " << m_roadNumber << " deleted" << endl;
+    if(Settings::DrawDelete)cout << "Road " << road_number_ << " deleted" << endl;
 
-    delete m_dataBox;
+    delete data_box_;
 }
 
 /// add a lane to a road
@@ -101,34 +101,34 @@ Lane * Road::AddLane(int laneNumber, bool isInRoadDirection)
     }
     
     if (isInRoadDirection) {
-        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_intersectionNumber[isInRoadDirection], m_startPosition, m_length, m_direction, isInRoadDirection));
+        lanes_.push_back(new Lane(laneNumber, road_number_, intersection_number_[isInRoadDirection], start_pos_, length_, direction_, isInRoadDirection));
     }
     else
     {
-        m_lanes.push_back(new Lane(laneNumber, m_roadNumber, m_intersectionNumber[isInRoadDirection], m_endPosition, m_length, (m_direction + 180.f), isInRoadDirection));
+        lanes_.push_back(new Lane(laneNumber, road_number_, intersection_number_[isInRoadDirection], end_pos_, length_, (direction_ + 180.f), isInRoadDirection));
     }
     
-    m_numberOfLanes++;
+    number_of_lanes_++;
     Lane::LaneCount++;
     
     // adjust road size
-    m_width = m_numberOfLanes * Settings::LaneWidth;
-    this->setSize(Vector2f(m_width, m_length));
-    this->setOrigin(m_width/2, 0.f);
+    width_ = number_of_lanes_ * Settings::LaneWidth;
+    this->setSize(Vector2f(width_, length_));
+    this->setOrigin(width_ / 2, 0.f);
 
-    if(Settings::DrawAdded)std::cout << "lane " << m_lanes[m_numberOfLanes - 1]->GetLaneNumber() << " added to road " << m_roadNumber << std::endl;
+    if(Settings::DrawAdded)std::cout << "lane " << lanes_[number_of_lanes_ - 1]->GetLaneNumber() << " added to road " << road_number_ << std::endl;
     
-    return m_lanes[m_numberOfLanes - 1];
+    return lanes_[number_of_lanes_ - 1];
 }
 
 /// get lane by laneNumber
 Lane * Road::GetLane(int laneNumber)
 {
-    for (int i = 0; i < m_numberOfLanes; i++)
+    for (int i = 0; i < number_of_lanes_; i++)
     {
-        if(m_lanes[i]->GetLaneNumber() == laneNumber)
+        if(lanes_[i]->GetLaneNumber() == laneNumber)
         {
-            return m_lanes[i];
+            return lanes_[i];
         }
     }
     
@@ -136,54 +136,54 @@ Lane * Road::GetLane(int laneNumber)
 }
 
 /// re-locate all lanes in road to align with the road
-void Road::reAssignLanePositions()
+void Road::ReAssignLanePositions()
 {
     Vector2f  firstLanePoint;
     Vector2f  firstLaneDifference;
     Vector2f  laneDifference;
     Vector2f  lengthVec;
 
-    this->m_width = Settings::LaneWidth * m_numberOfLanes;
-    this->setSize(Vector2f(m_width, m_length));
+    this->width_ = Settings::LaneWidth * number_of_lanes_;
+    this->setSize(Vector2f(width_, length_));
 
     Transform t, x;
     
-    t.rotate(m_direction+90);
+    t.rotate(direction_ + 90);
     laneDifference = t.transformPoint(0.f, -1.f) * Settings::LaneWidth;
     
-    (m_numberOfLanes % 2) ?
-    x.scale(m_numberOfLanes/2, m_numberOfLanes/2) :
-    x.scale((m_numberOfLanes-1)/2 + 0.5, (m_numberOfLanes-1)/2 + 0.5);
+    (number_of_lanes_ % 2) ?
+    x.scale(number_of_lanes_ / 2, number_of_lanes_ / 2) :
+    x.scale((number_of_lanes_ - 1) / 2 + 0.5, (number_of_lanes_ - 1) / 2 + 0.5);
         
     firstLaneDifference = x.transformPoint(laneDifference);
     
-    firstLanePoint = m_startPosition - firstLaneDifference;
+    firstLanePoint = start_pos_ - firstLaneDifference;
         
-    for (int i = 0; i < m_numberOfLanes; i++) {
+    for (int i = 0; i < number_of_lanes_; i++) {
         
         Transform z, y;
         
         z.scale(i, i);
         
-        int   tempLaneNumber = m_lanes[i]->GetLaneNumber();
-        float tempLaneDirection = m_lanes[i]->GetDirection();
+        int   tempLaneNumber = lanes_[i]->GetLaneNumber();
+        float tempLaneDirection = lanes_[i]->GetDirection();
         
-        delete m_lanes[i];
+        delete lanes_[i];
                 
         //if lane is in road direction
-        if(tempLaneDirection == m_direction)
+        if(tempLaneDirection == direction_)
         {
             // send calculated starting point
-            m_lanes[i] = new Lane(tempLaneNumber, m_roadNumber, m_intersectionNumber[1], firstLanePoint + z.transformPoint(laneDifference), m_length, m_direction, true);
+            lanes_[i] = new Lane(tempLaneNumber, road_number_, intersection_number_[1], firstLanePoint + z.transformPoint(laneDifference), length_, direction_, true);
         }
         else
         {
             // send starting point + length vector
-            y.rotate(m_direction);
-            lengthVec = y.transformPoint(Vector2f(0.f, -1.f)) * m_length;
-            
-            m_lanes[i] = new Lane(tempLaneNumber, m_roadNumber, m_intersectionNumber[0], firstLanePoint + z.transformPoint(laneDifference) + lengthVec,
-                           m_length, (m_direction + 180.f), false);
+            y.rotate(direction_);
+            lengthVec = y.transformPoint(Vector2f(0.f, -1.f)) * length_;
+
+            lanes_[i] = new Lane(tempLaneNumber, road_number_, intersection_number_[0], firstLanePoint + z.transformPoint(laneDifference) + lengthVec,
+                                 length_, (direction_ + 180.f), false);
         }
     }
 }
@@ -191,39 +191,32 @@ void Road::reAssignLanePositions()
 /// update the road's start position
 void Road::UpdateStartPosition(Vector2f position)
 {
-    m_startPosition = position;
-    m_length = calculateDistance(m_endPosition, m_startPosition);
+    start_pos_ = position;
+    length_ = Settings::CalculateDistance(end_pos_, start_pos_);
 
-    this->setOrigin(m_width/2, 0.f);
-    this->setPosition(m_startPosition);
-    this->setSize(Vector2f(m_width, m_length));
-    
-    reAssignLanePositions();
+    this->setOrigin(width_ / 2, 0.f);
+    this->setPosition(start_pos_);
+    this->setSize(Vector2f(width_, length_));
+
+    ReAssignLanePositions();
 }
 
 /// update the road's end position
 void Road::UpdateEndPosition(Vector2f position)
 {
-    m_endPosition = position;
-    m_length = calculateDistance(m_endPosition, m_startPosition);
-    this->setSize(Vector2f(m_width, m_length));
+    end_pos_ = position;
+    length_ = Settings::CalculateDistance(end_pos_, start_pos_);
+    this->setSize(Vector2f(width_, length_));
 
-    reAssignLanePositions();
+    ReAssignLanePositions();
 }
 
-/// calculate distance between 2 vectors
-float Road::calculateDistance(Vector2f a, Vector2f b)
-{
-    float xDist = abs(a.x - b.x);
-    float yDist = abs(a.y - b.y);
 
-    return sqrt(xDist*xDist + yDist*yDist);
-}
 
 Lane * Road::CheckSelection(Vector2f position)
 {
     // for each intersection in map
-    for(Lane * lane : m_lanes)
+    for(Lane * lane : lanes_)
     {
         // if selection found
         if(lane->getGlobalBounds().contains(position))
@@ -237,16 +230,16 @@ Lane * Road::CheckSelection(Vector2f position)
 /// update, for future use
 void Road::Update(float elapsedTime)
 {
-    m_currentVehicleCount = 0;
-    m_totalVehicleCount = 0;
-    for(Lane * l : m_lanes)
+    current_vehicle_count_ = 0;
+    total_vehicle_count_ = 0;
+    for(Lane * l : lanes_)
     {
         l->Update(elapsedTime);
-        m_currentVehicleCount += l->GetCurrentVehicleCount();
-        m_totalVehicleCount += l->GetTotalVehicleCount();
+        current_vehicle_count_ += l->GetCurrentVehicleCount();
+        total_vehicle_count_ += l->GetTotalVehicleCount();
     }
 
-    m_dataBox->SetData("Count", m_currentVehicleCount);
+    data_box_->SetData("Count", current_vehicle_count_);
 }
 
 bool Road::DeleteLane(int laneNumber)
@@ -257,9 +250,9 @@ bool Road::DeleteLane(int laneNumber)
     if(targetLane != nullptr)
     {
         // remove the targetLane from the list by iterator
-        auto it = find(m_lanes.begin(), m_lanes.end(), targetLane);
-        m_lanes.erase(it);
-        m_numberOfLanes --;
+        auto it = find(lanes_.begin(), lanes_.end(), targetLane);
+        lanes_.erase(it);
+        number_of_lanes_ --;
         return true;
     }
     return false;
@@ -269,9 +262,9 @@ bool Road::DeleteLane(int laneNumber)
 void Road::Draw(RenderWindow * window)
 {
     window->draw(*this);
-    for (int i = 0; i < m_numberOfLanes; i++) {
-        m_lanes[i]->Draw(window);
+    for (int i = 0; i < number_of_lanes_; i++) {
+        lanes_[i]->Draw(window);
     }
-    if(Settings::DrawRoadDataBoxes) m_dataBox->Draw(window);
+    if(Settings::DrawRoadDataBoxes) data_box_->Draw(window);
 }
 

@@ -12,15 +12,17 @@
 
 Engine::Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000/Settings::MaxFps)
 {
+
     cout << "Setting Up Map..." << endl;
     map = new Map(0, Vector2i(this->width()/2, this->height()/2), Settings::DefaultMapWidth, Settings::DefaultMapWidth);
 
     cout << "Setting Up Camera..." << endl;
-    m_viewPosition = Vector2f(0,0);
-    m_viewTempPosition = Vector2f(0,0);
+    snap_to_grid_ = true;
+    view_pos_ = Vector2f(0, 0);
+    t_view_pos_ = Vector2f(0, 0);
     SetView();
     SetMinimap(Settings::MinimapSize, Settings::MinimapMargin);
-    this->setView(m_view);
+    this->setView(view_);
 
     cout << "Setting up snap grid..." << endl;
     BuildGrid(Settings::GridRows, Settings::GridColumns);
@@ -32,7 +34,7 @@ Engine::Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000/Settings::MaxFps)
 }
 
 /// set up the map according to the selected presets
-void Engine::OnInit()
+void Engine::on_init()
 {
     map->AddIntersection(0, map->GetSize()/2.f);
 
@@ -46,54 +48,54 @@ void Engine::OnInit()
 void Engine::SetView()
 {
     // view setup
-    m_view.reset(sf::FloatRect(m_viewTempPosition.x,m_viewTempPosition.y, Settings::DefaultMapWidth,  Settings::DefaultMapHeight));
-    m_view.zoom(Settings::Zoom);
+    view_.reset(sf::FloatRect(t_view_pos_.x, t_view_pos_.y, Settings::DefaultMapWidth, Settings::DefaultMapHeight));
+    view_.zoom(Settings::Zoom);
     // update the shown area index rectangle
-    updateShownArea();
+    update_shown_area();
 }
 
 void Engine::SetMinimap(float size, float margin)
 {
     // minimap viewPort setup
-    m_minimap.reset(sf::FloatRect(0, 0, Settings::DefaultMapWidth,  Settings::DefaultMapWidth));
-    m_minimap.setSize(Vector2f(size, size));
-    m_minimap.setViewport(sf::FloatRect(1.f - (size/this->width()) - (margin/this->height()), margin/this->height() , size/this->width(), size/this->height()));
+    minimap_.reset(sf::FloatRect(0, 0, Settings::DefaultMapWidth, Settings::DefaultMapWidth));
+    minimap_.setSize(Vector2f(size, size));
+    minimap_.setViewport(sf::FloatRect(1.f - (size / this->width()) - (margin / this->height()), margin / this->height() , size / this->width(), size / this->height()));
     float zoomFactor = Settings::DefaultMapWidth / size;
-    m_minimap.zoom(zoomFactor);
+    minimap_.zoom(zoomFactor);
     float outlineThickness = 30;
 
     // background setup
-    m_minimapBackground = RectangleShape(Vector2f(Settings::DefaultMapWidth - outlineThickness*2,
+    minimap_bg_ = RectangleShape(Vector2f(Settings::DefaultMapWidth - outlineThickness * 2,
             Settings::DefaultMapWidth - outlineThickness*2));
-    m_minimapBackground.setPosition(outlineThickness, outlineThickness);
-    m_minimapBackground.setFillColor(Color(110, 110, 110, 220));
-    m_minimapBackground.setOutlineColor(Color::Black);
-    m_minimapBackground.setOutlineThickness(outlineThickness);
+    minimap_bg_.setPosition(outlineThickness, outlineThickness);
+    minimap_bg_.setFillColor(Color(110, 110, 110, 220));
+    minimap_bg_.setOutlineColor(Color::Black);
+    minimap_bg_.setOutlineThickness(outlineThickness);
 
-    m_shownArea = RectangleShape(Vector2f(0,0));
-    m_shownArea.setOutlineColor(Color(255, 0, 0, 100));
-    m_shownArea.setOutlineThickness(30.f);
-    m_shownArea.setFillColor(Color::Transparent);
-    updateShownArea();
+    shown_area_index_ = RectangleShape(Vector2f(0, 0));
+    shown_area_index_.setOutlineColor(Color(255, 0, 0, 100));
+    shown_area_index_.setOutlineThickness(30.f);
+    shown_area_index_.setFillColor(Color::Transparent);
+    update_shown_area();
 }
 
 
 void Engine::UpdateView(Vector2f posDelta, float newZoom)
 {
-    // m_viewPosition is position before dragging
-    // m_viewTempPosition is the current view position
-    m_viewTempPosition = m_viewPosition + posDelta;
+    // view_pos_ is position before dragging
+    // t_view_pos_ is the current view position
+    t_view_pos_ = view_pos_ + posDelta;
 
     // enforce overflow blocking
     if(!Settings::MapOverflow && map != nullptr)
     {
-        if(abs(m_viewTempPosition.x) > map->GetSize().x / 2 - m_shownArea.getSize().x/2)
+        if(abs(t_view_pos_.x) > map->GetSize().x / 2 - shown_area_index_.getSize().x / 2)
         {
-            m_viewTempPosition.x = (map->GetSize().x / 2 - m_shownArea.getSize().x/2) * m_viewTempPosition.x / abs(m_viewTempPosition.x);
+            t_view_pos_.x = (map->GetSize().x / 2 - shown_area_index_.getSize().x / 2) * t_view_pos_.x / abs(t_view_pos_.x);
         }
-        if (abs(m_viewTempPosition.y) > map->GetSize().y / 2 - m_shownArea.getSize().y/2)
+        if (abs(t_view_pos_.y) > map->GetSize().y / 2 - shown_area_index_.getSize().y / 2)
         {
-            m_viewTempPosition.y = (map->GetSize().y / 2 - m_shownArea.getSize().y/2) * m_viewTempPosition.y / abs(m_viewTempPosition.y);
+            t_view_pos_.y = (map->GetSize().y / 2 - shown_area_index_.getSize().y / 2) * t_view_pos_.y / abs(t_view_pos_.y);
         }
     }
 
@@ -105,48 +107,48 @@ void Engine::UpdateView(Vector2f posDelta, float newZoom)
     SetView();
 }
 
-void Engine::updateShownArea()
+void Engine::update_shown_area()
 {
     // calculate the actual position of the shown area
-    Vector2f position = m_view.getCenter();
+    Vector2f position = view_.getCenter();
 
     // to calculate shown area dimensions,
     // we multiply the map size by the zoom
     // view_size = map_size * zoom
-    Vector2f size = m_view.getSize();
+    Vector2f size = view_.getSize();
 
-    this->m_shownArea.setSize(size);
-    this->m_shownArea.setOrigin(size/2.f);
-    this->m_shownArea.setPosition(position);
+    this->shown_area_index_.setSize(size);
+    this->shown_area_index_.setOrigin(size / 2.f);
+    this->shown_area_index_.setPosition(position);
 }
 
 void Engine::BuildGrid(int rows, int cols)
 {
-    m_snapGrid.Lines.clear(); // clear the old lines list
-    m_snapGrid.Rows = rows;
-    m_snapGrid.Columns = cols;
-    m_snapGrid.ColumnWidth = map->GetSize().x/m_snapGrid.Columns;
-    m_snapGrid.RowHeight = map->GetSize().y/m_snapGrid.Rows;
+    snap_grid_.Lines.clear(); // clear the old lines list
+    snap_grid_.Rows = rows;
+    snap_grid_.Columns = cols;
+    snap_grid_.ColumnWidth = map->GetSize().x / snap_grid_.Columns;
+    snap_grid_.RowHeight = map->GetSize().y / snap_grid_.Rows;
 
     // create all vertical lines of the grid
-    for (int i = 1; i < m_snapGrid.Columns; i++)
+    for (int i = 1; i < snap_grid_.Columns; i++)
     {
         Vertex * line = new Vertex[2];
 
-        line[0] = sf::Vertex(sf::Vector2f(i * m_snapGrid.ColumnWidth, 0));
-        line[1] = sf::Vertex(sf::Vector2f(i * m_snapGrid.ColumnWidth, map->GetSize().y));
+        line[0] = sf::Vertex(sf::Vector2f(i * snap_grid_.ColumnWidth, 0));
+        line[1] = sf::Vertex(sf::Vector2f(i * snap_grid_.ColumnWidth, map->GetSize().y));
 
-        m_snapGrid.Lines.push_back(line);
+        snap_grid_.Lines.push_back(line);
     }
     // create all horizontal lines of snap grid
-    for (int i = 1; i < m_snapGrid.Rows; i++)
+    for (int i = 1; i < snap_grid_.Rows; i++)
     {
         Vertex * line = new Vertex[2];
 
-        line[0] = sf::Vertex(sf::Vector2f(0, i * m_snapGrid.RowHeight));
-        line[1] = sf::Vertex(sf::Vector2f(map->GetSize().x, i * m_snapGrid.RowHeight));
+        line[0] = sf::Vertex(sf::Vector2f(0, i * snap_grid_.RowHeight));
+        line[1] = sf::Vertex(sf::Vector2f(map->GetSize().x, i * snap_grid_.RowHeight));
 
-        m_snapGrid.Lines.push_back(line);
+        snap_grid_.Lines.push_back(line);
     }
 }
 
@@ -155,13 +157,13 @@ Vector2f Engine::DrawPoint(Vector2f position)
     // convert it to units according to screen pixel to display ratio
     position *= float(Settings::SFMLRatio);
     // convert it to world coordinates
-    position = this->mapPixelToCoords(Vector2i(position), m_view);
+    position = this->mapPixelToCoords(Vector2i(position), view_);
 
     // check if a lane exists in the choosen location
-    checkSelection(position);
+    check_selection(position);
 
     Vector2f temp;
-    if(m_snapToGrid)
+    if(snap_to_grid_)
     {
         temp = GetSnappedPoint(position);
     }
@@ -170,10 +172,10 @@ Vector2f Engine::DrawPoint(Vector2f position)
         temp = position;
     }
 
-    m_clickPoint = CircleShape(m_snapGrid.ColumnWidth/3.f);
-    m_clickPoint.setOrigin(m_clickPoint.getRadius(), m_clickPoint.getRadius());
-    m_clickPoint.setFillColor(Color::Red);
-    m_clickPoint.setPosition(temp.x, temp.y);
+    click_point_ = CircleShape(snap_grid_.ColumnWidth / 3.f);
+    click_point_.setOrigin(click_point_.getRadius(), click_point_.getRadius());
+    click_point_.setFillColor(Color::Red);
+    click_point_.setPosition(temp.x, temp.y);
 
     return temp;
 }
@@ -182,28 +184,28 @@ Vector2f Engine::GetSnappedPoint(Vector2f point)
 {
     float x = 0, y = 0;
 
-    if(int(point.x) % m_snapGrid.ColumnWidth > m_snapGrid.ColumnWidth/2)
+    if(int(point.x) % snap_grid_.ColumnWidth > snap_grid_.ColumnWidth / 2)
     {
-        x = int(ceil(point.x / m_snapGrid.ColumnWidth)) * m_snapGrid.ColumnWidth;
+        x = int(ceil(point.x / snap_grid_.ColumnWidth)) * snap_grid_.ColumnWidth;
     }
     else
     {
-        x = int(floor(point.x / m_snapGrid.ColumnWidth)) * m_snapGrid.ColumnWidth;
+        x = int(floor(point.x / snap_grid_.ColumnWidth)) * snap_grid_.ColumnWidth;
     }
 
-    if(int(point.y) % m_snapGrid.RowHeight > m_snapGrid.RowHeight/2)
+    if(int(point.y) % snap_grid_.RowHeight > snap_grid_.RowHeight / 2)
     {
-        y = int(ceil(point.y / m_snapGrid.RowHeight)) * m_snapGrid.RowHeight;
+        y = int(ceil(point.y / snap_grid_.RowHeight)) * snap_grid_.RowHeight;
     }
     else
     {
-        y = int(floor(point.y / m_snapGrid.RowHeight)) * m_snapGrid.RowHeight;
+        y = int(floor(point.y / snap_grid_.RowHeight)) * snap_grid_.RowHeight;
     }
 
     return Vector2f(x,y);
 }
 
-void Engine::checkSelection(Vector2f position)
+void Engine::check_selection(Vector2f position)
 {
     Lane * temp = map->CheckSelection(position);
 
@@ -230,7 +232,7 @@ void Engine::input()
     QPoint clickPoint = this->mapFromGlobal(QCursor::pos());
     Vector2i mousePos = Vector2i(clickPoint.x(), clickPoint.y());
 
-    if (Mouse::isButtonPressed(sf::Mouse::Left) && this->getViewport(m_view).contains(mousePos))
+    if (Mouse::isButtonPressed(sf::Mouse::Left) && this->getViewport(view_).contains(mousePos))
     {
         if (!dragging)
             startPos = mousePos;
@@ -240,7 +242,7 @@ void Engine::input()
     {
         if(dragging)
         {
-            m_viewPosition = m_viewTempPosition;
+            view_pos_ = t_view_pos_;
         }
         dragging = false;
     }
@@ -380,11 +382,11 @@ void Engine::ResetMap()
 }
 
 /// do the game cycle (input->update->draw)
-void Engine::OnUpdate()
+void Engine::on_update()
 {
     input();
-    update((myTimer.interval()/1000.f));
-    OnDraw();
+    update((timer_.interval() / 1000.f));
+    on_draw();
 }
 
 /// update all the engine's objects
@@ -401,11 +403,11 @@ void Engine::update(float elapsedTime)
     //clear all cars to be deleted
     Vehicle::ClearVehicles();
 
-    OnDraw();
+    on_draw();
 }
 
 /// render the engine's objects
-void Engine::OnDraw()
+void Engine::on_draw()
 {
     // Clean out the last frame
     clear(BackgroundColor);
@@ -420,36 +422,36 @@ void Engine::OnDraw()
     }
 
     // Draw the click index
-    this->draw(this->m_clickPoint);
+    this->draw(this->click_point_);
 
     // Draw the grid
     if(Settings::DrawGrid)
     {
-        for (Vertex *l : this->m_snapGrid.Lines) {
+        for (Vertex *l : this->snap_grid_.Lines) {
             this->draw(l, 2, Lines);
         }
     }
 
     // draw the minimap
-    this->setView(m_minimap); // switch to minimap for rendering
-    DrawMinimap(); // render minimap
-    this->setView(m_view); // switch back to main view
+    this->setView(minimap_); // switch to minimap for rendering
+    draw_minimap(); // render minimap
+    this->setView(view_); // switch back to main view
 }
 
 /// drawing the minimap is drawing everything but the vehicles and the grid, on a smaller scale
-void Engine::DrawMinimap()
+void Engine::draw_minimap()
 {
     // Draw the minimap's background
-    this->draw(m_minimapBackground);
+    this->draw(minimap_bg_);
 
     // Draw the map
     this->map->Draw(this);
 
     // Draw the click index
-    this->draw(this->m_clickPoint);
+    this->draw(this->click_point_);
 
     // Draw the shown area index
-    this->draw(m_shownArea);
+    this->draw(shown_area_index_);
 }
 
 

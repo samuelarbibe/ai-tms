@@ -10,32 +10,30 @@
 
 int Intersection::IntersectionCount = 0;
 
-Intersection::Intersection(Vector2f position, int intersectionNumber, WeatherCondition weatherCondition)
+Intersection::Intersection(Vector2f position, int intersectionNumber) : RectangleShape()
 {
-    m_intersectionNumber = intersectionNumber;
-    m_position = position;
-    m_width = 0;
-    m_height = 0;
-    m_weatherCondition = weatherCondition;
-
-    m_numberOfRoads = 0;
+    intersection_number_ = intersectionNumber;
+    position_ = position;
+    width_ = 0;
+    height_ = 0;
+    number_of_roads_ = 0;
     
-    this->setOrigin(m_width/2, m_height/2);
-    this->setPosition(m_position);
+    this->setOrigin(width_ / 2, height_ / 2);
+    this->setPosition(position_);
     this->setOutlineColor(WhiteColor);
     this->setFillColor(LaneColor);
     this->setOutlineThickness(1.f);
-    this->setSize(Vector2f(m_width, m_height));
+    this->setSize(Vector2f(width_, height_));
 };
 
 Intersection::~Intersection()
 {
-    for (Road * road : m_roads)
+    for (Road * road : roads_)
     {
         delete road;
     }
 
-    if(Settings::DrawDelete)cout << "Intersection " << m_intersectionNumber << " deleted" << endl;
+    if(Settings::DrawDelete)cout << "Intersection " << intersection_number_ << " deleted" << endl;
 }
 
 /// add a road to an intersection
@@ -46,14 +44,14 @@ Road * Intersection::AddRoad(int roadNumber, int connectionSide, float length)
         roadNumber = Road::RoadCount + 1;
     }
     
-    m_roads.push_back(new Road(roadNumber, m_intersectionNumber, connectionSide ,GetPositionByConnectionSide(connectionSide), length, (connectionSide-1)*90));
+    roads_.push_back(new Road(roadNumber, intersection_number_, connectionSide , GetPositionByConnectionSide(connectionSide), length, (connectionSide - 1) * 90));
             
-    m_numberOfRoads++;
+    number_of_roads_++;
     Road::RoadCount++;
     
     if(Settings::DrawAdded)std::cout << "Road " << roadNumber << " added" << endl;
     
-    return m_roads[m_numberOfRoads-1];
+    return roads_[number_of_roads_ - 1];
 }
 
 /// add a connecting road between 2 different intersections
@@ -64,18 +62,18 @@ Road * Intersection::AddConnectingRoad(int roadNumber, int connectionSide1, int 
         roadNumber =  Road::RoadCount + 1;
     }
 
-    m_roads.push_back(new Road(roadNumber, this->m_intersectionNumber, connectedIntersection->m_intersectionNumber, connectionSide1, connectionSide2 ,
-            this->GetPositionByConnectionSide(connectionSide1) ,connectedIntersection->GetPositionByConnectionSide(connectionSide2), (connectionSide1-1)*90));
+    roads_.push_back(new Road(roadNumber, this->intersection_number_, connectedIntersection->intersection_number_, connectionSide1, connectionSide2 ,
+                              this->GetPositionByConnectionSide(connectionSide1) , connectedIntersection->GetPositionByConnectionSide(connectionSide2), (connectionSide1-1)*90));
 
-    connectedIntersection->m_roads.push_back(m_roads[m_numberOfRoads]);
-    connectedIntersection->m_numberOfRoads++;
+    connectedIntersection->roads_.push_back(roads_[number_of_roads_]);
+    connectedIntersection->number_of_roads_++;
 
-    m_numberOfRoads++;
+    number_of_roads_++;
     Road::RoadCount++;
 
-    if(Settings::DrawAdded)std::cout << "Connecting Road " << roadNumber << " added between intersections " << this->m_intersectionNumber << " <--> " << connectedIntersection->m_intersectionNumber << "" << endl;
+    if(Settings::DrawAdded)std::cout << "Connecting Road " << roadNumber << " added between intersections " << this->intersection_number_ << " <--> " << connectedIntersection->intersection_number_ << "" << endl;
 
-    return m_roads[m_numberOfRoads-1];
+    return roads_[number_of_roads_ - 1];
 }
 
 /// get a lane by laneNumber
@@ -83,9 +81,9 @@ Lane * Intersection::GetLane(int laneNumber)
 {
     Lane * temp;
     
-    for (int i = 0; i < m_numberOfRoads; i++)
+    for (int i = 0; i < number_of_roads_; i++)
     {
-        if ((temp = m_roads[i]->GetLane(laneNumber)) != nullptr)
+        if ((temp = roads_[i]->GetLane(laneNumber)) != nullptr)
         {
             return temp;
         }
@@ -98,9 +96,9 @@ Lane * Intersection::GetLane(int laneNumber)
 Road * Intersection::GetRoad(int roadNumber)
 {
     Road * temp;
-    for (int i = 0 ;i < m_numberOfRoads; i++)
+    for (int i = 0 ; i < number_of_roads_; i++)
     {
-        temp = m_roads[i];
+        temp = roads_[i];
         if((temp->GetRoadNumber()) == roadNumber)
         {
             return temp;
@@ -113,15 +111,15 @@ Road * Intersection::GetRoad(int roadNumber)
 /// get road connected to an intersection by its connection side
 Road * Intersection::GetRoadByConnectionSide(int connectionSide)
 {
-    for (int i = 0 ;i < m_numberOfRoads; i++)
+    for (int i = 0 ; i < number_of_roads_; i++)
     {
-        if(m_roads[i]->GetConnectionSide(0) == connectionSide)
+        if(roads_[i]->GetConnectionSide(0) == connectionSide)
         {
-            return m_roads[i];
+            return roads_[i];
         }
-        else if(m_roads[i]->GetIsConnecting() && m_roads[i]->GetConnectionSide(1) == connectionSide)
+        else if(roads_[i]->GetIsConnecting() && roads_[i]->GetConnectionSide(1) == connectionSide)
         {
-            return m_roads[i];
+            return roads_[i];
         }
     }
 
@@ -144,50 +142,42 @@ Vector2f Intersection::GetPositionByConnectionSide(int connectionSide)
 {
     switch (connectionSide) {
         case UP:
-            return Vector2f(m_position.x, m_position.y - m_height/2);
+            return Vector2f(position_.x, position_.y - height_ / 2);
             
             break;
         case RIGHT:
-            return Vector2f(m_position.x + m_width/2, m_position.y);
+            return Vector2f(position_.x + width_ / 2, position_.y);
             
             break;
         case DOWN:
-            return Vector2f(m_position.x, m_position.y + m_height/2);
+            return Vector2f(position_.x, position_.y + height_ / 2);
             
             break;
         case LEFT:
-            return Vector2f(m_position.x - m_width/2, m_position.y);
+            return Vector2f(position_.x - width_ / 2, position_.y);
             
             break;
         default:
-            return m_position;
+            return position_;
             break;
     }
 }
 
-/// re-locate the whole intersection
-void Intersection::reAssignIntersectionPosition(Vector2f position)
-{
-    m_position = position;
-    this->setPosition(position);
-    reAssignRoadPositions();
-}
-
 /// relocate all roads connected to intersection
-void Intersection::reAssignRoadPositions()
+void Intersection::ReAssignRoadPositions()
 {
-    for (int i = 0 ; i < m_numberOfRoads; i++)
+    for (int i = 0 ; i < number_of_roads_; i++)
     {
         // if road starts from this intersection, adjust start position
-        if(m_roads[i]->GetIntersectionNumber(0) == this->m_intersectionNumber)
+        if(roads_[i]->GetIntersectionNumber(0) == this->intersection_number_)
         {
-            m_roads[i]->UpdateStartPosition(GetPositionByConnectionSide(m_roads[i]->GetConnectionSide(0)));
+            roads_[i]->UpdateStartPosition(GetPositionByConnectionSide(roads_[i]->GetConnectionSide(0)));
         }
         else
         {
-            if(m_roads[i]->GetIsConnecting() && m_roads[i]->GetIntersectionNumber(1) == this->m_intersectionNumber) {
+            if(roads_[i]->GetIsConnecting() && roads_[i]->GetIntersectionNumber(1) == this->intersection_number_) {
                 // if road connects this intersection to another
-                m_roads[i]->UpdateEndPosition(GetPositionByConnectionSide(m_roads[i]->GetConnectionSide(1)));
+                roads_[i]->UpdateEndPosition(GetPositionByConnectionSide(roads_[i]->GetConnectionSide(1)));
             }
         }
     }
@@ -202,32 +192,32 @@ void Intersection::ReloadIntersection()
     Road * r3 = GetRoadByConnectionSide(3);
     Road * r4 = GetRoadByConnectionSide(4);
 
-    if(r1 != nullptr) m_width = r1->GetWidth();
-    else if (r3 != nullptr) m_width = r3->GetWidth();
-    if(r2 != nullptr) m_height = r2->GetWidth();
-    else if(r4 != nullptr) m_height = r4->GetWidth();
+    if(r1 != nullptr) width_ = r1->GetWidth();
+    else if (r3 != nullptr) width_ = r3->GetWidth();
+    if(r2 != nullptr) height_ = r2->GetWidth();
+    else if(r4 != nullptr) height_ = r4->GetWidth();
 
-    if(r3 != nullptr && r3->GetWidth() > m_width)
+    if(r3 != nullptr && r3->GetWidth() > width_)
     {
-        m_width = r3->GetWidth();
+        width_ = r3->GetWidth();
     }
 
-    if(r4 != nullptr && r4->GetWidth() > m_height)
+    if(r4 != nullptr && r4->GetWidth() > height_)
     {
-        m_height = r4->GetWidth();
+        height_ = r4->GetWidth();
     }
 
-    this->setSize(Vector2f(m_width, m_height));
-    this->setOrigin(m_width/2, m_height/2);
+    this->setSize(Vector2f(width_, height_));
+    this->setOrigin(width_ / 2, height_ / 2);
 
-    reAssignRoadPositions();
+    ReAssignRoadPositions();
 }
 
 Lane * Intersection::CheckSelection(Vector2f position)
 {
     // for each intersection in map
     Lane * temp;
-    for(Road * road : m_roads)
+    for(Road * road : roads_)
     {
         // if selection found
         temp = road->CheckSelection(position);
@@ -240,7 +230,7 @@ int Intersection::GetLaneCount()
 {
     int sum = 0;
 
-    for (Road * road : m_roads)
+    for (Road * road : roads_)
     {
         sum += road->GetLaneCount();
     }
@@ -251,7 +241,7 @@ int Intersection::GetLaneCount()
 /// update , for future use
 void Intersection::Update(float elapsedTime)
 {
-    for(Road * r : m_roads)
+    for(Road * r : roads_)
     {
         r->Update(elapsedTime);
     }
@@ -270,9 +260,9 @@ bool Intersection::DeleteLane(int laneNumber)
             // if so, delete road as well
             if(targetRoad->GetLaneCount() == 0)
             {
-                auto it = find(m_roads.begin(), m_roads.end(), targetRoad);
-                this->m_roads.erase(it);
-                m_numberOfRoads --;
+                auto it = find(roads_.begin(), roads_.end(), targetRoad);
+                this->roads_.erase(it);
+                number_of_roads_ --;
             }
             return true;
         }
@@ -285,8 +275,8 @@ void Intersection::Draw(RenderWindow *window)
 {
     (*window).draw(*this);
 
-    for (int i = 0 ; i < m_numberOfRoads; i++)
+    for (int i = 0 ; i < number_of_roads_; i++)
     {
-        m_roads[i]->Draw(window);
+        roads_[i]->Draw(window);
     }
 }

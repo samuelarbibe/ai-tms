@@ -114,3 +114,12 @@ float Settings::GetMaxSpeedAs(VehicleTypeOptions vehicleType, VelocityUnits unit
 {
     return Settings::ConvertVelocity(PXS, unit, Settings::MaxSpeeds[vehicleType]);
 }
+
+/// calculate distance between 2 vectors
+float Settings::CalculateDistance(Vector2f a, Vector2f b)
+{
+    float xDist = abs(a.x - b.x);
+    float yDist = abs(a.y - b.y);
+
+    return sqrt(xDist*xDist + yDist*yDist);
+}

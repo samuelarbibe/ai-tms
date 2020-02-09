@@ -11,8 +11,10 @@
 
 #include <stdio.h>
 #include <iostream>
-#include <SFML/Graphics.hpp>
 #include <math.h>
+
+#include <SFML/Graphics.hpp>
+
 #include "../Settings.hpp"
 
 using namespace std;
@@ -21,7 +23,6 @@ using namespace sf;
 const Color LaneColor(45, 45, 45);
 const Color WhiteColor(230, 230, 230);
 const Color BackgroundColor(150, 150, 150);
-
 
 class Lane : public RectangleShape
 {
@@ -33,26 +34,24 @@ public:
     
     void Update(float elapsedTime);
 
-    // Get
-    bool  GetIsBlocked() {return m_isBlocked;};
-    bool  GetIsInRoadDirection() {return m_isInRoadDirection;};
-    float GetDirection() {return m_direction;};
-    int   GetLaneNumber(){return m_laneNumber;};
-    int   GetIntersectionNumber(){return m_intersectionNumber;};
-    int   GetCurrentVehicleCount(){return m_currentVehicleCount;};
-    int   GetTotalVehicleCount(){return m_totalVehicleCount;};
-    int GetLastCar(){return m_lastEnteredCarNumber;};
-    int GetRoadNumber(){return m_roadNumber;};
-    Vector2f GetStartPosition(){return m_startPosition;};
-    Vector2f GetEndPosition(){return m_endPosition;};
+    bool  GetIsBlocked() {return is_blocked_;};
+    bool  GetIsInRoadDirection() {return is_in_road_direction_;};
+    float GetDirection() {return direction_;};
+    int   GetLaneNumber(){return lane_number_;};
+    int   GetIntersectionNumber(){return intersection_number_;};
+    int   GetCurrentVehicleCount(){return current_vehicle_count_;};
+    int   GetTotalVehicleCount(){return total_vehicle_count_;};
+    int GetLastCar(){return last_entered_car_number_;};
+    int GetRoadNumber(){return road_number_;};
+    Vector2f GetStartPosition(){return start_pos_;};
+    Vector2f GetEndPosition(){return end_pos_;};
 
-    // Set
     void  Select();
     void  Unselect();
-    void  AddVehicleCount(){m_currentVehicleCount++; m_totalVehicleCount++;};
-    void  RemoveVehicleCount(){m_currentVehicleCount--;};
-    void  SetIsBlocked(bool blocked) {m_isBlocked = blocked; if(Settings::DrawActive)cout << "Lane " << m_laneNumber << " blocked: " << blocked << endl;};
-    void  SetLastCar(int lastCar){m_lastEnteredCarNumber = lastCar;};
+    void  AddVehicleCount(){current_vehicle_count_++; total_vehicle_count_++;};
+    void  RemoveVehicleCount(){current_vehicle_count_--;};
+    void  SetIsBlocked(bool blocked) { is_blocked_ = blocked; if(Settings::DrawActive)cout << "Lane " << lane_number_ << " blocked: " << blocked << endl;};
+    void  SetLastCar(int lastCar){ last_entered_car_number_ = lastCar;};
     
     void  Draw(RenderWindow * window);
 
@@ -60,26 +59,24 @@ public:
     
 private:
     
-    bool     m_isBlocked;
-    bool     m_isInRoadDirection;
-    int      m_intersectionNumber;
-    int      m_roadNumber;
-    int      m_laneNumber;
-    int      m_currentVehicleCount;
-    int      m_totalVehicleCount;
+    bool     is_blocked_;
+    bool     is_in_road_direction_;
+    int      intersection_number_;
+    int      road_number_;
+    int      lane_number_;
+    int      current_vehicle_count_;
+    int      total_vehicle_count_;
+    int      last_entered_car_number_;
     
-    int      m_lastEnteredCarNumber;
+    Vector2f start_pos_;
+    Vector2f end_pos_;
     
-    Vector2f m_startPosition;
-    Vector2f m_endPosition;
+    float    direction_;
+    float    width_;
+    float    length_;
     
-    float    m_direction;
-    float    m_width;
-    float    m_length;
-    
-    void     m_createArrowShape(Transform t);
-        
-    ConvexShape m_arrowShape;
+    void     create_arrow_shape(Transform t);
+    ConvexShape arrow_shape_;
 };
 
 

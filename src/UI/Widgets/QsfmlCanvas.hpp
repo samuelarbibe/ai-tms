@@ -17,25 +17,21 @@ class QSFMLCanvas : public QWidget, public RenderWindow
 public :
 
     QSFMLCanvas(QWidget* Parent, unsigned int FrameTime = 0);
-    void resizeEvent(QResizeEvent* event);
-    virtual ~QSFMLCanvas(){std::cout << "QSFML Canvas destroyed" << std::endl;}
+    ~QSFMLCanvas(){std::cout << "QSFML Canvas destroyed" << std::endl;}
+    void ResizeEvent(QResizeEvent* event);
 
 private :
 
-    virtual void OnInit(){}
-
-    virtual void OnUpdate(){}
+    virtual void on_init(){}
+    virtual void on_update(){}
 
     virtual QPaintEngine* paintEngine() const;
-
     virtual void showEvent(QShowEvent*);
-
     virtual void paintEvent(QPaintEvent*);
 
-    bool   myInitialized;
-
+    bool   is_init_;
 protected:
-    QTimer myTimer;
+    QTimer timer_;
 };
 
 

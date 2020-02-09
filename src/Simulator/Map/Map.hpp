@@ -6,16 +6,19 @@
 #define SIMULATORSFML_MAP_HPP
 
 #include <iostream>
-#include <SFML/Graphics.hpp>
 #include <list>
+
+#include <SFML/Graphics.hpp>
 #include <QString>
+
 #include "../Settings.hpp"
 #include "Intersection.hpp"
 
 using namespace sf;
 using namespace std;
 
-class Map {
+class Map
+{
 
 public:
 
@@ -28,20 +31,20 @@ public:
     void   ReloadMap();
 
 
-    Vector2f GetSize(){return Vector2f(m_width, m_height);}
-    Intersection * AddIntersection(int intersectionNumber, Vector2f position, WeatherCondition weatherCondition = WeatherCondition::DRY);
+    Vector2f GetSize(){return Vector2f(width_, height_);}
+    Intersection * AddIntersection(int intersectionNumber, Vector2f position);
     Road * AddRoad(int roadNumber, int intersectionNumber, int connectionSide, float length);
     Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
     Road * AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2);
     Intersection * GetIntersectionByLaneNumber(int laneNumber);
     Intersection * GetIntersection(int intersectionNumber); 
-    vector<Intersection*> * GetIntersections(){return &(m_intersections);};
+    vector<Intersection*> * GetIntersections(){return &(intersections_);};
     Road * GetRoad(int roadNumber);
     Lane * GetLane(int laneNumber);
     QStringList GetLaneIdList();
     QStringList GetRoadIdList();
     QStringList GetIntersectionIdList();
-    int GetIntersectionCount(){return m_numberOfIntersections;};
+    int GetIntersectionCount(){return number_of_intersections_;};
     int GetRoadCount();
     int GetLaneCount();
     pair<ConnectionSides, ConnectionSides> AssignConnectionSides(Vector2f pos1, Vector2f pos2);
@@ -50,14 +53,14 @@ public:
 
 private:
 
-    int m_mapNumber;
-    int m_numberOfIntersections;
-    int m_width;
-    int m_height;
+    int map_number_;
+    int number_of_intersections_;
+    int width_;
+    int height_;
 
-    Vector2i m_position;
+    Vector2i position_;
 
-    vector<Intersection*> m_intersections;
+    vector<Intersection*> intersections_;
 };
 
 

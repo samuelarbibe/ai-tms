@@ -4,27 +4,34 @@
 
 #include "DataBox.hpp"
 
+Font DataBox::font_{};
+bool DataBox::font_loaded_ = false;
+
 DataBox::DataBox(Vector2f position) : RectangleShape()
 {
     // will be displayed [offset] pixels above target
-    m_maxDataItems = 3;
-    m_itemCount = 0;
-    m_offset = Vector2f(-0.f, -0.f);
-    this->setPosition(Vector2f(position.x , position.y) + m_offset);
+    max_data_items_ = 3;
+    data_count_ = 0;
+    offset_ = Vector2f(-0.f, -0.f);
+    this->setPosition(Vector2f(position.x , position.y) + offset_);
     this->setSize(Vector2f(150.f, 50.f));
     this->setFillColor(Color::White);
     this->setOutlineColor(Color::Blue);
     this->setOutlineThickness(4.f);
 
-    if (!m_font.loadFromFile("../../resources/Fonts/Roboto/Roboto-Bold.ttf"))
+    // load font if needed
+    if(!font_loaded_)
     {
-        cout << "ERROR: Could not load fond from the given file." << endl;
+        if (!font_.loadFromFile("../../resources/Fonts/Roboto/Roboto-Bold.ttf"))
+        {
+            cout << "ERROR: Could not load fond from the given file." << endl;
+        }
     }
 }
 
 void DataBox::Update(Vector2f position)
 {
-    this->setPosition(Vector2f(position.x , position.y) + m_offset);
+    this->setPosition(Vector2f(position.x , position.y) + offset_);
 }
 
 void DataBox::Draw(RenderWindow *window)
@@ -32,15 +39,15 @@ void DataBox::Draw(RenderWindow *window)
     window->draw(*this);
     int count = 0;
     float space = 35;
-    this->setSize(Vector2f(this->getSize().x , space * m_itemCount + 5.f));
+    this->setSize(Vector2f(this->getSize().x , space * data_count_ + 5.f));
 
     Text temp;
     string s;
     temp.setCharacterSize(space-5);
     temp.setFillColor(Color::Red);
-    temp.setFont(m_font);
+    temp.setFont(font_);
 
-    for(auto& data_item : m_data.items())
+    for(auto& data_item : data_.items())
     {
         s = data_item.key() + ": " + to_string(int(data_item.value()));
         temp.setString(s);
@@ -54,10 +61,10 @@ void DataBox::Draw(RenderWindow *window)
 
 bool DataBox::AddData(string valueName, float value)
 {
-    if(m_data.size() < m_maxDataItems)
+    if(data_.size() < max_data_items_)
     {
-        m_data[valueName] = value;
-        m_itemCount++;
+        data_[valueName] = value;
+        data_count_++;
         return true;
     }
     cout << "Could not add another data item into data box, max items reached." << endl;
@@ -66,9 +73,9 @@ bool DataBox::AddData(string valueName, float value)
 
 bool DataBox::SetData(string valueName, float value)
 {
-   if(m_data[valueName] != nullptr)
+   if(data_[valueName] != nullptr)
    {
-       m_data[valueName] = value;
+       data_[valueName] = value;
        return true;
    }
 
@@ -78,5 +85,12 @@ bool DataBox::SetData(string valueName, float value)
 
 bool DataBox::RemoveData(string valueName)
 {
-    m_data.erase("valueName");
+    if(data_[valueName] != nullptr)
+    {
+        data_.erase("valueName");
+        return true;
+    }
+
+    cout << "Could not remove databox data item, as data name was not found." << endl;
+    return false;
 }
