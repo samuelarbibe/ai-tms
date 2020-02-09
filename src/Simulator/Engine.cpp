@@ -376,7 +376,6 @@ void Engine::ResetMap()
     delete map;
     map = new Map(0, Vector2i(this->width()/2, this->height()/2), Settings::DefaultMapWidth, Settings::DefaultMapWidth);
 
-
     cout << "*** Map has been reset. ***" << endl;
 }
 
@@ -424,7 +423,7 @@ void Engine::OnDraw()
     this->draw(this->m_clickPoint);
 
     // Draw the grid
-    if(this->m_showGrid)
+    if(Settings::DrawGrid)
     {
         for (Vertex *l : this->m_snapGrid.Lines) {
             this->draw(l, 2, Lines);

@@ -61,6 +61,14 @@ private slots:
 
     void on_SaveMapButton_clicked();
 
+    void on_ShowDataBoxesCheckBox_stateChanged(int arg1);
+
+    void on_FasterButton_clicked();
+
+    void on_SlowerButton_clicked();
+
+    void on_PauseButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     Engine * SimulatorEngine;

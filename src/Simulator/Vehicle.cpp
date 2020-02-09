@@ -79,7 +79,10 @@ void Vehicle::DeleteAllVehicles()
     for (Vehicle * v : Vehicle::ActiveVehicles)
     {
         v->m_state = DELETE;
+        toBeDeleted++;
     }
+
+    ClearVehicles();
 }
 
 void Vehicle::ClearVehicles()
@@ -235,16 +238,14 @@ State Vehicle::drive()
     // upon creation, all cars are stacked on each other.
     // while cars dont have a min distance, they wont start driving
 
-
     // check for distance with car in front
-    if(m_vehicleInFront != nullptr && m_vehicleInFront->m_state != DELETE)
-    {
+    if (m_vehicleInFront != nullptr && m_vehicleInFront->m_state != DELETE) {
         float distanceFromNextCar = calculateDistance(m_position, m_vehicleInFront->m_position);
         //cout << distanceFromNextCar << endl;
-        float brakingDistance = -(m_speed * m_speed)/ (2 * m_minAcceleration);
+        float brakingDistance = -(m_speed * m_speed) / (2 * m_minAcceleration);
 
-        if(distanceFromNextCar < brakingDistance + Settings::MinDistanceFromNextCar || distanceFromNextCar < Settings::MinDistanceFromNextCar)
-        {
+        if (distanceFromNextCar < brakingDistance + Settings::MinDistanceFromNextCar ||
+            distanceFromNextCar < Settings::MinDistanceFromNextCar) {
             m_state = STOP;
             m_acceleration = m_minAcceleration;
             return STOP;
@@ -252,28 +253,26 @@ State Vehicle::drive()
     }
 
     // check if car is in between lanes (inside an intersection)
-    if(m_currentIntersection->getGlobalBounds().contains(m_position))
-    {
+    if (m_currentIntersection->getGlobalBounds().contains(m_position)) {
         // TODO: fix turning left
-        if(m_angularV == 0)
-        {
-            float distanceSourceTarget = calculateDistance(m_sourceLane->GetEndPosition(), m_targetLane->GetStartPosition());
+        if (m_angularV == 0) {
+            float distanceSourceTarget = calculateDistance(m_sourceLane->GetEndPosition(),
+                                                           m_targetLane->GetStartPosition());
 
             float angle = (m_sourceLane->GetDirection() - m_targetLane->GetDirection());
 
-            if(angle > 180) angle -= 360;
+            if (angle > 180) angle -= 360;
 
-            float turningRadius = (distanceSourceTarget/2.f) / (sin(angle * M_PI/360.f));
+            float turningRadius = (distanceSourceTarget / 2.f) / (sin(angle * M_PI / 360.f));
 
             float turningParameter = 2.f * M_PI * turningRadius;
 
-            float turningDistance = (angle/360.f) * turningParameter;
+            float turningDistance = (angle / 360.f) * turningParameter;
 
-            m_angularV = -angle/turningDistance;
+            m_angularV = -angle / turningDistance;
         }
 
-        if(m_sourceLane != nullptr)
-        {
+        if (m_sourceLane != nullptr) {
             m_previousIntersection = m_currentMap->GetIntersection(m_sourceLane->GetIntersectionNumber());
             m_previousIntersection->AddVehicleCount();
             m_sourceLane->RemoveVehicleCount();
@@ -283,18 +282,17 @@ State Vehicle::drive()
         m_state = TURN;
 
         //set rotation
-        m_acceleration = (Settings::AccWhileTurning)?m_maxAcceleration/2.f : 0;
+        m_acceleration = (Settings::AccWhileTurning) ? m_maxAcceleration / 2.f : 0;
         return TURN;
     }
 
     // check distance from stop (if lane is blocked)
-    if(m_sourceLane != nullptr && m_sourceLane != m_targetLane && m_sourceLane->GetIsBlocked() && !m_sprite.getGlobalBounds().contains(m_sourceLane->GetEndPosition()))
-    {
+    if (m_sourceLane != nullptr && m_sourceLane != m_targetLane && m_sourceLane->GetIsBlocked() &&
+        !m_sprite.getGlobalBounds().contains(m_sourceLane->GetEndPosition())) {
         float distanceFromStop = calculateDistance(this->m_position, m_sourceLane->GetEndPosition());
-        float brakingDistance = -(m_speed * m_speed)/ (2 * m_minAcceleration);
+        float brakingDistance = -(m_speed * m_speed) / (2 * m_minAcceleration);
 
-        if(distanceFromStop < brakingDistance + Settings::MinDistanceFromStop)
-        {
+        if (distanceFromStop < brakingDistance + Settings::MinDistanceFromStop) {
             m_state = STOP;
             m_acceleration = m_minAcceleration;
             return STOP;
@@ -302,8 +300,7 @@ State Vehicle::drive()
     }
 
     // check if car has left intersection and is now in targetLane
-    if(m_targetLane != nullptr &&  m_targetLane->getGlobalBounds().contains(m_position))
-    {
+    if (m_targetLane != nullptr && m_targetLane->getGlobalBounds().contains(m_position)) {
         // remove count from previous lane, and set in to nullptr
         m_previousIntersection->RemoveVehicleCount();
         m_previousIntersection = nullptr;
@@ -317,11 +314,10 @@ State Vehicle::drive()
     }
 
     // check if car is no longer in intersection
-    if(m_targetLane == nullptr && !m_sourceLane->getGlobalBounds().contains(m_position))
-    {
+    if (m_targetLane == nullptr && !m_sourceLane->getGlobalBounds().contains(m_position)) {
         m_sourceLane->RemoveVehicleCount();
-        toBeDeleted++;
 
+        toBeDeleted++;
         m_state = DELETE;
         return DELETE;
     }
@@ -330,6 +326,7 @@ State Vehicle::drive()
     m_acceleration = m_maxAcceleration;
     m_state = DRIVE;
     return DRIVE;
+
 }
 
 /// calculate a distance between two vectors
@@ -357,7 +354,7 @@ void Vehicle::applyChanges(float elapsedTime)
     m_speed += m_acceleration * elapsedTime * Settings::Speed;
 
     // apply max Speed limit
-    if(m_speed > m_maxSpeed) m_acceleration = m_minAcceleration * Settings::Speed;
+    if(m_speed > m_maxSpeed) m_speed = m_maxSpeed;
 
     // apply min Speed limit
     if(m_speed < 0) m_speed = 0;

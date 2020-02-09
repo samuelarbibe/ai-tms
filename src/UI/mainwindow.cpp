@@ -124,10 +124,12 @@ void MainWindow::on_AddConnectingRoadButton_clicked()
     int intersection2 = ui->ToIntersectionComboBox->currentText().toInt();
 
     // check for usable data
-    if (intersection1 != intersection2) {
-        if (SimulatorEngine->map->AddConnectingRoad(0, intersection1, intersection2) != nullptr) {
-            ui->ToRoadComboBox->clear();
-            ui->ToRoadComboBox->addItems(SimulatorEngine->map->GetRoadIdList());
+    if (intersection1 != intersection2)
+    {
+        if (SimulatorEngine->map->AddConnectingRoad(0, intersection1, intersection2) != nullptr)
+        {
+            // refresh spinboxes data
+            reloadOptionData();
 
             ui->statusbar->clearMessage();
             ui->statusbar->showMessage(tr("Connecting Road Successfully added."), 5000);
@@ -179,9 +181,7 @@ void MainWindow::on_SnapToGridCheckBox_stateChanged(int arg1)
 
 void MainWindow::on_ShowGridCheckBox_stateChanged(int arg1)
 {
-    bool isChecked = ui->ShowGridCheckBox->isChecked();
-
-    SimulatorEngine->ShowGrid(isChecked);
+    Settings::DrawGrid = arg1;
 }
 
 void MainWindow::on_LaneWidthSlider_sliderMoved(int position)
@@ -339,4 +339,46 @@ void MainWindow::on_SaveMapButton_clicked()
                                                     "map.json",
                                                     tr("JSON Files (*.json"));
     SimulatorEngine->SaveMap(fileName.toStdString());
+}
+
+void MainWindow::on_ShowDataBoxesCheckBox_stateChanged(int arg1)
+{
+    Settings::DrawRoadDataBoxes = arg1;
+    Settings::DrawVehicleDataBoxes = arg1;
+}
+
+void MainWindow::on_FasterButton_clicked()
+{
+    Settings::Speed *= 2;
+    QString text = "Running speed: x";
+    text.append(QString::number(Settings::Speed));
+    ui->RunningSpeedLabel->setText(text);
+}
+
+void MainWindow::on_SlowerButton_clicked()
+{
+    Settings::Speed /= 2.f;
+    QString text = "Running speed: x";
+    text.append(QString::number(Settings::Speed));
+    ui->RunningSpeedLabel->setText(text);
+}
+
+void MainWindow::on_PauseButton_clicked()
+{
+    static float prev_speed = 1.f;
+    if(Settings::Speed != 0.f)
+    {
+        prev_speed = Settings::Speed;
+        Settings::Speed = 0.f;
+        ui->PauseButton->setText(tr(">"));
+        ui->RunningSpeedLabel->setText(tr("Paused."));
+    }
+    else
+    {
+        Settings::Speed = prev_speed;
+        ui->PauseButton->setText(tr("||"));
+        QString text = "Running speed: x";
+        text.append(QString::number(Settings::Speed));
+        ui->RunningSpeedLabel->setText(text);
+    }
 }

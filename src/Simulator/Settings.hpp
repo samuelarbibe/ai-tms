@@ -41,6 +41,7 @@ public:
     static float DefaultLaneLength;
     static int GridColumns;
     static int GridRows;
+    static bool DrawGrid;
 
     static int SFMLRatio;
     static int DefaultMapWidth;

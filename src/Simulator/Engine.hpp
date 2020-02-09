@@ -42,7 +42,6 @@ public:
     ~Engine(){};
 
     void SetSnapToGrid(bool snapToGrid){this->m_snapToGrid = snapToGrid;}
-    void ShowGrid(bool showGrid){this->m_showGrid = showGrid;}
     void BuildGrid(int rows, int cols);
     Vector2f GetSnappedPoint(Vector2f point);
     Vector2f DrawPoint(Vector2f position);
@@ -69,7 +68,6 @@ private:
 
     CircleShape m_clickPoint;
     bool m_snapToGrid = true;
-    bool m_showGrid;
     Grid m_snapGrid;
 
     View m_view;

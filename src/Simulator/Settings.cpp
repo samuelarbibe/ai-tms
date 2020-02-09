@@ -8,8 +8,10 @@ bool Settings::DrawFps = false;
 bool Settings::DrawActive = false;
 bool Settings::DrawDelete = true;
 bool Settings::DrawAdded = true;
-bool Settings::DrawVehicleDataBoxes = true;
-bool Settings::DrawRoadDataBoxes = true;
+
+bool Settings::DrawVehicleDataBoxes = false;
+bool Settings::DrawRoadDataBoxes = false;
+bool Settings::DrawGrid = false;
 
 int Settings::MaxFps = 120;
 bool Settings::MultiColor = true;
