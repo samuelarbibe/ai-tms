@@ -33,19 +33,25 @@ MainWindow::~MainWindow()
 void MainWindow::reloadOptionData()
 {
     // set intersection number range for future use
-    QStringList itemList = SimulatorEngine->map->GetIntersectionIdList();
+    set<QString> intersection_id_list = SimulatorEngine->map->GetIntersectionIdList();
 
     ui->FromIntersectionComboBox->clear();
-    ui->FromIntersectionComboBox->addItems(itemList);
-
     ui->ToIntersectionComboBox->clear();
-    ui->ToIntersectionComboBox->addItems(itemList);
-
     ui->IntersectionComboBox->clear();
-    ui->IntersectionComboBox->addItems(itemList);
+
+    for(QString s : intersection_id_list)
+    {
+        ui->FromIntersectionComboBox->addItem(s);
+        ui->ToIntersectionComboBox->addItem(s);
+        ui->IntersectionComboBox->addItem(s);
+    }
 
     ui->ToRoadComboBox->clear();
-    ui->ToRoadComboBox->addItems(SimulatorEngine->map->GetRoadIdList());
+
+    for(QString sd : SimulatorEngine->map->GetRoadIdList())
+    {
+        ui->ToRoadComboBox->addItem(sd);
+    }
 }
 
 

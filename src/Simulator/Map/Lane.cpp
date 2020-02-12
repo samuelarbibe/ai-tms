@@ -8,7 +8,7 @@
 
 #include "Lane.hpp"
 
-int  Lane::LaneCount = 0;
+int Lane::LaneCount = 0;
 
 Lane::Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f startPosition, float length, float direction, bool isInRoadDirection)
 {
@@ -87,12 +87,14 @@ void Lane::Update(float elapsedTime)
 
 }
 
+/// set this lane as selected
 void Lane::Select()
 {
     this->setOutlineColor(Color::Red);
     this->setOutlineThickness(3.f);
 }
 
+/// set this lane as unselected
 void Lane::Unselect()
 {
     this->setOutlineColor(WhiteColor);

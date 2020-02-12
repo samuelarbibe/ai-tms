@@ -61,8 +61,8 @@ public:
 private:
 
     void on_init();
-    void on_update();
-    void on_draw();
+    void cycle();
+    void render();
 
     void input();
     void draw_minimap();

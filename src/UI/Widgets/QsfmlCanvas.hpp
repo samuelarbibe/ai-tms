@@ -23,7 +23,7 @@ public :
 private :
 
     virtual void on_init(){}
-    virtual void on_update(){}
+    virtual void cycle(){}
 
     virtual QPaintEngine* paintEngine() const;
     virtual void showEvent(QShowEvent*);

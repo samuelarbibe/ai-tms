@@ -70,6 +70,7 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane *
     data_box_->AddData("ID", vehicle_number_);
 }
 
+/// delete all active vehicles
 void Vehicle::DeleteAllVehicles()
 {
     for (Vehicle *v : Vehicle::ActiveVehicles) {
@@ -80,6 +81,7 @@ void Vehicle::DeleteAllVehicles()
     ClearVehicles();
 }
 
+/// clear the 'to be deleted' vehicles
 void Vehicle::ClearVehicles()
 {
     auto it = ActiveVehicles.begin();

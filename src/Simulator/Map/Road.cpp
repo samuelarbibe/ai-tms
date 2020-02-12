@@ -211,8 +211,7 @@ void Road::UpdateEndPosition(Vector2f position)
     ReAssignLanePositions();
 }
 
-
-
+/// check if a road has been selected
 Lane * Road::CheckSelection(Vector2f position)
 {
     // for each intersection in map
@@ -227,7 +226,7 @@ Lane * Road::CheckSelection(Vector2f position)
     return nullptr;
 }
 
-/// update, for future use
+/// update, for databoxes ect.
 void Road::Update(float elapsedTime)
 {
     current_vehicle_count_ = 0;
@@ -242,6 +241,7 @@ void Road::Update(float elapsedTime)
     data_box_->SetData("Count", current_vehicle_count_);
 }
 
+/// delete a given lane in this road
 bool Road::DeleteLane(int laneNumber)
 {
     Lane * targetLane = this->GetLane(laneNumber);

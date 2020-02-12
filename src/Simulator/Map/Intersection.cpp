@@ -213,6 +213,7 @@ void Intersection::ReloadIntersection()
     ReAssignRoadPositions();
 }
 
+/// check if a road in this intersection has been selected
 Lane * Intersection::CheckSelection(Vector2f position)
 {
     // for each intersection in map
@@ -226,6 +227,7 @@ Lane * Intersection::CheckSelection(Vector2f position)
     return nullptr;
 }
 
+/// return the lane count in this intersection
 int Intersection::GetLaneCount()
 {
     int sum = 0;
@@ -247,6 +249,7 @@ void Intersection::Update(float elapsedTime)
     }
 }
 
+/// delete a given lane in this intersection
 bool Intersection::DeleteLane(int laneNumber)
 {
     Lane * targetLane = this->GetLane(laneNumber);

@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <list>
+#include <set>
 
 #include <SFML/Graphics.hpp>
 #include <QString>
@@ -41,9 +42,9 @@ public:
     vector<Intersection*> * GetIntersections(){return &(intersections_);};
     Road * GetRoad(int roadNumber);
     Lane * GetLane(int laneNumber);
-    QStringList GetLaneIdList();
-    QStringList GetRoadIdList();
-    QStringList GetIntersectionIdList();
+    set<QString> GetLaneIdList();
+    set<QString> GetRoadIdList();
+    set<QString> GetIntersectionIdList();
     int GetIntersectionCount(){return number_of_intersections_;};
     int GetRoadCount();
     int GetLaneCount();

@@ -69,7 +69,7 @@ QPaintEngine* QSFMLCanvas::paintEngine() const
 void QSFMLCanvas::paintEvent(QPaintEvent*)
 {
     // Let the derived class do its specific stuff
-    on_update();
+    cycle();
 
     // Display on screen
     display();

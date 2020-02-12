@@ -206,6 +206,7 @@ pair<ConnectionSides, ConnectionSides> Map::AssignConnectionSides( Vector2f pos1
     return connections;
 }
 
+/// check if a road has been selected int this map
 Lane * Map::CheckSelection(Vector2f position)
 {
     // for each intersection in map
@@ -238,6 +239,7 @@ void Map::Update(float elapsedTime)
     }
 }
 
+/// return road count in this map
 int Map::GetRoadCount()
 {
     int sum = 0;
@@ -250,6 +252,7 @@ int Map::GetRoadCount()
     return sum;
 }
 
+/// return lane count int this map
 int Map::GetLaneCount()
 {
     int sum = 0;
@@ -262,6 +265,7 @@ int Map::GetLaneCount()
     return sum;
 }
 
+/// delete a given lane in this map
 bool Map::DeleteLane(int laneNumber)
 {
     Intersection * targetIntersection = GetIntersectionByLaneNumber(laneNumber);
@@ -300,16 +304,17 @@ void Map::Draw(RenderWindow * window)
     }
 }
 
-QStringList Map::GetLaneIdList()
+/// return a list of all the lanes' id's
+set<QString> Map::GetLaneIdList()
 {
-    QStringList idList = QStringList();
+    set<QString> idList = set<QString>();
     for(Intersection * inter : intersections_)
     {
         for(Road * road : *inter->GetRoads())
         {
             for (Lane * lane : *road->GetLanes())
             {
-                idList.append(QString::number(lane->GetLaneNumber()));
+                idList.insert(QString::number(lane->GetLaneNumber()));
             }
         }
     }
@@ -317,26 +322,28 @@ QStringList Map::GetLaneIdList()
     return idList;
 }
 
-QStringList Map::GetRoadIdList()
+/// return a list of all the roads' id's
+set<QString> Map::GetRoadIdList()
 {
-    QStringList idList = QStringList();
+    set<QString> idList = set<QString>();
     for(Intersection * inter : intersections_)
     {
         for(Road * road : *inter->GetRoads())
         {
-            idList.append(QString::number(road->GetRoadNumber()));
+            idList.insert(QString::number(road->GetRoadNumber()));
         }
     }
 
     return idList;
 }
 
-QStringList Map::GetIntersectionIdList()
+/// return a list of all the intersections' id's
+set<QString> Map::GetIntersectionIdList()
 {
-    QStringList idList = QStringList();
+    set<QString> idList = set<QString>();
     for(Intersection * inter : intersections_)
     {
-        idList.append(QString::number(inter->GetIntersectionNumber()));
+        idList.insert(QString::number(inter->GetIntersectionNumber()));
     }
 
     return idList;

@@ -13,7 +13,7 @@ bool Settings::DrawVehicleDataBoxes = false;
 bool Settings::DrawRoadDataBoxes = false;
 bool Settings::DrawGrid = false;
 
-int Settings::MaxFps = 120;
+int Settings::MaxFps = 1000;
 bool Settings::MultiColor = true;
 float Settings::MinDistanceFromNextCar = 166;
 float Settings::MinDistanceFromStop = 66;

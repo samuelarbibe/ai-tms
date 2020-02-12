@@ -9,7 +9,6 @@
 #include "Engine.hpp"
 
 
-
 Engine::Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000/Settings::MaxFps)
 {
 
@@ -45,6 +44,7 @@ void Engine::on_init()
     map->AddLane(0, 2, true);
 }
 
+/// set the viewport for the camera
 void Engine::SetView()
 {
     // view setup
@@ -54,6 +54,7 @@ void Engine::SetView()
     update_shown_area();
 }
 
+/// build the minimap
 void Engine::SetMinimap(float size, float margin)
 {
     // minimap viewPort setup
@@ -79,7 +80,7 @@ void Engine::SetMinimap(float size, float margin)
     update_shown_area();
 }
 
-
+/// update camera after movement, and enforce overflow
 void Engine::UpdateView(Vector2f posDelta, float newZoom)
 {
     // view_pos_ is position before dragging
@@ -107,6 +108,7 @@ void Engine::UpdateView(Vector2f posDelta, float newZoom)
     SetView();
 }
 
+/// update the shown area index in minimap
 void Engine::update_shown_area()
 {
     // calculate the actual position of the shown area
@@ -122,6 +124,7 @@ void Engine::update_shown_area()
     this->shown_area_index_.setPosition(position);
 }
 
+/// build the snap grid
 void Engine::BuildGrid(int rows, int cols)
 {
     snap_grid_.Lines.clear(); // clear the old lines list
@@ -152,6 +155,7 @@ void Engine::BuildGrid(int rows, int cols)
     }
 }
 
+/// display a given point on the map
 Vector2f Engine::DrawPoint(Vector2f position)
 {
     // convert it to units according to screen pixel to display ratio
@@ -180,6 +184,7 @@ Vector2f Engine::DrawPoint(Vector2f position)
     return temp;
 }
 
+/// generate a grid-snapped point with a given point
 Vector2f Engine::GetSnappedPoint(Vector2f point)
 {
     float x = 0, y = 0;
@@ -205,6 +210,7 @@ Vector2f Engine::GetSnappedPoint(Vector2f point)
     return Vector2f(x,y);
 }
 
+/// check if a road was selected
 void Engine::check_selection(Vector2f position)
 {
     Lane * temp = map->CheckSelection(position);
@@ -382,11 +388,11 @@ void Engine::ResetMap()
 }
 
 /// do the game cycle (input->update->draw)
-void Engine::on_update()
+void Engine::cycle()
 {
     input();
     update((timer_.interval() / 1000.f));
-    on_draw();
+    render();
 }
 
 /// update all the engine's objects
@@ -402,12 +408,10 @@ void Engine::update(float elapsedTime)
     if(Settings::DrawFps)cout << "FPS : " << 1.f/elapsedTime << endl;
     //clear all cars to be deleted
     Vehicle::ClearVehicles();
-
-    on_draw();
 }
 
 /// render the engine's objects
-void Engine::on_draw()
+void Engine::render()
 {
     // Clean out the last frame
     clear(BackgroundColor);
@@ -436,6 +440,7 @@ void Engine::on_draw()
     this->setView(minimap_); // switch to minimap for rendering
     draw_minimap(); // render minimap
     this->setView(view_); // switch back to main view
+
 }
 
 /// drawing the minimap is drawing everything but the vehicles and the grid, on a smaller scale
