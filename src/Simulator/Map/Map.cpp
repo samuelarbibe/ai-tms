@@ -42,6 +42,8 @@ Map::~Map()
 /// add an intersection to the map
 Intersection * Map::AddIntersection(int intersectionNumber, Vector2f position)
 {
+    SelectedLane = nullptr;
+
     if(!intersectionNumber)
     {
         intersectionNumber = Intersection::IntersectionCount + 1;
@@ -60,19 +62,26 @@ Intersection * Map::AddIntersection(int intersectionNumber, Vector2f position)
 /// add a road to a specific intersection
 Road * Map::AddRoad(int roadNumber, int intersectionNumber, int connectionSide, float length)
 {
+    SelectedLane = nullptr;
+
     Intersection * temp = GetIntersection(intersectionNumber);
+    Road * tempRoad = nullptr;
 
     if(temp)
     {
-        return temp->AddRoad(roadNumber, connectionSide, length);
+        tempRoad = temp->AddRoad(roadNumber, connectionSide, length);
     }
 
-    return nullptr;
+    this->ReloadMap();
+
+    return tempRoad;
 }
 
 /// add a road to a specific road
 Lane * Map::AddLane(int laneNumber, int roadNumber, bool isInRoadDirection)
 {
+    SelectedLane = nullptr;
+
     Road *tempRoad = GetRoad(roadNumber);
     Intersection *temp = nullptr;
     Lane * tempLane = nullptr;
@@ -95,6 +104,8 @@ Lane * Map::AddLane(int laneNumber, int roadNumber, bool isInRoadDirection)
 /// add a road connecting between two intersections
 Road * Map::AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2)
 {
+    SelectedLane = nullptr;
+
     Intersection * inter1 = GetIntersection(intersectionNumber1);
     Intersection * inter2 = GetIntersection(intersectionNumber2);
 
@@ -121,12 +132,16 @@ Road * Map::AddConnectingRoad(int roadNumber, int intersectionNumber1, int inter
     pair<ConnectionSides, ConnectionSides> connections;
     connections = AssignConnectionSides(inter1->getPosition(), inter2->getPosition());
 
-    return inter1->AddConnectingRoad(roadNumber, connections.first, connections.second, inter2);
+    Road * temp = inter1->AddConnectingRoad(roadNumber, connections.first, connections.second, inter2);
+
+    this->ReloadMap();
+    return temp;
 }
 
 /// add a possible route in this map
 bool Map::AddRoute(int from, int to)
 {
+
     Lane * fromLane = GetLane(from);
     Lane * toLane = GetLane(to);
 
@@ -147,11 +162,38 @@ bool Map::AddRoute(int from, int to)
     }
 }
 
-Route * Map::GetRandomRoute()
+/// finds all starting lanes
+void Map::FindStartingLanes()
 {
-    if(routes_.size() == 0) return nullptr;
-    int randomIndex = rand() % routes_.size();
-    return routes_[randomIndex];
+    // for a lane to be a starting lane, it has to be in a non-connecting road,
+    // and it has to have isInRoadDirection = false;
+
+    starting_lanes_.clear();
+
+    for(Intersection * inter : intersections_)
+    {
+        for(Road * road  : *inter->GetRoads())
+        {
+            if(!road->GetIsConnecting())
+            {
+                for (Lane *lane : *road->GetLanes())
+                {
+                    if(!lane->GetIsInRoadDirection())
+                    {
+                        starting_lanes_.push_back(lane);
+                    }
+                }
+            }
+        }
+    }
+}
+
+/// returns a possible starting lane
+Lane * Map::GetPossibleStartingLane()
+{
+    if(starting_lanes_.empty())return nullptr;
+    int randomIndex = rand() % starting_lanes_.size();
+    return starting_lanes_[randomIndex];
 }
 
 /// returns a possible route according to the given lane
@@ -168,7 +210,6 @@ Route * Map::GetPossibleRoute(int fromLane)
             }
         }
     }
-    cout << "could not find a corresponding route " << endl;
     return nullptr;
 }
 
@@ -285,6 +326,8 @@ void Map::ReloadMap()
     {
         i->ReloadIntersection();
     }
+
+    FindStartingLanes();
 }
 
 /// update, for future use

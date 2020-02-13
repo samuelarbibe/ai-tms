@@ -35,6 +35,7 @@ Engine::Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000/Settings::MaxFps)
 /// set up the map according to the selected presets
 void Engine::on_init()
 {
+    /*
     map->AddIntersection(0, map->GetSize()/2.f);
 
     map->AddRoad(0, 1, LEFT, Settings::DefaultLaneLength);
@@ -49,6 +50,7 @@ void Engine::on_init()
 
     map->AddLane(0, 3, false);
     map->AddLane(0, 3, true);
+    */
 }
 
 /// set the viewport for the camera
@@ -322,8 +324,6 @@ void Engine::LoadMap(string loadDirectory)
     {
         cout << "Could not load map from this directory." << endl;
         cout << e.what() << endl;
-        cout << "Reloading Previous map..." << endl;
-        // TODO: find solution for backing up map
     }
 }
 
@@ -351,36 +351,51 @@ void Engine::SaveMap(string saveDirectory)
                                           {"intersection_number", road->GetIntersectionNumber()},
                                           {"connection_side", road->GetConnectionSide()}
                                       });
+
+                for (Lane * lane : *road->GetLanes())
+                {
+                    j["lanes"].push_back(
+                            {
+                                    {"id", lane->GetRoadNumber()},
+                                    {"road_number", lane->GetRoadNumber()},
+                                    {"is_in_road_direction", lane->GetIsInRoadDirection()}
+                            });
+                }
             }
             else
             {
-                j["connecting_roads"].push_back(
-                                      {
-                                              {"id", road->GetRoadNumber()},
-                                              {"intersection_number", {road->GetIntersectionNumber(0), road->GetIntersectionNumber(1)}}
-                                      });
-            }
+                // only save the connecting road once for the connected intersection
+                if(inter->GetIntersectionNumber() == road->GetIntersectionNumber(0))
+                {
+                    j["connecting_roads"].push_back(
+                            {
+                                    {"id",                  road->GetRoadNumber()},
+                                    {"intersection_number", {road->GetIntersectionNumber(
+                                            0), road->GetIntersectionNumber(1)}}
+                            });
 
-            for (Lane * lane : *road->GetLanes())
-            {
-                j["lanes"].push_back(
-                                      {
-                                              {"id", lane->GetRoadNumber()},
-                                              {"road_number", lane->GetRoadNumber()},
-                                              {"is_in_road_direction", lane->GetIsInRoadDirection()}
-                                      });
-            }
-        }
-
-        for(Route * route : *map->GetRoutes())
-        {
-            j["routes"].push_back(
+                    for (Lane * lane : *road->GetLanes())
                     {
-                            {"from", route->from->GetLaneNumber()},
-                            {"to", route->to->GetLaneNumber()}
+                        j["lanes"].push_back(
+                                {
+                                        {"id", lane->GetRoadNumber()},
+                                        {"road_number", lane->GetRoadNumber()},
+                                        {"is_in_road_direction", lane->GetIsInRoadDirection()}
+                                });
                     }
-            );
+                }
+            }
         }
+    }
+
+    for(Route * route : *map->GetRoutes())
+    {
+        j["routes"].push_back(
+                {
+                        {"from", route->from->GetLaneNumber()},
+                        {"to", route->to->GetLaneNumber()}
+                }
+        );
     }
 
     // write to file
@@ -430,8 +445,15 @@ void Engine::update(float elapsedTime)
 /// add a vehicle at a random track
 bool Engine::AddVehicleRandomly()
 {
-    // find a random route
-    Route * r = map->GetRandomRoute();
+    // find a random starting point
+    Lane * l = map->GetPossibleStartingLane();
+    if(l == nullptr)
+    {
+        cout << "no starting lanes available." << endl;
+        return false;
+    }
+    // find a starting route from starting lane
+    Route * r = map->GetPossibleRoute(l->GetLaneNumber());
 
     if(r == nullptr)
     {
@@ -439,10 +461,19 @@ bool Engine::AddVehicleRandomly()
         return false;
     }
 
-    queue<Lane*> * tempQueue = new queue<Lane*>();
+    // while new routes to append are available
+    // new routes will be searched starting from the previous route end
+    queue<Lane*> * tempQueue = new queue<Lane*>();;
+    Lane * lastLane;
 
-    tempQueue->push(r->from);
-    tempQueue->push(r->to);
+    while(r != nullptr)
+    {
+        tempQueue->push(r->from);
+        lastLane = r->to;
+        r = map->GetPossibleRoute(r->to->GetLaneNumber());
+    }
+    tempQueue->push(lastLane);
+
 
     Vehicle::AddVehicle(tempQueue, this->map);
 }

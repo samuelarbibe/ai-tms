@@ -50,13 +50,16 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane *
     vehicle_in_front_ = nullptr;
 
     // if vehicle texture hasn't been loaded yet, load it
-    if (Vehicle::LoadVehicleTextures(vehicle_type_)) {
+    if (Vehicle::LoadVehicleTextures(vehicle_type_))
+    {
 
         // set up sprite
         int textureNumber;
-        if (Settings::MultiColor) {
+        if (Settings::MultiColor)
+        {
             textureNumber = (vehicle_number_ % vehicle_type_->ImageCount);
-        } else {
+        } else
+        {
             textureNumber = 1;
         }
 
@@ -74,7 +77,8 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane *
 /// delete all active vehicles
 void Vehicle::DeleteAllVehicles()
 {
-    for (Vehicle *v : Vehicle::ActiveVehicles) {
+    for (Vehicle *v : Vehicle::ActiveVehicles)
+    {
         v->state_ = DELETE;
         to_be_deleted_++;
     }
@@ -88,9 +92,11 @@ void Vehicle::ClearVehicles()
     auto it = ActiveVehicles.begin();
 
     // while there are cars to delete;
-    while (to_be_deleted_ != 0 && it != ActiveVehicles.end()) {
+    while (to_be_deleted_ != 0 && it != ActiveVehicles.end())
+    {
         // if is to be deleted
-        if ((*it)->GetState() == DELETE) {
+        if ((*it)->GetState() == DELETE)
+        {
             Vehicle *temp = (*it);
             it = ActiveVehicles.erase(it);
 
@@ -98,7 +104,8 @@ void Vehicle::ClearVehicles()
 
             to_be_deleted_--;
             if (Settings::DrawActive)cout << "active vehicles : " << ActiveVehicles.size() << endl;
-        } else {
+        } else
+        {
             it++;
         }
     }
@@ -128,18 +135,22 @@ Vehicle *Vehicle::AddVehicle(queue<Lane *> *instructionSet, Map *map, VehicleTyp
 /// load textures as required
 bool Vehicle::LoadVehicleTextures(VehicleType *vehicleType)
 {
-    if (vehicleType->Textures == nullptr) {
+    if (vehicleType->Textures == nullptr)
+    {
         vehicleType->Textures = new vector<Texture>();
 
         string directory;
         Texture tempTexture;
-        for (int i = 1; i <= vehicleType->ImageCount; ++i) {
+        for (int i = 1; i <= vehicleType->ImageCount; ++i)
+        {
             directory = vehicleType->ImageDir + to_string(i) + ".png";
 
-            if (tempTexture.loadFromFile(directory)) {
+            if (tempTexture.loadFromFile(directory))
+            {
                 tempTexture.setSmooth(true);
                 vehicleType->Textures->push_back(tempTexture);
-            } else {
+            } else
+            {
                 cerr << "loading texture no." << i << " for " << vehicleType->VehicleTypeName << " failed" << endl;
             }
         }
@@ -156,7 +167,8 @@ bool Vehicle::LoadVehicleTextures(VehicleType *vehicleType)
 /// convert vehicleTypeOption to VehicleType struct
 VehicleType *Vehicle::GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions)
 {
-    switch (vehicleTypeOptions) {
+    switch (vehicleTypeOptions)
+    {
         case TRUCK:
             return &(Vehicle::Truck);
         case MOTORCYCLE:
@@ -170,8 +182,10 @@ VehicleType *Vehicle::GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptio
 /// get vehicle by vehicleNumber
 Vehicle *Vehicle::GetVehicle(int vehicleNumber)
 {
-    for (Vehicle *v : ActiveVehicles) {
-        if (v->vehicle_number_ == vehicleNumber) {
+    for (Vehicle *v : ActiveVehicles)
+    {
+        if (v->vehicle_number_ == vehicleNumber)
+        {
             return v;
         }
     }
@@ -182,13 +196,16 @@ Vehicle *Vehicle::GetVehicle(int vehicleNumber)
 /// transfer a vehicle from a lane to another lane
 void Vehicle::TransferVehicle(Vehicle *vehicle, Lane *toLane, Lane *fromLane)
 {
-    if (vehicle == nullptr) {
+    if (vehicle == nullptr)
+    {
         cout << "vehicle not found" << endl;
         return;
     }
 
-    if (fromLane != nullptr) {
-        if (vehicle->source_lane_->GetLaneNumber() != fromLane->GetLaneNumber()) {
+    if (fromLane != nullptr)
+    {
+        if (vehicle->source_lane_->GetLaneNumber() != fromLane->GetLaneNumber())
+        {
             cout << "vehicle is not in the given lane" << endl;
             return;
         }
@@ -206,9 +223,11 @@ void Vehicle::TransferVehicle(Vehicle *vehicle, Lane *toLane, Lane *fromLane)
 
     vehicle->instruction_set_->pop();
     // if there are instructions left, transfer them to vehicle
-    if (!vehicle->instruction_set_->empty()) {
+    if (!vehicle->instruction_set_->empty())
+    {
         vehicle->dest_lane_ = vehicle->instruction_set_->front();
-    } else {
+    } else
+    {
         vehicle->dest_lane_ = nullptr;
     }
 }
@@ -220,13 +239,15 @@ State Vehicle::drive()
     // while cars dont have a min distance, they wont start driving
 
     // check for distance with car in front
-    if (vehicle_in_front_ != nullptr && vehicle_in_front_->state_ != DELETE) {
+    if (vehicle_in_front_ != nullptr && vehicle_in_front_->state_ != DELETE)
+    {
         float distanceFromNextCar = Settings::CalculateDistance(position_, vehicle_in_front_->position_);
         //cout << distanceFromNextCar << endl;
         float brakingDistance = -(speed_ * speed_) / (2 * min_acc_);
 
         if (distanceFromNextCar < brakingDistance + Settings::MinDistanceFromNextCar ||
-            distanceFromNextCar < Settings::MinDistanceFromNextCar) {
+            distanceFromNextCar < Settings::MinDistanceFromNextCar)
+        {
             turning_ = false;
             state_ = STOP;
             acc_ = min_acc_;
@@ -243,10 +264,10 @@ State Vehicle::drive()
         {
             float distanceSourceTarget = Settings::CalculateDistance(source_lane_->GetEndPosition(),
                                                                      dest_lane_->GetStartPosition());
-            float angle = -(source_lane_->GetDirection() - dest_lane_->GetDirection()) + 0.00001;
+            float angle = -(source_lane_->GetDirection() - dest_lane_->GetDirection()) + 0.00001f;
 
             // if turning left
-            if(angle > 180)
+            if (angle > 180)
             {
                 angle -= 360;
             }
@@ -262,7 +283,8 @@ State Vehicle::drive()
             turning_ = true;
         }
 
-        if (source_lane_ != nullptr) {
+        if (source_lane_ != nullptr)
+        {
             prev_intersection_ = curr_map_->GetIntersection(source_lane_->GetIntersectionNumber());
             prev_intersection_->AddVehicleCount();
             source_lane_->RemoveVehicleCount();
@@ -277,11 +299,13 @@ State Vehicle::drive()
 
     // check distance from stop (if lane is blocked)
     if (source_lane_ != nullptr && source_lane_ != dest_lane_ && source_lane_->GetIsBlocked() &&
-        !sprite_.getGlobalBounds().contains(source_lane_->GetEndPosition())) {
+        !sprite_.getGlobalBounds().contains(source_lane_->GetEndPosition()))
+    {
         float distanceFromStop = Settings::CalculateDistance(this->position_, source_lane_->GetEndPosition());
         float brakingDistance = -(speed_ * speed_) / (2 * min_acc_);
 
-        if (distanceFromStop < brakingDistance + Settings::MinDistanceFromStop) {
+        if (distanceFromStop < brakingDistance + Settings::MinDistanceFromStop)
+        {
             turning_ = false;
             state_ = STOP;
             acc_ = min_acc_;
@@ -290,7 +314,8 @@ State Vehicle::drive()
     }
 
     // check if car has left intersection and is now in targetLane
-    if (dest_lane_ != nullptr && dest_lane_->getGlobalBounds().contains(position_)) {
+    if (dest_lane_ != nullptr && dest_lane_->getGlobalBounds().contains(position_))
+    {
         // remove count from previous lane, and set in to nullptr
         prev_intersection_->RemoveVehicleCount();
         prev_intersection_ = nullptr;
@@ -305,7 +330,8 @@ State Vehicle::drive()
     }
 
     // check if car is no longer in intersection
-    if (dest_lane_ == nullptr && !source_lane_->getGlobalBounds().contains(position_)) {
+    if (dest_lane_ == nullptr && !source_lane_->getGlobalBounds().contains(position_))
+    {
         source_lane_->RemoveVehicleCount();
 
         turning_ = false;
@@ -325,7 +351,8 @@ State Vehicle::drive()
 /// update a vehicle's location
 void Vehicle::Update(float elapsedTime)
 {
-    if(Settings::DrawVehicleDataBoxes) {
+    if (Settings::DrawVehicleDataBoxes)
+    {
         data_box_->Update(position_);
         data_box_->SetData("Speed", Settings::ConvertVelocity(PXS, KMH, speed_));
     }

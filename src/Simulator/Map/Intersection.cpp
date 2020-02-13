@@ -26,6 +26,8 @@ Intersection::Intersection(Vector2f position, int intersectionNumber) : Rectangl
     this->setSize(Vector2f(width_, height_));
 };
 
+
+// TODO: fix road deletion
 Intersection::~Intersection()
 {
     for (Road * road : roads_)

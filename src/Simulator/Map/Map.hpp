@@ -37,6 +37,7 @@ public:
     void   ReloadMap();
 
     Vector2f GetSize(){return Vector2f(width_, height_);}
+    void FindStartingLanes();
     Intersection * AddIntersection(int intersectionNumber, Vector2f position);
     Road * AddRoad(int roadNumber, int intersectionNumber, int connectionSide, float length);
     Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
@@ -55,10 +56,10 @@ public:
     pair<ConnectionSides, ConnectionSides> AssignConnectionSides(Vector2f pos1, Vector2f pos2);
     Lane * SelectedLane;
     Lane * CheckSelection(Vector2f position);
-    Route * GetRandomRoute();
     vector<Route*> * GetRoutes(){return &routes_;}
     bool AddRoute(int from, int to);
     Route * GetPossibleRoute(int from);
+    Lane * GetPossibleStartingLane();
 
 private:
 
@@ -71,6 +72,7 @@ private:
 
     Vector2i position_;
 
+    vector<Lane*> starting_lanes_;
     vector<Intersection*> intersections_;
 };
 

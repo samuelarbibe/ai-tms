@@ -54,12 +54,12 @@ void MainWindow::reloadOptionData()
     }
 
     ui->FromLaneComboBox->clear();
-    ui->ToRoadComboBox->clear();
+    ui->ToLaneComboBox->clear();
 
     for(QString sd : SimulatorEngine->map->GetLaneIdList())
     {
         ui->FromLaneComboBox->addItem(sd);
-        ui->ToRoadComboBox->addItem(sd);
+        ui->ToLaneComboBox->addItem(sd);
     }
 }
 
@@ -411,13 +411,13 @@ void MainWindow::on_RunSimulationButton_clicked()
 void MainWindow::on_AddRouteButton_clicked()
 {
     int lane1 = ui->FromLaneComboBox->currentText().toInt();
-    int lane2 = ui->FromLaneComboBox->currentText().toInt();
+    int lane2 = ui->ToLaneComboBox->currentText().toInt();
 
     if(lane1 != 0 && lane2 != 0)
     {
         if(SimulatorEngine->map->AddRoute(lane1, lane2))
         {
-            ui->statusbar->showMessage(tr("Route Added Successfully: Lane"));
+            ui->statusbar->showMessage(tr("Route Added Successfully."));
             return;
         }
     }
