@@ -52,6 +52,15 @@ void MainWindow::reloadOptionData()
     {
         ui->ToRoadComboBox->addItem(sd);
     }
+
+    ui->FromLaneComboBox->clear();
+    ui->ToRoadComboBox->clear();
+
+    for(QString sd : SimulatorEngine->map->GetLaneIdList())
+    {
+        ui->FromLaneComboBox->addItem(sd);
+        ui->ToRoadComboBox->addItem(sd);
+    }
 }
 
 
@@ -387,4 +396,35 @@ void MainWindow::on_PauseButton_clicked()
         text.append(QString::number(Settings::Speed));
         ui->RunningSpeedLabel->setText(text);
     }
+}
+
+void MainWindow::on_RunSimulationButton_clicked()
+{
+    int amount = ui->CarCountSpinBox->value();
+
+    for(int i = 0; i < amount; i++)
+    {
+        SimulatorEngine->AddVehicleRandomly();
+    }
+}
+
+void MainWindow::on_AddRouteButton_clicked()
+{
+    int lane1 = ui->FromLaneComboBox->currentText().toInt();
+    int lane2 = ui->FromLaneComboBox->currentText().toInt();
+
+    if(lane1 != 0 && lane2 != 0)
+    {
+        if(SimulatorEngine->map->AddRoute(lane1, lane2))
+        {
+            ui->statusbar->showMessage(tr("Route Added Successfully: Lane"));
+            return;
+        }
+    }
+    ui->statusbar->showMessage(tr("Could not add Route"));
+}
+
+void MainWindow::on_ReloadButton_clicked()
+{
+     reloadOptionData();
 }

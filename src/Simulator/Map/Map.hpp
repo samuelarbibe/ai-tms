@@ -18,6 +18,11 @@
 using namespace sf;
 using namespace std;
 
+struct Route{
+    Lane * from;
+    Lane * to;
+};
+
 class Map
 {
 
@@ -30,7 +35,6 @@ public:
     void   Draw(RenderWindow *window);
     bool   DeleteLane(int laneNumber);
     void   ReloadMap();
-
 
     Vector2f GetSize(){return Vector2f(width_, height_);}
     Intersection * AddIntersection(int intersectionNumber, Vector2f position);
@@ -45,12 +49,16 @@ public:
     set<QString> GetLaneIdList();
     set<QString> GetRoadIdList();
     set<QString> GetIntersectionIdList();
-    int GetIntersectionCount(){return number_of_intersections_;};
+    int GetIntersectionCount(){return number_of_intersections_;}
     int GetRoadCount();
     int GetLaneCount();
     pair<ConnectionSides, ConnectionSides> AssignConnectionSides(Vector2f pos1, Vector2f pos2);
     Lane * SelectedLane;
     Lane * CheckSelection(Vector2f position);
+    Route * GetRandomRoute();
+    vector<Route*> * GetRoutes(){return &routes_;}
+    bool AddRoute(int from, int to);
+    Route * GetPossibleRoute(int from);
 
 private:
 
@@ -58,6 +66,8 @@ private:
     int number_of_intersections_;
     int width_;
     int height_;
+
+    vector<Route*> routes_;
 
     Vector2i position_;
 

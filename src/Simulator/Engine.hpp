@@ -52,6 +52,7 @@ public:
     void SaveMap(string saveDirectory);
     void LoadMap(string loadDirectory);
     void ResetMap();
+    bool AddVehicleRandomly();
 
     Vector2f DrawPoint(Vector2f position);
     Vector2f GetSnappedPoint(Vector2f point);

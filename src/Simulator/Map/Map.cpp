@@ -27,6 +27,15 @@ Map::~Map()
         delete inter;
     }
 
+    for (Route * route : routes_)
+    {
+        delete route;
+    }
+
+    Lane::LaneCount = 0;
+    Road::RoadCount = 0;
+    Intersection::IntersectionCount = 0;
+
     if(Settings::DrawDelete)cout << "Map " << map_number_ << " deleted" << endl;
 }
 
@@ -113,6 +122,54 @@ Road * Map::AddConnectingRoad(int roadNumber, int intersectionNumber1, int inter
     connections = AssignConnectionSides(inter1->getPosition(), inter2->getPosition());
 
     return inter1->AddConnectingRoad(roadNumber, connections.first, connections.second, inter2);
+}
+
+/// add a possible route in this map
+bool Map::AddRoute(int from, int to)
+{
+    Lane * fromLane = GetLane(from);
+    Lane * toLane = GetLane(to);
+
+    if(fromLane != nullptr && toLane != nullptr)
+    {
+        Route * r = new Route();
+        r->from = fromLane;
+        r->to = toLane;
+        routes_.emplace_back(r);
+
+        cout << "Route added from " << r->from->GetLaneNumber() << " to " << r->to->GetLaneNumber() << endl;
+        return true;
+    }
+    else
+    {
+        cout << "could not create possible lane, as one of the roads was not found" << endl;
+        return false;
+    }
+}
+
+Route * Map::GetRandomRoute()
+{
+    if(routes_.size() == 0) return nullptr;
+    int randomIndex = rand() % routes_.size();
+    return routes_[randomIndex];
+}
+
+/// returns a possible route according to the given lane
+Route * Map::GetPossibleRoute(int fromLane)
+{
+    Lane * myLane = GetLane(fromLane);
+
+    if(myLane != nullptr)
+    {
+        for (Route *r : routes_)
+        {
+            if (r->from->GetLaneNumber() == myLane->GetLaneNumber()) {
+                return r;
+            }
+        }
+    }
+    cout << "could not find a corresponding route " << endl;
+    return nullptr;
 }
 
 /// get intersection by intersectionNumber
@@ -348,6 +405,10 @@ set<QString> Map::GetIntersectionIdList()
 
     return idList;
 }
+
+
+
+
 
 
 

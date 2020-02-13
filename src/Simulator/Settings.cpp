@@ -5,7 +5,7 @@
 #include "Settings.hpp"
 
 bool Settings::DrawFps = false;
-bool Settings::DrawActive = false;
+bool Settings::DrawActive = true;
 bool Settings::DrawDelete = true;
 bool Settings::DrawAdded = true;
 
@@ -13,7 +13,7 @@ bool Settings::DrawVehicleDataBoxes = false;
 bool Settings::DrawRoadDataBoxes = false;
 bool Settings::DrawGrid = false;
 
-int Settings::MaxFps = 1000;
+int Settings::MaxFps = 120;
 bool Settings::MultiColor = true;
 float Settings::MinDistanceFromNextCar = 166;
 float Settings::MinDistanceFromStop = 66;
@@ -99,9 +99,9 @@ float Settings::MaxSpeeds[3]
 };
 float Settings::MaxAcceleration[3]
 {
-    ConvertVelocity(KMH, PXS, 3.f),
-    ConvertVelocity(KMH, PXS, 2.5f),
-    ConvertVelocity(KMH, PXS, 3.5f)
+    ConvertVelocity(KMH, PXS, 4.f),
+    ConvertVelocity(KMH, PXS, 3.5f),
+    ConvertVelocity(KMH, PXS, 5.5f)
 };
 float Settings::MinAcceleration[3]
 {

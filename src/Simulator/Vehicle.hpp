@@ -86,6 +86,7 @@ private:
     float    min_acc_;
     float    rotation_;
     float    angular_vel_;
+    bool     turning_;
 
     Vehicle * vehicle_in_front_;
 

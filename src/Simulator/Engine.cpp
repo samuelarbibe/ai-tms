@@ -37,11 +37,18 @@ void Engine::on_init()
 {
     map->AddIntersection(0, map->GetSize()/2.f);
 
+    map->AddRoad(0, 1, LEFT, Settings::DefaultLaneLength);
     map->AddRoad(0, 1, DOWN, Settings::DefaultLaneLength);
     map->AddRoad(0, 1, RIGHT, Settings::DefaultLaneLength);
 
     map->AddLane(0, 1, false);
+    map->AddLane(0, 1, true);
+
+    map->AddLane(0, 2, false);
     map->AddLane(0, 2, true);
+
+    map->AddLane(0, 3, false);
+    map->AddLane(0, 3, true);
 }
 
 /// set the viewport for the camera
@@ -220,6 +227,7 @@ void Engine::check_selection(Vector2f position)
         map->SelectedLane->Unselect();
         map->SelectedLane = nullptr;
     }
+
     // if another lane is selected
     if(temp != nullptr)
     {
@@ -264,16 +272,11 @@ void Engine::input()
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
-        queue<Lane*> * tempQueue = new queue<Lane*>();
-
-        tempQueue->push(map->GetLane(1));
-        tempQueue->push(map->GetLane(2));
-
-        Vehicle::AddVehicle(tempQueue, this->map);
+        map->GetLane(1)->SetIsBlocked(true);
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
-        //inter->GetLane(2)->SetIsBlocked(false);
+        map->GetLane(1)->SetIsBlocked(false);
     }
 }
 
@@ -307,6 +310,10 @@ void Engine::LoadMap(string loadDirectory)
 
         for (auto data : j["lanes"]) {
             map->AddLane(data["id"], data["road_number"], data["is_in_road_direction"]);
+        }
+
+        for (auto data : j["routes"]) {
+            map->AddRoute(data["from"], data["to"]);
         }
 
         cout << "Map has been successfully loaded from '" << loadDirectory << "'. " << endl;
@@ -364,6 +371,16 @@ void Engine::SaveMap(string saveDirectory)
                                       });
             }
         }
+
+        for(Route * route : *map->GetRoutes())
+        {
+            j["routes"].push_back(
+                    {
+                            {"from", route->from->GetLaneNumber()},
+                            {"to", route->to->GetLaneNumber()}
+                    }
+            );
+        }
     }
 
     // write to file
@@ -408,6 +425,26 @@ void Engine::update(float elapsedTime)
     if(Settings::DrawFps)cout << "FPS : " << 1.f/elapsedTime << endl;
     //clear all cars to be deleted
     Vehicle::ClearVehicles();
+}
+
+/// add a vehicle at a random track
+bool Engine::AddVehicleRandomly()
+{
+    // find a random route
+    Route * r = map->GetRandomRoute();
+
+    if(r == nullptr)
+    {
+        cout << "no routes available. please add them to the map" << endl;
+        return false;
+    }
+
+    queue<Lane*> * tempQueue = new queue<Lane*>();
+
+    tempQueue->push(r->from);
+    tempQueue->push(r->to);
+
+    Vehicle::AddVehicle(tempQueue, this->map);
 }
 
 /// render the engine's objects
@@ -458,6 +495,8 @@ void Engine::draw_minimap()
     // Draw the shown area index
     this->draw(shown_area_index_);
 }
+
+
 
 
 

@@ -69,6 +69,12 @@ private slots:
 
     void on_PauseButton_clicked();
 
+    void on_RunSimulationButton_clicked();
+
+    void on_AddRouteButton_clicked();
+
+    void on_ReloadButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     Engine * SimulatorEngine;

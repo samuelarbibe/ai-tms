@@ -44,6 +44,7 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane *
     min_acc_ = Settings::MinAcceleration[vehicle_type_->Type];
 
     angular_vel_ = 0;
+    turning_ = 0;
     rotation_ = source_lane_->GetDirection();
     position_ = source_lane_->GetStartPosition();
     vehicle_in_front_ = nullptr;
@@ -77,7 +78,7 @@ void Vehicle::DeleteAllVehicles()
         v->state_ = DELETE;
         to_be_deleted_++;
     }
-
+    VehicleCount = 0;
     ClearVehicles();
 }
 
@@ -226,6 +227,7 @@ State Vehicle::drive()
 
         if (distanceFromNextCar < brakingDistance + Settings::MinDistanceFromNextCar ||
             distanceFromNextCar < Settings::MinDistanceFromNextCar) {
+            turning_ = false;
             state_ = STOP;
             acc_ = min_acc_;
             return STOP;
@@ -233,15 +235,21 @@ State Vehicle::drive()
     }
 
     // check if car is in between lanes (inside an intersection)
-    if (curr_intersection_->getGlobalBounds().contains(position_)) {
-        // TODO: fix turning left
-        if (angular_vel_ == 0) {
+    if (curr_intersection_->getGlobalBounds().contains(position_) &&
+        source_lane_ != nullptr &&
+        dest_lane_ != nullptr)
+    {
+        if (!turning_)
+        {
             float distanceSourceTarget = Settings::CalculateDistance(source_lane_->GetEndPosition(),
                                                                      dest_lane_->GetStartPosition());
+            float angle = -(source_lane_->GetDirection() - dest_lane_->GetDirection()) + 0.00001;
 
-            float angle = (source_lane_->GetDirection() - dest_lane_->GetDirection());
-
-            if (angle > 180) angle -= 360;
+            // if turning left
+            if(angle > 180)
+            {
+                angle -= 360;
+            }
 
             float turningRadius = (distanceSourceTarget / 2.f) / (sin(angle * M_PI / 360.f));
 
@@ -249,7 +257,9 @@ State Vehicle::drive()
 
             float turningDistance = (angle / 360.f) * turningParameter;
 
-            angular_vel_ = -angle / turningDistance;
+            angular_vel_ = angle / turningDistance;
+
+            turning_ = true;
         }
 
         if (source_lane_ != nullptr) {
@@ -260,7 +270,6 @@ State Vehicle::drive()
         }
 
         state_ = TURN;
-
         //set rotation
         acc_ = (Settings::AccWhileTurning) ? max_acc_ / 2.f : 0;
         return TURN;
@@ -273,6 +282,7 @@ State Vehicle::drive()
         float brakingDistance = -(speed_ * speed_) / (2 * min_acc_);
 
         if (distanceFromStop < brakingDistance + Settings::MinDistanceFromStop) {
+            turning_ = false;
             state_ = STOP;
             acc_ = min_acc_;
             return STOP;
@@ -288,6 +298,7 @@ State Vehicle::drive()
         // we need to transfer vehicle to target lane
         TransferVehicle(this, dest_lane_, source_lane_);
 
+        turning_ = false;
         acc_ = max_acc_;
         state_ = DRIVE;
         return DRIVE;
@@ -297,12 +308,14 @@ State Vehicle::drive()
     if (dest_lane_ == nullptr && !source_lane_->getGlobalBounds().contains(position_)) {
         source_lane_->RemoveVehicleCount();
 
-        to_be_deleted_++;
+        turning_ = false;
+        ++to_be_deleted_;
         state_ = DELETE;
         return DELETE;
     }
 
     // default = just drive
+    turning_ = false;
     acc_ = max_acc_;
     state_ = DRIVE;
     return DRIVE;
@@ -312,9 +325,10 @@ State Vehicle::drive()
 /// update a vehicle's location
 void Vehicle::Update(float elapsedTime)
 {
-
-    data_box_->Update(position_);
-    data_box_->SetData("Speed", Settings::ConvertVelocity(PXS, KMH, speed_));
+    if(Settings::DrawVehicleDataBoxes) {
+        data_box_->Update(position_);
+        data_box_->SetData("Speed", Settings::ConvertVelocity(PXS, KMH, speed_));
+    }
     drive();
     apply_changes(elapsedTime);
 }
