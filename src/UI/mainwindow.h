@@ -63,6 +63,8 @@ private slots:
 
     void on_ShowDataBoxesCheckBox_stateChanged(int arg1);
 
+    void on_ShowRoutesCheckBox_stateChanged(int arg1);
+
     void on_FasterButton_clicked();
 
     void on_SlowerButton_clicked();

@@ -22,6 +22,7 @@
 #include "Vehicle.hpp"
 #include "Settings.hpp"
 #include "../UI/Widgets/QsfmlCanvas.hpp"
+#include "Map/Route.hpp"
 
 
 using namespace sf;

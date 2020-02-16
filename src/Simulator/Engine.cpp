@@ -38,18 +38,13 @@ void Engine::on_init()
     /*
     map->AddIntersection(0, map->GetSize()/2.f);
 
-    map->AddRoad(0, 1, LEFT, Settings::DefaultLaneLength);
-    map->AddRoad(0, 1, DOWN, Settings::DefaultLaneLength);
     map->AddRoad(0, 1, RIGHT, Settings::DefaultLaneLength);
+    map->AddRoad(0, 1, DOWN, Settings::DefaultLaneLength);
 
     map->AddLane(0, 1, false);
-    map->AddLane(0, 1, true);
-
-    map->AddLane(0, 2, false);
     map->AddLane(0, 2, true);
 
-    map->AddLane(0, 3, false);
-    map->AddLane(0, 3, true);
+    map->AddRoute(1, 2);
     */
 }
 
@@ -392,8 +387,8 @@ void Engine::SaveMap(string saveDirectory)
     {
         j["routes"].push_back(
                 {
-                        {"from", route->from->GetLaneNumber()},
-                        {"to", route->to->GetLaneNumber()}
+                        {"from", route->FromLane->GetLaneNumber()},
+                        {"to", route->ToLane->GetLaneNumber()}
                 }
         );
     }
@@ -468,14 +463,14 @@ bool Engine::AddVehicleRandomly()
 
     while(r != nullptr)
     {
-        tempQueue->push(r->from);
-        lastLane = r->to;
-        r = map->GetPossibleRoute(r->to->GetLaneNumber());
+        tempQueue->push(r->FromLane);
+        lastLane = r->ToLane;
+        r = map->GetPossibleRoute(r->ToLane->GetLaneNumber());
     }
     tempQueue->push(lastLane);
 
 
-    Vehicle::AddVehicle(tempQueue, this->map);
+    return (Vehicle::AddVehicle(tempQueue, this->map) != nullptr);
 }
 
 /// render the engine's objects

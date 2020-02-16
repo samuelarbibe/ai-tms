@@ -428,3 +428,8 @@ void MainWindow::on_ReloadButton_clicked()
 {
      reloadOptionData();
 }
+
+void MainWindow::on_ShowRoutesCheckBox_stateChanged(int arg1)
+{
+    Settings::DrawRoutes = arg1;
+}

@@ -572,6 +572,22 @@
                  </spacer>
                 </item>
                 <item>
+                 <widget class="QCheckBox" name="ShowRoutesCheckBox">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="text">
+                   <string>Show Routes</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <property name="checked">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QCheckBox" name="ShowDataBoxesCheckBox">
                   <property name="enabled">
                    <bool>true</bool>

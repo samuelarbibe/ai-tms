@@ -11,6 +11,7 @@ bool Settings::DrawAdded = true;
 
 bool Settings::DrawVehicleDataBoxes = false;
 bool Settings::DrawRoadDataBoxes = false;
+bool Settings::DrawRoutes = false;
 bool Settings::DrawGrid = false;
 
 int Settings::MaxFps = 120;

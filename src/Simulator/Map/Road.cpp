@@ -150,6 +150,10 @@ void Road::ReAssignLanePositions()
     Vector2f laneDifference;
     Vector2f lengthVec;
 
+    // temporarily deactivate Deletion drawing
+    bool prevState = Settings::DrawDelete;
+    Settings::DrawDelete = false;
+
     this->width_ = Settings::LaneWidth * number_of_lanes_;
     this->setSize(Vector2f(width_, length_));
 
@@ -176,25 +180,29 @@ void Road::ReAssignLanePositions()
         int tempLaneNumber = lanes_[i]->GetLaneNumber();
         float tempLaneDirection = lanes_[i]->GetDirection();
 
-        delete lanes_[i];
+        //delete lanes_[i];
 
         //if lane is in road direction
         if (tempLaneDirection == direction_)
         {
             // send calculated starting point
-            lanes_[i] = new Lane(tempLaneNumber, road_number_, intersection_number_[1],
+            *lanes_[i] = Lane(tempLaneNumber, road_number_, intersection_number_[1],
                                  firstLanePoint + z.transformPoint(laneDifference), length_, direction_, true);
-        } else
+        }
+        else
         {
             // send starting point + length vector
             y.rotate(direction_);
             lengthVec = y.transformPoint(Vector2f(0.f, -1.f)) * length_;
 
-            lanes_[i] = new Lane(tempLaneNumber, road_number_, intersection_number_[0],
+
+            *lanes_[i] = Lane(tempLaneNumber, road_number_, intersection_number_[0],
                                  firstLanePoint + z.transformPoint(laneDifference) + lengthVec,
                                  length_, (direction_ + 180.f), false);
         }
     }
+
+    Settings::DrawDelete = prevState;
 }
 
 /// update the road's start position
