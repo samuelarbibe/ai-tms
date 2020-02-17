@@ -5,9 +5,13 @@
 #include "Route.hpp"
 
 const Vector2f m_forwardVec{0.f, -1.f};
+int Route::RouteCount{0};
 
 Route::Route(Lane *from, Lane *to)
 {
+    route_number_ = ++RouteCount;
+
+    FromLane = from;
     FromLane = from;
     ToLane = to;
 

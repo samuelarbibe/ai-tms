@@ -16,6 +16,8 @@ Intersection::Intersection(Vector2f position, int intersectionNumber) : Rectangl
     position_ = position;
     width_ = 0;
     height_ = 0;
+    current_vehicle_count_ = 0;
+    total_vehicle_count_ = 0;
     number_of_roads_ = 0;
     
     this->setOrigin(width_ / 2, height_ / 2);
@@ -27,12 +29,16 @@ Intersection::Intersection(Vector2f position, int intersectionNumber) : Rectangl
 };
 
 
-// TODO: fix road deletion
 Intersection::~Intersection()
 {
+    // every road belongs to 2 intersections
+    // to avoid deleting them both, we make sure we delete it once
     for (Road * road : roads_)
     {
-        delete road;
+        if(road->GetIntersectionNumber(0) == this->intersection_number_)
+        {
+            delete road;
+        }
     }
 
     if(Settings::DrawDelete)cout << "Intersection " << intersection_number_ << " deleted" << endl;
@@ -252,7 +258,7 @@ void Intersection::Update(float elapsedTime)
 }
 
 /// delete a given lane in this intersection
-bool Intersection::DeleteLane(int laneNumber)
+bool Intersection::DeleteLane(int laneNumber, Intersection * otherIntersection)
 {
     Lane * targetLane = this->GetLane(laneNumber);
     if(targetLane != nullptr)
@@ -266,7 +272,17 @@ bool Intersection::DeleteLane(int laneNumber)
             if(targetRoad->GetLaneCount() == 0)
             {
                 auto it = find(roads_.begin(), roads_.end(), targetRoad);
-                this->roads_.erase(it);
+                Road * r = (*it);
+                it = this->roads_.erase(it);
+
+                if(otherIntersection != nullptr)
+                {
+                    auto it = find(otherIntersection->roads_.begin(), otherIntersection->roads_.end(), targetRoad);
+                    it = otherIntersection->roads_.erase(it);
+                    otherIntersection->number_of_roads_--;
+                }
+
+                delete r;
                 number_of_roads_ --;
             }
             return true;

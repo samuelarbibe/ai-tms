@@ -46,6 +46,9 @@ public:
     void   UpdateStartPosition(Vector2f position);
     void   UpdateEndPosition(Vector2f position);
     bool   DeleteLane(int laneNumber);
+    Vector2f GetStartPosition(){return start_pos_;}
+    Vector2f GetEndPosition(){return end_pos_;}
+    float GetRoadDirection(){return direction_;}
 
     void   Update(float elapsedTime);
     void   Draw(RenderWindow * window);

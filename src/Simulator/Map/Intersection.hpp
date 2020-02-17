@@ -37,7 +37,7 @@ public:
     void   ReAssignRoadPositions();
     void   Update(float elapsedTime);
     void   Draw(RenderWindow *window);
-    bool   DeleteLane(int laneNumber);
+    bool   DeleteLane(int laneNumber, Intersection * otherIntersection = nullptr);
 
 
     int GetIntersectionNumber(){return intersection_number_;}

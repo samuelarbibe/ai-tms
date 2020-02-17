@@ -17,7 +17,7 @@ Map::Map(int mapNumber, Vector2i position, int width, int height)
     height_ = height;
     SelectedLane = nullptr;
 
-    number_of_intersections_ = 0;
+    number_of_intersections_ = intersections_.size();
 }
 
 Map::~Map()
@@ -32,6 +32,7 @@ Map::~Map()
         delete route;
     }
 
+    Route::RouteCount = 0;
     Lane::LaneCount = 0;
     Road::RoadCount = 0;
     Intersection::IntersectionCount = 0;
@@ -143,7 +144,6 @@ Road *Map::AddConnectingRoad(int roadNumber, int intersectionNumber1, int inters
 /// add a possible route in this map
 bool Map::AddRoute(int from, int to)
 {
-
     Lane *fromLane = GetLane(from);
     Lane *toLane = GetLane(to);
 
@@ -154,12 +154,53 @@ bool Map::AddRoute(int from, int to)
 
         cout << "Route added from " << r->FromLane->GetLaneNumber() << " to " << r->ToLane->GetLaneNumber() << endl;
         return true;
-    } else
+    }
+    else
     {
-        cout << "could not create possible lane, as one of the roads was not found" << endl;
+        cout << "could not create possible route, as one of the roads was not found" << endl;
         return false;
     }
 }
+
+bool Map::RemoveRouteByLaneNumber(int laneNumber)
+{
+
+    Lane * laneToRemove = GetLane(laneNumber);
+
+    if(laneToRemove != nullptr)
+    {
+        auto it = routes_.begin();
+
+        // while there are cars to delete;
+        while (it != routes_.end())
+        {
+            // if is to be deleted
+            if ((*it)->FromLane->GetLaneNumber() == laneNumber ||
+                (*it)->ToLane->GetLaneNumber() == laneNumber)
+            {
+                Route * temp = (*it);
+                int routeNumber = temp->GetRouteNumber();
+                it = routes_.erase(it);
+
+                delete temp;
+
+                if (Settings::DrawActive)cout << "route " << routeNumber << " deleted." << endl;
+            } else
+            {
+                it++;
+            }
+        }
+
+        return true;
+    }
+    else
+    {
+        cout << "could not delete this route. the deleted lane could not be found." << endl;
+        return false;
+    }
+
+}
+
 
 /// finds all starting lanes
 void Map::FindStartingLanes()
@@ -233,12 +274,19 @@ Intersection *Map::GetIntersection(int intersectionNumber)
 }
 
 /// get intersection by lane number
-Intersection *Map::GetIntersectionByLaneNumber(int laneNumber)
+vector<Intersection*> Map::GetIntersectionByLaneNumber(int laneNumber)
 {
-
     Lane *l = this->GetLane(laneNumber);
     Road *r = this->GetRoad(l->GetRoadNumber());
-    return this->GetIntersection(r->GetIntersectionNumber(0));
+
+    vector<Intersection*> retVal;
+
+    if(r->GetIsConnecting())
+    {
+        retVal.push_back(this->GetIntersection(r->GetIntersectionNumber(1)));
+    }
+    retVal.push_back(this->GetIntersection(r->GetIntersectionNumber(0)));
+    return retVal;
 }
 
 /// get road by roadNumber
@@ -373,19 +421,42 @@ int Map::GetLaneCount()
 /// delete a given lane in this map
 bool Map::DeleteLane(int laneNumber)
 {
-    Intersection *targetIntersection = GetIntersectionByLaneNumber(laneNumber);
+    vector<Intersection*> targetIntersections = GetIntersectionByLaneNumber(laneNumber);
 
-    if (targetIntersection != nullptr)
+    if (!targetIntersections.empty())
     {
+        // delete all routes that go through this lane
+        RemoveRouteByLaneNumber(laneNumber);
         // delete the given lane
-        targetIntersection->DeleteLane(laneNumber);
+        // if lane's road is connecting, send other intersection as well to handle deletion
+        if(targetIntersections.size() > 1)
+        {
+            targetIntersections[0]->DeleteLane(laneNumber, targetIntersections[1]);
+        }
+        else
+        {
+            targetIntersections[0]->DeleteLane(laneNumber);
+        }
 
         // if intersection has no roads left, delete it as well
-        if (targetIntersection->GetRoadCount() == 0)
+        if (targetIntersections[0]->GetRoadCount() == 0)
         {
-            auto it = find(intersections_.begin(), intersections_.end(), targetIntersection);
-            intersections_.erase(it);
+            auto it = find(intersections_.begin(), intersections_.end(), targetIntersections[0]);
+            it = intersections_.erase(it);
+            delete (*it);
             number_of_intersections_--;
+        }
+
+        // if road was connecting, check if the connected intersection needs to be deleted as well
+        if(targetIntersections.size() > 1)
+        {
+            if (targetIntersections[1]->GetRoadCount() == 0)
+            {
+                auto it = find(intersections_.begin(), intersections_.end(), targetIntersections[1]);
+                intersections_.erase(it);
+                delete (*it);
+                number_of_intersections_--;
+            }
         }
 
         // set selected as nullptr

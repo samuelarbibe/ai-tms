@@ -39,7 +39,7 @@ public:
     Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
     Road * AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2);
 
-    Intersection * GetIntersectionByLaneNumber(int laneNumber);
+    vector<Intersection*> GetIntersectionByLaneNumber(int laneNumber);
     Intersection * GetIntersection(int intersectionNumber); 
     vector<Intersection*> * GetIntersections(){return &(intersections_);};
 
@@ -60,6 +60,7 @@ public:
     // route manipulation
     vector<Route*> * GetRoutes(){return &routes_;}
     bool AddRoute(int from, int to);
+    bool RemoveRouteByLaneNumber(int laneNumber);
     Route * GetPossibleRoute(int from);
     Lane * GetPossibleStartingLane();
 

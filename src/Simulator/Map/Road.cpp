@@ -271,7 +271,8 @@ bool Road::DeleteLane(int laneNumber)
     {
         // remove the targetLane from the list by iterator
         auto it = find(lanes_.begin(), lanes_.end(), targetLane);
-        lanes_.erase(it);
+        it = lanes_.erase(it);
+        delete (*it);
         number_of_lanes_--;
         return true;
     }
