@@ -19,6 +19,8 @@ public:
 
     void mouseDoubleClickEvent(QMouseEvent *event) override;
 
+    void resizeEvent(QResizeEvent * event) override;
+
 
 private slots:
     void on_AddIntersectionButton_clicked();
@@ -76,6 +78,7 @@ private slots:
     void on_AddRouteButton_clicked();
 
     void on_ReloadButton_clicked();
+
 
 private:
     Ui::MainWindow *ui;

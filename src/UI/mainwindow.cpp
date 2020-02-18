@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent) :
         ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ui->SimulatorFrame->setMinimumSize(600, 650);
+
     SimulatorEngine = new Engine(ui->SimulatorFrame);
 
     DistanceUnits currentDistanceUnit = static_cast<DistanceUnits>(ui->DistanceUnitComboBox->currentIndex());
@@ -433,3 +436,9 @@ void MainWindow::on_ShowRoutesCheckBox_stateChanged(int arg1)
 {
     Settings::DrawRoutes = arg1;
 }
+
+void MainWindow::resizeEvent(QResizeEvent * event)
+{
+    SimulatorEngine->ResizeFrame(ui->SimulatorFrame->size());
+}
+

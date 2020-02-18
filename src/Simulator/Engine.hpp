@@ -54,9 +54,12 @@ public:
     void LoadMap(string loadDirectory);
     void ResetMap();
     bool AddVehicleRandomly();
+    void ResizeFrame(QSize size);
+
 
     Vector2f DrawPoint(Vector2f position);
     Vector2f GetSnappedPoint(Vector2f point);
+
 
     Map * map;
 
@@ -81,7 +84,7 @@ private:
     View minimap_;
 
     Vector2f view_pos_;
-    Vector2f t_view_pos_;
+    Vector2f temp_view_pos_;
 
     RectangleShape minimap_bg_;
     RectangleShape shown_area_index_;

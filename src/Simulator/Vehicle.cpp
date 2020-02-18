@@ -8,7 +8,7 @@
 
 #include "Vehicle.hpp"
 
-const Vector2f m_forwardVec{0.f, -1.f};
+const Vector2f kForwardVec{0.f, -1.f};
 
 int Vehicle::to_be_deleted_{0};
 int Vehicle::VehicleCount = 0;
@@ -379,7 +379,7 @@ void Vehicle::apply_changes(float elapsed_time)
     t.rotate(rotation_);
 
     // rotate the movement vector in relation to the forward vector (0,1)
-    movement_vec_ = t.transformPoint(m_forwardVec);
+    movement_vec_ = t.transformPoint(kForwardVec);
 
     // apply movement vector on position, relative to elapsed time to ensure
     // a constant Speed at any FPS

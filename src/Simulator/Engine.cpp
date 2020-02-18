@@ -13,12 +13,12 @@ Engine::Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000/Settings::MaxFps)
 {
 
     cout << "Setting Up Map..." << endl;
-    map = new Map(0, Vector2i(this->width()/2, this->height()/2), Settings::DefaultMapWidth, Settings::DefaultMapWidth);
+    map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapHeight);
 
     cout << "Setting Up Camera..." << endl;
     snap_to_grid_ = true;
     view_pos_ = Vector2f(0, 0);
-    t_view_pos_ = Vector2f(0, 0);
+    temp_view_pos_ = Vector2f(0, 0);
     SetView();
     SetMinimap(Settings::MinimapSize, Settings::MinimapMargin);
     this->setView(view_);
@@ -48,11 +48,21 @@ void Engine::on_init()
     */
 }
 
+void Engine::ResizeFrame(QSize size)
+{
+    resize(size);
+    setSize(sf::Vector2u(size.width(), size.height()));
+
+    SetView();
+    SetMinimap(Settings::MinimapSize, Settings::MinimapMargin);
+    this->setView(view_);
+}
+
 /// set the viewport for the camera
 void Engine::SetView()
 {
     // view setup
-    view_.reset(sf::FloatRect(t_view_pos_.x, t_view_pos_.y, Settings::DefaultMapWidth, Settings::DefaultMapHeight));
+    view_.reset(sf::FloatRect(temp_view_pos_.x, temp_view_pos_.y, Settings::DefaultMapWidth, Settings::DefaultMapHeight));
     view_.zoom(Settings::Zoom);
     // update the shown area index rectangle
     update_shown_area();
@@ -62,16 +72,20 @@ void Engine::SetView()
 void Engine::SetMinimap(float size, float margin)
 {
     // minimap viewPort setup
-    minimap_.reset(sf::FloatRect(0, 0, Settings::DefaultMapWidth, Settings::DefaultMapWidth));
+    minimap_.reset(sf::FloatRect(0, 0, Settings::DefaultMapWidth, Settings::DefaultMapHeight));
     minimap_.setSize(Vector2f(size, size));
-    minimap_.setViewport(sf::FloatRect(1.f - (size / this->width()) - (margin / this->height()), margin / this->height() , size / this->width(), size / this->height()));
+    minimap_.setViewport(sf::FloatRect(
+            1.f - (size / this->width()) - (margin / this->width()),
+            margin / this->height() ,
+            size / this->width(),
+            size / this->height()));
     float zoomFactor = Settings::DefaultMapWidth / size;
     minimap_.zoom(zoomFactor);
     float outlineThickness = 30;
 
     // background setup
     minimap_bg_ = RectangleShape(Vector2f(Settings::DefaultMapWidth - outlineThickness * 2,
-            Settings::DefaultMapWidth - outlineThickness*2));
+            Settings::DefaultMapHeight - outlineThickness*2));
     minimap_bg_.setPosition(outlineThickness, outlineThickness);
     minimap_bg_.setFillColor(Color(110, 110, 110, 220));
     minimap_bg_.setOutlineColor(Color::Black);
@@ -89,18 +103,18 @@ void Engine::UpdateView(Vector2f posDelta, float newZoom)
 {
     // view_pos_ is position before dragging
     // t_view_pos_ is the current view position
-    t_view_pos_ = view_pos_ + posDelta;
+    temp_view_pos_ = view_pos_ + posDelta;
 
     // enforce overflow blocking
     if(!Settings::MapOverflow && map != nullptr)
     {
-        if(abs(t_view_pos_.x) > map->GetSize().x / 2 - shown_area_index_.getSize().x / 2)
+        if(abs(temp_view_pos_.x) > map->GetSize().x / 2 - shown_area_index_.getSize().x / 2)
         {
-            t_view_pos_.x = (map->GetSize().x / 2 - shown_area_index_.getSize().x / 2) * t_view_pos_.x / abs(t_view_pos_.x);
+            temp_view_pos_.x = (map->GetSize().x / 2 - shown_area_index_.getSize().x / 2) * temp_view_pos_.x / abs(temp_view_pos_.x);
         }
-        if (abs(t_view_pos_.y) > map->GetSize().y / 2 - shown_area_index_.getSize().y / 2)
+        if (abs(temp_view_pos_.y) > map->GetSize().y / 2 - shown_area_index_.getSize().y / 2)
         {
-            t_view_pos_.y = (map->GetSize().y / 2 - shown_area_index_.getSize().y / 2) * t_view_pos_.y / abs(t_view_pos_.y);
+            temp_view_pos_.y = (map->GetSize().y / 2 - shown_area_index_.getSize().y / 2) * temp_view_pos_.y / abs(temp_view_pos_.y);
         }
     }
 
@@ -253,7 +267,7 @@ void Engine::input()
     {
         if(dragging)
         {
-            view_pos_ = t_view_pos_;
+            view_pos_ = temp_view_pos_;
         }
         dragging = false;
     }
@@ -409,7 +423,7 @@ void Engine::ResetMap()
 
     cout << "Resetting Map..." << endl;
     delete map;
-    map = new Map(0, Vector2i(this->width()/2, this->height()/2), Settings::DefaultMapWidth, Settings::DefaultMapWidth);
+    map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapWidth);
 
     cout << "*** Map has been reset. ***" << endl;
 }

@@ -4,7 +4,7 @@
 
 #include "Route.hpp"
 
-const Vector2f m_forwardVec{0.f, -1.f};
+const Vector2f kForwardVec{0.f, -1.f};
 int Route::RouteCount{0};
 
 Route::Route(Lane *from, Lane *to)
@@ -59,7 +59,7 @@ void Route::BuildRadiusLine()
     t.scale(radius, radius);
 
 
-    Vector2f radiusVec = t.transformPoint(m_forwardVec);
+    Vector2f radiusVec = t.transformPoint(kForwardVec);
     Vector2f circleCenter = startPos + radiusVec;
 
     // a strip [alpha] of lines, making a quarter of a circle

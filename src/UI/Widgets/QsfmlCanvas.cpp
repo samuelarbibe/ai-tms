@@ -25,16 +25,13 @@ QSFMLCanvas::QSFMLCanvas(QWidget* Parent, unsigned int FrameTime) :
     // Setup the widget geometry
     // setup for high DPI devices, adjust sfml widget size to actual size
 
-    Settings::SFMLRatio = Parent->devicePixelRatio(); // save ratio for later use
-    resize(Parent->size());
+    parent_ = Parent;
+
+    Settings::SFMLRatio = parent_->devicePixelRatio(); // save ratio for later use
+    resize(parent_->size());
 
     // Setup the timer
     timer_.setInterval(FrameTime);
-}
-
-void QSFMLCanvas::ResizeEvent(QResizeEvent* event)
-{
-    setSize(sf::Vector2u(QWidget::width(), QWidget::height()));
 }
 
 void QSFMLCanvas::showEvent(QShowEvent*)

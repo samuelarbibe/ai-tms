@@ -24,7 +24,7 @@ class Map
 
 public:
 
-    Map(int mapNumber, Vector2i position, int width, int height);
+    Map(int mapNumber, int width, int height);
     ~Map();
 
     void   Update(float elapsedTime);
@@ -33,7 +33,6 @@ public:
     void   ReloadMap();
 
     Vector2f GetSize(){return Vector2f(width_, height_);}
-    void FindStartingLanes();
     Intersection * AddIntersection(int intersectionNumber, Vector2f position);
     Road * AddRoad(int roadNumber, int intersectionNumber, int connectionSide, float length);
     Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
@@ -56,13 +55,15 @@ public:
 
     pair<ConnectionSides, ConnectionSides> AssignConnectionSides(Vector2f pos1, Vector2f pos2);
 
-    Lane * CheckSelection(Vector2f position);
     // route manipulation
     vector<Route*> * GetRoutes(){return &routes_;}
+    void FindStartingLanes();
     bool AddRoute(int from, int to);
     bool RemoveRouteByLaneNumber(int laneNumber);
     Route * GetPossibleRoute(int from);
-    Lane * GetPossibleStartingLane();
+    Lane  * GetPossibleStartingLane();
+
+    Lane * CheckSelection(Vector2f position);
 
     Lane * SelectedLane;
 
@@ -74,9 +75,6 @@ private:
     int height_;
 
     vector<Route*> routes_;
-
-    Vector2i position_;
-
     vector<Lane*> starting_lanes_;
     vector<Intersection*> intersections_;
 };

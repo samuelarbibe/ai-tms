@@ -5,14 +5,13 @@
 #include <QStringList>
 #include "Map.hpp"
 
-Map::Map(int mapNumber, Vector2i position, int width, int height)
+Map::Map(int mapNumber, int width, int height)
 {
     if (mapNumber == 0)
     {
         mapNumber = 1;
     }
     map_number_ = mapNumber;
-    position_ = position;
     width_ = width;
     height_ = height;
     SelectedLane = nullptr;
