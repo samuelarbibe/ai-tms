@@ -14,7 +14,7 @@ bool Settings::DrawRoadDataBoxes = false;
 bool Settings::DrawRoutes = false;
 bool Settings::DrawGrid = false;
 
-int Settings::MaxFps = 500;
+int Settings::MaxFps = 120;
 bool Settings::MultiColor = true;
 float Settings::MinDistanceFromNextCar = 166;
 float Settings::MinDistanceFromStop = 66;
@@ -123,4 +123,25 @@ float Settings::CalculateDistance(Vector2f a, Vector2f b)
     float yDist = abs(a.y - b.y);
 
     return sqrt(xDist*xDist + yDist*yDist);
+}
+
+float Settings::CalculateAngle(float a, float b)
+{
+
+    if(a == 0) a += 360;
+    if(b == 0) b += 360;
+
+    float temp = -(a - b);
+
+    if (temp < -180)
+    {
+        temp += 360;
+    }
+
+    if (temp > 180)
+    {
+        temp -= 360;
+    }
+
+    return temp;
 }

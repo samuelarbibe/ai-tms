@@ -86,6 +86,7 @@ public:
     static float MinAcceleration[3];
 
     static float CalculateDistance(Vector2f a, Vector2f b);
+    static float CalculateAngle(float a, float b);
 };
 
 

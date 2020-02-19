@@ -23,7 +23,7 @@ public:
 
 protected:
 
-    void showEvent(QShowEvent *ev);
+    void showEvent(QShowEvent *ev) override;
 
 private slots:
     void on_AddIntersectionButton_clicked();

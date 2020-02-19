@@ -109,6 +109,8 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
                 selectionText.append(QString::number(selectedLane->GetRoadNumber()));
                 selectionText.append("}, Intersection {");
                 selectionText.append(QString::number(selectedLane->GetIntersectionNumber()));
+                selectionText.append("}, Direction {");
+                selectionText.append(QString::number(selectedLane->GetDirection()));
                 selectionText.append("}");
 
                 ui->statusbar->showMessage(selectionText);

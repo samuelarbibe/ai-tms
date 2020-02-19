@@ -120,7 +120,6 @@ Vehicle *Vehicle::AddVehicle(queue<Lane *> *instructionSet, Map *map, VehicleTyp
     temp->vehicle_in_front_ = (temp->source_lane_->GetLastCar()) ? GetVehicle(temp->source_lane_->GetLastCar())
                                                                  : nullptr;
 
-
     //set this car as the last car that entered the lane
     temp->source_lane_->SetLastCar(vehicleNumber);
     temp->source_lane_->AddVehicleCount();
@@ -215,6 +214,7 @@ void Vehicle::TransferVehicle(Vehicle *vehicle, Lane *toLane, Lane *fromLane)
     vehicle->source_lane_ = toLane;
     vehicle->rotation_ = vehicle->source_lane_->GetDirection();
     vehicle->angular_vel_ = 0;
+    vehicle->position_ = vehicle->source_lane_->GetStartPosition();
     vehicle->curr_intersection_ = vehicle->curr_map_->GetIntersection(vehicle->source_lane_->GetIntersectionNumber());
     vehicle->vehicle_in_front_ = (vehicle->source_lane_->GetLastCar()) ? GetVehicle(vehicle->source_lane_->GetLastCar())
                                                                        : nullptr;
@@ -242,7 +242,6 @@ State Vehicle::drive()
     if (vehicle_in_front_ != nullptr && vehicle_in_front_->state_ != DELETE)
     {
         float distanceFromNextCar = Settings::CalculateDistance(position_, vehicle_in_front_->position_);
-        //cout << distanceFromNextCar << endl;
         float brakingDistance = -(speed_ * speed_) / (2 * min_acc_);
 
         if (distanceFromNextCar < brakingDistance + Settings::MinDistanceFromNextCar ||
@@ -264,22 +263,22 @@ State Vehicle::drive()
         {
             float distanceSourceTarget = Settings::CalculateDistance(source_lane_->GetEndPosition(),
                                                                      dest_lane_->GetStartPosition());
-            float angle = -(source_lane_->GetDirection() - dest_lane_->GetDirection()) + 0.00001f;
+            float angle = Settings::CalculateAngle(source_lane_->GetDirection(), dest_lane_->GetDirection());
 
-            if (angle < -180)
+            // if not a straight line
+            if(angle > 1.f || angle < -1.f)
             {
-                angle += 360;
+                bool rightTurn = (angle > 0) ? true : false;
+                float turningRadius = (distanceSourceTarget / 2.f) / (sin(angle * M_PI / 360.f));
+                float turningParameter = 2.f * M_PI * turningRadius;
+                float turningDistance = (angle / 360.f) * turningParameter;
+
+                angular_vel_ = angle / turningDistance;
             }
-
-            bool rightTurn = (angle > 0) ? true : false;
-
-            float turningRadius = (distanceSourceTarget / 2.f) / (sin(angle * M_PI / 360.f));
-
-            float turningParameter = 2.f * M_PI * turningRadius;
-
-            float turningDistance = (angle / 360.f) * turningParameter;
-
-            angular_vel_ = angle / turningDistance;
+            else
+            {
+                angular_vel_ = 0;
+            }
 
             turning_ = true;
         }

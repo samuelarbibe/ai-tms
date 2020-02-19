@@ -35,7 +35,7 @@ Engine::Engine(QWidget* Parent) : QSFMLCanvas(Parent, 1000/Settings::MaxFps)
 /// set up the map according to the selected presets
 void Engine::on_init()
 {
-    /*
+
     map->AddIntersection(0, map->GetSize()/2.f);
 
     map->AddRoad(0, 1, UP, Settings::DefaultLaneLength);
@@ -48,7 +48,7 @@ void Engine::on_init()
 
     map->AddRoute(3, 2);
     map->AddRoute(1, 4);
-     */
+
 }
 
 void Engine::ResizeFrame(QSize size)
@@ -368,7 +368,7 @@ void Engine::SaveMap(string saveDirectory)
                 {
                     j["lanes"].push_back(
                             {
-                                    {"id", lane->GetRoadNumber()},
+                                    {"id", lane->GetLaneNumber()},
                                     {"road_number", lane->GetRoadNumber()},
                                     {"is_in_road_direction", lane->GetIsInRoadDirection()}
                             });
@@ -390,7 +390,7 @@ void Engine::SaveMap(string saveDirectory)
                     {
                         j["lanes"].push_back(
                                 {
-                                        {"id", lane->GetRoadNumber()},
+                                        {"id", lane->GetLaneNumber()},
                                         {"road_number", lane->GetRoadNumber()},
                                         {"is_in_road_direction", lane->GetIsInRoadDirection()}
                                 });
@@ -428,7 +428,7 @@ void Engine::ResetMap()
     delete map;
     map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapWidth);
 
-    cout << "*** Map has been reset. ***" << endl;
+    cout << "====================== Map has been reset ======================" << endl;
 }
 
 /// do the game cycle (input->update->draw)

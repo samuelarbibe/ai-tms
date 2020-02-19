@@ -44,26 +44,13 @@ void Route::BuildRadiusLine()
     Vector2f endPos = ToLane->GetStartPosition();
 
     float distanceSourceTarget = Settings::CalculateDistance(startPos, endPos);
-    float angle = -(FromLane->GetDirection() - ToLane->GetDirection());
-    float radius = (distanceSourceTarget / 2.f) / (sin(angle * M_PI / 360.f));
+    float angle = Settings::CalculateAngle(FromLane->GetDirection(), ToLane->GetDirection());
+    float radius = (distanceSourceTarget / 2) / (sin(angle * M_PI / 360.f));
 
-    if (angle < -180)
-    {
-        angle += 360;
-    }
-
-    bool rightTurn = (angle > 0) ? true : false;
 
     Transform t;
-    if(rightTurn)
-    {
-        t.rotate(FromLane->GetDirection() - 90);
-    }
-    else
-    {
-        t.rotate(FromLane->GetDirection() + 90);
-    }
 
+    t.rotate(FromLane->GetDirection() + 90);
     t.scale(radius, radius);
 
     // if straight line
@@ -84,17 +71,16 @@ void Route::BuildRadiusLine()
         radius_line_ = VertexArray(LinesStrip, abs(angle));
 
         Transform cycle;
-        Vector2f addVec = radiusVec;
-        cycle.rotate((rightTurn)?1:-1);
+        cycle.rotate(angle / abs(angle));
 
         Vector2f newPos;
 
-        for(int i = 0; i < abs(angle); i++)
+        for(int i = 0; i < int(abs(angle)); i++)
         {
-            newPos = circleCenter - addVec;
+            newPos = circleCenter - radiusVec;
             radius_line_[i].position = newPos;
             radius_line_[i].color = Color::Green;
-            addVec = cycle.transformPoint(addVec);
+            radiusVec = cycle.transformPoint(radiusVec);
         }
     }
 }

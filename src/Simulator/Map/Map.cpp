@@ -239,19 +239,24 @@ Lane *Map::GetPossibleStartingLane()
 Route *Map::GetPossibleRoute(int fromLane)
 {
     Lane *myLane = GetLane(fromLane);
+    vector<Route*> possibleRoutes;
 
     if (myLane != nullptr)
     {
         for (Route *r : routes_)
         {
-            cout << r->FromLane->GetLaneNumber() << endl;
             if (r->FromLane->GetLaneNumber() == myLane->GetLaneNumber())
             {
-                return r;
+                possibleRoutes.push_back(r);
             }
         }
     }
-    return nullptr;
+    if(possibleRoutes.empty())
+    {
+        return nullptr;
+    }
+    int randomIndex = rand() % possibleRoutes.size();
+    return possibleRoutes[randomIndex];
 }
 
 /// get intersection by intersectionNumber
