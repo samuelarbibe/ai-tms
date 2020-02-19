@@ -38,14 +38,17 @@ void Engine::on_init()
     /*
     map->AddIntersection(0, map->GetSize()/2.f);
 
+    map->AddRoad(0, 1, UP, Settings::DefaultLaneLength);
     map->AddRoad(0, 1, RIGHT, Settings::DefaultLaneLength);
-    map->AddRoad(0, 1, DOWN, Settings::DefaultLaneLength);
 
     map->AddLane(0, 1, false);
+    map->AddLane(0, 1, true);
+    map->AddLane(0, 2, false);
     map->AddLane(0, 2, true);
 
-    map->AddRoute(1, 2);
-    */
+    map->AddRoute(3, 2);
+    map->AddRoute(1, 4);
+     */
 }
 
 void Engine::ResizeFrame(QSize size)

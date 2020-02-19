@@ -44,11 +44,18 @@ void Route::BuildRadiusLine()
     Vector2f endPos = ToLane->GetStartPosition();
 
     float distanceSourceTarget = Settings::CalculateDistance(startPos, endPos);
-    int angle = -(FromLane->GetDirection() - ToLane->GetDirection());
+    float angle = -(FromLane->GetDirection() - ToLane->GetDirection());
     float radius = (distanceSourceTarget / 2.f) / (sin(angle * M_PI / 360.f));
 
+    if (angle < -180)
+    {
+        angle += 360;
+    }
+
+    bool rightTurn = (angle > 0) ? true : false;
+
     Transform t;
-    if(angle > 180)
+    if(rightTurn)
     {
         t.rotate(FromLane->GetDirection() - 90);
     }
@@ -56,27 +63,39 @@ void Route::BuildRadiusLine()
     {
         t.rotate(FromLane->GetDirection() + 90);
     }
+
     t.scale(radius, radius);
 
-
-    Vector2f radiusVec = t.transformPoint(kForwardVec);
-    Vector2f circleCenter = startPos + radiusVec;
-
-    // a strip [alpha] of lines, making a quarter of a circle
-    radius_line_ = VertexArray(LinesStrip, abs(angle));
-
-    Transform cycle;
-    Vector2f addVec = radiusVec;
-    cycle.rotate(abs(angle) / angle);
-
-    Vector2f newPos;
-
-    for(int i = 0; i < abs(angle); i++)
+    // if straight line
+    if(angle < 1 && angle > -1)
     {
-        newPos = circleCenter - addVec;
-        radius_line_[i].position = newPos;
-        radius_line_[i].color = Color::Green;
-        addVec = cycle.transformPoint(addVec);
+        radius_line_ = VertexArray(LinesStrip, 2);
+        radius_line_[0].position = startPos;
+        radius_line_[0].color = Color::Green;
+        radius_line_[1].position = endPos;
+        radius_line_[1].color = Color::Green;
+    }
+    else
+    {
+        Vector2f radiusVec = t.transformPoint(kForwardVec);
+        Vector2f circleCenter = startPos + radiusVec;
+
+        // a strip [alpha] of lines, making a quarter of a circle
+        radius_line_ = VertexArray(LinesStrip, abs(angle));
+
+        Transform cycle;
+        Vector2f addVec = radiusVec;
+        cycle.rotate((rightTurn)?1:-1);
+
+        Vector2f newPos;
+
+        for(int i = 0; i < abs(angle); i++)
+        {
+            newPos = circleCenter - addVec;
+            radius_line_[i].position = newPos;
+            radius_line_[i].color = Color::Green;
+            addVec = cycle.transformPoint(addVec);
+        }
     }
 }
 

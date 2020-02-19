@@ -266,11 +266,12 @@ State Vehicle::drive()
                                                                      dest_lane_->GetStartPosition());
             float angle = -(source_lane_->GetDirection() - dest_lane_->GetDirection()) + 0.00001f;
 
-            // if turning left
-            if (angle > 180)
+            if (angle < -180)
             {
-                angle -= 360;
+                angle += 360;
             }
+
+            bool rightTurn = (angle > 0) ? true : false;
 
             float turningRadius = (distanceSourceTarget / 2.f) / (sin(angle * M_PI / 360.f));
 

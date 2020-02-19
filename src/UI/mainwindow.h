@@ -21,6 +21,9 @@ public:
 
     void resizeEvent(QResizeEvent * event) override;
 
+protected:
+
+    void showEvent(QShowEvent *ev);
 
 private slots:
     void on_AddIntersectionButton_clicked();
@@ -79,8 +82,8 @@ private slots:
 
     void on_ReloadButton_clicked();
 
-
 private:
+
     Ui::MainWindow *ui;
     Engine * SimulatorEngine;
 };

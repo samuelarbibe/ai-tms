@@ -7,18 +7,16 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->SimulatorFrame->setMinimumSize(600, 650);
-
     SimulatorEngine = new Engine(ui->SimulatorFrame);
 
     DistanceUnits currentDistanceUnit = static_cast<DistanceUnits>(ui->DistanceUnitComboBox->currentIndex());
     VelocityUnits currentUnit = static_cast<VelocityUnits>(ui->VelocityUnitComboBox->currentIndex());
 
     // load presets
-    ui->LaneWidthSlider->setMinimum(Settings::MinLaneWidth);
-    ui->LaneWidthSlider->setMaximum(Settings::MaxLaneWidth);
-    ui->LaneWidthSlider->setSliderPosition(Settings::LaneWidth);
-    ui->ZoomSlider->setSliderPosition(Settings::Zoom * 99);
+    ui->LaneWidthSlider->setMinimum(int(Settings::MinLaneWidth));
+    ui->LaneWidthSlider->setMaximum(int(Settings::MaxLaneWidth));
+    ui->LaneWidthSlider->setSliderPosition(int(Settings::LaneWidth));
+    ui->ZoomSlider->setSliderPosition(int(Settings::Zoom * 99));
     ui->LaneWidthValueEdit->setText(QString::number(Settings::GetLaneWidthAs(currentDistanceUnit)));
     ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::CAR, currentUnit)));
     ui->MotorcycleMaxSpeed->setText(
@@ -33,16 +31,24 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::showEvent(QShowEvent *ev)
+{
+    QMainWindow::showEvent(ev);
+
+    // things that can be done only after complete init
+    SimulatorEngine->ResizeFrame(ui->SimulatorFrame->size() * Settings::SFMLRatio);
+}
+
 void MainWindow::reloadOptionData()
 {
     // set intersection number range for future use
-    set<QString> intersection_id_list = SimulatorEngine->map->GetIntersectionIdList();
+    set<QString> intersectionIdList = SimulatorEngine->map->GetIntersectionIdList();
 
     ui->FromIntersectionComboBox->clear();
     ui->ToIntersectionComboBox->clear();
     ui->IntersectionComboBox->clear();
 
-    for(QString s : intersection_id_list)
+    for(const QString s : intersectionIdList)
     {
         ui->FromIntersectionComboBox->addItem(s);
         ui->ToIntersectionComboBox->addItem(s);
@@ -51,7 +57,7 @@ void MainWindow::reloadOptionData()
 
     ui->ToRoadComboBox->clear();
 
-    for(QString sd : SimulatorEngine->map->GetRoadIdList())
+    for(const QString sd : SimulatorEngine->map->GetRoadIdList())
     {
         ui->ToRoadComboBox->addItem(sd);
     }
@@ -59,7 +65,7 @@ void MainWindow::reloadOptionData()
     ui->FromLaneComboBox->clear();
     ui->ToLaneComboBox->clear();
 
-    for(QString sd : SimulatorEngine->map->GetLaneIdList())
+    for(const QString sd : SimulatorEngine->map->GetLaneIdList())
     {
         ui->FromLaneComboBox->addItem(sd);
         ui->ToLaneComboBox->addItem(sd);
@@ -439,6 +445,6 @@ void MainWindow::on_ShowRoutesCheckBox_stateChanged(int arg1)
 
 void MainWindow::resizeEvent(QResizeEvent * event)
 {
-    SimulatorEngine->ResizeFrame(ui->SimulatorFrame->size());
+    SimulatorEngine->ResizeFrame(ui->SimulatorFrame->size() * Settings::SFMLRatio);
 }
 
