@@ -10,7 +10,7 @@
     #include <X11/Xlib.h>
 #endif
 
-QSFMLCanvas::QSFMLCanvas(QWidget* Parent, unsigned int FrameTime) :
+QSFMLCanvas::QSFMLCanvas(QWidget* Parent, int FrameTime) :
         QWidget       (Parent),
         is_init_ (false)
 {
@@ -31,6 +31,7 @@ QSFMLCanvas::QSFMLCanvas(QWidget* Parent, unsigned int FrameTime) :
     resize(parent_->size());
 
     // Setup the timer
+    timer_.setTimerType(Qt::PreciseTimer);
     timer_.setInterval(FrameTime);
 }
 

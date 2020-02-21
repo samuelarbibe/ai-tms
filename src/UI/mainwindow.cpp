@@ -37,6 +37,7 @@ void MainWindow::showEvent(QShowEvent *ev)
 
     // things that can be done only after complete init
     SimulatorEngine->ResizeFrame(ui->SimulatorFrame->size() * Settings::SFMLRatio);
+    reloadOptionData();
 }
 
 void MainWindow::reloadOptionData()
@@ -172,11 +173,12 @@ void MainWindow::on_AddRoadButton_clicked()
     int connectionSide = ui->ConSideComboBox->currentIndex() + 1;
 
     if (SimulatorEngine->map->AddRoad(0, intersectionNumber, connectionSide, Settings::DefaultLaneLength)) {
-        // refresh spinboxes data
+        // refresh spin-boxes data
         reloadOptionData();
 
         ui->statusbar->clearMessage();
         ui->statusbar->showMessage(tr("Road Successfully added."), 5000);
+        reloadOptionData();
         return; // success
     }
     ui->statusbar->showMessage(tr("Could not add Road. please check that the entered values are correct. "));

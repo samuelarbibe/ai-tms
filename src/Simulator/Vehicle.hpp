@@ -50,6 +50,7 @@ public:
     Lane * GetTargetLane(){return dest_lane_;}
     State  GetState(){return state_;}
     int    GetVehicleNumber(){return vehicle_number_;}
+    bool   GetIsActive(){return active_;}
 
     static VehicleType * GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions);
     static Vehicle *     GetVehicle(int vehicleNumber);
@@ -87,6 +88,7 @@ private:
     float    rotation_;
     float    angular_vel_;
     bool     turning_;
+    bool     active_;
 
     Vehicle * vehicle_in_front_;
 

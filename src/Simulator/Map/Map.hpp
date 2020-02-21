@@ -15,6 +15,7 @@
 #include "../Settings.hpp"
 #include "Intersection.hpp"
 #include "Route.hpp"
+#include "Phase.hpp"
 
 using namespace sf;
 using namespace std;
@@ -37,6 +38,9 @@ public:
     Road * AddRoad(int roadNumber, int intersectionNumber, int connectionSide, float length);
     Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
     Road * AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2);
+    Phase * AddPhase(int phaseNumber, float cycleTime);
+    Light * AddLight(int lightNumber, int phaseNumber, Vector2f position);
+    void AssignLaneToPhase(int phaseNumber, Lane * lane);
 
     vector<Intersection*> GetIntersectionByLaneNumber(int laneNumber);
     Intersection * GetIntersection(int intersectionNumber); 
@@ -44,6 +48,7 @@ public:
 
     Road * GetRoad(int roadNumber);
     Lane * GetLane(int laneNumber);
+    Phase * GetPhase(int phaseNumber);
 
     set<QString> GetLaneIdList();
     set<QString> GetRoadIdList();
@@ -71,12 +76,15 @@ private:
 
     int map_number_;
     int number_of_intersections_;
+    int number_of_phases;
     int width_;
     int height_;
+    int current_phase_index_;
 
     vector<Route*> routes_;
     vector<Lane*> starting_lanes_;
     vector<Intersection*> intersections_;
+    vector<Phase*> phases_;
 };
 
 

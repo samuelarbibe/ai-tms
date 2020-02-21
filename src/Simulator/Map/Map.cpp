@@ -15,6 +15,7 @@ Map::Map(int mapNumber, int width, int height)
     width_ = width;
     height_ = height;
     SelectedLane = nullptr;
+    current_phase_index_ = 0;
 
     number_of_intersections_ = intersections_.size();
 }
@@ -159,6 +160,59 @@ bool Map::AddRoute(int from, int to)
         cout << "could not create possible route, as one of the roads was not found" << endl;
         return false;
     }
+}
+
+
+Phase * Map::AddPhase(int phaseNumber, float cycleTime)
+{
+    Phase * temp;
+
+    if(phaseNumber == 0)
+    {
+        phaseNumber = Phase::PhaseCount + 1;
+    }
+
+    temp = new Phase(phaseNumber, cycleTime);
+
+    phases_.push_back(temp);
+
+    ++number_of_phases;
+    ++Phase::PhaseCount;
+
+    cout << "phase " << phaseNumber << " added" << endl;
+
+    return temp;
+}
+
+
+Light * Map::AddLight(int lightNumber, int phaseNumber, Vector2f position)
+{
+    Light * temp = nullptr;
+    Phase * myPhase = GetPhase(phaseNumber);
+
+    if(myPhase != nullptr)
+    {
+        temp = myPhase->AddLight(lightNumber, position);
+        cout << "light " << temp->GetLightNumber() << " added to phase " << phaseNumber << endl;
+        return temp;
+    }
+
+    cout << "could not add light as phase doesnt exist" << endl;
+    return temp;
+}
+
+void Map::AssignLaneToPhase(int phaseNumber, Lane * lane)
+{
+    Phase * temp = GetPhase(phaseNumber);
+
+    if(temp != nullptr)
+    {
+        temp->AddLane(lane);
+        cout << "lane " << lane->GetLaneNumber()
+        << " added to phase " << temp->GetPhaseNumber() << endl;
+        return;
+    }
+    cout << "could not add lane to phase as phase wasnt found." << endl;
 }
 
 bool Map::RemoveRouteByLaneNumber(int laneNumber)
@@ -329,6 +383,25 @@ Lane *Map::GetLane(int laneNumber)
     return nullptr;
 }
 
+/// get phase by phase number
+Phase *Map::GetPhase(int phaseNumber)
+{
+    Phase *temp;
+
+    for (int i = 0; i < number_of_phases; i++)
+    {
+        temp = phases_[i];
+        if (temp->GetPhaseNumber() == phaseNumber)
+        {
+            return temp;
+        }
+    }
+
+    cout << "error : phase not found in map..." << endl;
+
+    return nullptr;
+}
+
 /// set 2 relative connection sides, by intersection positions
 pair<ConnectionSides, ConnectionSides> Map::AssignConnectionSides(Vector2f pos1, Vector2f pos2)
 {
@@ -393,6 +466,23 @@ void Map::Update(float elapsedTime)
     for (Intersection *i : intersections_)
     {
         i->Update(elapsedTime);
+    }
+
+    for(Phase *p : phases_)
+    {
+        p->Update(elapsedTime);
+    }
+
+    // if current phase has ended
+    if(number_of_phases > 0 && !phases_[current_phase_index_]->IsOpen())
+    {
+        // activate next phase
+        ++current_phase_index_;
+        if(current_phase_index_ > (phases_.size() - 1))
+        {
+            current_phase_index_ = 0;
+        }
+        phases_[current_phase_index_]->Open();
     }
 }
 
@@ -478,9 +568,9 @@ bool Map::DeleteLane(int laneNumber)
 void Map::Draw(RenderWindow *window)
 {
     // Draw all intersections
-    for (int i = 0; i < number_of_intersections_; i++)
+    for(Intersection * inter : intersections_)
     {
-        intersections_[i]->Draw(window);
+        inter->Draw(window);
     }
 
     // draw all routes
@@ -491,6 +581,12 @@ void Map::Draw(RenderWindow *window)
             route->Draw(window);
         }
     }
+
+    for(Phase * p : phases_)
+    {
+        p->Draw(window);
+    }
+
 }
 
 /// return a list of all the lanes' id's

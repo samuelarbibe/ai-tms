@@ -32,6 +32,7 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane *
     source_lane_ = instruction_set_->front();
     instruction_set_->pop();
     dest_lane_ = instruction_set_->front();
+    active_ = false;
 
     // get a pointer to the current intersection
     // current intersection is the intersection that the lane leads to
@@ -265,19 +266,18 @@ State Vehicle::drive()
                                                                      dest_lane_->GetStartPosition());
             float angle = Settings::CalculateAngle(source_lane_->GetDirection(), dest_lane_->GetDirection());
 
-            // if not a straight line
-            if(angle > 1.f || angle < -1.f)
+            // if going in a straight line
+            if(angle < 1.f && angle > -1.f)
             {
-                bool rightTurn = (angle > 0) ? true : false;
+                angular_vel_ = 0;
+            }
+            else
+            {
                 float turningRadius = (distanceSourceTarget / 2.f) / (sin(angle * M_PI / 360.f));
                 float turningParameter = 2.f * M_PI * turningRadius;
                 float turningDistance = (angle / 360.f) * turningParameter;
 
                 angular_vel_ = angle / turningDistance;
-            }
-            else
-            {
-                angular_vel_ = 0;
             }
 
             turning_ = true;
@@ -345,7 +345,6 @@ State Vehicle::drive()
     acc_ = max_acc_;
     state_ = DRIVE;
     return DRIVE;
-
 }
 
 /// update a vehicle's location
@@ -357,6 +356,8 @@ void Vehicle::Update(float elapsedTime)
         data_box_->SetData("Speed", Settings::ConvertVelocity(PXS, KMH, speed_));
     }
     drive();
+    // activate car
+    if(active_ == false && state_ == DRIVE) active_ = true;
     apply_changes(elapsedTime);
 }
 

@@ -14,7 +14,7 @@ bool Settings::DrawRoadDataBoxes = false;
 bool Settings::DrawRoutes = false;
 bool Settings::DrawGrid = false;
 
-int Settings::MaxFps = 120;
+int Settings::MaxFps = 240;
 bool Settings::MultiColor = true;
 float Settings::MinDistanceFromNextCar = 166;
 float Settings::MinDistanceFromStop = 66;
@@ -145,3 +145,5 @@ float Settings::CalculateAngle(float a, float b)
 
     return temp;
 }
+
+float Settings::OrangeDelay = 2.f;

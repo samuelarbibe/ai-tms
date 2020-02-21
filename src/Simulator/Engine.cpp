@@ -49,6 +49,12 @@ void Engine::on_init()
     map->AddRoute(3, 2);
     map->AddRoute(1, 4);
 
+    map->AddPhase(0, 10);
+    map->AddPhase(0, 15);
+
+    map->AddLight(0, 1, Vector2f(100, 100));
+    map->AddLight(0, 2, Vector2f(200, 100));
+
 }
 
 void Engine::ResizeFrame(QSize size)
@@ -295,7 +301,7 @@ void Engine::input()
 }
 
 /// build a map using instructions from a given json file
-void Engine::LoadMap(string loadDirectory)
+void Engine::LoadMap(const string loadDirectory)
 {
     // first, delete the old map.
     ResetMap();
@@ -340,7 +346,7 @@ void Engine::LoadMap(string loadDirectory)
 }
 
 /// save the current map to a json file
-void Engine::SaveMap(string saveDirectory)
+void Engine::SaveMap(const string saveDirectory)
 {
     // first save intersections, then save connecting roads, then save roads, then save lanes
     json j;
@@ -435,7 +441,7 @@ void Engine::ResetMap()
 void Engine::cycle()
 {
     input();
-    update((timer_.interval() / 1000.f));
+    update((float(timer_.interval()) / 1000.f));
     render();
 }
 
@@ -449,7 +455,7 @@ void Engine::update(float elapsedTime)
         v->Update(elapsedTime);
     }
 
-    if(Settings::DrawFps)cout << "FPS : " << 1.f/elapsedTime << endl;
+    if(Settings::DrawFps)cout << "FPS : " << 1000.f/elapsedTime << endl;
     //clear all cars to be deleted
     Vehicle::ClearVehicles();
 }
@@ -502,7 +508,11 @@ void Engine::render()
     // Draw all vehicles
     for(Vehicle * v : Vehicle::ActiveVehicles)
     {
-        v->Draw(this);
+        // only draw active vehicles; stacked vehicles wont be rendered
+        if(v->GetIsActive())
+        {
+            v->Draw(this);
+        }
     }
 
     // Draw the click index
@@ -520,7 +530,6 @@ void Engine::render()
     this->setView(minimap_); // switch to minimap for rendering
     draw_minimap(); // render minimap
     this->setView(view_); // switch back to main view
-
 }
 
 /// drawing the minimap is drawing everything but the vehicles and the grid, on a smaller scale

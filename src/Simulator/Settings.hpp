@@ -87,6 +87,9 @@ public:
 
     static float CalculateDistance(Vector2f a, Vector2f b);
     static float CalculateAngle(float a, float b);
+
+    static float OrangeDelay;
+    static float RedDelay;
 };
 
 
