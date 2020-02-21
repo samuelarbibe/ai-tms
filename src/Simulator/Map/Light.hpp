@@ -16,20 +16,27 @@ enum LightState {GREEN, ORANGE, RED};
 class Light : public RectangleShape
 {
 public:
-    Light(int lightNumber, Vector2f position);
+    Light(int lightNumber, int phaseNumber, Road * parentRoad);
     ~Light();
 
     void Draw(RenderWindow * window);
     void Update(float elapsedTime);
 
     void SetState(LightState state){state_ = state;}
+	void UpdatePosition();
+
+    int GetPhaseNumber(){return phase_number_;}
     int GetLightNumber(){return light_number_;}
 
+    Road * GetParentRoad(){return parent_road_;}
 
     static int LightCount;
 private:
     int light_number_;
+    int phase_number_;
+
     LightState state_;
+    Road * parent_road_;
 
     vector<CircleShape*> circles_;
 };

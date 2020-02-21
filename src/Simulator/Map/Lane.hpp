@@ -41,8 +41,8 @@ public:
     int   GetIntersectionNumber(){return intersection_number_;};
     int   GetCurrentVehicleCount(){return current_vehicle_count_;};
     int   GetTotalVehicleCount(){return total_vehicle_count_;};
-    int GetLastCar(){return last_entered_car_number_;};
-    int GetRoadNumber(){return road_number_;};
+    int   GetLastCar(){return last_entered_car_number_;};
+    int   GetRoadNumber(){return road_number_;};
     Vector2f GetStartPosition(){return start_pos_;};
     Vector2f GetEndPosition(){return end_pos_;};
 
@@ -50,7 +50,7 @@ public:
     void  Unselect();
     void  AddVehicleCount(){current_vehicle_count_++; total_vehicle_count_++;};
     void  RemoveVehicleCount(){current_vehicle_count_--;};
-    void  SetIsBlocked(bool blocked) { is_blocked_ = blocked; if(Settings::DrawActive)cout << "Lane " << lane_number_ << " blocked: " << blocked << endl;};
+    void  SetIsBlocked(bool blocked) { is_blocked_ = blocked;};
     void  SetLastCar(int lastCar){ last_entered_car_number_ = lastCar;};
     
     void  Draw(RenderWindow * window);

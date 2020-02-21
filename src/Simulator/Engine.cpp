@@ -52,8 +52,11 @@ void Engine::on_init()
     map->AddPhase(0, 10);
     map->AddPhase(0, 15);
 
-    map->AddLight(0, 1, Vector2f(100, 100));
-    map->AddLight(0, 2, Vector2f(200, 100));
+    map->AssignLaneToPhase(1, 1);
+    map->AssignLaneToPhase(2, 3);
+
+    map->AddLight(0, 1, 1);
+    map->AddLight(0, 2, 2);
 
 }
 
@@ -203,7 +206,7 @@ Vector2f Engine::DrawPoint(Vector2f position)
         temp = position;
     }
 
-    click_point_ = CircleShape(snap_grid_.ColumnWidth / 3.f);
+    click_point_ = CircleShape(snap_grid_.ColumnWidth / 5.f);
     click_point_.setOrigin(click_point_.getRadius(), click_point_.getRadius());
     click_point_.setFillColor(Color::Red);
     click_point_.setPosition(temp.x, temp.y);
@@ -336,6 +339,18 @@ void Engine::LoadMap(const string loadDirectory)
             map->AddRoute(data["from"], data["to"]);
         }
 
+        for (auto data : j["phases"]) {
+            map->AddPhase(data["id"], data["cycle_time"]);
+        }
+
+        for (auto data : j["assigned_lanes"]) {
+            map->AssignLaneToPhase(data["phase_number"], data["lane_number"]);
+        }
+
+        for (auto data : j["lights"]) {
+            map->AddLight(data["id"], data["phase_number"], data["parent_road_number"]);
+        }
+
         cout << "Map has been successfully loaded from '" << loadDirectory << "'. " << endl;
     }
     catch(const std::exception& e)
@@ -414,6 +429,37 @@ void Engine::SaveMap(const string saveDirectory)
                         {"to", route->ToLane->GetLaneNumber()}
                 }
         );
+    }
+
+    for(Phase * phase : *map->GetPhases())
+    {
+        j["phases"].push_back(
+            {
+                {"id", phase->GetPhaseNumber()},
+                {"cycle_time", phase->GetCycleTime()}
+            }
+        );
+
+        for(Lane * lane : *phase->GetAssignLanes())
+        {
+            j["assigned_lanes"].push_back(
+                {
+                    {"phase_number", phase->GetPhaseNumber()},
+                    {"lane_number",lane->GetLaneNumber()}
+                }
+            );
+        }
+
+        for(Light * light : *phase->GetLights())
+        {
+            j["lights"].push_back(
+                {
+                    {"id", light->GetLightNumber()},
+                    {"phase_number", light->GetPhaseNumber()},
+                    {"parent_road_number", light->GetParentRoad()->GetRoadNumber()}
+                }
+            );
+        }
     }
 
     // write to file

@@ -4,6 +4,8 @@
 
 #include "Settings.hpp"
 
+const Vector2f Settings::ForwardVector = Vector2f(0.f, -1.f);
+
 bool Settings::DrawFps = false;
 bool Settings::DrawActive = true;
 bool Settings::DrawDelete = true;

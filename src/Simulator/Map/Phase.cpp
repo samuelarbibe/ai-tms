@@ -18,17 +18,22 @@ Phase::Phase(int phaseNumber, float cycleTime)
 
 Phase::~Phase()
 {
+    for(Light * light : lights_)
+    {
+        delete light;
+    }
 
+    if(Settings::DrawDelete)cout << "Phase " << phase_number_ << " deleted." << endl;
 }
 
-Light *Phase::AddLight(int lightNumber, Vector2f position)
+Light *Phase::AddLight(int lightNumber, Road * parentRoad)
 {
     if(lightNumber == 0)
     {
         lightNumber = Light::LightCount + 1;
     }
 
-    Light * temp = new Light(lightNumber, position);
+    Light * temp = new Light(lightNumber, phase_number_, parentRoad);
     lights_.push_back(temp);
 
     ++Light::LightCount;
@@ -42,6 +47,14 @@ void Phase::AddLane(Lane *lane)
     lanes_.push_back(lane);
 }
 
+void Phase::ReloadPhase()
+{
+    for(Light * l : lights_)
+    {
+        l->UpdatePosition();
+    }
+}
+
 void Phase::Update(float elapsedTime)
 {
     if(open_)
@@ -53,7 +66,6 @@ void Phase::Update(float elapsedTime)
             open_time_ = 0;
             open_ = false;
             state_ = RED;
-            cout << "phase " << phase_number_ << " RED." << endl;
         }
         else if (open_time_ < Settings::OrangeDelay)
         {
@@ -91,5 +103,6 @@ void Phase::Draw(RenderWindow *window)
         l->Draw(window);
     }
 }
+
 
 

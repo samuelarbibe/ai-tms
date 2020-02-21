@@ -39,8 +39,9 @@ public:
     Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
     Road * AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2);
     Phase * AddPhase(int phaseNumber, float cycleTime);
-    Light * AddLight(int lightNumber, int phaseNumber, Vector2f position);
-    void AssignLaneToPhase(int phaseNumber, Lane * lane);
+    Light * AddLight(int lightNumber, int phaseNumber, int parentRoadNumber);
+    void AssignLaneToPhase(int phaseNumber, int laneNumber);
+    void CyclePhase();
 
     vector<Intersection*> GetIntersectionByLaneNumber(int laneNumber);
     Intersection * GetIntersection(int intersectionNumber); 
@@ -49,6 +50,8 @@ public:
     Road * GetRoad(int roadNumber);
     Lane * GetLane(int laneNumber);
     Phase * GetPhase(int phaseNumber);
+    vector<Route*> * GetRoutes(){return &routes_;}
+    vector<Phase*> * GetPhases(){return &phases_;}
 
     set<QString> GetLaneIdList();
     set<QString> GetRoadIdList();
@@ -61,7 +64,7 @@ public:
     pair<ConnectionSides, ConnectionSides> AssignConnectionSides(Vector2f pos1, Vector2f pos2);
 
     // route manipulation
-    vector<Route*> * GetRoutes(){return &routes_;}
+
     void FindStartingLanes();
     bool AddRoute(int from, int to);
     bool RemoveRouteByLaneNumber(int laneNumber);

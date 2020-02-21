@@ -24,6 +24,8 @@ public:
     static float ConvertSize(DistanceUnits fromUnit, DistanceUnits toUnit, float value);
     static float ConvertVelocity(VelocityUnits fromUnit, VelocityUnits toUnit, float value);
 
+    static const Vector2f ForwardVector;
+
     static bool DrawFps;
     static bool DrawActive;
     static bool DrawDelete;
