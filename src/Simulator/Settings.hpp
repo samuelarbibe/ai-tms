@@ -32,6 +32,7 @@ public:
     static bool DrawAdded;
     static bool DrawVehicleDataBoxes;
     static bool DrawRoadDataBoxes;
+    static bool DrawLightDataBoxes;
     static bool DrawRoutes;
 
     static int MaxFps;
@@ -91,7 +92,8 @@ public:
     static float CalculateAngle(float a, float b);
 
     static float OrangeDelay;
-    static float RedDelay;
+    static float DefaultCycleTime;
+    static float PhaseDelay;
 };
 
 

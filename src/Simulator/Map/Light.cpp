@@ -14,10 +14,17 @@ Light::Light(int lightNumber, int phaseNumber, Road * parentRoad)
     state_ = RED;
 
     UpdatePosition();
+
+    data_box_ = new DataBox(this->getPosition());
+    data_box_->AddData("ID", light_number_);
+    data_box_->AddData("Phase", phase_number_);
+    data_box_->AddData("State", state_);
 }
 
 Light::~Light()
 {
+	delete data_box_;
+
     if(Settings::DrawDelete) cout << "Light " << light_number_ << " deleted" << endl;
 }
 
@@ -108,6 +115,8 @@ void Light::Update(float elapsedTime)
             circles_[2]->setFillColor(Color::Green);
             break;
     }
+
+    if(Settings::DrawLightDataBoxes)data_box_->SetData("State", state_);
 }
 
 void Light::Draw(RenderWindow *window)
@@ -118,6 +127,8 @@ void Light::Draw(RenderWindow *window)
     {
         window->draw(*circles_[i]);
     }
+
+    if(Settings::DrawLightDataBoxes)data_box_->Draw(window);
 }
 
 

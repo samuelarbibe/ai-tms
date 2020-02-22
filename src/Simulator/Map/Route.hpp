@@ -20,10 +20,12 @@ public:
 
     void Draw(RenderWindow * window);
     int GetRouteNumber(){return route_number_;}
+    void ReloadRoute();
 
     static int RouteCount;
 private:
     void BuildRadiusLine();
+	void BuildLaneLines();
 
     int route_number_;
 

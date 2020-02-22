@@ -23,72 +23,74 @@ using namespace std;
 class Map
 {
 
-public:
+  public:
 
-    Map(int mapNumber, int width, int height);
-    ~Map();
+	Map(int mapNumber, int width, int height);
+	~Map();
 
-    void   Update(float elapsedTime);
-    void   Draw(RenderWindow *window);
-    bool   DeleteLane(int laneNumber);
-    void   ReloadMap();
+	void Update(float elapsedTime);
+	void Draw(RenderWindow *window);
+	bool DeleteLane(int laneNumber);
+	void ReloadMap();
 
-    Vector2f GetSize(){return Vector2f(width_, height_);}
-    Intersection * AddIntersection(int intersectionNumber, Vector2f position);
-    Road * AddRoad(int roadNumber, int intersectionNumber, int connectionSide, float length);
-    Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
-    Road * AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2);
-    Phase * AddPhase(int phaseNumber, float cycleTime);
-    Light * AddLight(int lightNumber, int phaseNumber, int parentRoadNumber);
-    void AssignLaneToPhase(int phaseNumber, int laneNumber);
-    void CyclePhase();
+	Vector2f GetSize() { return Vector2f(width_, height_); }
+	Intersection *AddIntersection(int intersectionNumber, Vector2f position);
+	Road *AddRoad(int roadNumber, int intersectionNumber, int connectionSide, float length);
+	Lane *AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
+	Road *AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2);
+	Phase *AddPhase(int phaseNumber, float cycleTime);
+	Light *AddLight(int lightNumber, int phaseNumber, int parentRoadNumber);
+	bool SetPhaseTime(int phaseNumber, float phaseTime);
+	bool AssignLaneToPhase(int phaseNumber, int laneNumber);
+	void CyclePhase();
 
-    vector<Intersection*> GetIntersectionByLaneNumber(int laneNumber);
-    Intersection * GetIntersection(int intersectionNumber); 
-    vector<Intersection*> * GetIntersections(){return &(intersections_);};
+	vector<Intersection *> GetIntersectionByLaneNumber(int laneNumber);
+	Intersection *GetIntersection(int intersectionNumber);
+	vector<Intersection *> *GetIntersections() { return &(intersections_); };
 
-    Road * GetRoad(int roadNumber);
-    Lane * GetLane(int laneNumber);
-    Phase * GetPhase(int phaseNumber);
-    vector<Route*> * GetRoutes(){return &routes_;}
-    vector<Phase*> * GetPhases(){return &phases_;}
+	Road *GetRoad(int roadNumber);
+	Lane *GetLane(int laneNumber);
+	Phase *GetPhase(int phaseNumber);
+	vector<Route *> *GetRoutes() { return &routes_; }
+	vector<Phase *> *GetPhases() { return &phases_; }
 
-    set<QString> GetLaneIdList();
-    set<QString> GetRoadIdList();
-    set<QString> GetIntersectionIdList();
+	set<QString> GetLaneIdList(int phaseNumber = 0);
+	set<QString> GetRoadIdList();
+	set<QString> GetIntersectionIdList();
+	set<QString> GetPhaseIdList();
+	set<QString> GetLightIdList();
 
-    int GetIntersectionCount(){return number_of_intersections_;}
-    int GetRoadCount();
-    int GetLaneCount();
+	int GetIntersectionCount() { return number_of_intersections_; }
+	int GetRoadCount();
+	int GetLaneCount();
 
-    pair<ConnectionSides, ConnectionSides> AssignConnectionSides(Vector2f pos1, Vector2f pos2);
+	pair<ConnectionSides, ConnectionSides> AssignConnectionSides(Vector2f pos1, Vector2f pos2);
 
-    // route manipulation
+	// route manipulation
 
-    void FindStartingLanes();
-    bool AddRoute(int from, int to);
-    bool RemoveRouteByLaneNumber(int laneNumber);
-    Route * GetPossibleRoute(int from);
-    Lane  * GetPossibleStartingLane();
+	void FindStartingLanes();
+	bool AddRoute(int from, int to);
+	bool RemoveRouteByLaneNumber(int laneNumber);
+	Route *GetPossibleRoute(int from);
+	Lane *GetPossibleStartingLane();
 
-    Lane * CheckSelection(Vector2f position);
+	Lane *CheckSelection(Vector2f position);
 
-    Lane * SelectedLane;
+	Lane *SelectedLane;
 
-private:
+  private:
 
-    int map_number_;
-    int number_of_intersections_;
-    int number_of_phases;
-    int width_;
-    int height_;
-    int current_phase_index_;
+	int map_number_;
+	int number_of_intersections_;
+	int number_of_phases;
+	int width_;
+	int height_;
+	int current_phase_index_;
 
-    vector<Route*> routes_;
-    vector<Lane*> starting_lanes_;
-    vector<Intersection*> intersections_;
-    vector<Phase*> phases_;
+	vector<Route *> routes_;
+	vector<Lane *> starting_lanes_;
+	vector<Intersection *> intersections_;
+	vector<Phase *> phases_;
 };
-
 
 #endif //SIMULATORSFML_MAP_HPP

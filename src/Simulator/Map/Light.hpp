@@ -11,35 +11,39 @@
 using namespace sf;
 using namespace std;
 
-enum LightState {GREEN, ORANGE, RED};
+enum LightState
+{
+	GREEN, ORANGE, RED
+};
 
 class Light : public RectangleShape
 {
-public:
-    Light(int lightNumber, int phaseNumber, Road * parentRoad);
-    ~Light();
+  public:
+	Light(int lightNumber, int phaseNumber, Road *parentRoad);
+	~Light();
 
-    void Draw(RenderWindow * window);
-    void Update(float elapsedTime);
+	void Draw(RenderWindow *window);
+	void Update(float elapsedTime);
 
-    void SetState(LightState state){state_ = state;}
+	void SetState(LightState state) { state_ = state; }
 	void UpdatePosition();
 
-    int GetPhaseNumber(){return phase_number_;}
-    int GetLightNumber(){return light_number_;}
+	int GetPhaseNumber() { return phase_number_; }
+	int GetLightNumber() { return light_number_; }
 
-    Road * GetParentRoad(){return parent_road_;}
+	Road *GetParentRoad() { return parent_road_; }
 
-    static int LightCount;
-private:
-    int light_number_;
-    int phase_number_;
+	static int LightCount;
+	
+  private:
+	int light_number_;
+	int phase_number_;
 
-    LightState state_;
-    Road * parent_road_;
+	LightState state_;
+	Road *parent_road_;
+	DataBox *data_box_;
 
-    vector<CircleShape*> circles_;
+	vector<CircleShape *> circles_;
 };
-
 
 #endif //SIMULATORSFML_LIGHT_HPP

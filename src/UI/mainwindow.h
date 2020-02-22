@@ -6,86 +6,111 @@
 #include "../Simulator/Engine.hpp"
 
 namespace Ui {
-class MainWindow;
+	class MainWindow;
 }
 
-class MainWindow : public QMainWindow
-{
-    Q_OBJECT
+class MainWindow : public QMainWindow {
+  Q_OBJECT
+  
+  public:
+	explicit MainWindow(QWidget *parent = nullptr);
+	~MainWindow();
+	
+	void mouseDoubleClickEvent(QMouseEvent *event) override;
+	
+	void resizeEvent(QResizeEvent *event) override;
+  
+  protected:
+	
+	void showEvent(QShowEvent *ev) override;
+  
+  private slots:
+	void on_AddIntersectionButton_clicked();
+	
+	void on_AddConnectingRoadButton_clicked();
+	
+	void on_AddRoadButton_clicked();
+	
+	void on_AddLanePushButton_clicked();
+	
+	void on_SnapToGridCheckBox_stateChanged(int arg1);
+	
+	void on_ShowGridCheckBox_stateChanged(int arg1);
+	
+	void on_LaneWidthSlider_sliderMoved(int position);
+	
+	void on_DistanceUnitComboBox_currentIndexChanged(int index);
+	
+	void on_LaneWidthValueEdit_editingFinished();
+	
+	void on_ZoomSlider_valueChanged(int value);
+	
+	void on_CarMaxSpeed_editingFinished();
+	
+	void on_MotorcycleMaxSpeed_editingFinished();
+	
+	void on_TruckMaxSpeed_editingFinished();
+	
+	void on_VelocityUnitComboBox_currentIndexChanged(int index);
+	
+	void on_MultiColorCheckBox_stateChanged(int arg1);
+	
+	void on_DeleteButton_clicked();
+	
+	void reloadOptionData();
+	
+	void on_ResetButton_clicked();
+	
+	void on_LoadMapButton_clicked();
+	
+	void on_SaveMapButton_clicked();
+	
+	void on_ShowDataBoxesCheckBox_stateChanged(int arg1);
+	
+	void on_ShowRoutesCheckBox_stateChanged(int arg1);
+	
+	void on_FasterButton_clicked();
+	
+	void on_SlowerButton_clicked();
+	
+	void on_PauseButton_clicked();
+	
+	void on_RunSimulationButton_clicked();
+	
+	void on_AddRouteButton_clicked();
+	
+	void on_ReloadButton_clicked();
+  
+    void on_PhaseNumberComboBox_currentTextChanged(const QString &arg1);
 
-public:
-    explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    void on_AssignedLanesListView_itemClicked(QListWidgetItem *item);
 
-    void mouseDoubleClickEvent(QMouseEvent *event) override;
+    void on_AddPhaseButton_clicked();
 
-    void resizeEvent(QResizeEvent * event) override;
+    void on_AddLightButton_clicked();
 
-protected:
+    void on_PhaseTimeSlider_sliderMoved(int position);
 
-    void showEvent(QShowEvent *ev) override;
+    void on_PhaseDelaySlider_sliderMoved(int position);
 
-private slots:
-    void on_AddIntersectionButton_clicked();
+    void on_OrangeLightDelaySlider_sliderMoved(int position);
 
-    void on_AddConnectingRoadButton_clicked();
+    void on_AssignLaneButton_clicked();
 
-    void on_AddRoadButton_clicked();
+    void on_PhaseTimeComboBox_currentTextChanged(const QString &arg1);
 
-    void on_AddLanePushButton_clicked();
+    void on_PhaseTimeLineEdit_editingFinished();
 
-    void on_SnapToGridCheckBox_stateChanged(int arg1);
+    void on_PhaseDelayLineEdit_editingFinished();
 
-    void on_ShowGridCheckBox_stateChanged(int arg1);
-
-    void on_LaneWidthSlider_sliderMoved(int position);
-
-    void on_DistanceUnitComboBox_currentIndexChanged(int index);
-
-    void on_LaneWidthValueEdit_editingFinished();
-
-    void on_ZoomSlider_valueChanged(int value);
-
-    void on_CarMaxSpeed_editingFinished();
-
-    void on_MotorcycleMaxSpeed_editingFinished();
-
-    void on_TruckMaxSpeed_editingFinished();
-
-    void on_VelocityUnitComboBox_currentIndexChanged(int index);
-
-    void on_MultiColorCheckBox_stateChanged(int arg1);
-
-    void on_DeleteButton_clicked();
-
-    void reloadOptionData();
-
-    void on_ResetButton_clicked();
-
-    void on_LoadMapButton_clicked();
-
-    void on_SaveMapButton_clicked();
-
-    void on_ShowDataBoxesCheckBox_stateChanged(int arg1);
-
-    void on_ShowRoutesCheckBox_stateChanged(int arg1);
-
-    void on_FasterButton_clicked();
-
-    void on_SlowerButton_clicked();
-
-    void on_PauseButton_clicked();
-
-    void on_RunSimulationButton_clicked();
-
-    void on_AddRouteButton_clicked();
-
-    void on_ReloadButton_clicked();
+    void on_OrangeLightDelayLineEdit_editingFinished();
 
 private:
-
-    Ui::MainWindow *ui;
-    Engine * SimulatorEngine;
+	
+	Ui::MainWindow *ui;
+	Engine *SimulatorEngine;
+	
+	void reloadLaneList();
 };
 
 #endif // MAINWINDOW_H

@@ -13,6 +13,7 @@ bool Settings::DrawAdded = true;
 
 bool Settings::DrawVehicleDataBoxes = false;
 bool Settings::DrawRoadDataBoxes = false;
+bool Settings::DrawLightDataBoxes = false;
 bool Settings::DrawRoutes = false;
 bool Settings::DrawGrid = false;
 
@@ -149,3 +150,5 @@ float Settings::CalculateAngle(float a, float b)
 }
 
 float Settings::OrangeDelay = 2.f;
+float Settings::DefaultCycleTime = 5.f;
+float Settings::PhaseDelay = 1.5f;

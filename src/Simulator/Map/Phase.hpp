@@ -28,7 +28,7 @@ public:
     int GetCycleTime(){return cycle_time_;}
     int GetPhaseNumber(){return phase_number_;}
 	vector<Light*> * GetLights(){return &lights_;}
-	vector<Lane*> * GetAssignLanes(){return &lanes_;}
+	vector<Lane*> * GetAssignedLanes(){return &lanes_;}
 
     Light * AddLight(int lightNumber, Road * parentRoad);
     void AddLane(Lane * lane);

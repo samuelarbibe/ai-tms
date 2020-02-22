@@ -45,6 +45,7 @@ Light *Phase::AddLight(int lightNumber, Road * parentRoad)
 void Phase::AddLane(Lane *lane)
 {
     lanes_.push_back(lane);
+    lane->SetPhaseNumber(phase_number_);
 }
 
 void Phase::ReloadPhase()

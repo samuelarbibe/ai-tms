@@ -56,7 +56,7 @@ void Engine::on_init()
     map->AssignLaneToPhase(2, 3);
 
     map->AddLight(0, 1, 1);
-    map->AddLight(0, 2, 2);
+    //map->AddLight(0, 2, 2);
 
 }
 
@@ -440,7 +440,7 @@ void Engine::SaveMap(const string saveDirectory)
             }
         );
 
-        for(Lane * lane : *phase->GetAssignLanes())
+        for(Lane * lane : *phase->GetAssignedLanes())
         {
             j["assigned_lanes"].push_back(
                 {

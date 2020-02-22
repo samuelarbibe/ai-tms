@@ -24,6 +24,7 @@ Lane::Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f star
     current_vehicle_count_  = 0;
     total_vehicle_count_ = 0;
     last_entered_car_number_ = 0;
+    phase_number_ = 0;
     
     // calculate end position:
     Vector2f lengthVec;
