@@ -48,8 +48,7 @@ void MainWindow::showEvent(QShowEvent *ev)
 void MainWindow::reloadOptionData()
 {
 	// set intersection number range for future use
-	set<QString> intersectionIdList = SimulatorEngine->map->GetIntersectionIdList();
-	
+
 	ui->FromIntersectionComboBox->clear();
 	ui->ToIntersectionComboBox->clear();
 	ui->IntersectionComboBox->clear();
@@ -61,7 +60,7 @@ void MainWindow::reloadOptionData()
 	ui->ToLaneComboBox->clear();
 	ui->AssignLaneToPhaseComboBox->clear();
 	
-	for (const QString s : intersectionIdList)
+	for (const QString s : SimulatorEngine->map->GetIntersectionIdList())
 	{
 		ui->FromIntersectionComboBox->addItem(s);
 		ui->ToIntersectionComboBox->addItem(s);
@@ -90,7 +89,7 @@ void MainWindow::reloadOptionData()
 		ui->AssignLaneToPhaseComboBox->addItem(p);
 	}
 	
-	reloadLaneList();
+	//reloadLaneList();
 }
 
 void MainWindow::reloadLaneList()
@@ -124,8 +123,7 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 		point.x = clickPoint.x();
 		point.y = clickPoint.y();
 		
-		//cout << point.x << point.y << endl;
-		
+
 		if (point.x > 0 && point.y > 0)
 		{
 			// draw a point on simulator canvas to indicate last clicked position
@@ -361,6 +359,7 @@ void MainWindow::on_DeleteButton_clicked()
 		// if deletion was successful
 		if (SimulatorEngine->map->DeleteLane(selectedLane->GetLaneNumber()))
 		{
+
 			QString text = "Lane ";
 			text.append(QString::number(laneNumber));
 			text.append(" has been deleted. ");
@@ -586,11 +585,15 @@ void MainWindow::on_AssignLaneButton_clicked()
 
 void MainWindow::on_PhaseTimeComboBox_currentTextChanged(const QString &arg1)
 {
-	Phase *p = SimulatorEngine->map->GetPhase(ui->PhaseTimeComboBox->currentText().toInt());
-	if (p != nullptr)
+	int phaseNumber = ui->PhaseTimeComboBox->currentText().toInt();
+	if(phaseNumber != 0)
 	{
-		ui->PhaseTimeLineEdit->setText(QString::number(p->GetCycleTime()));
-		ui->PhaseTimeSlider->setSliderPosition(p->GetCycleTime());
+		Phase *p = SimulatorEngine->map->GetPhase(phaseNumber);
+		if (p != nullptr)
+		{
+			ui->PhaseTimeLineEdit->setText(QString::number(p->GetCycleTime()));
+			ui->PhaseTimeSlider->setSliderPosition(p->GetCycleTime());
+		}
 	}
 }
 

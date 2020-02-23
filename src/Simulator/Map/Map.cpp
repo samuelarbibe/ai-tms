@@ -259,10 +259,33 @@ bool Map::RemoveRouteByLaneNumber(int laneNumber) {
 		return true;
 	} else
 	{
-		cout << "could not delete this route. the deleted lane could not be found." << endl;
+		//cout << "could not delete this route. the deleted lane could not be found." << endl;
 		return false;
 	}
 
+}
+
+bool Map::UnassignLaneFromPhase(int laneNumber){
+
+	Lane * lane = GetLane(laneNumber);
+
+	if(lane->GetPhaseNumber() != 0)
+	{
+		if (lane != nullptr)
+		{
+			Phase *phase = GetPhase(lane->GetPhaseNumber());
+
+			if (phase->UnassignLane(lane))
+			{
+				return true;
+			}
+
+		} else
+		{
+			cout << "could not Unassign lane from phase, as lane does not belong to any phase" << endl;
+		}
+	}
+	return false;
 }
 
 /// finds all starting lanes
@@ -388,7 +411,8 @@ Lane *Map::GetLane(int laneNumber) {
 }
 
 /// get phase by phase number
-Phase *Map::GetPhase(int phaseNumber) {
+Phase *Map::GetPhase(int phaseNumber)
+{
 	Phase *temp;
 
 	for (Phase *p : phases_)
@@ -525,11 +549,15 @@ int Map::GetLaneCount() {
 /// delete a given lane in this map
 bool Map::DeleteLane(int laneNumber) {
 	vector<Intersection *> targetIntersections = GetIntersectionByLaneNumber(laneNumber);
+	Lane * lane = GetLane(laneNumber);
 
 	if (!targetIntersections.empty())
 	{
 		// delete all routes that go through this lane
 		RemoveRouteByLaneNumber(laneNumber);
+
+		// delete this road from all phases it belongs to
+		UnassignLaneFromPhase(laneNumber);
 		// delete the given lane
 		// if lane's road is connecting, send other intersection as well to handle deletion
 		if (targetIntersections.size() > 1)

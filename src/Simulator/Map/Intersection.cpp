@@ -194,6 +194,11 @@ void Intersection::ReAssignRoadPositions()
 /// Reload the intersection cooridinates
 void Intersection::ReloadIntersection()
 {
+	for(Road * r : roads_)
+	{
+		r->ReloadRoad();
+	}
+
     // update intersection dimensions
     Road * r1 = GetRoadByConnectionSide(1);
     Road * r2 = GetRoadByConnectionSide(2);
@@ -282,7 +287,7 @@ bool Intersection::DeleteLane(int laneNumber, Intersection * otherIntersection)
                     otherIntersection->number_of_roads_--;
                 }
 
-                delete r;
+                delete targetRoad;
                 number_of_roads_ --;
             }
             return true;

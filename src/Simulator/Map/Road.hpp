@@ -32,6 +32,7 @@ public:
     ~Road();
 
     Lane * AddLane(int laneNumber, bool isInRoadDirection);
+    void ReloadRoad();
 
     Lane * GetLane(int laneNumber);
     float  GetWidth(){return width_;}

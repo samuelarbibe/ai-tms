@@ -29,7 +29,7 @@ private:
 
     int route_number_;
 
-    list<Vertex*> lines_;
+    vector<Vertex*> lines_;
     VertexArray radius_line_;
 };
 

@@ -29,7 +29,7 @@ float Settings::MaxLaneWidth = 107;
 float Settings::Scale = 3; // 1 px * [scale] = 1 cm
 float Settings::Speed = 1; // running speed
 
-float Settings::DefaultLaneLength = 500; // lane length in px
+float Settings::DefaultLaneLength = 1000; // lane length in px
 
 int Settings::DefaultMapWidth = 3000;
 int Settings::DefaultMapHeight = 3000;

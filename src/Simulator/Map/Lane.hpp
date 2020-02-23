@@ -49,6 +49,7 @@ class Lane : public RectangleShape
 	int GetTotalVehicleCount() { return total_vehicle_count_; };
 	int GetLastCar() { return last_entered_car_number_; };
 	int GetRoadNumber() { return road_number_; };
+	int GetPhaseNumber() { return phase_number_; };
 	Vector2f GetStartPosition() { return start_pos_; };
 	Vector2f GetEndPosition() { return end_pos_; };
 

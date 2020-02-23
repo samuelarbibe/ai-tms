@@ -154,9 +154,6 @@ void Road::ReAssignLanePositions()
     bool prevState = Settings::DrawDelete;
     Settings::DrawDelete = false;
 
-    this->width_ = Settings::LaneWidth * number_of_lanes_;
-    this->setSize(Vector2f(width_, length_));
-
     Transform t, x;
 
     t.rotate(direction_ + 90);
@@ -210,7 +207,6 @@ void Road::UpdateStartPosition(Vector2f position)
 {
     start_pos_ = position;
     length_ = Settings::CalculateDistance(end_pos_, start_pos_);
-
     this->setOrigin(width_ / 2, 0.f);
     this->setPosition(start_pos_);
     this->setSize(Vector2f(width_, length_));
@@ -270,13 +266,27 @@ bool Road::DeleteLane(int laneNumber)
     if (targetLane != nullptr)
     {
         // remove the targetLane from the list by iterator
-        auto it = find(lanes_.begin(), lanes_.end(), targetLane);
-        it = lanes_.erase(it);
-        delete (*it);
-        number_of_lanes_--;
-        return true;
+        auto it = lanes_.begin();
+        while(it != lanes_.end())
+        {
+        	if((*it)->GetLaneNumber() == laneNumber)
+	        {
+		        it = lanes_.erase(it);
+		        delete targetLane;
+		        number_of_lanes_--;
+		        return true;
+	        }
+	        else
+	        {
+	        	it++;
+	        }
+        }
     }
     return false;
+}
+
+void Road::ReloadRoad() {
+	width_ = Settings::LaneWidth * number_of_lanes_;
 }
 
 /// draw the road and al of its lanes
@@ -289,4 +299,5 @@ void Road::Draw(RenderWindow *window)
     }
     if (Settings::DrawRoadDataBoxes) data_box_->Draw(window);
 }
+
 

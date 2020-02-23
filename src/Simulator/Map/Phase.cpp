@@ -56,6 +56,31 @@ void Phase::ReloadPhase()
     }
 }
 
+bool Phase::UnassignLane(Lane * lane) {
+
+	if(lane != nullptr)
+	{
+		auto it = lanes_.begin();
+
+		while (it != lanes_.end())
+		{
+			if ((*it)->GetLaneNumber() == lane->GetLaneNumber())
+			{
+				int laneNumber = lane->GetLaneNumber();
+				it = lanes_.erase(it);
+
+				if (Settings::DrawActive)
+					cout << "lane " << laneNumber << " removed from phase " << phase_number_ << endl;
+				return true;
+			} else
+			{
+				it++;
+			}
+		}
+	}
+	return false;
+}
+
 void Phase::Update(float elapsedTime)
 {
     if(open_)
@@ -104,6 +129,7 @@ void Phase::Draw(RenderWindow *window)
         l->Draw(window);
     }
 }
+
 
 
 

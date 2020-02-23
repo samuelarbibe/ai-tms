@@ -42,6 +42,7 @@ class Map
 	Light *AddLight(int lightNumber, int phaseNumber, int parentRoadNumber);
 	bool SetPhaseTime(int phaseNumber, float phaseTime);
 	bool AssignLaneToPhase(int phaseNumber, int laneNumber);
+	bool UnassignLaneFromPhase(int laneNumber);
 	void CyclePhase();
 
 	vector<Intersection *> GetIntersectionByLaneNumber(int laneNumber);

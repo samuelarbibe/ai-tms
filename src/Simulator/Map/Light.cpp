@@ -13,6 +13,10 @@ Light::Light(int lightNumber, int phaseNumber, Road * parentRoad)
     light_number_ = lightNumber;
     state_ = RED;
 
+    circles_.push_back(new CircleShape());
+    circles_.push_back(new CircleShape());
+    circles_.push_back(new CircleShape());
+
     UpdatePosition();
 
     data_box_ = new DataBox(this->getPosition());
@@ -53,7 +57,6 @@ void Light::UpdatePosition()
     this->setFillColor(Color::Black);
     this->setRotation(direction);
 
-    sf::CircleShape * circlePtr = new CircleShape();
     float radius = this->getSize().x/2 - 7;
 
     Vector2f basePos = this->getPosition();
@@ -74,27 +77,20 @@ void Light::UpdatePosition()
 
     Vector2f first = basePos + t.transformPoint(yMargin);
 
-    circles_.clear();
+    circles_[0]->setOrigin(radius, radius);
+	circles_[0]->setFillColor(Color::Black);
+	circles_[0]->setPosition(first);
+	circles_[0]->setRadius(radius);
 
-    circlePtr->setOrigin(radius, radius);
-    circlePtr->setFillColor(Color::Black);
-    circlePtr->setPosition(first);
-    circlePtr->setRadius(radius);
-    circles_.emplace_back(circlePtr);
+	circles_[1]->setOrigin(radius, radius);
+	circles_[1]->setFillColor(Color::Black);
+	circles_[1]->setPosition(first + yMargin);
+	circles_[1]->setRadius(radius);
 
-    circlePtr = new CircleShape();
-    circlePtr->setOrigin(radius, radius);
-    circlePtr->setFillColor(Color::Black);
-    circlePtr->setPosition(first + yMargin);
-    circlePtr->setRadius(radius);
-    circles_.emplace_back(circlePtr);
-
-    circlePtr = new CircleShape();
-    circlePtr->setOrigin(radius, radius);
-    circlePtr->setFillColor(Color::Black);
-    circlePtr->setPosition(first + yMargin + yMargin);
-    circlePtr->setRadius(radius);
-    circles_.emplace_back(circlePtr);
+	circles_[2]->setOrigin(radius, radius);
+	circles_[2]->setFillColor(Color::Black);
+	circles_[2]->setPosition(first + yMargin + yMargin);
+	circles_[2]->setRadius(radius);
 }
 
 void Light::Update(float elapsedTime)

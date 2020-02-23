@@ -13,7 +13,10 @@ Route::Route(Lane *from, Lane *to)
     FromLane = from;
     FromLane = from;
     ToLane = to;
-	
+
+    lines_.push_back(new Vertex[2]);
+    lines_.push_back(new Vertex[2]);
+
 	ReloadRoute();
 }
 
@@ -24,27 +27,23 @@ Route::~Route()
 
 void Route::BuildLaneLines()
 {
-	lines_.clear();
-	
-	Vertex * fromLine = new Vertex[2];
-	fromLine[0] = sf::Vertex(FromLane->GetStartPosition());
-	fromLine[0].color = Color::Green;
-	fromLine[1] = sf::Vertex(FromLane->GetEndPosition());
-	fromLine[1].color = Color::Green;
-	
-	Vertex * toLine = new Vertex[2];
-	toLine[0] = sf::Vertex(ToLane->GetStartPosition());
-	toLine[0].color = Color::Green;
-	toLine[1] = sf::Vertex(ToLane->GetEndPosition());
-	toLine[1].color = Color::Green;
-	
-	lines_.push_back(fromLine);
-	lines_.push_back(toLine);
+
+	lines_[0][0] = Vertex(FromLane->GetStartPosition());
+	lines_[0][0].color = Color::Green;
+	lines_[0][1] = sf::Vertex(FromLane->GetEndPosition());
+	lines_[0][1].color = Color::Green;
+
+	lines_[1][0] = Vertex(ToLane->GetStartPosition());
+	lines_[1][0].color = Color::Green;
+	lines_[1][1]= sf::Vertex(ToLane->GetEndPosition());
+	lines_[1][1].color = Color::Green;
+
 }
 
 void Route::BuildRadiusLine()
 {
 	radius_line_.clear();
+
 	
     Vector2f startPos = FromLane->GetEndPosition();
     Vector2f endPos = ToLane->GetStartPosition();
