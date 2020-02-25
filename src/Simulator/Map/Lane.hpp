@@ -89,6 +89,9 @@ class Lane : public RectangleShape
 
 	void create_arrow_shape(Transform t);
 	ConvexShape arrow_shape_;
+
+	void create_block_shape();
+	RectangleShape lane_block_shape_;
 };
 
 #endif /* Lane_hpp */

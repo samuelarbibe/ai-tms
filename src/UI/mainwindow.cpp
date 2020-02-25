@@ -501,12 +501,17 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 void MainWindow::on_PhaseNumberComboBox_currentTextChanged(const QString &arg1)
 {
 	reloadLaneList();
+	int phaseNumber = ui->PhaseNumberComboBox->currentText().toInt();
+	if(phaseNumber != 0)
+	{
+		SimulatorEngine->map->SelectLanesByPhase(phaseNumber);
+	}
 }
 
-// TODO: add selection hi-lighting
 void MainWindow::on_AssignedLanesListView_itemClicked(QListWidgetItem *item)
 {
-	int selectedLane = item->text().toInt();
+	//int selectedLane = item->text().toInt();
+
 }
 
 void MainWindow::on_AddPhaseButton_clicked()
@@ -631,4 +636,15 @@ void MainWindow::on_OrangeLightDelayLineEdit_editingFinished()
     Settings::OrangeDelay = value;
     ui->OrangeLightDelayLineEdit->setText(QString::number(value));
     ui->statusbar->showMessage(tr("Orange Light delay changed."));
+}
+
+void MainWindow::on_ShowLaneBlockCheckBox_stateChanged(int arg1)
+{
+    Settings::DrawLaneBlock = arg1;
+}
+
+void MainWindow::on_DrawTexturesCheckBox_stateChanged(int arg1)
+{
+    Settings::DrawTextures = arg1;
+    ui->MultiColorCheckBox->setEnabled(arg1);
 }

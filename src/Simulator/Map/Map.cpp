@@ -468,12 +468,11 @@ Lane *Map::CheckSelection(Vector2f position) {
 }
 
 /// Reload all intersection in this map
-void Map::ReloadMap() {
-	if (SelectedLane != nullptr)
-	{
-		SelectedLane->Unselect();
-		SelectedLane = nullptr;
-	}
+void Map::ReloadMap()
+{
+
+	// unselect all the selected lanes
+	UnselectAllLanes();
 
 	for (Intersection *i : intersections_)
 	{
@@ -520,6 +519,39 @@ void Map::CyclePhase() {
 		}
 		phases_[current_phase_index_]->Open();
 	}
+}
+
+void Map::SelectLanesByPhase(int phaseNumber)
+{
+	Phase * p = GetPhase(phaseNumber);
+
+	if(p != nullptr)
+	{
+		UnselectAllLanes();
+
+		for(Lane * l : *p->GetAssignedLanes())
+		{
+			selected_lanes_.push_back(l);
+			l->Select();
+		}
+	}
+}
+
+//void Map::UnselectAllLanes()
+{
+	// unselect selected lane
+	if (SelectedLane != nullptr)
+	{
+		SelectedLane->Unselect();
+		SelectedLane = nullptr;
+	}
+
+	for(Lane * l : selected_lanes_)
+	{
+		l->Unselect();
+	}
+
+	selected_lanes_.clear();
 }
 
 /// return road count in this map

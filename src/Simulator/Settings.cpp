@@ -16,10 +16,12 @@ bool Settings::DrawRoadDataBoxes = false;
 bool Settings::DrawLightDataBoxes = false;
 bool Settings::DrawRoutes = false;
 bool Settings::DrawGrid = false;
+bool Settings::DrawLaneBlock = false;
+bool Settings::DrawTextures = true;
 
 int Settings::MaxFps = 240;
 bool Settings::MultiColor = true;
-float Settings::MinDistanceFromNextCar = 166;
+float Settings::MinDistanceFromNextCar = 76;
 float Settings::MinDistanceFromStop = 66;
 bool Settings::AccWhileTurning = true;
 

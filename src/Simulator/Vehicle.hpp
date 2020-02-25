@@ -30,12 +30,12 @@ typedef struct
     string VehicleTypeName;
     string ImageDir;
     int ImageCount;
-    Vector2f Scale;
+    Vector2f Size;
     vector<Texture> * Textures;
 }
 VehicleType;
 
-class Vehicle
+class Vehicle : RectangleShape
 {
 
 public:
@@ -51,6 +51,8 @@ public:
     State  GetState(){return state_;}
     int    GetVehicleNumber(){return vehicle_number_;}
     bool   GetIsActive(){return active_;}
+    Vector2f GetFrontPosition(){return front_position_;}
+    Vector2f GetRearPosition(){return rear_position_;}
 
     static VehicleType * GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions);
     static Vehicle *     GetVehicle(int vehicleNumber);
@@ -75,17 +77,15 @@ private:
     int      vehicle_number_;
     VehicleType * vehicle_type_;
 
-    Texture *texture_;
-    Sprite   sprite_;
-
     Vector2f movement_vec_;
-    Vector2f position_;
+    Vector2f front_position_;
+    Vector2f rear_position_;
+
     float    speed_;
     float    acc_;
     float    max_speed_;
     float    max_acc_;
     float    min_acc_;
-    float    rotation_;
     float    angular_vel_;
     bool     turning_;
     bool     active_;

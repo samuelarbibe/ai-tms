@@ -87,7 +87,7 @@
            </size>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="MapTab">
            <attribute name="title">
@@ -1074,6 +1074,22 @@
                    </widget>
                   </item>
                   <item>
+                   <widget class="QCheckBox" name="ShowLaneBlockCheckBox">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="text">
+                     <string>Show Lane Blocks</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                    <property name="checked">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <spacer name="horizontalSpacer_27">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
@@ -1291,7 +1307,20 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_18">
                 <item>
+                 <widget class="QCheckBox" name="DrawTexturesCheckBox">
+                  <property name="text">
+                   <string>Draw Textures</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QCheckBox" name="MultiColorCheckBox">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
                   <property name="text">
                    <string>Multi Color</string>
                   </property>

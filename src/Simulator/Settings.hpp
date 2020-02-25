@@ -34,6 +34,8 @@ public:
     static bool DrawRoadDataBoxes;
     static bool DrawLightDataBoxes;
     static bool DrawRoutes;
+    static bool DrawLaneBlock;
+    static bool DrawTextures;
 
     static int MaxFps;
     static bool MultiColor;

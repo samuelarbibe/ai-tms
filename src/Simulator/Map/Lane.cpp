@@ -47,6 +47,9 @@ Lane::Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f star
     
     // create direction arrow shape
     create_arrow_shape(t);
+
+    // create lane block rectangle shape
+    create_block_shape();
 }
 
 Lane::~Lane()
@@ -82,6 +85,20 @@ void Lane::create_arrow_shape(Transform t)
     arrow_shape_.setFillColor(WhiteColor);
 }
 
+/// create the block shape shown in a blocked lane
+void Lane::create_block_shape()
+{
+	lane_block_shape_ = RectangleShape();
+
+	float block_height = 30;
+
+	lane_block_shape_.setOrigin(Vector2f(this->width_/2, block_height));
+	lane_block_shape_.setPosition(this->end_pos_);
+	lane_block_shape_.setSize(Vector2f(this->width_, block_height));
+	lane_block_shape_.rotate(this->getRotation());
+	lane_block_shape_.setFillColor(Color::Red);
+}
+
 /// update, for future use
 void Lane::Update(float elapsedTime)
 {
@@ -107,6 +124,11 @@ void Lane::Draw(RenderWindow *window)
 {
     window->draw(*this);
     window->draw(arrow_shape_);
+
+	if(Settings::DrawLaneBlock && is_blocked_)
+	{
+		window->draw(lane_block_shape_);
+	}
 }
 
 

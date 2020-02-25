@@ -105,6 +105,10 @@ class MainWindow : public QMainWindow {
 
     void on_OrangeLightDelayLineEdit_editingFinished();
 
+    void on_ShowLaneBlockCheckBox_stateChanged(int arg1);
+
+    void on_DrawTexturesCheckBox_stateChanged(int arg1);
+
 private:
 	
 	Ui::MainWindow *ui;

@@ -245,15 +245,12 @@ void Engine::check_selection(Vector2f position)
 {
     Lane * temp = map->CheckSelection(position);
 
-    if(map->SelectedLane != nullptr)
-    {
-        map->SelectedLane->Unselect();
-        map->SelectedLane = nullptr;
-    }
+	// unselect current selection
+    map->UnselectAllLanes();
 
-    // if another lane is selected
     if(temp != nullptr)
     {
+
         map->SelectedLane = temp;
         map->SelectedLane->Select();
     }

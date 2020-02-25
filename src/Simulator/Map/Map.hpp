@@ -44,6 +44,8 @@ class Map
 	bool AssignLaneToPhase(int phaseNumber, int laneNumber);
 	bool UnassignLaneFromPhase(int laneNumber);
 	void CyclePhase();
+	void SelectLanesByPhase(int phaseNumber);
+	void UnselectAllLanes();
 
 	vector<Intersection *> GetIntersectionByLaneNumber(int laneNumber);
 	Intersection *GetIntersection(int intersectionNumber);
@@ -92,6 +94,8 @@ class Map
 	vector<Lane *> starting_lanes_;
 	vector<Intersection *> intersections_;
 	vector<Phase *> phases_;
+
+	vector<Lane *> selected_lanes_;
 };
 
 #endif //SIMULATORSFML_MAP_HPP
