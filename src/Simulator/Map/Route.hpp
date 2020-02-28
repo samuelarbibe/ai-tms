@@ -21,11 +21,14 @@ public:
     void Draw(RenderWindow * window);
     int GetRouteNumber(){return route_number_;}
     void ReloadRoute();
+    void SetSelected(bool selected){selected_ = selected;}
 
     static int RouteCount;
 private:
     void BuildRadiusLine();
 	void BuildLaneLines();
+
+	bool selected_;
 
     int route_number_;
 

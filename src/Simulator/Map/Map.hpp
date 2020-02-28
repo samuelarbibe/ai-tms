@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <list>
+#include <queue>
 #include <set>
 
 #include <SFML/Graphics.hpp>
@@ -45,7 +46,7 @@ class Map
 	bool UnassignLaneFromPhase(int laneNumber);
 	void CyclePhase();
 	void SelectLanesByPhase(int phaseNumber);
-	void UnselectAllLanes();
+	void UnselectAll();
 
 	vector<Intersection *> GetIntersectionByLaneNumber(int laneNumber);
 	Intersection *GetIntersection(int intersectionNumber);
@@ -75,7 +76,10 @@ class Map
 	bool AddRoute(int from, int to);
 	bool RemoveRouteByLaneNumber(int laneNumber);
 	Route *GetPossibleRoute(int from);
+	Route *GetRouteByStartEnd(int from, int to);
 	Lane *GetPossibleStartingLane();
+	void SelectRoutesByVehicle(list<Lane*> * instructionSet);
+	void UnselectRoutes();
 
 	Lane *CheckSelection(Vector2f position);
 
@@ -96,6 +100,7 @@ class Map
 	vector<Phase *> phases_;
 
 	vector<Lane *> selected_lanes_;
+	vector<Route *> selected_routes_;
 };
 
 #endif //SIMULATORSFML_MAP_HPP

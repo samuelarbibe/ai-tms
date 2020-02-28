@@ -243,17 +243,38 @@ Vector2f Engine::GetSnappedPoint(Vector2f point)
 /// check if a road was selected
 void Engine::check_selection(Vector2f position)
 {
-    Lane * temp = map->CheckSelection(position);
-
 	// unselect current selection
-    map->UnselectAllLanes();
+	map->UnselectAll();
 
-    if(temp != nullptr)
-    {
+	if(Vehicle::SelectedVehicle != nullptr)
+	{
+		Vehicle::SelectedVehicle->Unselect();
+	}
+	Vehicle::SelectedVehicle = nullptr;
 
-        map->SelectedLane = temp;
-        map->SelectedLane->Select();
-    }
+	// only check for lane selection if vehicle hasnt been selected
+	if(Vehicle::CheckSelection(position) == nullptr)
+	{
+		Lane *temp = map->CheckSelection(position);
+
+		if (temp != nullptr)
+		{
+
+			map->SelectedLane = temp;
+			map->SelectedLane->Select();
+		}
+	}
+	else // if vehicle has been selected, select its routes as well
+	{
+		list<Lane*> * ptr = Vehicle::SelectedVehicle->GetInstructionSet();
+		Lane * currentLane;
+		if((currentLane = Vehicle::SelectedVehicle->GetCurrentLane()) != nullptr)
+		{
+			ptr->push_front(currentLane);
+			map->SelectRoutesByVehicle(ptr);
+			ptr->pop_front();
+		}
+	}
 }
 
 /// get use input, and make changes accordingly
@@ -501,6 +522,14 @@ void Engine::update(float elapsedTime)
     if(Settings::DrawFps)cout << "FPS : " << 1000.f/elapsedTime << endl;
     //clear all cars to be deleted
     Vehicle::ClearVehicles();
+
+	// follow the selected car
+	if(Settings::FollowSelectedVehicle && Vehicle::SelectedVehicle != nullptr)
+	{
+		view_pos_ = Vehicle::SelectedVehicle->GetPosition() - Vector2f(map->GetSize().x/2, map->GetSize().y/2);
+		temp_view_pos_ = view_pos_;
+		SetView();
+	}
 }
 
 /// add a vehicle at a random track
@@ -524,16 +553,16 @@ bool Engine::AddVehicleRandomly()
 
     // while new routes to append are available
     // new routes will be searched starting from the previous route end
-    queue<Lane*> * tempQueue = new queue<Lane*>();;
+    list<Lane*> * tempQueue = new list<Lane*>();;
     Lane * lastLane;
 
     while(r != nullptr)
     {
-        tempQueue->push(r->FromLane);
+        tempQueue->push_back(r->FromLane);
         lastLane = r->ToLane;
         r = map->GetPossibleRoute(r->ToLane->GetLaneNumber());
     }
-    tempQueue->push(lastLane);
+    tempQueue->push_back(lastLane);
 
 
     return (Vehicle::AddVehicle(tempQueue, this->map) != nullptr);
@@ -559,7 +588,7 @@ void Engine::render()
     }
 
     // Draw the click index
-    this->draw(this->click_point_);
+	if(Settings::DrawClickPoint) this->draw(this->click_point_);
 
     // Draw the grid
     if(Settings::DrawGrid)
@@ -585,7 +614,7 @@ void Engine::draw_minimap()
     this->map->Draw(this);
 
     // Draw the click index
-    this->draw(this->click_point_);
+    if(Settings::DrawClickPoint) this->draw(this->click_point_);
 
     // Draw the shown area index
     this->draw(shown_area_index_);

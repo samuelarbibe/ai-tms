@@ -40,8 +40,8 @@ class Vehicle : RectangleShape
 
 public:
 
-    Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane*> * instructionSet, Map * map);
-    ~Vehicle(){if(Settings::DrawDelete)cout << "Vehicle " << vehicle_number_ << " deleted" << endl;}
+    Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane*> * instructionSet, Map * map);
+    ~Vehicle();
 
     void Draw(RenderWindow * window);
     void Update(float elapsedTime);
@@ -53,10 +53,16 @@ public:
     bool   GetIsActive(){return active_;}
     Vector2f GetFrontPosition(){return front_position_;}
     Vector2f GetRearPosition(){return rear_position_;}
+    Vector2f GetPosition(){return getPosition();}
+    list<Lane*> * GetInstructionSet(){return instruction_set_;}
+    Lane * GetCurrentLane(){return source_lane_;}
+    void Select();
+    void Unselect();
 
     static VehicleType * GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions);
     static Vehicle *     GetVehicle(int vehicleNumber);
-    static Vehicle *     AddVehicle(queue<Lane*> * instructionSet, Map * map, VehicleTypeOptions vehicleType = CAR, int vehicleNumber = VehicleCount + 1);
+    static Vehicle *     AddVehicle(list<Lane*> * instructionSet, Map * map, VehicleTypeOptions vehicleType = CAR, int vehicleNumber = VehicleCount + 1);
+    static Vehicle * CheckSelection(Vector2f position);
 
     static void DeleteAllVehicles();
     static void ClearVehicles();
@@ -65,6 +71,7 @@ public:
 
     static list<Vehicle*> ActiveVehicles;
     static int VehicleCount;
+    static Vehicle * SelectedVehicle;
 
 private:
 
@@ -92,7 +99,7 @@ private:
 
     Vehicle * vehicle_in_front_;
 
-    queue<Lane *> * instruction_set_;
+    list<Lane *> * instruction_set_;
 
     Map  *   curr_map_;
     Lane *   source_lane_;

@@ -25,8 +25,6 @@ set(project_sources
     resources/Cars/car_image_1.png
     resources/Cars/car_image_2.png
     resources/Cars/car_image_3.png
-    resources/Cars/car_image_4.png
-    resources/Cars/car_image_5.png
     src/Simulator/Engine.cpp
     src/Simulator/Map/Intersection.cpp
     src/Simulator/Map/Lane.cpp

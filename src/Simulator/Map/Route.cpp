@@ -9,6 +9,7 @@ int Route::RouteCount{0};
 Route::Route(Lane *from, Lane *to)
 {
     route_number_ = ++RouteCount;
+    selected_ = false;
 
     FromLane = from;
     FromLane = from;
@@ -98,11 +99,15 @@ void Route::ReloadRoute()
 
 void Route::Draw(RenderWindow *window)
 {
-    window->draw(radius_line_);
+	if(Settings::DrawRoutes || selected_)
+	{
+		window->draw(radius_line_);
 
-    for (Vertex *l : lines_) {
-        window->draw(l, 2, Lines);
-    }
+		for (Vertex *l : lines_)
+		{
+			window->draw(l, 2, Lines);
+		}
+	}
 }
 
 

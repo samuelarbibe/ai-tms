@@ -40,7 +40,7 @@ Lane::Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f star
     this->setOrigin(width_ / 2.f, 0.f);
     this->setPosition(start_pos_);
     this->setOutlineColor(WhiteColor);
-    this->setOutlineThickness(1.f);
+    this->setOutlineThickness(3.f);
     this->setRotation(direction_ + 180);
     this->setSize(Vector2f(width_, length_));
     this->setFillColor(LaneColor);

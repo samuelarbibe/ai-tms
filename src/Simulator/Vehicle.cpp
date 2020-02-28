@@ -11,13 +11,14 @@
 int Vehicle::to_be_deleted_ = 0;
 int Vehicle::VehicleCount = 0;
 list<Vehicle *> Vehicle::ActiveVehicles;
+Vehicle * Vehicle::SelectedVehicle = nullptr;
 
 VehicleType Vehicle::Car{CAR, "Car", "../../resources/Cars/car_image_", 3, Vector2f(56.f, 130.f)};
 VehicleType Vehicle::Truck{TRUCK, "Truck", "../../resources/Cars/car_image_", 3, Vector2f(70.f, 160.f)};
 VehicleType Vehicle::Motorcycle{MOTORCYCLE, "Motorcycle", "../resources/Cars/motorcycle_image_", 3,
                                 Vector2f(0.12f, 0.12f)};
 
-Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane *> *instructionSet, Map *map) {
+Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *> *instructionSet, Map *map) {
 	// set initial values for the movable object
 	vehicle_type_ = GetVehicleTypeByOption(vehicleType);
 	vehicle_number_ = vehicleNumber;
@@ -27,7 +28,7 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane *
 	curr_map_ = map;
 	instruction_set_ = instructionSet;
 	source_lane_ = instruction_set_->front();
-	instruction_set_->pop();
+	instruction_set_->pop_front();
 	dest_lane_ = instruction_set_->front();
 	active_ = false;
 
@@ -77,6 +78,15 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, queue<Lane *
 	data_box_->AddData("ID", vehicle_number_);
 }
 
+Vehicle::~Vehicle() {
+	if(Vehicle::SelectedVehicle == this)
+	{
+		Vehicle::SelectedVehicle = nullptr;
+	}
+	if(Settings::DrawDelete)cout << "Vehicle " << vehicle_number_ << " deleted" << endl;
+}
+
+
 /// delete all active vehicles
 void Vehicle::DeleteAllVehicles() {
 	for (Vehicle *v : Vehicle::ActiveVehicles)
@@ -114,7 +124,7 @@ void Vehicle::ClearVehicles() {
 }
 
 /// add a vehicle with an instruction set
-Vehicle *Vehicle::AddVehicle(queue<Lane *> *instructionSet,
+Vehicle *Vehicle::AddVehicle(list<Lane *> *instructionSet,
                              Map *map,
                              VehicleTypeOptions vehicleType,
                              int vehicleNumber) {
@@ -133,6 +143,36 @@ Vehicle *Vehicle::AddVehicle(queue<Lane *> *instructionSet,
 		cout << "car " << vehicleNumber << " added to lane " << temp->source_lane_->GetLaneNumber() << endl;
 
 	return temp;
+}
+
+Vehicle * Vehicle::CheckSelection(Vector2f position) {
+
+	for(Vehicle * v : Vehicle::ActiveVehicles)
+	{
+		// only check for active vehicles
+		if(v->active_)
+		{
+			if(v->getGlobalBounds().contains(position))
+			{
+				Vehicle::SelectedVehicle = v;
+				Vehicle::SelectedVehicle->Select();
+				return v;
+			}
+		}
+	}
+	return nullptr;
+}
+
+void Vehicle::Select()
+{
+	this->setOutlineColor(Color::Red);
+	this->setFillColor(Color::Red);
+}
+
+void Vehicle::Unselect()
+{
+	this->setOutlineColor(Color::Blue);
+	this->setFillColor(Color::White);
 }
 
 /// load textures as required
@@ -218,7 +258,7 @@ void Vehicle::TransferVehicle(Vehicle *vehicle, Lane *toLane, Lane *fromLane) {
 	vehicle->source_lane_->SetLastCar(vehicle->vehicle_number_);
 	vehicle->source_lane_->AddVehicleCount();
 
-	vehicle->instruction_set_->pop();
+	vehicle->instruction_set_->pop_front();
 	// if there are instructions left, transfer them to vehicle
 	if (!vehicle->instruction_set_->empty())
 	{

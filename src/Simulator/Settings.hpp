@@ -36,6 +36,8 @@ public:
     static bool DrawRoutes;
     static bool DrawLaneBlock;
     static bool DrawTextures;
+    static bool DrawClickPoint;
+    static bool FollowSelectedVehicle;
 
     static int MaxFps;
     static bool MultiColor;

@@ -18,8 +18,10 @@ bool Settings::DrawRoutes = false;
 bool Settings::DrawGrid = false;
 bool Settings::DrawLaneBlock = false;
 bool Settings::DrawTextures = true;
+bool Settings::DrawClickPoint = false;
+bool Settings::FollowSelectedVehicle = true;
 
-int Settings::MaxFps = 240;
+int Settings::MaxFps = 60;
 bool Settings::MultiColor = true;
 float Settings::MinDistanceFromNextCar = 76;
 float Settings::MinDistanceFromStop = 66;
@@ -33,8 +35,8 @@ float Settings::Speed = 1; // running speed
 
 float Settings::DefaultLaneLength = 1000; // lane length in px
 
-int Settings::DefaultMapWidth = 3000;
-int Settings::DefaultMapHeight = 3000;
+int Settings::DefaultMapWidth = 9000;
+int Settings::DefaultMapHeight = 9000;
 
 int Settings::GridColumns = 50;
 int Settings::GridRows = 50;

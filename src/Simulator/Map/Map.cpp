@@ -321,8 +321,28 @@ Lane *Map::GetPossibleStartingLane() {
 	return starting_lanes_[randomIndex];
 }
 
+/// select all the routes
+void Map::SelectRoutesByVehicle(list<Lane*> * instructionSet)
+{
+	Route * r = nullptr;
+	std::list<Lane*>::const_iterator to = instructionSet->begin();
+	std::list<Lane*>::const_iterator from = to;
+	to++;
+	for(; to != instructionSet->end(); ++to)
+	{
+		 r = GetRouteByStartEnd((*from)->GetLaneNumber(), (*to)->GetLaneNumber());
+		 if(r != nullptr)
+		 {
+		 	selected_routes_.push_back(r);
+		 	r->SetSelected(true);
+		 }
+		 from = to;
+	}
+}
+
 /// returns a possible route according to the given lane
-Route *Map::GetPossibleRoute(int fromLane) {
+Route *Map::GetPossibleRoute(int fromLane)
+{
 	Lane *myLane = GetLane(fromLane);
 	vector<Route *> possibleRoutes;
 
@@ -342,6 +362,19 @@ Route *Map::GetPossibleRoute(int fromLane) {
 	}
 	int randomIndex = rand() % possibleRoutes.size();
 	return possibleRoutes[randomIndex];
+}
+
+Route *Map::GetRouteByStartEnd(int from, int to)
+{
+	for(Route * r : routes_)
+	{
+		if(r->FromLane->GetLaneNumber() == from &&
+			r->ToLane->GetLaneNumber() == to)
+		{
+			return r;
+		}
+	}
+	return nullptr;
 }
 
 /// get intersection by intersectionNumber
@@ -472,7 +505,7 @@ void Map::ReloadMap()
 {
 
 	// unselect all the selected lanes
-	UnselectAllLanes();
+	UnselectAll();
 
 	for (Intersection *i : intersections_)
 	{
@@ -527,7 +560,7 @@ void Map::SelectLanesByPhase(int phaseNumber)
 
 	if(p != nullptr)
 	{
-		UnselectAllLanes();
+		UnselectAll();
 
 		for(Lane * l : *p->GetAssignedLanes())
 		{
@@ -537,7 +570,7 @@ void Map::SelectLanesByPhase(int phaseNumber)
 	}
 }
 
-//void Map::UnselectAllLanes()
+void Map::UnselectAll()
 {
 	// unselect selected lane
 	if (SelectedLane != nullptr)
@@ -551,7 +584,13 @@ void Map::SelectLanesByPhase(int phaseNumber)
 		l->Unselect();
 	}
 
+	for(Route * r : selected_routes_)
+	{
+		r->SetSelected(false);
+	}
+
 	selected_lanes_.clear();
+	selected_routes_.clear();
 }
 
 /// return road count in this map
@@ -641,12 +680,10 @@ void Map::Draw(RenderWindow *window) {
 	}
 
 	// draw all routes
-	if (Settings::DrawRoutes)
+
+	for (auto &route : routes_)
 	{
-		for (auto &route : routes_)
-		{
-			route->Draw(window);
-		}
+		route->Draw(window);
 	}
 
 	for (Phase *p : phases_)
