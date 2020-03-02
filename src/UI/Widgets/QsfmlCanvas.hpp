@@ -15,26 +15,25 @@ using namespace std;
 
 class QSFMLCanvas : public QWidget, public RenderWindow
 {
-public :
+  public :
 
-    QSFMLCanvas(QWidget* Parent, int FrameTime = 0);
-    ~QSFMLCanvas(){std::cout << "QSFML Canvas destroyed" << std::endl;}
+	QSFMLCanvas(QWidget *Parent, int FrameTime = 0);
+	~QSFMLCanvas() { std::cout << "QSFML Canvas destroyed" << std::endl; }
 
-private :
+  private :
 
-    virtual void on_init(){}
-    virtual void cycle(){}
+	virtual void on_init() {}
+	virtual void cycle() {}
 
-    QWidget * parent_;
+	QWidget *parent_;
 
-    QPaintEngine* paintEngine() const override;
-    void showEvent(QShowEvent*) override;
-    void paintEvent(QPaintEvent*) override;
+	QPaintEngine *paintEngine() const override;
+	void showEvent(QShowEvent *) override;
+	void paintEvent(QPaintEvent *) override;
 
-    bool   is_init_;
-protected:
-    QTimer timer_;
+	bool is_init_;
+  protected:
+	QTimer timer_;
 };
-
 
 #endif //SIMULATORSFML_QSFMLCANVAS_HPP

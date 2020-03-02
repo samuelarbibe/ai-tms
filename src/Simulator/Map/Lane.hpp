@@ -39,20 +39,23 @@ class Lane : public RectangleShape
 	~Lane();
 
 	void Update(float elapsedTime);
+	void Draw(RenderWindow *window);
 
-	bool GetIsBlocked() { return is_blocked_; };
-	bool GetIsInRoadDirection() { return is_in_road_direction_; };
+	// get
+	int   GetLaneNumber() { return lane_number_; };
+	int   GetIntersectionNumber() { return intersection_number_; };
+	int   GetCurrentVehicleCount() { return current_vehicle_count_; };
+	int   GetTotalVehicleCount() { return total_vehicle_count_; };
+	int   GetLastCar() { return last_entered_car_number_; };
+	int   GetRoadNumber() { return road_number_; };
+	int   GetPhaseNumber() { return phase_number_; };
+	bool  GetIsBlocked() { return is_blocked_; };
+	bool  GetIsInRoadDirection() { return is_in_road_direction_; };
 	float GetDirection() { return direction_; };
-	int GetLaneNumber() { return lane_number_; };
-	int GetIntersectionNumber() { return intersection_number_; };
-	int GetCurrentVehicleCount() { return current_vehicle_count_; };
-	int GetTotalVehicleCount() { return total_vehicle_count_; };
-	int GetLastCar() { return last_entered_car_number_; };
-	int GetRoadNumber() { return road_number_; };
-	int GetPhaseNumber() { return phase_number_; };
 	Vector2f GetStartPosition() { return start_pos_; };
 	Vector2f GetEndPosition() { return end_pos_; };
 
+	// set
 	void Select();
 	void Unselect();
 	void AddVehicleCount() {
@@ -63,8 +66,6 @@ class Lane : public RectangleShape
 	void SetIsBlocked(bool blocked) { is_blocked_ = blocked; };
 	void SetLastCar(int lastCar) { last_entered_car_number_ = lastCar; };
 	void SetPhaseNumber(int phaseNumber) { phase_number_ = phaseNumber; }
-
-	void Draw(RenderWindow *window);
 
 	static int LaneCount;
 

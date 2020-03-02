@@ -194,6 +194,9 @@
                 </item>
                 <item>
                  <widget class="QPushButton" name="AddIntersectionButton">
+                  <property name="whatsThis">
+                   <string>To add an intersection, double click on the canvas to select a point, then click this button to add an intersection at the selected location</string>
+                  </property>
                   <property name="text">
                    <string>Add Intersection</string>
                   </property>
@@ -259,6 +262,9 @@
                 </item>
                 <item>
                  <widget class="QPushButton" name="AddConnectingRoadButton">
+                  <property name="whatsThis">
+                   <string>Add a connecting road between 2 intersections. Please note that both of the intersection must align with eachother on one of the axis</string>
+                  </property>
                   <property name="text">
                    <string>Add Connecting Road</string>
                   </property>
@@ -338,6 +344,9 @@
                 </item>
                 <item>
                  <widget class="QPushButton" name="AddRoadButton">
+                  <property name="whatsThis">
+                   <string>Add a road to a selected intersection that will connect to it in the given side</string>
+                  </property>
                   <property name="text">
                    <string>Add Road</string>
                   </property>
@@ -393,6 +402,9 @@
                 </item>
                 <item>
                  <widget class="QPushButton" name="AddLanePushButton">
+                  <property name="whatsThis">
+                   <string>Add a lane to a selected road</string>
+                  </property>
                   <property name="text">
                    <string>Add Lane</string>
                   </property>
@@ -407,6 +419,9 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_9">
+                  <property name="whatsThis">
+                   <string>Adjust the lane width</string>
+                  </property>
                   <property name="text">
                    <string>Lane Width:</string>
                   </property>
@@ -443,6 +458,9 @@
                 </item>
                 <item>
                  <widget class="QComboBox" name="DistanceUnitComboBox">
+                  <property name="whatsThis">
+                   <string>Lane Width units</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>m</string>
@@ -467,6 +485,9 @@
                 </item>
                 <item>
                  <widget class="QCheckBox" name="SnapToGridCheckBox">
+                  <property name="whatsThis">
+                   <string>Enables snap-grid when clicking on the canvas</string>
+                  </property>
                   <property name="text">
                    <string>Snap To Grid</string>
                   </property>
@@ -479,6 +500,9 @@
                  <widget class="QCheckBox" name="ShowGridCheckBox">
                   <property name="enabled">
                    <bool>true</bool>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Show the snap grid</string>
                   </property>
                   <property name="text">
                    <string>Show Grid</string>
@@ -497,6 +521,9 @@
                <layout class="QHBoxLayout" name="horizontalLayout_16">
                 <item>
                  <widget class="QLabel" name="ZoomLabel">
+                  <property name="whatsThis">
+                   <string>Adjust the camera zoom</string>
+                  </property>
                   <property name="text">
                    <string>Zoom:</string>
                   </property>
@@ -535,6 +562,9 @@
                  <widget class="QCheckBox" name="ShowDataBoxesCheckBox">
                   <property name="enabled">
                    <bool>true</bool>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Show a hint of information on each simulation entity</string>
                   </property>
                   <property name="text">
                    <string>Show Data Boxes</string>
@@ -596,6 +626,9 @@
                   <property name="enabled">
                    <bool>true</bool>
                   </property>
+                  <property name="whatsThis">
+                   <string>Reload data for controls</string>
+                  </property>
                   <property name="text">
                    <string>Reload</string>
                   </property>
@@ -609,6 +642,9 @@
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
+                  <property name="whatsThis">
+                   <string>delete selected item</string>
+                  </property>
                   <property name="text">
                    <string>Delete</string>
                   </property>
@@ -616,6 +652,9 @@
                 </item>
                 <item>
                  <widget class="QPushButton" name="ResetButton">
+                  <property name="whatsThis">
+                   <string>Delete  the whole map and all the vehicles</string>
+                  </property>
                   <property name="text">
                    <string>Reset</string>
                   </property>
@@ -659,6 +698,9 @@
                       <height>16777215</height>
                      </size>
                     </property>
+                    <property name="whatsThis">
+                     <string>Show all lanes assign to this phase</string>
+                    </property>
                    </widget>
                   </item>
                   <item>
@@ -676,6 +718,9 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="AddPhaseButton">
+                    <property name="whatsThis">
+                     <string>Add a traffic phase</string>
+                    </property>
                     <property name="text">
                      <string>Add Phase</string>
                     </property>
@@ -703,6 +748,9 @@
                       <height>16777215</height>
                      </size>
                     </property>
+                    <property name="whatsThis">
+                     <string/>
+                    </property>
                    </widget>
                   </item>
                   <item>
@@ -720,6 +768,9 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="AssignLaneButton">
+                    <property name="whatsThis">
+                     <string>Assign a lane to the selected phase</string>
+                    </property>
                     <property name="text">
                      <string>Assign Lane</string>
                     </property>
@@ -771,6 +822,9 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="AddLightButton">
+                    <property name="whatsThis">
+                     <string>Add a traffic light, representing a selected phase</string>
+                    </property>
                     <property name="text">
                      <string>Add Traffic Light</string>
                     </property>
@@ -820,6 +874,9 @@
                       <width>200</width>
                       <height>0</height>
                      </size>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Adjust phase time for selected phase</string>
                     </property>
                     <property name="maximum">
                      <number>20</number>
@@ -885,6 +942,9 @@
                       <width>200</width>
                       <height>0</height>
                      </size>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Adjust the delay between phases</string>
                     </property>
                     <property name="maximum">
                      <number>5</number>
@@ -959,6 +1019,9 @@
                       <width>200</width>
                       <height>0</height>
                      </size>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Adjust the orange light delay</string>
                     </property>
                     <property name="maximum">
                      <number>5</number>
@@ -1048,6 +1111,9 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="AddRouteButton">
+                    <property name="whatsThis">
+                     <string>Add a route to the map. Vehicles will now be able to take this route</string>
+                    </property>
                     <property name="text">
                      <string>Add Route</string>
                     </property>
@@ -1061,6 +1127,9 @@
                    <widget class="QCheckBox" name="ShowRoutesCheckBox">
                     <property name="enabled">
                      <bool>true</bool>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Show all possible routes</string>
                     </property>
                     <property name="text">
                      <string>Show Routes</string>
@@ -1077,6 +1146,9 @@
                    <widget class="QCheckBox" name="ShowLaneBlockCheckBox">
                     <property name="enabled">
                      <bool>true</bool>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Show an illustration of blocked lanes</string>
                     </property>
                     <property name="text">
                      <string>Show Lane Blocks</string>
@@ -1106,6 +1178,9 @@
                    <widget class="QPushButton" name="RemoveLaneFromPhaseButton">
                     <property name="enabled">
                      <bool>false</bool>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Delete a selected Phase</string>
                     </property>
                     <property name="text">
                      <string>Delete</string>
@@ -1160,6 +1235,9 @@
                 </item>
                 <item>
                  <widget class="QComboBox" name="VelocityUnitComboBox">
+                  <property name="whatsThis">
+                   <string>Velocity units</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>cm/s</string>
@@ -1220,6 +1298,9 @@
                     <height>16777215</height>
                    </size>
                   </property>
+                  <property name="whatsThis">
+                   <string>Adjust max speed for cars</string>
+                  </property>
                  </widget>
                 </item>
                </layout>
@@ -1259,6 +1340,9 @@
                     <width>50</width>
                     <height>16777215</height>
                    </size>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Adjust max speed for motorcycles</string>
                   </property>
                  </widget>
                 </item>
@@ -1300,6 +1384,9 @@
                     <height>16777215</height>
                    </size>
                   </property>
+                  <property name="whatsThis">
+                   <string>Adjust max speed for trucks</string>
+                  </property>
                  </widget>
                 </item>
                </layout>
@@ -1308,6 +1395,9 @@
                <layout class="QHBoxLayout" name="horizontalLayout_18">
                 <item>
                  <widget class="QCheckBox" name="DrawTexturesCheckBox">
+                  <property name="whatsThis">
+                   <string>Draw vehicle textures. If disabled, the textures will be replaced by shapes</string>
+                  </property>
                   <property name="text">
                    <string>Draw Textures</string>
                   </property>
@@ -1321,8 +1411,27 @@
                   <property name="enabled">
                    <bool>true</bool>
                   </property>
+                  <property name="whatsThis">
+                   <string>Draw vehicle textures in multiple colors</string>
+                  </property>
                   <property name="text">
                    <string>Multi Color</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="FollowSelectedCarButton">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Bind camera position to a selected car.</string>
+                  </property>
+                  <property name="text">
+                   <string>Follow Selected Car</string>
                   </property>
                   <property name="checked">
                    <bool>true</bool>
@@ -1538,6 +1647,9 @@
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
               <widget class="QPushButton" name="RunSimulationButton">
+               <property name="whatsThis">
+                <string>Run the simulation with the specified data</string>
+               </property>
                <property name="text">
                 <string>Run Simulation</string>
                </property>

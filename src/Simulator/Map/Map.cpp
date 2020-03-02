@@ -144,7 +144,7 @@ Road *Map::AddConnectingRoad(int roadNumber, int intersectionNumber1, int inters
 }
 
 /// add a possible route in this map
-bool Map::AddRoute(int from, int to) {
+Route * Map::AddRoute(int from, int to) {
 	Lane *fromLane = GetLane(from);
 	Lane *toLane = GetLane(to);
 
@@ -154,11 +154,11 @@ bool Map::AddRoute(int from, int to) {
 		routes_.emplace_back(r);
 
 		cout << "Route added from " << r->FromLane->GetLaneNumber() << " to " << r->ToLane->GetLaneNumber() << endl;
-		return true;
+		return r;
 	} else
 	{
 		cout << "could not create possible route, as one of the roads was not found" << endl;
-		return false;
+		return nullptr;
 	}
 }
 
@@ -542,7 +542,7 @@ void Map::Update(float elapsedTime) {
 
 void Map::CyclePhase() {
 	// if current phase has ended
-	if (!phases_.empty() && !phases_[current_phase_index_]->IsOpen())
+	if (!phases_.empty() && !phases_[current_phase_index_]->GetIsOpen())
 	{
 		// activate next phase
 		++current_phase_index_;

@@ -109,6 +109,8 @@ class MainWindow : public QMainWindow {
 
     void on_DrawTexturesCheckBox_stateChanged(int arg1);
 
+    void on_FollowSelectedCarButton_stateChanged(int arg1);
+
 private:
 	
 	Ui::MainWindow *ui;

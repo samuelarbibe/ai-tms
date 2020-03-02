@@ -22,97 +22,108 @@
 using namespace std;
 using namespace sf;
 
-enum State{STOP, DRIVE, TURN, DELETE};
+enum State
+{
+	STOP, DRIVE, TURN, DELETE
+};
 
 typedef struct
 {
-    VehicleTypeOptions Type;
-    string VehicleTypeName;
-    string ImageDir;
-    int ImageCount;
-    Vector2f Size;
-    vector<Texture> * Textures;
+	VehicleTypeOptions Type;
+	string VehicleTypeName;
+	string ImageDir;
+	int ImageCount;
+	Vector2f Size;
+	vector<Texture> *Textures;
 }
-VehicleType;
+	VehicleType;
 
 class Vehicle : RectangleShape
 {
 
-public:
+  public:
 
-    Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane*> * instructionSet, Map * map);
-    ~Vehicle();
+	Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *> *instructionSet, Map *map);
+	~Vehicle();
 
-    void Draw(RenderWindow * window);
-    void Update(float elapsedTime);
+	void Draw(RenderWindow *window);
+	void Update(float elapsedTime);
 
-    Lane * GetSourceLane(){return source_lane_;}
-    Lane * GetTargetLane(){return dest_lane_;}
-    State  GetState(){return state_;}
-    int    GetVehicleNumber(){return vehicle_number_;}
-    bool   GetIsActive(){return active_;}
-    Vector2f GetFrontPosition(){return front_position_;}
-    Vector2f GetRearPosition(){return rear_position_;}
-    Vector2f GetPosition(){return getPosition();}
-    list<Lane*> * GetInstructionSet(){return instruction_set_;}
-    Lane * GetCurrentLane(){return source_lane_;}
-    void Select();
-    void Unselect();
+	// add entities
+	static Vehicle *AddVehicle(list<Lane *> *instructionSet,
+	                           Map *map,
+	                           VehicleTypeOptions vehicleType = CAR,
+	                           int vehicleNumber = VehicleCount + 1);
 
-    static VehicleType * GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions);
-    static Vehicle *     GetVehicle(int vehicleNumber);
-    static Vehicle *     AddVehicle(list<Lane*> * instructionSet, Map * map, VehicleTypeOptions vehicleType = CAR, int vehicleNumber = VehicleCount + 1);
-    static Vehicle * CheckSelection(Vector2f position);
+	// get
+	int GetVehicleNumber() { return vehicle_number_; }
+	bool GetIsActive() { return active_; }
+	Lane *GetSourceLane() { return source_lane_; }
+	Lane *GetTargetLane() { return dest_lane_; }
+	Lane *GetCurrentLane() { return source_lane_; }
+	State GetState() { return state_; }
+	Vector2f GetFrontPosition() { return front_position_; }
+	Vector2f GetRearPosition() { return rear_position_; }
+	Vector2f GetPosition() { return getPosition(); }
+	list<Lane *> *GetInstructionSet() { return instruction_set_; }
+	static VehicleType *GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions);
+	static Vehicle *GetVehicle(int vehicleNumber);
 
-    static void DeleteAllVehicles();
-    static void ClearVehicles();
-    static void TransferVehicle(Vehicle * vehicle, Lane * toLane, Lane * fromLane = nullptr);
-    static bool LoadVehicleTextures(VehicleType * vehicleType);
+	// set
+	void Select();
+	void Unselect();
 
-    static list<Vehicle*> ActiveVehicles;
-    static int VehicleCount;
-    static Vehicle * SelectedVehicle;
+	static Vehicle *CheckSelection(Vector2f position);
 
-private:
+	static void DeleteAllVehicles();
+	static void ClearVehicles();
+	static void TransferVehicle(Vehicle *vehicle, Lane *toLane, Lane *fromLane = nullptr);
+	static bool LoadVehicleTextures(VehicleType *vehicleType);
 
-    static int to_be_deleted_;
+	static list<Vehicle *> ActiveVehicles;
+	static int VehicleCount;
+	static Vehicle *SelectedVehicle;
 
-    static VehicleType Car;
-    static VehicleType Truck;
-    static VehicleType Motorcycle;
+  private:
 
-    int      vehicle_number_;
-    VehicleType * vehicle_type_;
+	static int to_be_deleted_;
 
-    Vector2f movement_vec_;
-    Vector2f front_position_;
-    Vector2f rear_position_;
+	static VehicleType Car;
+	static VehicleType Truck;
+	static VehicleType Motorcycle;
 
-    float    speed_;
-    float    acc_;
-    float    max_speed_;
-    float    max_acc_;
-    float    min_acc_;
-    float    angular_vel_;
-    bool     turning_;
-    bool     active_;
+	int vehicle_number_;
+	VehicleType *vehicle_type_;
 
-    Vehicle * vehicle_in_front_;
+	Vector2f movement_vec_;
+	Vector2f front_position_;
+	Vector2f rear_position_;
 
-    list<Lane *> * instruction_set_;
+	float speed_;
+	float acc_;
+	float max_speed_;
+	float max_acc_;
+	float min_acc_;
+	float angular_vel_;
+	bool turning_;
+	bool active_;
 
-    Map  *   curr_map_;
-    Lane *   source_lane_;
-    Lane *   dest_lane_;
-    Intersection * curr_intersection_;
-    Intersection * prev_intersection_;
+	Vehicle *vehicle_in_front_;
 
-    State    state_;
+	list<Lane *> *instruction_set_;
 
-    DataBox * data_box_;
+	Map *curr_map_;
+	Lane *source_lane_;
+	Lane *dest_lane_;
+	Intersection *curr_intersection_;
+	Intersection *prev_intersection_;
 
-    State drive();
-    void  apply_changes(float elapsedTime);
+	State state_;
+
+	DataBox *data_box_;
+
+	State drive();
+	void apply_changes(float elapsedTime);
 };
 
 #endif /* Vehicle_hpp */

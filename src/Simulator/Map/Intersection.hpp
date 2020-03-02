@@ -39,25 +39,27 @@ public:
     void   Draw(RenderWindow *window);
     bool   DeleteLane(int laneNumber, Intersection * otherIntersection = nullptr);
 
+	// Add entities
+    Road * AddRoad(int roadNumber, int connectionSide, float length);
+    Road * AddConnectingRoad(int roadNumber, int connectionSide1, int connectionSide2, Intersection * connectedIntersection);
+    Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
+
+    // get
+    Road * GetRoad(int roadNumber);
+    Road * GetRoadByConnectionSide(int connectionSide);
+    vector<Road*> * GetRoads(){return &(roads_);}
+    Lane * GetLane(int laneNumber);
 
     int GetIntersectionNumber(){return intersection_number_;}
     int GetRoadCount(){return roads_.size();}
     int GetLaneCount();
+    Vector2f GetPositionByConnectionSide(int connectionSide);
+
+    // set
     void  AddVehicleCount(){current_vehicle_count_++; total_vehicle_count_++;};
     void  RemoveVehicleCount(){current_vehicle_count_--;};
-    Lane * AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
-    Road * AddConnectingRoad(int roadNumber, int connectionSide1, int connectionSide2, Intersection * connectedIntersection);
-    Road * GetRoad(int roadNumber);
-    Lane * GetLane(int laneNumber);
-    Road * GetRoadByConnectionSide(int connectionSide);
-    
-    Vector2f GetPositionByConnectionSide(int connectionSide);
-    
-    Road * AddRoad(int roadNumber, int connectionSide, float length);
 
     Lane * CheckSelection(Vector2f position);
-    
-    vector<Road*> * GetRoads(){return &(roads_);}
 
     static int IntersectionCount;
     

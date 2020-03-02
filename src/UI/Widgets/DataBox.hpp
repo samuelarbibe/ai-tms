@@ -17,39 +17,40 @@ using nlohmann::json;
 using namespace sf;
 using namespace std;
 
-
 class DataBox : public RectangleShape
 {
-public:
+  public:
 
-    DataBox(Vector2f position);
-    ~DataBox(){};
+	DataBox(Vector2f position);
+	~DataBox() {};
 
-    json GetData();
-    bool AddData(string valueName, float value);
-    bool SetData(string valueName, float value);
-    bool RemoveData(string valueName);
+	void Update(Vector2f position);
+	void Draw(RenderWindow *window);
 
-    void Update(Vector2f position);
-    void Draw(RenderWindow * window);
+	bool AddData(string valueName, float value);
 
-private:
+	json GetData(){ return data_;};
 
-    // dataBox offset relative to owner
-    Vector2f offset_;
+	bool SetData(string valueName, float value);
+	                                                                                                                                                                                                                                                   bool RemoveData(string valueName);
 
-    // the list data;
-         // string is the name of the data
-         // float is its value
-    json data_;
 
-    // the maximum amount of data items allowed
-    int max_data_items_;
-    int data_count_;
+  private:
 
-    static Font font_;
-    static bool font_loaded_;
+	// dataBox offset relative to owner
+	Vector2f offset_;
+
+	// the list data;
+	// string is the name of the data
+	// float is its value
+	json data_;
+
+	// the maximum amount of data items allowed
+	int max_data_items_;
+	int data_count_;
+
+	static Font font_;
+	static bool font_loaded_;
 };
-
 
 #endif //SIMULATORSFML_DATABOX_HPP

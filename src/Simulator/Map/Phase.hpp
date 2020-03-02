@@ -19,20 +19,23 @@ public:
 
     void Draw(RenderWindow * window);
     void Update(float elapsedTime);
-
     void ReloadPhase();
-    void Open(){open_ = true;}
-    void SetCycleTime(float cycleTime){cycle_time_ = cycleTime;}
 
-    bool IsOpen(){return open_;}
-    int GetCycleTime(){return cycle_time_;}
-    int GetPhaseNumber(){return phase_number_;}
-	vector<Light*> * GetLights(){return &lights_;}
-	vector<Lane*> * GetAssignedLanes(){return &lanes_;}
-	bool UnassignLane(Lane * lane);
-
+    // add entities
     Light * AddLight(int lightNumber, Road * parentRoad);
     void AddLane(Lane * lane);
+
+    // get
+    int   GetPhaseNumber(){return phase_number_;}
+    bool  GetIsOpen(){return open_;}
+    float GetCycleTime(){return cycle_time_;}
+	vector<Light*> * GetLights(){return &lights_;}
+	vector<Lane*> *  GetAssignedLanes(){return &lanes_;}
+
+    // set
+    void Open(){open_ = true;}
+    void SetCycleTime(float cycleTime){cycle_time_ = cycleTime;}
+	bool UnassignLane(Lane * lane);
 
     static int PhaseCount;
 

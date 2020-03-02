@@ -135,11 +135,12 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 			
 			ui->statusbar->showMessage(
 				tr("You can now Click 'Add Intersection' to add an intersection at the clicked position "));
-			
+
+			// check for lane selection
 			Lane *selectedLane = SimulatorEngine->map->SelectedLane;
-			bool isSelected = (selectedLane != nullptr);
-			ui->DeleteButton->setEnabled(isSelected);
-			if (isSelected)
+			bool isLaneSelected = (selectedLane != nullptr);
+			ui->DeleteButton->setEnabled(isLaneSelected);
+			if (isLaneSelected)
 			{
 				QString selectionText = "Selected: Lane {";
 				selectionText.append(QString::number(selectedLane->GetLaneNumber()));
@@ -153,6 +154,17 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 				
 				ui->statusbar->showMessage(selectionText);
 				
+			}
+			// check for car selection
+			Vehicle *selectedVehicle = Vehicle::SelectedVehicle;
+			bool isVehicleSelected = (selectedVehicle != nullptr);
+			if (isVehicleSelected)
+			{
+				QString selectionText = "Selected: Vehicle {";
+				selectionText.append(QString::number(selectedVehicle->GetVehicleNumber()));
+				selectionText.append("}");
+
+				ui->statusbar->showMessage(selectionText);
 			}
 			
 		}
@@ -647,4 +659,9 @@ void MainWindow::on_DrawTexturesCheckBox_stateChanged(int arg1)
 {
     Settings::DrawTextures = arg1;
     ui->MultiColorCheckBox->setEnabled(arg1);
+}
+
+void MainWindow::on_FollowSelectedCarButton_stateChanged(int arg1)
+{
+    Settings::FollowSelectedVehicle = arg1;
 }

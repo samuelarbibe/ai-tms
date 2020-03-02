@@ -55,102 +55,97 @@ float Settings::MinimapMargin = 10.f;
 // [LaneWidth in px] * Scale * unitScale = laneWidth in Unit
 // M, CM, Feet, Inch
 float Settings::DistanceUnitScales[5]
-{
-    0.01, 1, 0.0328, 0.3937, 1/Scale
-};
+	{
+		0.01, 1, 0.0328, 0.3937, 1 / Scale
+	};
 
 // [Speed in px/s] * Scale * unitScale = Speed in Unit
 // that means that [speed in cm/s] * unitScale = Speed in Unit
 // CM/S, KM/H, M/S, MPH, PX/S
 float Settings::VelocityUnitScales[5]
-{
-    1, 0.036, 0.01, 0.022, 1/Scale
-};
-
+	{
+		1, 0.036, 0.01, 0.022, 1 / Scale
+	};
 
 // [LaneWidth in px] * Scale * unitScale = laneWidth in Unit
-float Settings::GetLaneWidthAs(DistanceUnits unit)
-{
-    // base
-    float len = Settings::LaneWidth * Settings::Scale;
+float Settings::GetLaneWidthAs(DistanceUnits unit) {
+	// base
+	float len = Settings::LaneWidth * Settings::Scale;
 
-    return len * DistanceUnitScales[int(unit)];
+	return len * DistanceUnitScales[int(unit)];
 }
 
 // convert a given value from a unit to another unit
-float Settings::ConvertSize(DistanceUnits fromUnit, DistanceUnits toUnit, float value)
-{
-    // first, convert value to px
-    // LaneWidth in px = laneWidth in unit / Scale / unitScale
-    float valueInPx =  value / Scale / DistanceUnitScales[int(fromUnit)];
+float Settings::ConvertSize(DistanceUnits fromUnit, DistanceUnits toUnit, float value) {
+	// first, convert value to px
+	// LaneWidth in px = laneWidth in unit / Scale / unitScale
+	float valueInPx = value / Scale / DistanceUnitScales[int(fromUnit)];
 
-    // convert it to the target unit
-    return valueInPx * Scale * DistanceUnitScales[int(toUnit)];
+	// convert it to the target unit
+	return valueInPx * Scale * DistanceUnitScales[int(toUnit)];
 }
 
 // convert a velocity from a given unit to a given unit
-float Settings::ConvertVelocity(VelocityUnits fromUnit, VelocityUnits toUnit, float value)
-{
-    // first, convert value to px/s
-    float valueInPx = value / Scale / VelocityUnitScales[int(fromUnit)];
+float Settings::ConvertVelocity(VelocityUnits fromUnit, VelocityUnits toUnit, float value) {
+	// first, convert value to px/s
+	float valueInPx = value / Scale / VelocityUnitScales[int(fromUnit)];
 
-    // convert it to the target unit
-    return valueInPx * Scale * VelocityUnitScales[int(toUnit)];
+	// convert it to the target unit
+	return valueInPx * Scale * VelocityUnitScales[int(toUnit)];
 }
 
 // max speed for all the cars in px/s
 float Settings::MaxSpeeds[3]
-{
-    ConvertVelocity(KMH, PXS, 100.f),
-    ConvertVelocity(KMH, PXS, 90.f),
-    ConvertVelocity(KMH, PXS, 110.f)
-};
+	{
+		ConvertVelocity(KMH, PXS, 100.f),
+		ConvertVelocity(KMH, PXS, 90.f),
+		ConvertVelocity(KMH, PXS, 110.f)
+	};
 float Settings::MaxAcceleration[3]
-{
-    ConvertVelocity(KMH, PXS, 4.f),
-    ConvertVelocity(KMH, PXS, 3.5f),
-    ConvertVelocity(KMH, PXS, 5.5f)
-};
+	{
+		ConvertVelocity(KMH, PXS, 4.f),
+		ConvertVelocity(KMH, PXS, 3.5f),
+		ConvertVelocity(KMH, PXS, 5.5f)
+	};
 float Settings::MinAcceleration[3]
-{
-    ConvertVelocity(KMH, PXS, -5.5f),
-    ConvertVelocity(KMH, PXS, -4.f),
-    ConvertVelocity(KMH, PXS, -6.f)
-};
+	{
+		ConvertVelocity(KMH, PXS, -5.5f),
+		ConvertVelocity(KMH, PXS, -4.f),
+		ConvertVelocity(KMH, PXS, -6.f)
+	};
 
-float Settings::GetMaxSpeedAs(VehicleTypeOptions vehicleType, VelocityUnits unit)
-{
-    return Settings::ConvertVelocity(PXS, unit, Settings::MaxSpeeds[vehicleType]);
+float Settings::GetMaxSpeedAs(VehicleTypeOptions vehicleType, VelocityUnits unit) {
+	return Settings::ConvertVelocity(PXS, unit, Settings::MaxSpeeds[vehicleType]);
 }
 
 /// calculate distance between 2 vectors
-float Settings::CalculateDistance(Vector2f a, Vector2f b)
-{
-    float xDist = abs(a.x - b.x);
-    float yDist = abs(a.y - b.y);
+float Settings::CalculateDistance(Vector2f a, Vector2f b) {
+	float xDist = abs(a.x - b.x);
+	float yDist = abs(a.y - b.y);
 
-    return sqrt(xDist*xDist + yDist*yDist);
+	return sqrt(xDist * xDist + yDist * yDist);
 }
 
-float Settings::CalculateAngle(float a, float b)
-{
+float Settings::CalculateAngle(float a, float b) {
 
-    if(a == 0) a += 360;
-    if(b == 0) b += 360;
+	if (a == 0)
+		a += 360;
+	if (b == 0)
+		b += 360;
 
-    float temp = -(a - b);
+	float temp = -(a - b);
 
-    if (temp < -180)
-    {
-        temp += 360;
-    }
+	if (temp < -180)
+	{
+		temp += 360;
+	}
 
-    if (temp > 180)
-    {
-        temp -= 360;
-    }
+	if (temp > 180)
+	{
+		temp -= 360;
+	}
 
-    return temp;
+	return temp;
 }
 
 float Settings::OrangeDelay = 2.f;

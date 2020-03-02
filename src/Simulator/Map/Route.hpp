@@ -12,15 +12,20 @@
 class Route
 {
 public:
-    Route(Lane * from, Lane * to);
-    ~Route();
 
     Lane * FromLane;
     Lane * ToLane;
 
+    Route(Lane * from, Lane * to);
+    ~Route();
+
     void Draw(RenderWindow * window);
-    int GetRouteNumber(){return route_number_;}
     void ReloadRoute();
+
+    // get
+    int GetRouteNumber(){return route_number_;}
+
+    // set
     void SetSelected(bool selected){selected_ = selected;}
 
     static int RouteCount;

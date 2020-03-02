@@ -19,19 +19,21 @@ enum LightState
 class Light : public RectangleShape
 {
   public:
+
 	Light(int lightNumber, int phaseNumber, Road *parentRoad);
 	~Light();
 
 	void Draw(RenderWindow *window);
 	void Update(float elapsedTime);
 
-	void SetState(LightState state) { state_ = state; }
-	void UpdatePosition();
-
+	// get
 	int GetPhaseNumber() { return phase_number_; }
 	int GetLightNumber() { return light_number_; }
-
 	Road *GetParentRoad() { return parent_road_; }
+
+	// set
+	void SetState(LightState state) { state_ = state; }
+	void UpdatePosition();
 
 	static int LightCount;
 	

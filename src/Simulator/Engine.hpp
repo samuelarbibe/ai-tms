@@ -44,6 +44,11 @@ public:
     Engine(QWidget* Parent);
     ~Engine(){};
 
+    // get
+    Vector2f GetSnappedPoint(Vector2f point);
+    Vector2f DrawPoint(Vector2f position);
+
+    // set
     void SetSnapToGrid(bool snapToGrid){this->snap_to_grid_ = snapToGrid;}
     void SetMinimap(float size, float margin);
     void SetView();
@@ -55,10 +60,6 @@ public:
     void ResetMap();
     bool AddVehicleRandomly();
     void ResizeFrame(QSize size);
-
-
-    Vector2f DrawPoint(Vector2f position);
-    Vector2f GetSnappedPoint(Vector2f point);
 
 
     Map * map;
@@ -75,8 +76,6 @@ private:
     void update(float elapsedTime);
     void check_selection(Vector2f position);
 
-    CircleShape click_point_;
-
     bool snap_to_grid_;
     Grid snap_grid_;
 
@@ -88,6 +87,7 @@ private:
 
     RectangleShape minimap_bg_;
     RectangleShape shown_area_index_;
+    CircleShape click_point_;
 };
 
 

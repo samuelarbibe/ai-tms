@@ -33,56 +33,53 @@ class Map
 	void Draw(RenderWindow *window);
 	bool DeleteLane(int laneNumber);
 	void ReloadMap();
-
-	Vector2f GetSize() { return Vector2f(width_, height_); }
-	Intersection *AddIntersection(int intersectionNumber, Vector2f position);
-	Road *AddRoad(int roadNumber, int intersectionNumber, int connectionSide, float length);
-	Lane *AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
-	Road *AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2);
-	Phase *AddPhase(int phaseNumber, float cycleTime);
-	Light *AddLight(int lightNumber, int phaseNumber, int parentRoadNumber);
-	bool SetPhaseTime(int phaseNumber, float phaseTime);
-	bool AssignLaneToPhase(int phaseNumber, int laneNumber);
-	bool UnassignLaneFromPhase(int laneNumber);
 	void CyclePhase();
-	void SelectLanesByPhase(int phaseNumber);
-	void UnselectAll();
 
-	vector<Intersection *> GetIntersectionByLaneNumber(int laneNumber);
-	Intersection *GetIntersection(int intersectionNumber);
-	vector<Intersection *> *GetIntersections() { return &(intersections_); };
+	// entity adding
+	Intersection *AddIntersection(int intersectionNumber, Vector2f position);
+	Road *  AddRoad(int roadNumber, int intersectionNumber, int connectionSide, float length);
+	Road *  AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2);
+	Lane *  AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
+	Phase * AddPhase(int phaseNumber, float cycleTime);
+	Light * AddLight(int lightNumber, int phaseNumber, int parentRoadNumber);
+	Route * AddRoute(int from, int to);
 
-	Road *GetRoad(int roadNumber);
-	Lane *GetLane(int laneNumber);
-	Phase *GetPhase(int phaseNumber);
-	vector<Route *> *GetRoutes() { return &routes_; }
-	vector<Phase *> *GetPhases() { return &phases_; }
-
+	// get
+	Vector2f GetSize() { return Vector2f(width_, height_); }
+	Road *   GetRoad(int roadNumber);
+	Lane *   GetLane(int laneNumber);
+	Phase *  GetPhase(int phaseNumber);
 	set<QString> GetLaneIdList(int phaseNumber = 0);
 	set<QString> GetRoadIdList();
 	set<QString> GetIntersectionIdList();
 	set<QString> GetPhaseIdList();
 	set<QString> GetLightIdList();
-
 	int GetIntersectionCount() { return number_of_intersections_; }
 	int GetRoadCount();
 	int GetLaneCount();
-
-	pair<ConnectionSides, ConnectionSides> AssignConnectionSides(Vector2f pos1, Vector2f pos2);
-
-	// route manipulation
-
-	void FindStartingLanes();
-	bool AddRoute(int from, int to);
-	bool RemoveRouteByLaneNumber(int laneNumber);
+	vector<Route *> *GetRoutes() { return &routes_; }
+	vector<Phase *> *GetPhases() { return &phases_; }
+	Intersection *GetIntersection(int intersectionNumber);
+	vector<Intersection *>  GetIntersectionByLaneNumber(int laneNumber);
+	vector<Intersection *> *GetIntersections() { return &(intersections_); };
 	Route *GetPossibleRoute(int from);
 	Route *GetRouteByStartEnd(int from, int to);
-	Lane *GetPossibleStartingLane();
+	Lane * GetPossibleStartingLane();
+
+	// set
+	bool SetPhaseTime(int phaseNumber, float phaseTime);
+	bool AssignLaneToPhase(int phaseNumber, int laneNumber);
+	bool UnassignLaneFromPhase(int laneNumber);
+	void SelectLanesByPhase(int phaseNumber);
+	void UnselectAll();
+	void FindStartingLanes();
+	bool RemoveRouteByLaneNumber(int laneNumber);
 	void SelectRoutesByVehicle(list<Lane*> * instructionSet);
 	void UnselectRoutes();
 
-	Lane *CheckSelection(Vector2f position);
+	pair<ConnectionSides, ConnectionSides> AssignConnectionSides(Vector2f pos1, Vector2f pos2);
 
+	Lane *CheckSelection(Vector2f position);
 	Lane *SelectedLane;
 
   private:

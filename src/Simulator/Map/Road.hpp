@@ -31,9 +31,14 @@ public:
     Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int connectionSide1, int connectionSide2, Vector2f conPosition1, Vector2f conPosition2, float direction);
     ~Road();
 
-    Lane * AddLane(int laneNumber, bool isInRoadDirection);
-    void ReloadRoad();
+    void   Draw(RenderWindow * window);
+    void   Update(float elapsedTime);
+    void   ReloadRoad();
 
+    // Add entities
+    Lane * AddLane(int laneNumber, bool isInRoadDirection);
+
+    // get
     Lane * GetLane(int laneNumber);
     float  GetWidth(){return width_;}
     int    GetRoadNumber(){return road_number_;}
@@ -41,19 +46,17 @@ public:
     int    GetConnectionSide(int index = 0){return connection_side_[index];}
     bool   GetIsConnecting(){return is_connecting_;}
     int    GetLaneCount(){return lanes_.size();};
+    float  GetRoadDirection(){return direction_;}
+    Vector2f GetStartPosition(){return start_pos_;}
+    Vector2f GetEndPosition(){return end_pos_;}
     vector<Lane*> *  GetLanes(){return &(lanes_);};
-    
+
+    // set
     void   ReAssignLanePositions();
     void   UpdateStartPosition(Vector2f position);
     void   UpdateEndPosition(Vector2f position);
     bool   DeleteLane(int laneNumber);
-    Vector2f GetStartPosition(){return start_pos_;}
-    Vector2f GetEndPosition(){return end_pos_;}
-    float GetRoadDirection(){return direction_;}
-
-    void   Update(float elapsedTime);
-    void   Draw(RenderWindow * window);
-
+    
     Lane * CheckSelection(Vector2f position);
 
     static int RoadCount;
