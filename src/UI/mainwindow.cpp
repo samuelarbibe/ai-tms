@@ -468,14 +468,13 @@ void MainWindow::on_PauseButton_clicked()
 	}
 }
 
+// TODO: allow only one simulation to be run at once
+// TODO: GUI simulation result
 void MainWindow::on_RunSimulationButton_clicked()
 {
 	int amount = ui->CarCountSpinBox->value();
-	
-	for (int i = 0; i < amount; i++)
-	{
-		SimulatorEngine->AddVehicleRandomly();
-	}
+
+	SimulatorEngine->RunSimulation(amount);
 }
 
 void MainWindow::on_AddRouteButton_clicked()

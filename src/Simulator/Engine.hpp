@@ -23,6 +23,7 @@
 #include "Settings.hpp"
 #include "../UI/Widgets/QsfmlCanvas.hpp"
 #include "Map/Route.hpp"
+#include "Simulation.hpp"
 
 
 using namespace sf;
@@ -61,6 +62,7 @@ public:
     bool AddVehicleRandomly();
     void ResizeFrame(QSize size);
 
+    void RunSimulation(int vehicleCount);
 
     Map * map;
 
@@ -88,6 +90,8 @@ private:
     RectangleShape minimap_bg_;
     RectangleShape shown_area_index_;
     CircleShape click_point_;
+
+    vector<Simulation *> simulations_;
 };
 
 

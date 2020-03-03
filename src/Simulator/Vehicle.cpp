@@ -9,6 +9,7 @@
 #include "Vehicle.hpp"
 
 int Vehicle::to_be_deleted_ = 0;
+int Vehicle::active_vehicles_count_ = 0;
 int Vehicle::VehicleCount = 0;
 list<Vehicle *> Vehicle::ActiveVehicles;
 Vehicle * Vehicle::SelectedVehicle = nullptr;
@@ -31,6 +32,7 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *>
 	instruction_set_->pop_front();
 	dest_lane_ = instruction_set_->front();
 	active_ = false;
+
 
 	// get a pointer to the current intersection
 	// current intersection is the intersection that the lane leads to
@@ -114,8 +116,9 @@ void Vehicle::ClearVehicles() {
 			delete temp;
 
 			to_be_deleted_--;
+			active_vehicles_count_ = ActiveVehicles.size();
 			if (Settings::DrawActive)
-				cout << "active vehicles : " << ActiveVehicles.size() << endl;
+				cout << "active vehicles : " << active_vehicles_count_ << endl;
 		} else
 		{
 			it++;
@@ -138,6 +141,7 @@ Vehicle *Vehicle::AddVehicle(list<Lane *> *instructionSet,
 	temp->source_lane_->SetLastCar(vehicleNumber);
 	temp->source_lane_->AddVehicleCount();
 	VehicleCount++;
+	active_vehicles_count_++;
 
 	if (Settings::DrawAdded)
 		cout << "car " << vehicleNumber << " added to lane " << temp->source_lane_->GetLaneNumber() << endl;

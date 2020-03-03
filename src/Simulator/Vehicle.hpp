@@ -81,12 +81,14 @@ class Vehicle : RectangleShape
 	static bool LoadVehicleTextures(VehicleType *vehicleType);
 
 	static list<Vehicle *> ActiveVehicles;
+	static int GetActiveVehicleCount() { return active_vehicles_count_; }
 	static int VehicleCount;
 	static Vehicle *SelectedVehicle;
 
   private:
 
 	static int to_be_deleted_;
+	static int active_vehicles_count_;
 
 	static VehicleType Car;
 	static VehicleType Truck;

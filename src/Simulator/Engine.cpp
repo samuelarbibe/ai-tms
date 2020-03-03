@@ -70,6 +70,29 @@ void Engine::ResizeFrame(QSize size)
     this->setView(view_);
 }
 
+void Engine::RunSimulation(int vehicleCount) {
+
+	cout << "Running Simulation on this map..." << endl;
+	cout << "Sending " << vehicleCount << " vehicles..." << endl;
+
+	for (int i = 0; i < vehicleCount; i++)
+	{
+		AddVehicleRandomly();
+	}
+
+	// start a new simulation
+	Simulation * s = new Simulation(0, vehicleCount);
+
+	simulations_.push_back(s);
+
+	cout << "------------------------------------------------------------------" << endl;
+	cout << "Simulation "<< s->GetSimulationNumber() << " started at ";
+	cout << 1 + s->GetStartTime()->tm_hour << ":";
+	cout << 1 + s->GetStartTime()->tm_min << ":";
+	cout << 1 + s->GetStartTime()->tm_sec << endl;
+	cout << "------------------------------------------------------------------" << endl;
+}
+
 /// set the viewport for the camera
 void Engine::SetView()
 {
@@ -491,6 +514,9 @@ void Engine::SaveMap(const string saveDirectory)
 /// reset the whole map, delete everything
 void Engine::ResetMap()
 {
+	// TODO: save simulations in a file
+
+
     cout << "Deleting Vehicles..." << endl;
     Vehicle::DeleteAllVehicles();
 
@@ -529,6 +555,14 @@ void Engine::update(float elapsedTime)
 		view_pos_ = Vehicle::SelectedVehicle->GetPosition() - Vector2f(map->GetSize().x/2, map->GetSize().y/2);
 		temp_view_pos_ = view_pos_;
 		SetView();
+	}
+
+	for(Simulation * s : simulations_)
+	{
+		if(s->IsRunning())
+		{
+			s->Update(elapsedTime);
+		}
 	}
 }
 

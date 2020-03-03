@@ -7,8 +7,8 @@
 const Vector2f Settings::ForwardVector = Vector2f(0.f, -1.f);
 
 bool Settings::DrawFps = false;
-bool Settings::DrawActive = true;
-bool Settings::DrawDelete = true;
+bool Settings::DrawActive = false;
+bool Settings::DrawDelete = false;
 bool Settings::DrawAdded = true;
 
 bool Settings::DrawVehicleDataBoxes = false;
