@@ -5,11 +5,13 @@
 #ifndef SIMULATORSFML_SETTINGS_HPP
 #define SIMULATORSFML_SETTINGS_HPP
 
-#include <math.h>
-
+#include <cmath>
+#include <cstring>
+#include <sstream>
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
+using namespace std;
 
 enum DistanceUnits
 {
@@ -103,6 +105,8 @@ class Settings
 
 	static float CalculateDistance(Vector2f a, Vector2f b);
 	static float CalculateAngle(float a, float b);
+	static string ConvertTimeToString(tm * time);
+	static tm * ConvertStringToTime(const string str);
 
 	static float OrangeDelay;
 	static float DefaultCycleTime;

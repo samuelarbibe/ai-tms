@@ -17,12 +17,13 @@ class MainWindow : public QMainWindow {
 	~MainWindow();
 	
 	void mouseDoubleClickEvent(QMouseEvent *event) override;
-	
+    void Update(float elapsedTime);
 	void resizeEvent(QResizeEvent *event) override;
   
   protected:
 	
 	void showEvent(QShowEvent *ev) override;
+
   
   private slots:
 	void on_AddIntersectionButton_clicked();
@@ -110,6 +111,12 @@ class MainWindow : public QMainWindow {
     void on_DrawTexturesCheckBox_stateChanged(int arg1);
 
     void on_FollowSelectedCarButton_stateChanged(int arg1);
+
+    void on_AbortButton_clicked();
+
+    void on_SaveSimButton_clicked();
+
+    void on_LoadSimButton_clicked();
 
 private:
 	

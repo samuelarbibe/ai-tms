@@ -1575,8 +1575,73 @@
            <string/>
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
-           <item row="1" column="0">
-            <layout class="QVBoxLayout" name="verticalLayout_5"/>
+           <item row="0" column="0">
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <item>
+              <widget class="QTableView" name="SimTable"/>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_5">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_25">
+                 <item>
+                  <widget class="QPushButton" name="LoadSimButton">
+                   <property name="text">
+                    <string>Load Simulations</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="SaveSimButton">
+                   <property name="text">
+                    <string>Save Simulations</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_19">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="RunDemoButton">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="whatsThis">
+                    <string>delete selected item</string>
+                   </property>
+                   <property name="text">
+                    <string>Demo</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="DeleteSimButton">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="whatsThis">
+                    <string>delete selected item</string>
+                   </property>
+                   <property name="text">
+                    <string>Delete</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>
@@ -1674,13 +1739,13 @@
                 <string extracomment=" "/>
                </property>
                <property name="minimum">
-                <number>100</number>
+                <number>50</number>
                </property>
                <property name="maximum">
                 <number>1000</number>
                </property>
                <property name="singleStep">
-                <number>100</number>
+                <number>50</number>
                </property>
                <property name="displayIntegerBase">
                 <number>10</number>
@@ -1709,6 +1774,9 @@
              </item>
              <item>
               <widget class="QPushButton" name="AbortButton">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
                <property name="text">
                 <string>Abort</string>
                </property>

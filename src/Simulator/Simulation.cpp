@@ -5,6 +5,8 @@
 #include "Simulation.hpp"
 
 int Simulation::SimulationCount = 0;
+bool Simulation::SimRunning = false;
+
 
 Simulation::Simulation(int simulationNumber, int vehicleCount) {
 
@@ -14,7 +16,7 @@ Simulation::Simulation(int simulationNumber, int vehicleCount) {
 
 	this->current_vehicle_count_ = 0;
 	this->finished_ = false;
-	this->running_ = true;
+	this->running_ = false;
 
 	// start timer
 	time_t now = time(nullptr);
@@ -22,7 +24,10 @@ Simulation::Simulation(int simulationNumber, int vehicleCount) {
 
 	this->elapsed_time_ = 0;
 }
-
+Simulation::~Simulation()
+{
+	if(Settings::DrawDelete) cout << "Simulation number " << simulation_number_ << " has been deleted. " << endl;
+}
 
 void Simulation::Update(float elapsedTime) {
 
@@ -40,6 +45,8 @@ void Simulation::Update(float elapsedTime) {
 			// get simulation end time
 			time_t now = time(nullptr);
 			this->end_time_ = localtime(&now);
+
+			SimRunning = false;
 
 			cout << "------------------------------------------------------------------" << endl;
 			cout << "Simulation "<< simulation_number_ << " ended at ";

@@ -58,13 +58,17 @@ public:
     void UpdateView(Vector2f posDelta = Vector2f(0,0), float zoom = 0);
     void SaveMap(string saveDirectory);
     void LoadMap(string loadDirectory);
+    void SaveSimulations(string saveDirectory);
+    void LoadSimulations(string loadDirectory);
     void ResetMap();
+    void ClearMap();
     bool AddVehicleRandomly();
     void ResizeFrame(QSize size);
 
     void RunSimulation(int vehicleCount);
 
     Map * map;
+
 
 private:
 

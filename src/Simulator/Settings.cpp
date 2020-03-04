@@ -148,6 +148,33 @@ float Settings::CalculateAngle(float a, float b) {
 	return temp;
 }
 
+// convert a time to a string, to fit JSON formatting
+// the string will be formatted int this format:
+//          'DD-MM-YYYY HH:MM:SS'
+string Settings::ConvertTimeToString(tm *time) {
+
+	ostringstream oss;
+	oss << asctime(time);
+	string var = oss.str();
+
+	return var;
+}
+
+tm *Settings::ConvertStringToTime(const string str) {
+
+	tm * time = new tm();
+
+	time->tm_mday = stoi(str.substr(0, 2));
+	time->tm_mon = stoi(str.substr(3, 2)) - 1;
+	time->tm_year = stoi(str.substr(6, 4)) - 1900;
+
+	time->tm_hour = stoi(str.substr(11, 2));
+	time->tm_min = stoi(str.substr(14, 2));
+	time->tm_sec = stoi(str.substr(17, 2));
+
+	return time;
+}
+
 float Settings::OrangeDelay = 2.f;
 float Settings::DefaultCycleTime = 5.f;
 float Settings::PhaseDelay = 1.5f;

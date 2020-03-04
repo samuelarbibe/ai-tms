@@ -31,6 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	reloadOptionData();
 }
 
+//TODO: display simulations in data table
+
 MainWindow::~MainWindow()
 {
 	delete ui;
@@ -43,6 +45,14 @@ void MainWindow::showEvent(QShowEvent *ev)
 	// things that can be done only after complete init
 	SimulatorEngine->ResizeFrame(ui->SimulatorFrame->size() * Settings::SFMLRatio);
 	reloadOptionData();
+}
+
+void MainWindow::Update(float elapsedTime)
+{
+    ui->AbortButton->setEnabled(Simulation::SimRunning);
+    ui->RunSimulationButton->setEnabled(!Simulation::SimRunning);
+
+    cout << "update called" << endl;
 }
 
 void MainWindow::reloadOptionData()
@@ -89,6 +99,8 @@ void MainWindow::reloadOptionData()
 		ui->AssignLaneToPhaseComboBox->addItem(p);
 	}
 	
+
+
 	//reloadLaneList();
 }
 
@@ -468,13 +480,18 @@ void MainWindow::on_PauseButton_clicked()
 	}
 }
 
-// TODO: allow only one simulation to be run at once
-// TODO: GUI simulation result
 void MainWindow::on_RunSimulationButton_clicked()
 {
 	int amount = ui->CarCountSpinBox->value();
 
-	SimulatorEngine->RunSimulation(amount);
+	if(!Simulation::SimRunning)
+	{
+		SimulatorEngine->RunSimulation(amount);
+	}
+	else
+	{
+		ui->statusbar->showMessage(tr("Another simulation is currently running, please wait for it to finish"), 5000);
+	}
 }
 
 void MainWindow::on_AddRouteButton_clicked()
@@ -663,4 +680,33 @@ void MainWindow::on_DrawTexturesCheckBox_stateChanged(int arg1)
 void MainWindow::on_FollowSelectedCarButton_stateChanged(int arg1)
 {
     Settings::FollowSelectedVehicle = arg1;
+}
+
+void MainWindow::on_AbortButton_clicked()
+{
+    SimulatorEngine->ClearMap();
+}
+
+void MainWindow::on_SaveSimButton_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                                    "simulations.json",
+                                                    tr("JSON Files (*.json"));
+    SimulatorEngine->SaveSimulations(fileName.toStdString());
+}
+
+void MainWindow::on_LoadSimButton_clicked()
+{
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::ExistingFile);
+    dialog.setNameFilter(tr("JSON Files (*.json)"));
+    dialog.setViewMode(QFileDialog::Detail);
+
+    QStringList fileNames;
+    if (dialog.exec())
+    {
+        fileNames = dialog.selectedFiles();
+        SimulatorEngine->LoadSimulations(fileNames.front().toStdString());
+        reloadOptionData();
+    }
 }
