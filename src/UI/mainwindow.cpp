@@ -27,15 +27,28 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->PhaseDelaySlider->setSliderPosition(Settings::PhaseDelay);
 	ui->OrangeLightDelayLineEdit->setText(QString::number(Settings::OrangeDelay));
 	ui->OrangeLightDelaySlider->setSliderPosition(Settings::OrangeDelay);
-	
+
+	model = nullptr;
+
+	reloadSimTable();
 	reloadOptionData();
 }
 
-//TODO: display simulations in data table
+// TODO: Create a simulation finished event
+// event will trigger:
+    // disable abort simulation button
+    // reload simulation table
 
 MainWindow::~MainWindow()
 {
 	delete ui;
+}
+
+void MainWindow::reloadSimTable()
+{
+	delete model;
+	model = new SimModel(SimulatorEngine->GetSimulations());
+    ui->SimTable->setModel(model);
 }
 
 void MainWindow::showEvent(QShowEvent *ev)
@@ -708,5 +721,6 @@ void MainWindow::on_LoadSimButton_clicked()
         fileNames = dialog.selectedFiles();
         SimulatorEngine->LoadSimulations(fileNames.front().toStdString());
         reloadOptionData();
+        reloadSimTable();
     }
 }

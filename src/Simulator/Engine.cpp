@@ -93,9 +93,7 @@ void Engine::RunSimulation(int vehicleCount) {
 
 		cout << "------------------------------------------------------------------" << endl;
 		cout << "Simulation " << s->GetSimulationNumber() << " started at ";
-		cout << 1 + s->GetStartTime()->tm_hour << ":";
-		cout << 1 + s->GetStartTime()->tm_min << ":";
-		cout << 1 + s->GetStartTime()->tm_sec << endl;
+		cout << ctime(s->GetStartTime()) << endl;
 		cout << "------------------------------------------------------------------" << endl;
 	}
 	else
@@ -522,16 +520,15 @@ void Engine::SaveMap(const string saveDirectory) {
 void Engine::SaveSimulations(string saveDirectory) {
 
 	json j;
-	//TODO: save and load dates
 	for (Simulation *sim : simulations_)
 	{
 		j["simulations"].push_back(
 			{
 				{"id", sim->GetSimulationNumber()},
 				{"vehicle_count", sim->GetVehicleCount()},
-				//{"start_time", Settings::ConvertTimeToString(sim->GetStartTime())},
-				//{"end_time", Settings::ConvertTimeToString(sim->GetEndTime())},
-				{"simulation_time", sim->GetElapsedTime()}
+				{"start_time", static_cast<long int>(*sim->GetStartTime())},
+				{"end_time", static_cast<long int>(*sim->GetEndTime())},
+				{"simulated_time", sim->GetElapsedTime()}
 			}
 		);
 	}
@@ -559,9 +556,9 @@ void Engine::LoadSimulations(string loadDirectory) {
 		for (auto data : j["simulations"])
 		{
 			s = new Simulation(data["id"], data["vehicle_count"]);
-			//s->SetStartTime(Settings::ConvertStringToTime(data["start_time"]));
-			//s->SetEndTime(Settings::ConvertStringToTime(data["start_time"]));
-			s->SetSimulationTime(data["simulation_time"]);
+			s->SetStartTime(time_t(data["start_time"]));
+			s->SetEndTime(time_t(data["end_time"]));
+			s->SetSimulationTime(data["simulated_time"]);
 			s->SetFinished(true);
 			simulations_.push_back(s);
 		}

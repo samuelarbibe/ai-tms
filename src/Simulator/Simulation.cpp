@@ -19,8 +19,7 @@ Simulation::Simulation(int simulationNumber, int vehicleCount) {
 	this->running_ = false;
 
 	// start timer
-	time_t now = time(nullptr);
-	this->start_time_ = localtime(&now);
+	this->start_time_ = time(nullptr);
 
 	this->elapsed_time_ = 0;
 }
@@ -43,16 +42,13 @@ void Simulation::Update(float elapsedTime) {
 			finished_ = false;
 
 			// get simulation end time
-			time_t now = time(nullptr);
-			this->end_time_ = localtime(&now);
+			this->end_time_ = time(nullptr);
 
 			SimRunning = false;
 
 			cout << "------------------------------------------------------------------" << endl;
 			cout << "Simulation "<< simulation_number_ << " ended at ";
-			cout << 1 + end_time_->tm_hour << ":";
-			cout << 1 + end_time_->tm_min << ":";
-			cout << 1 + end_time_->tm_sec << endl;
+			cout << ctime(&this->end_time_) << endl;
 			cout << "Results:" <<  endl;
 			cout << "   Vehicles Simulated: " << vehicle_count_ << endl;
 			cout << "   Simulation Time: " << elapsed_time_ << " seconds" <<  endl;

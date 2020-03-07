@@ -37,13 +37,13 @@ class Simulation
 	int IsFinished(){return finished_;}
 	int IsRunning(){return running_;}
 
-	tm * GetStartTime(){return start_time_;}
-	tm * GetEndTime(){return end_time_;}
+	time_t * GetStartTime(){return &start_time_;}
+	time_t * GetEndTime(){return &end_time_;}
 	float GetElapsedTime(){return elapsed_time_;}
 
 	// set
-	void SetStartTime(tm * time){ start_time_ = time;}
-	void SetEndTime(tm * time){ end_time_ = time;}
+	void SetStartTime(time_t time){ start_time_ = time;}
+	void SetEndTime(time_t time){ end_time_ = time;}
 	void SetSimulationTime(float time){ elapsed_time_ = time;}
 	void SetFinished(bool fin){ finished_ = fin;}
 
@@ -58,9 +58,9 @@ class Simulation
     bool finished_;
     bool running_;
 
-    tm *  start_time_;
-    tm *  end_time_;
-    float elapsed_time_;
+    time_t start_time_;
+    time_t end_time_;
+    float  elapsed_time_;
 };
 
 #endif //SIMULATORSFML_SRC_SIMULATOR_SIMULATION_HPP

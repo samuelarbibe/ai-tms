@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <ctime>
 #include <list>
 #include <cmath>
 
@@ -48,6 +49,7 @@ public:
     // get
     Vector2f GetSnappedPoint(Vector2f point);
     Vector2f DrawPoint(Vector2f position);
+    vector<Simulation *> * GetSimulations(){return &simulations_;}
 
     // set
     void SetSnapToGrid(bool snapToGrid){this->snap_to_grid_ = snapToGrid;}

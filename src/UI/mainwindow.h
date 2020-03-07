@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMouseEvent>
 #include "../Simulator/Engine.hpp"
+#include "Widgets/SimModel.hpp"
 
 namespace Ui {
 	class MainWindow;
@@ -16,10 +17,13 @@ class MainWindow : public QMainWindow {
 	explicit MainWindow(QWidget *parent = nullptr);
 	~MainWindow();
 	
+    void reloadSimTable();
 	void mouseDoubleClickEvent(QMouseEvent *event) override;
     void Update(float elapsedTime);
 	void resizeEvent(QResizeEvent *event) override;
-  
+
+	SimModel * model;
+
   protected:
 	
 	void showEvent(QShowEvent *ev) override;

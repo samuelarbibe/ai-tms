@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1231</width>
-    <height>697</height>
+    <width>1440</width>
+    <height>834</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -94,90 +94,89 @@
             <string>Map</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout">
-            <item row="2" column="0">
+            <item row="0" column="0">
              <layout class="QVBoxLayout" name="verticalLayout_2">
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_4">
-                <property name="spacing">
-                 <number>10</number>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <property name="leftMargin">
+                 <number>5</number>
                 </property>
                 <property name="topMargin">
                  <number>5</number>
                 </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_3">
-                  <item>
-                   <widget class="QLabel" name="label_3">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text">
-                     <string>X Position:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="IntersectionXEdit">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>50</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_4">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_4">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text">
-                     <string>Y Position:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="IntersectionYEdit">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>50</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
+                 <widget class="QLabel" name="label_3">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>X Position:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="IntersectionXEdit">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>50</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_4">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_4">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Y Position:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="IntersectionYEdit">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>50</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <spacer name="horizontalSpacer_5">
@@ -205,47 +204,49 @@
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
                 <property name="topMargin">
                  <number>5</number>
                 </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_2">
-                  <item>
-                   <widget class="QLabel" name="label">
-                    <property name="text">
-                     <string>From Intersection: </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="FromIntersectionComboBox">
-                    <property name="maximumSize">
-                     <size>
-                      <width>70</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_2">
-                    <property name="text">
-                     <string>To Intersection: </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="ToIntersectionComboBox">
-                    <property name="maximumSize">
-                     <size>
-                      <width>70</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
+                 <widget class="QLabel" name="label">
+                  <property name="text">
+                   <string>From Intersection: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="FromIntersectionComboBox">
+                  <property name="maximumSize">
+                   <size>
+                    <width>70</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_2">
+                  <property name="text">
+                   <string>To Intersection: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="ToIntersectionComboBox">
+                  <property name="maximumSize">
+                   <size>
+                    <width>70</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <spacer name="horizontalSpacer">
@@ -273,61 +274,63 @@
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
                 <property name="topMargin">
                  <number>5</number>
                 </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                 <widget class="QLabel" name="label_5">
+                  <property name="text">
+                   <string>Intersection: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="IntersectionComboBox">
+                  <property name="maximumSize">
+                   <size>
+                    <width>70</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_6">
+                  <property name="text">
+                   <string>Connection Side:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="ConSideComboBox">
                   <item>
-                   <widget class="QLabel" name="label_5">
-                    <property name="text">
-                     <string>Intersection: </string>
-                    </property>
-                   </widget>
+                   <property name="text">
+                    <string>Up</string>
+                   </property>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="IntersectionComboBox">
-                    <property name="maximumSize">
-                     <size>
-                      <width>70</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                   </widget>
+                   <property name="text">
+                    <string>Right</string>
+                   </property>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_6">
-                    <property name="text">
-                     <string>Connection Side:</string>
-                    </property>
-                   </widget>
+                   <property name="text">
+                    <string>Down</string>
+                   </property>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="ConSideComboBox">
-                    <item>
-                     <property name="text">
-                      <string>Up</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Right</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Down</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Left</string>
-                     </property>
-                    </item>
-                   </widget>
+                   <property name="text">
+                    <string>Left</string>
+                   </property>
                   </item>
-                 </layout>
+                 </widget>
                 </item>
                 <item>
                  <spacer name="horizontalSpacer_2">
@@ -355,37 +358,39 @@
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_8">
+               <layout class="QHBoxLayout" name="horizontalLayout_4">
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
                 <property name="topMargin">
                  <number>5</number>
                 </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_9">
-                  <item>
-                   <widget class="QLabel" name="label_7">
-                    <property name="text">
-                     <string>To Road:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="ToRoadComboBox">
-                    <property name="maximumSize">
-                     <size>
-                      <width>70</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="InDirectionCheckBox">
-                    <property name="text">
-                     <string>Is In road Direction</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
+                 <widget class="QLabel" name="label_7">
+                  <property name="text">
+                   <string>To Road:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="ToRoadComboBox">
+                  <property name="maximumSize">
+                   <size>
+                    <width>70</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="InDirectionCheckBox">
+                  <property name="text">
+                   <string>Is In road Direction</string>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <spacer name="horizontalSpacer_3">
@@ -414,8 +419,14 @@
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_11">
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
                 <property name="topMargin">
-                 <number>0</number>
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
                 </property>
                 <item>
                  <widget class="QLabel" name="label_9">
@@ -519,6 +530,15 @@
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_16">
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
                 <item>
                  <widget class="QLabel" name="ZoomLabel">
                   <property name="whatsThis">
@@ -581,6 +601,15 @@
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_10">
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
                 <item>
                  <widget class="QPushButton" name="LoadMapButton">
                   <property name="text">
@@ -1578,7 +1607,11 @@
            <item row="0" column="0">
             <layout class="QVBoxLayout" name="verticalLayout_7">
              <item>
-              <widget class="QTableView" name="SimTable"/>
+              <widget class="QTableView" name="SimTable">
+               <property name="sortingEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
              </item>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_5">
