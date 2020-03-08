@@ -22,14 +22,14 @@ class MainWindow : public QMainWindow {
     void Update(float elapsedTime);
 	void resizeEvent(QResizeEvent *event) override;
 
-	SimModel * model;
-
   protected:
 	
 	void showEvent(QShowEvent *ev) override;
 
   
   private slots:
+	void on_SimulationFinished();
+
 	void on_AddIntersectionButton_clicked();
 	
 	void on_AddConnectingRoadButton_clicked();
@@ -122,11 +122,20 @@ class MainWindow : public QMainWindow {
 
     void on_LoadSimButton_clicked();
 
+    void on_SimTable_clicked(const QModelIndex &index);
+
+    void on_RunDemoButton_clicked();
+
+    void on_DeleteSimButton_clicked();
+
 private:
 	
 	Ui::MainWindow *ui;
 	Engine *SimulatorEngine;
-	
+
+	SimModel * model_;
+    int selected_row_;
+
 	void reloadLaneList();
 };
 

@@ -1808,7 +1808,7 @@
              <item>
               <widget class="QPushButton" name="AbortButton">
                <property name="enabled">
-                <bool>true</bool>
+                <bool>false</bool>
                </property>
                <property name="text">
                 <string>Abort</string>

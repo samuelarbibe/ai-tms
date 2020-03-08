@@ -12,12 +12,14 @@ int Vehicle::to_be_deleted_ = 0;
 int Vehicle::active_vehicles_count_ = 0;
 int Vehicle::VehicleCount = 0;
 list<Vehicle *> Vehicle::ActiveVehicles;
-Vehicle * Vehicle::SelectedVehicle = nullptr;
+Vehicle *Vehicle::SelectedVehicle = nullptr;
 
 VehicleType Vehicle::Car{CAR, "Car", "../../resources/Cars/car_image_", 3, Vector2f(56.f, 130.f)};
 VehicleType Vehicle::Truck{TRUCK, "Truck", "../../resources/Cars/car_image_", 3, Vector2f(70.f, 160.f)};
 VehicleType Vehicle::Motorcycle{MOTORCYCLE, "Motorcycle", "../resources/Cars/motorcycle_image_", 3,
                                 Vector2f(0.12f, 0.12f)};
+
+// TODO: change the driving system to route-following
 
 Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *> *instructionSet, Map *map) {
 	// set initial values for the movable object
@@ -67,8 +69,7 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *>
 		}
 
 		this->setTexture(&(vehicle_type_->Textures->at(textureNumber)));
-	}
-	else
+	} else
 	{
 		this->setOutlineThickness(10.f);
 		this->setOutlineColor(Color::Blue);
@@ -81,13 +82,13 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *>
 }
 
 Vehicle::~Vehicle() {
-	if(Vehicle::SelectedVehicle == this)
+	if (Vehicle::SelectedVehicle == this)
 	{
 		Vehicle::SelectedVehicle = nullptr;
 	}
-	if(Settings::DrawDelete)cout << "Vehicle " << vehicle_number_ << " deleted" << endl;
+	if (Settings::DrawDelete)
+		cout << "Vehicle " << vehicle_number_ << " deleted" << endl;
 }
-
 
 /// delete all active vehicles
 void Vehicle::DeleteAllVehicles() {
@@ -149,14 +150,15 @@ Vehicle *Vehicle::AddVehicle(list<Lane *> *instructionSet,
 	return temp;
 }
 
-Vehicle * Vehicle::CheckSelection(Vector2f position) {
+/// check if the click point is on a vehicle
+Vehicle *Vehicle::CheckSelection(Vector2f position) {
 
-	for(Vehicle * v : Vehicle::ActiveVehicles)
+	for (Vehicle *v : Vehicle::ActiveVehicles)
 	{
 		// only check for active vehicles
-		if(v->active_)
+		if (v->active_)
 		{
-			if(v->getGlobalBounds().contains(position))
+			if (v->getGlobalBounds().contains(position))
 			{
 				Vehicle::SelectedVehicle = v;
 				Vehicle::SelectedVehicle->Select();
@@ -167,14 +169,14 @@ Vehicle * Vehicle::CheckSelection(Vector2f position) {
 	return nullptr;
 }
 
-void Vehicle::Select()
-{
+/// select a vehicle
+void Vehicle::Select() {
 	this->setOutlineColor(Color::Red);
 	this->setFillColor(Color::Red);
 }
 
-void Vehicle::Unselect()
-{
+/// unselect a vehicle
+void Vehicle::Unselect() {
 	this->setOutlineColor(Color::Blue);
 	this->setFillColor(Color::White);
 }

@@ -22,6 +22,8 @@ Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000 / Settings::MaxFps) {
 	SetMinimap(Settings::MinimapSize, Settings::MinimapMargin);
 	this->setView(view_);
 
+	number_of_simulations_ = 0;
+
 	cout << "Setting up snap grid..." << endl;
 	BuildGrid(Settings::GridRows, Settings::GridColumns);
 
@@ -61,6 +63,7 @@ void Engine::on_init() {
 
 }
 
+/// resize the sfml window
 void Engine::ResizeFrame(QSize size) {
 	resize(size);
 	setSize(sf::Vector2u(size.width(), size.height()));
@@ -70,11 +73,44 @@ void Engine::ResizeFrame(QSize size) {
 	this->setView(view_);
 }
 
+bool Engine::DeleteSimulation(int simulationNumber)
+{
+	Simulation * s = GetSimulation(simulationNumber);
 
+	if(s != nullptr)
+	{
+			// remove the targetLane from the list by iterator
+			auto it = simulations_.begin();
+			while(it != simulations_.end())
+			{
+				if((*it)->GetSimulationNumber() == simulationNumber)
+				{
+					it = simulations_.erase(it);
+					delete s;
+					number_of_simulations_--;
+					return true;
+				}
+				else
+				{
+					it++;
+				}
+			}
+	}
+
+	cout << "Could not delete simulation as it wasnt found. " << endl;
+	return false;
+}
+
+/// run a simualtion on the given vehicle count
 void Engine::RunSimulation(int vehicleCount) {
 
 	if(!Simulation::SimRunning)
 	{
+		// if demo is running, stop it
+		if(Simulation::DemoRunning)
+		{
+			ClearMap();
+		}
 
 		cout << "Running Simulation on this map..." << endl;
 		cout << "Sending " << vehicleCount << " vehicles..." << endl;
@@ -88,6 +124,7 @@ void Engine::RunSimulation(int vehicleCount) {
 		Simulation *s = new Simulation(0, vehicleCount);
 
 		simulations_.push_back(s);
+		number_of_simulations_ = simulations_.size();
 
 		s->Run();
 
@@ -99,6 +136,32 @@ void Engine::RunSimulation(int vehicleCount) {
 	else
 	{
 		cout << "Another simulation is running, please wait for it to finish." << endl;
+	}
+}
+
+/// re-run a simualtion by sim-number, without calculating it as a simulation
+void Engine::RunDemo(int simulationNumber)
+{
+	demo_simulation_ = GetSimulation(simulationNumber);
+
+	if(demo_simulation_ != nullptr)
+	{
+		int vehicleCount = demo_simulation_->GetVehicleCount();
+
+		for (int i = 0; i < vehicleCount; i++)
+		{
+			AddVehicleRandomly();
+		}
+
+		demo_simulation_->Run(true);
+
+		cout << "------------------------------------------------------------------" << endl;
+		cout << "Demo of simulation " << demo_simulation_->GetSimulationNumber() << " started" << endl;
+		cout << "------------------------------------------------------------------" << endl;
+	}
+	else
+	{
+		cout << "Could not demo simualtion as it wasnt found." << endl;
 	}
 }
 
@@ -242,6 +305,20 @@ Vector2f Engine::DrawPoint(Vector2f position) {
 	click_point_.setPosition(temp.x, temp.y);
 
 	return temp;
+}
+
+/// get simualtion by simulation number
+Simulation * Engine::GetSimulation(int simulationNumber)
+{
+	for(Simulation * s : simulations_)
+	{
+		if(s->GetSimulationNumber() == simulationNumber)
+		{
+			return s;
+		}
+	}
+
+	return nullptr;
 }
 
 /// generate a grid-snapped point with a given point
@@ -591,7 +668,15 @@ void Engine::ResetMap() {
 /// stop the current simulation, and clear all vehicles
 void Engine::ClearMap() {
 
-	if(Simulation::SimRunning)
+	if(Simulation::DemoRunning)
+	{
+		cout << "Stopping demo of simulation " << demo_simulation_->GetSimulationNumber() << endl;
+		demo_simulation_->SetFinished(true);
+		demo_simulation_ = nullptr;
+		Simulation::DemoRunning = false;
+		Vehicle::DeleteAllVehicles();
+	}
+	else if(Simulation::SimRunning)
 	{
 		cout << "Stopping running simulations..." << endl;
 		for (auto it = simulations_.begin(); it != simulations_.end();)
@@ -600,6 +685,8 @@ void Engine::ClearMap() {
 			{
 				Simulation *temp = (*it);
 				it = simulations_.erase(it);
+
+				Simulation::SimRunning = false;
 
 				cout << "Simulation number " << temp->GetSimulationNumber() << " stopped and deleted." << endl;
 
@@ -631,6 +718,7 @@ void Engine::cycle() {
 
 /// update all the engine's objects
 void Engine::update(float elapsedTime) {
+
 	map->Update(elapsedTime);
 
 	for (Vehicle *v : Vehicle::ActiveVehicles)
@@ -655,7 +743,11 @@ void Engine::update(float elapsedTime) {
 	{
 		if (s->IsRunning())
 		{
-			s->Update(elapsedTime);
+			// update, and check if simulation has ended
+			if(s->Update(elapsedTime)){
+				// send a signal that simulation has ended
+				SimulationFinished();
+			}
 		}
 	}
 }

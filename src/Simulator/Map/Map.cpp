@@ -619,6 +619,7 @@ int Map::GetLaneCount() {
 
 /// delete a given lane in this map
 bool Map::DeleteLane(int laneNumber) {
+
 	vector<Intersection *> targetIntersections = GetIntersectionByLaneNumber(laneNumber);
 	Lane * lane = GetLane(laneNumber);
 

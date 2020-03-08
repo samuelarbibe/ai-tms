@@ -4,10 +4,16 @@
 
 #include "SimModel.hpp"
 
-SimModel::SimModel(vector<Simulation *> *data, QObject *parent)
+SimModel::SimModel(QObject *parent)
 	: QAbstractTableModel(parent) {
-
 	row_count_ = 0;
+}
+
+void SimModel::populateData(const vector<Simulation *> *data)
+{
+	table_.clear();
+	row_count_ = 0;
+
 	for(Simulation * s : *data)
 	{
 		table_.append({QString::number(s->GetSimulationNumber()),
@@ -18,7 +24,18 @@ SimModel::SimModel(vector<Simulation *> *data, QObject *parent)
 		              });
 		this->row_count_ ++;
 	}
+
 }
+
+int SimModel::GetIdByRow(int rowNumber){
+
+	if(table_.size() >= (rowNumber+1))
+	{
+		return table_[rowNumber][0].toInt();
+	}
+	return 0;
+}
+
 
 int SimModel::rowCount(const QModelIndex & /*parent*/) const {
 	return row_count_;

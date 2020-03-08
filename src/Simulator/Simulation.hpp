@@ -27,8 +27,8 @@ class Simulation
 	Simulation(int simulationNumber, int vehicleCount);
 	~Simulation();
 
-	void Update(float elapsedTime);
-	void Run(){running_ = true; SimRunning = true;}
+	bool Update(float elapsedTime);
+	void Run(bool demo = false){running_ = true; if(demo) DemoRunning = true; else SimRunning = true;}
 
 	// get
 	int GetSimulationNumber(){return simulation_number_;}
@@ -45,10 +45,12 @@ class Simulation
 	void SetStartTime(time_t time){ start_time_ = time;}
 	void SetEndTime(time_t time){ end_time_ = time;}
 	void SetSimulationTime(float time){ elapsed_time_ = time;}
-	void SetFinished(bool fin){ finished_ = fin;}
+	void SetFinished(bool fin){ finished_ = fin; running_ = false;}
 
 	static int SimulationCount;
 	static bool SimRunning;
+	static bool DemoRunning;
+
 
   private:
 
