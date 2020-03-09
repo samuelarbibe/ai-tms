@@ -48,9 +48,11 @@ class Settings
 	static bool DrawLaneBlock;
 	static bool DrawTextures;
 	static bool DrawClickPoint;
+	static bool DrawMinimap;
 	static bool FollowSelectedVehicle;
 
 	static int MaxFps;
+	static int AntiAliasing;
 	static bool MultiColor;
 	static float MinDistanceFromNextCar;
 	static float MinDistanceFromStop;

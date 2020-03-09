@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui(new Ui::MainWindow) {
 	ui->setupUi(this);
 
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 8;
+
 	SimulatorEngine = new Engine(ui->SimulatorFrame);
 
 	DistanceUnits currentDistanceUnit = static_cast<DistanceUnits>(ui->DistanceUnitComboBox->currentIndex());
@@ -28,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->OrangeLightDelaySlider->setSliderPosition(Settings::OrangeDelay);
 
 	model_ = new SimModel(this);
+	selected_row_ = 99999;
 
 	// connect the simulation finished event to its slot here
 	QObject::connect(SimulatorEngine, SIGNAL(SimulationFinished()), this, SLOT(on_SimulationFinished()));
@@ -35,18 +39,17 @@ MainWindow::MainWindow(QWidget *parent) :
 	reloadOptionData();
 }
 
-
 MainWindow::~MainWindow() {
 	delete ui;
 }
 
-void MainWindow::on_SimulationFinished()
-{
+void MainWindow::on_SimulationFinished() {
 	ui->AbortButton->setEnabled(false);
-	reloadSimTable();
+	reload_sim_table();
+	resize_sim_table();
 }
 
-void MainWindow::reloadSimTable() {
+void MainWindow::reload_sim_table() {
 
 	model_ = new SimModel(this);
 	model_->populateData(SimulatorEngine->GetSimulations());
@@ -60,13 +63,6 @@ void MainWindow::showEvent(QShowEvent *ev) {
 	SimulatorEngine->ResizeFrame(ui->SimulatorFrame->size() * Settings::SFMLRatio);
 
 	reloadOptionData();
-}
-
-void MainWindow::Update(float elapsedTime) {
-	ui->AbortButton->setEnabled(Simulation::SimRunning);
-	ui->RunSimulationButton->setEnabled(!Simulation::SimRunning);
-
-	cout << "update called" << endl;
 }
 
 void MainWindow::reloadOptionData() {
@@ -114,7 +110,7 @@ void MainWindow::reloadOptionData() {
 
 }
 
-void MainWindow::reloadLaneList() {
+void MainWindow::reload_lane_options() {
 	ui->AssignedLanesListView->clear();
 
 	int phaseNumber = ui->PhaseNumberComboBox->currentText().toInt();
@@ -471,7 +467,7 @@ void MainWindow::on_RunSimulationButton_clicked() {
 	if (!Simulation::SimRunning)
 	{
 		SimulatorEngine->RunSimulation(amount);
-        ui->AbortButton->setEnabled(true);
+		ui->AbortButton->setEnabled(true);
 	} else
 	{
 		ui->statusbar->showMessage(tr("Another simulation is currently running, please wait for it to finish"), 5000);
@@ -506,21 +502,25 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 	// resize simulation frame
 	SimulatorEngine->ResizeFrame(ui->SimulatorFrame->size() * Settings::SFMLRatio);
 
+	resize_sim_table();
+}
+
+void MainWindow::resize_sim_table() {
 	// resize simulation table
-	if( ui->SimTable->model() != nullptr)
+	if (ui->SimTable->model() != nullptr)
 	{
 		int colCount = ui->SimTable->model()->columnCount();
-		int coloumnWidth = ui->SimTable->size().width() / colCount;
+		int colWidth = (ui->SimTable->size().width() - 20) / colCount;
 
 		for (int i = 0; i < colCount; i++)
 		{
-			ui->SimTable->setColumnWidth(i, coloumnWidth);
+			ui->SimTable->setColumnWidth(i, colWidth);
 		}
 	}
 }
 
 void MainWindow::on_PhaseNumberComboBox_currentTextChanged(const QString &arg1) {
-	reloadLaneList();
+	reload_lane_options();
 	int phaseNumber = ui->PhaseNumberComboBox->currentText().toInt();
 	if (phaseNumber != 0)
 	{
@@ -662,6 +662,7 @@ void MainWindow::on_FollowSelectedCarButton_stateChanged(int arg1) {
 
 void MainWindow::on_AbortButton_clicked() {
 	SimulatorEngine->ClearMap();
+	ui->AbortButton->setEnabled(false);
 }
 
 void MainWindow::on_SaveSimButton_clicked() {
@@ -683,52 +684,53 @@ void MainWindow::on_LoadSimButton_clicked() {
 		fileNames = dialog.selectedFiles();
 		SimulatorEngine->LoadSimulations(fileNames.front().toStdString());
 		reloadOptionData();
-		reloadSimTable();
+		reload_sim_table();
+		resize_sim_table();
 	}
 }
 
-void MainWindow::on_SimTable_clicked(const QModelIndex &index)
-{
-    ui->RunDemoButton->setEnabled(true);
-    ui->DeleteSimButton->setEnabled(true);
-    selected_row_ = index.row();
+void MainWindow::on_SimTable_clicked(const QModelIndex &index) {
+	ui->RunDemoButton->setEnabled(true);
+	ui->DeleteSimButton->setEnabled(true);
+	selected_row_ = index.row();
 }
 
-void MainWindow::on_RunDemoButton_clicked()
-{
+void MainWindow::on_RunDemoButton_clicked() {
 	int simNumber = model_->GetIdByRow(selected_row_);
-	if(simNumber != 0)
+	if (simNumber != 0)
 	{
 		SimulatorEngine->RunDemo(simNumber);
-	}
-	else{
+	} else
+	{
 		ui->statusbar->showMessage(tr("Could not run demo."));
 	}
 
 }
 
-void MainWindow::on_DeleteSimButton_clicked()
-{
-    int simNumber = model_->GetIdByRow(selected_row_);
-    if(simNumber != 0)
-    {
-        if(SimulatorEngine->DeleteSimulation(simNumber))
-        {
-            QString s = "Simulation ";
-            s.append(QString::number(simNumber));
-            s.append(" has been deleted.");
+void MainWindow::on_DeleteSimButton_clicked() {
+	int simNumber = model_->GetIdByRow(selected_row_);
+	if (simNumber != 0)
+	{
+		if (SimulatorEngine->DeleteSimulation(simNumber))
+		{
+			QString s = "Simulation ";
+			s.append(QString::number(simNumber));
+			s.append(" has been deleted.");
 
-            ui->statusbar->showMessage(s);
-            reloadSimTable();
-        }
-        else
-        {
-            QString s = "Simulation ";
-            s.append(QString::number(simNumber));
-            s.append(" failed to be deleted.");
-        }
-    }
-    else{
-        ui->statusbar->showMessage(tr("Could not delete simulation."));
-    }
+			ui->statusbar->showMessage(s);
+			reload_sim_table();
+		} else
+		{
+			QString s = "Simulation ";
+			s.append(QString::number(simNumber));
+			s.append(" failed to be deleted.");
+		}
+	} else
+	{
+		ui->statusbar->showMessage(tr("Could not delete simulation."));
+	}
+}
+
+void MainWindow::on_ShowMinimapCheckBox_stateChanged(int arg1) {
+	Settings::DrawMinimap = arg1;
 }

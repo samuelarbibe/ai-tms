@@ -12,12 +12,13 @@
 
 QSFMLCanvas::QSFMLCanvas(QWidget* Parent, int FrameTime) :
         QWidget       (Parent),
-        is_init_ (false)
+        RenderWindow(VideoMode(0, 0), "Sim", Style::Default, ContextSettings(0, 0, Settings::AntiAliasing))
 {
     // Setup some states to allow direct rendering into the widget
     setAttribute(Qt::WA_PaintOnScreen);
     setAttribute(Qt::WA_OpaquePaintEvent);
     setAttribute(Qt::WA_NoSystemBackground);
+
 
     // Set strong focus to enable keyboard events to be received
     setFocusPolicy(Qt::StrongFocus);
@@ -33,6 +34,8 @@ QSFMLCanvas::QSFMLCanvas(QWidget* Parent, int FrameTime) :
     // Setup the timer
     timer_.setTimerType(Qt::PreciseTimer);
     timer_.setInterval(FrameTime);
+
+    is_init_ = false;
 }
 
 void QSFMLCanvas::showEvent(QShowEvent*)

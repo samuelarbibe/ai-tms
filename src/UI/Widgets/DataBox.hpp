@@ -29,11 +29,10 @@ class DataBox : public RectangleShape
 
 	bool AddData(string valueName, float value);
 
-	json GetData(){ return data_;};
+	json GetData() { return data_; };
 
 	bool SetData(string valueName, float value);
-	                                                                                                                                                                                                                                                   bool RemoveData(string valueName);
-
+	bool RemoveData(string valueName);
 
   private:
 

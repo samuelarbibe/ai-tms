@@ -19,9 +19,11 @@ bool Settings::DrawGrid = false;
 bool Settings::DrawLaneBlock = false;
 bool Settings::DrawTextures = true;
 bool Settings::DrawClickPoint = false;
+bool Settings::DrawMinimap = false;
 bool Settings::FollowSelectedVehicle = true;
 
-int Settings::MaxFps = 60;
+int Settings::MaxFps = 512;
+int Settings::AntiAliasing = 8;
 bool Settings::MultiColor = true;
 float Settings::MinDistanceFromNextCar = 76;
 float Settings::MinDistanceFromStop = 66;

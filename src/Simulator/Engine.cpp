@@ -9,7 +9,7 @@
 #include "Engine.hpp"
 
 
-Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000 / Settings::MaxFps) {
+Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000 / Settings::MaxFps ) {
 
 	cout << "Setting Up Map..." << endl;
 	map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapHeight);
@@ -640,7 +640,14 @@ void Engine::LoadSimulations(string loadDirectory) {
 			simulations_.push_back(s);
 		}
 
-		cout << "simulations have been successfully loaded from '" << loadDirectory << "'. " << endl;
+		if(simulations_.size() > 0)
+		{
+			cout << "simulations have been successfully loaded from '" << loadDirectory << "'. " << endl;
+		}
+		else
+		{
+			throw std::exception();
+		}
 	}
 	catch (const std::exception &e)
 	{
@@ -818,8 +825,11 @@ void Engine::render() {
 	}
 
 	// draw the minimap
-	this->setView(minimap_); // switch to minimap for rendering
-	draw_minimap(); // render minimap
+	if(Settings::DrawMinimap)
+	{
+		this->setView(minimap_); // switch to minimap for rendering
+		draw_minimap(); // render minimap
+	}
 	this->setView(view_); // switch back to main view
 }
 

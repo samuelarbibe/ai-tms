@@ -32,6 +32,7 @@ class QSFMLCanvas : public QWidget, public RenderWindow
 	void paintEvent(QPaintEvent *) override;
 
 	bool is_init_;
+
   protected:
 	QTimer timer_;
 };

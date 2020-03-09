@@ -19,8 +19,6 @@ VehicleType Vehicle::Truck{TRUCK, "Truck", "../../resources/Cars/car_image_", 3,
 VehicleType Vehicle::Motorcycle{MOTORCYCLE, "Motorcycle", "../resources/Cars/motorcycle_image_", 3,
                                 Vector2f(0.12f, 0.12f)};
 
-// TODO: change the driving system to route-following
-
 Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *> *instructionSet, Map *map) {
 	// set initial values for the movable object
 	vehicle_type_ = GetVehicleTypeByOption(vehicleType);
@@ -178,7 +176,7 @@ void Vehicle::Select() {
 /// unselect a vehicle
 void Vehicle::Unselect() {
 	this->setOutlineColor(Color::Blue);
-	this->setFillColor(Color::White);
+	this->setFillColor(Color::Transparent);
 }
 
 /// load textures as required
