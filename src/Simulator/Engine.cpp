@@ -8,7 +8,8 @@
 
 #include "Engine.hpp"
 
-Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000 / Settings::MaxFps) {
+
+Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000 / Settings::MaxFps ) {
 
 	cout << "Setting Up Map..." << endl;
 	map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapHeight);
@@ -72,26 +73,28 @@ void Engine::ResizeFrame(QSize size) {
 	this->setView(view_);
 }
 
-bool Engine::DeleteSimulation(int simulationNumber) {
-	Simulation *s = GetSimulation(simulationNumber);
+bool Engine::DeleteSimulation(int simulationNumber)
+{
+	Simulation * s = GetSimulation(simulationNumber);
 
-	if (s != nullptr)
+	if(s != nullptr)
 	{
-		// remove the targetLane from the list by iterator
-		auto it = simulations_.begin();
-		while (it != simulations_.end())
-		{
-			if ((*it)->GetSimulationNumber() == simulationNumber)
+			// remove the targetLane from the list by iterator
+			auto it = simulations_.begin();
+			while(it != simulations_.end())
 			{
-				it = simulations_.erase(it);
-				delete s;
-				number_of_simulations_--;
-				return true;
-			} else
-			{
-				it++;
+				if((*it)->GetSimulationNumber() == simulationNumber)
+				{
+					it = simulations_.erase(it);
+					delete s;
+					number_of_simulations_--;
+					return true;
+				}
+				else
+				{
+					it++;
+				}
 			}
-		}
 	}
 
 	cout << "Could not delete simulation as it wasnt found. " << endl;
@@ -101,10 +104,10 @@ bool Engine::DeleteSimulation(int simulationNumber) {
 /// run a simualtion on the given vehicle count
 void Engine::RunSimulation(int vehicleCount) {
 
-	if (!Simulation::SimRunning)
+	if(!Simulation::SimRunning)
 	{
 		// if demo is running, stop it
-		if (Simulation::DemoRunning)
+		if(Simulation::DemoRunning)
 		{
 			ClearMap();
 		}
@@ -129,17 +132,19 @@ void Engine::RunSimulation(int vehicleCount) {
 		cout << "Simulation " << s->GetSimulationNumber() << " started at ";
 		cout << ctime(s->GetStartTime()) << endl;
 		cout << "------------------------------------------------------------------" << endl;
-	} else
+	}
+	else
 	{
 		cout << "Another simulation is running, please wait for it to finish." << endl;
 	}
 }
 
 /// re-run a simualtion by sim-number, without calculating it as a simulation
-void Engine::RunDemo(int simulationNumber) {
+void Engine::RunDemo(int simulationNumber)
+{
 	demo_simulation_ = GetSimulation(simulationNumber);
 
-	if (demo_simulation_ != nullptr)
+	if(demo_simulation_ != nullptr)
 	{
 		int vehicleCount = demo_simulation_->GetVehicleCount();
 
@@ -153,7 +158,8 @@ void Engine::RunDemo(int simulationNumber) {
 		cout << "------------------------------------------------------------------" << endl;
 		cout << "Demo of simulation " << demo_simulation_->GetSimulationNumber() << " started" << endl;
 		cout << "------------------------------------------------------------------" << endl;
-	} else
+	}
+	else
 	{
 		cout << "Could not demo simualtion as it wasnt found." << endl;
 	}
@@ -302,10 +308,11 @@ Vector2f Engine::DrawPoint(Vector2f position) {
 }
 
 /// get simualtion by simulation number
-Simulation *Engine::GetSimulation(int simulationNumber) {
-	for (Simulation *s : simulations_)
+Simulation * Engine::GetSimulation(int simulationNumber)
+{
+	for(Simulation * s : simulations_)
 	{
-		if (s->GetSimulationNumber() == simulationNumber)
+		if(s->GetSimulationNumber() == simulationNumber)
 		{
 			return s;
 		}
@@ -621,7 +628,7 @@ void Engine::LoadSimulations(string loadDirectory) {
 		ifstream i(loadDirectory);
 		i >> j;
 
-		Simulation *s;
+		Simulation * s;
 		// build intersections
 		for (auto data : j["simulations"])
 		{
@@ -633,10 +640,11 @@ void Engine::LoadSimulations(string loadDirectory) {
 			simulations_.push_back(s);
 		}
 
-		if (simulations_.size() > 0)
+		if(simulations_.size() > 0)
 		{
 			cout << "simulations have been successfully loaded from '" << loadDirectory << "'. " << endl;
-		} else
+		}
+		else
 		{
 			throw std::exception();
 		}
@@ -667,14 +675,15 @@ void Engine::ResetMap() {
 /// stop the current simulation, and clear all vehicles
 void Engine::ClearMap() {
 
-	if (Simulation::DemoRunning)
+	if(Simulation::DemoRunning)
 	{
 		cout << "Stopping demo of simulation " << demo_simulation_->GetSimulationNumber() << endl;
 		demo_simulation_->SetFinished(true);
 		demo_simulation_ = nullptr;
 		Simulation::DemoRunning = false;
 		Vehicle::DeleteAllVehicles();
-	} else if (Simulation::SimRunning)
+	}
+	else if(Simulation::SimRunning)
 	{
 		cout << "Stopping running simulations..." << endl;
 		for (auto it = simulations_.begin(); it != simulations_.end();)
@@ -700,7 +709,8 @@ void Engine::ClearMap() {
 		Vehicle::DeleteAllVehicles();
 
 		cout << "====================== Map has been cleared ======================" << endl;
-	} else
+	}
+	else
 	{
 		cout << "No simulations are currently active" << endl;
 	}
@@ -741,8 +751,7 @@ void Engine::update(float elapsedTime) {
 		if (s->IsRunning())
 		{
 			// update, and check if simulation has ended
-			if (s->Update(elapsedTime))
-			{
+			if(s->Update(elapsedTime)){
 				// send a signal that simulation has ended
 				SimulationFinished();
 			}
@@ -781,9 +790,7 @@ bool Engine::AddVehicleRandomly() {
 	}
 	tempQueue->push_back(lastLane);
 
-	int randomIndex = rand() % 2;
-
-	return (Vehicle::AddVehicle(tempQueue, this->map, static_cast<VehicleTypeOptions>(randomIndex)) != nullptr);
+	return (Vehicle::AddVehicle(tempQueue, this->map) != nullptr);
 }
 
 /// render the engine's objects
@@ -818,12 +825,11 @@ void Engine::render() {
 	}
 
 	// draw the minimap
-	if (Settings::DrawMinimap)
+	if(Settings::DrawMinimap)
 	{
 		this->setView(minimap_); // switch to minimap for rendering
 		draw_minimap(); // render minimap
 	}
-
 	this->setView(view_); // switch back to main view
 }
 
@@ -842,6 +848,7 @@ void Engine::draw_minimap() {
 	// Draw the shown area index
 	this->draw(shown_area_index_);
 }
+
 
 
 
