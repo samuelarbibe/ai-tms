@@ -9,7 +9,7 @@ const Vector2f Settings::ForwardVector = Vector2f(0.f, -1.f);
 bool Settings::DrawFps = false;
 bool Settings::DrawActive = false;
 bool Settings::DrawDelete = false;
-bool Settings::DrawAdded = true;
+bool Settings::DrawAdded = false;
 
 bool Settings::DrawVehicleDataBoxes = false;
 bool Settings::DrawRoadDataBoxes = false;
@@ -22,8 +22,8 @@ bool Settings::DrawClickPoint = false;
 bool Settings::DrawMinimap = false;
 bool Settings::FollowSelectedVehicle = true;
 
-int Settings::MaxFps = 1024;
-int Settings::AntiAliasing = 8;
+int Settings::MaxFps = 1000;
+int Settings::AntiAliasing = 0;
 bool Settings::MultiColor = true;
 float Settings::MinDistanceFromNextCar = 76;
 float Settings::MinDistanceFromStop = 66;
@@ -105,15 +105,15 @@ float Settings::MaxSpeeds[3]
 	};
 float Settings::MaxAcceleration[3]
 	{
-		ConvertVelocity(KMH, PXS, 4.f),
-		ConvertVelocity(KMH, PXS, 3.5f),
-		ConvertVelocity(KMH, PXS, 5.5f)
+		ConvertVelocity(MS, PXS, 4.f),
+		ConvertVelocity(MS, PXS, 3.5f),
+		ConvertVelocity(MS, PXS, 5.5f)
 	};
 float Settings::MinAcceleration[3]
 	{
-		ConvertVelocity(KMH, PXS, -5.5f),
-		ConvertVelocity(KMH, PXS, -4.f),
-		ConvertVelocity(KMH, PXS, -6.f)
+		ConvertVelocity(MS, PXS, -5.5f),
+		ConvertVelocity(MS, PXS, -4.f),
+		ConvertVelocity(MS, PXS, -6.f)
 	};
 
 float Settings::GetMaxSpeedAs(VehicleTypeOptions vehicleType, VelocityUnits unit) {

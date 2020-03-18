@@ -73,6 +73,7 @@ void Engine::ResizeFrame(QSize size) {
 }
 
 bool Engine::DeleteSimulation(int simulationNumber) {
+	
 	Simulation *s = GetSimulation(simulationNumber);
 
 	if (s != nullptr)
@@ -141,18 +142,30 @@ void Engine::RunDemo(int simulationNumber) {
 
 	if (demo_simulation_ != nullptr)
 	{
-		int vehicleCount = demo_simulation_->GetVehicleCount();
-
-		for (int i = 0; i < vehicleCount; i++)
+		if (!Simulation::SimRunning)
 		{
-			AddVehicleRandomly();
+			// if demo is running, stop it
+			if (Simulation::DemoRunning)
+			{
+				ClearMap();
+			}
+
+			int vehicleCount = demo_simulation_->GetVehicleCount();
+
+			for (int i = 0; i < vehicleCount; i++)
+			{
+				AddVehicleRandomly();
+			}
+
+			demo_simulation_->Run(true);
+
+			cout << "------------------------------------------------------------------" << endl;
+			cout << "Demo of simulation " << demo_simulation_->GetSimulationNumber() << " started" << endl;
+			cout << "------------------------------------------------------------------" << endl;
 		}
-
-		demo_simulation_->Run(true);
-
-		cout << "------------------------------------------------------------------" << endl;
-		cout << "Demo of simulation " << demo_simulation_->GetSimulationNumber() << " started" << endl;
-		cout << "------------------------------------------------------------------" << endl;
+		else{
+			cout << "A simulation is already running. Abort the current simulation to run a demo." << endl;
+		}
 	} else
 	{
 		cout << "Could not demo simualtion as it wasnt found." << endl;
