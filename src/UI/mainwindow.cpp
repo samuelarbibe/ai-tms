@@ -463,10 +463,14 @@ void MainWindow::on_PauseButton_clicked() {
 
 void MainWindow::on_RunSimulationButton_clicked() {
 	int amount = ui->CarCountSpinBox->value();
+	bool timed = ui->TimedSimCheckBox->isChecked();
 
 	if (!Simulation::SimRunning)
 	{
-		SimulatorEngine->RunSimulation(amount);
+		if(timed)
+			SimulatorEngine->RunSimulation(1000, amount);
+		else
+			SimulatorEngine->RunSimulation(amount);
 		ui->AbortButton->setEnabled(true);
 	} else
 	{
@@ -733,4 +737,14 @@ void MainWindow::on_DeleteSimButton_clicked() {
 
 void MainWindow::on_ShowMinimapCheckBox_stateChanged(int arg1) {
 	Settings::DrawMinimap = arg1;
+}
+
+void MainWindow::on_TimedSimCheckBox_stateChanged(int arg1)
+{
+    if(arg1){
+        ui->SimRunLabel->setText(tr("Seconds"));
+    }
+    else{
+        ui->SimRunLabel->setText(tr("Vehicles"));
+    }
 }

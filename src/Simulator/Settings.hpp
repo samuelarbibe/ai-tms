@@ -49,11 +49,13 @@ class Settings
 	static bool DrawTextures;
 	static bool DrawClickPoint;
 	static bool DrawMinimap;
+	static bool DrawSimTable;
 	static bool FollowSelectedVehicle;
 
 	static int MaxFps;
 	static int AntiAliasing;
 	static bool MultiColor;
+	static bool MultiTypeVehicle;
 	static float MinDistanceFromNextCar;
 	static float MinDistanceFromStop;
 	static bool AccWhileTurning;

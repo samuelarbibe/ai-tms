@@ -24,7 +24,7 @@ class Simulation
 {
   public:
 
-	Simulation(int simulationNumber, int vehicleCount);
+	Simulation(int simulationNumber, int vehicleCount = 1000, float runningTime = 0);
 	~Simulation();
 
 	bool Update(float elapsedTime);
@@ -60,9 +60,16 @@ class Simulation
     bool finished_;
     bool running_;
 
+    // a simulation can either be a timed simulation, or a vehicle-count simulation
+    // TIMED-SIM : the sim will be ran for a given amount of time, and the result is the amount of cars that passed the simulation.
+    // COUNT-SIM : the sim will send a given amount of cars, and the result is the time it took to run all of these vehicles.
+    bool is_timing_sim_;
+    float ran_vehicles_;
+
     time_t start_time_;
     time_t end_time_;
     float  elapsed_time_;
+    float  running_time_;
 };
 
 #endif //SIMULATORSFML_SRC_SIMULATOR_SIMULATION_HPP

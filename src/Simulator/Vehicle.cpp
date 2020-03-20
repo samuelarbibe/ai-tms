@@ -176,11 +176,20 @@ void Vehicle::Select() {
 /// unselect a vehicle
 void Vehicle::Unselect() {
 	this->setOutlineColor(Color::Blue);
-	this->setFillColor(Color::Transparent);
+
+	if (Settings::DrawTextures)
+	{
+		this->setFillColor(Color::White);
+	}
+	else
+	{
+		this->setFillColor(Color::Transparent);
+	}
 }
 
 /// load textures as required
 bool Vehicle::LoadVehicleTextures(VehicleType *vehicleType) {
+
 	if (vehicleType->Textures == nullptr)
 	{
 		vehicleType->Textures = new vector<Texture>();
@@ -201,13 +210,13 @@ bool Vehicle::LoadVehicleTextures(VehicleType *vehicleType) {
 			}
 		}
 
-		cout << "----------------------------------------------" << endl;
-		cout << vehicleType->Textures->size() << "/" << vehicleType->ImageCount << " Textures successfully added"
+		cout << "------------------------------------------------------------------" << endl;
+		cout << vehicleType->Textures->size() << "/" << vehicleType->ImageCount << " Textures successfully added for " << vehicleType->VehicleTypeName
 		     << endl;
-		cout << "----------------------------------------------" << endl;
+		cout << "------------------------------------------------------------------" << endl;
 		vehicleType->ImageCount = vehicleType->Textures->size();
 	}
-	return vehicleType->ImageCount > 0 ? true : false;
+	return bool(vehicleType->ImageCount > 0);
 }
 
 /// convert vehicleTypeOption to VehicleType struct

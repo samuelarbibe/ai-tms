@@ -23,8 +23,10 @@
 #include "Vehicle.hpp"
 #include "Settings.hpp"
 #include "../UI/Widgets/QsfmlCanvas.hpp"
+#include "../UI/Terminal/VariadicTable.h"
 #include "Map/Route.hpp"
 #include "Simulation.hpp"
+
 
 using namespace sf;
 using json = nlohmann::json;
@@ -50,7 +52,7 @@ class Engine : public QSFMLCanvas
 	// get
 	Vector2f GetSnappedPoint(Vector2f point);
 	Vector2f DrawPoint(Vector2f position);
-	vector<Simulation *> *GetSimulations() { return &simulations_; }
+	vector<Simulation *> *GetSimulations();
 	Simulation *GetSimulation(int simulationNumber);
 
 	// set
@@ -69,8 +71,8 @@ class Engine : public QSFMLCanvas
 	bool AddVehicleRandomly();
 	void ResizeFrame(QSize size);
 	bool DeleteSimulation(int simulationNumber);
-
-	void RunSimulation(int vehicleCount);
+//
+	void RunSimulation(int vehicleCount = 1000, float runningTime = 0);
 	void RunDemo(int simulationNumber);
 
 	Map *map;

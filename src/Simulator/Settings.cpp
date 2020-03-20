@@ -20,11 +20,13 @@ bool Settings::DrawLaneBlock = false;
 bool Settings::DrawTextures = true;
 bool Settings::DrawClickPoint = false;
 bool Settings::DrawMinimap = false;
+bool Settings::DrawSimTable = false;
 bool Settings::FollowSelectedVehicle = true;
 
 int Settings::MaxFps = 1000;
 int Settings::AntiAliasing = 0;
 bool Settings::MultiColor = true;
+bool Settings::MultiTypeVehicle = false;
 float Settings::MinDistanceFromNextCar = 76;
 float Settings::MinDistanceFromStop = 66;
 bool Settings::AccWhileTurning = true;

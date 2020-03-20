@@ -4,7 +4,7 @@ set(PROJECT_NAME "SimulatorSFML")
 project(${PROJECT_NAME})
 
 file(COPY ${ALL_REQUIRED_DLL} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.14.1)
 # find Qt5 and required components
@@ -34,7 +34,20 @@ set(project_sources
     src/Simulator/Map/Map.cpp
     src/UI/Widgets/QsfmlCanvas.cpp
     src/Simulator/Settings.cpp
-    src/UI/mainwindow.cpp src/UI/Widgets/DataBox.cpp src/UI/Widgets/DataBox.hpp src/Simulator/Map/Route.cpp src/Simulator/Map/Route.hpp src/Simulator/Map/Phase.cpp src/Simulator/Map/Phase.hpp src/Simulator/Map/Light.cpp src/Simulator/Map/Light.hpp src/Simulator/Simulation.cpp src/Simulator/Simulation.hpp src/UI/Widgets/SimModel.cpp src/UI/Widgets/SimModel.hpp)
+    src/UI/mainwindow.cpp
+    src/UI/Widgets/DataBox.cpp
+    src/UI/Widgets/DataBox.hpp
+    src/Simulator/Map/Route.cpp
+    src/Simulator/Map/Route.hpp
+    src/Simulator/Map/Phase.cpp
+    src/Simulator/Map/Phase.hpp
+    src/Simulator/Map/Light.cpp
+    src/Simulator/Map/Light.hpp
+    src/Simulator/Simulation.cpp
+    src/Simulator/Simulation.hpp
+    src/UI/Widgets/SimModel.cpp
+    src/UI/Widgets/SimModel.hpp
+    )
 
 set(project_headers
     src/Simulator/Engine.hpp
@@ -45,8 +58,20 @@ set(project_headers
     src/Simulator/Map/Map.hpp
     src/UI/Widgets/QsfmlCanvas.hpp
     src/UI/mainwindow.h
-
-    src/Simulator/Settings.hpp src/UI/Widgets/DataBox.cpp src/UI/Widgets/DataBox.hpp src/Simulator/Map/Route.cpp src/Simulator/Map/Route.hpp src/Simulator/Map/Phase.cpp src/Simulator/Map/Phase.hpp src/Simulator/Map/Light.cpp src/Simulator/Map/Light.hpp src/Simulator/Simulation.cpp src/Simulator/Simulation.hpp src/UI/Widgets/SimModel.cpp src/UI/Widgets/SimModel.hpp)
+    src/Simulator/Settings.hpp
+    src/UI/Widgets/DataBox.cpp
+    src/UI/Widgets/DataBox.hpp
+    src/Simulator/Map/Route.cpp
+    src/Simulator/Map/Route.hpp
+    src/Simulator/Map/Phase.cpp
+    src/Simulator/Map/Phase.hpp
+    src/Simulator/Map/Light.cpp
+    src/Simulator/Map/Light.hpp
+    src/Simulator/Simulation.cpp
+    src/Simulator/Simulation.hpp
+    src/UI/Widgets/SimModel.cpp
+    src/UI/Widgets/SimModel.hpp
+    )
 
 set(project_ui src/UI/mainwindow.ui)
 # wrap the ui file to a c++ header

@@ -72,8 +72,9 @@ void Engine::ResizeFrame(QSize size) {
 	this->setView(view_);
 }
 
+/// delete a simulation
 bool Engine::DeleteSimulation(int simulationNumber) {
-	
+
 	Simulation *s = GetSimulation(simulationNumber);
 
 	if (s != nullptr)
@@ -100,7 +101,7 @@ bool Engine::DeleteSimulation(int simulationNumber) {
 }
 
 /// run a simualtion on the given vehicle count
-void Engine::RunSimulation(int vehicleCount) {
+void Engine::RunSimulation(int vehicleCount, float runningTime) {
 
 	if (!Simulation::SimRunning)
 	{
@@ -111,7 +112,11 @@ void Engine::RunSimulation(int vehicleCount) {
 		}
 
 		cout << "Running Simulation on this map..." << endl;
-		cout << "Sending " << vehicleCount << " vehicles..." << endl;
+
+		if(runningTime != 0)
+			cout << "Timing set at " << runningTime << " seconds..." << endl;
+		else
+			cout << "Sending " << vehicleCount << " vehicles..." << endl;
 
 		for (int i = 0; i < vehicleCount; i++)
 		{
@@ -119,7 +124,8 @@ void Engine::RunSimulation(int vehicleCount) {
 		}
 
 		// start a new simulation
-		Simulation *s = new Simulation(0, vehicleCount);
+		Simulation *s = new Simulation(0, vehicleCount, runningTime);
+
 
 		simulations_.push_back(s);
 		number_of_simulations_ = simulations_.size();
@@ -128,7 +134,7 @@ void Engine::RunSimulation(int vehicleCount) {
 
 		cout << "------------------------------------------------------------------" << endl;
 		cout << "Simulation " << s->GetSimulationNumber() << " started at ";
-		cout << ctime(s->GetStartTime()) << endl;
+		cout << ctime(s->GetStartTime());
 		cout << "------------------------------------------------------------------" << endl;
 	} else
 	{
@@ -162,8 +168,8 @@ void Engine::RunDemo(int simulationNumber) {
 			cout << "------------------------------------------------------------------" << endl;
 			cout << "Demo of simulation " << demo_simulation_->GetSimulationNumber() << " started" << endl;
 			cout << "------------------------------------------------------------------" << endl;
-		}
-		else{
+		} else
+		{
 			cout << "A simulation is already running. Abort the current simulation to run a demo." << endl;
 		}
 	} else
@@ -313,6 +319,25 @@ Vector2f Engine::DrawPoint(Vector2f position) {
 
 	return temp;
 }
+
+vector<Simulation *> *Engine::GetSimulations()
+{
+	if(Settings::DrawSimTable)
+	{
+
+		VariadicTable<int, string, string, float, int> vt({"ID", "Start Time", "End Time", "Simulated Time", "Vehicle Count"});
+
+		for(Simulation * s : simulations_)
+		{
+			vt.addRow(s->GetSimulationNumber(), ctime(s->GetStartTime()), ctime(s->GetEndTime()), s->GetElapsedTime(), s->GetVehicleCount());
+		}
+
+		vt.print(std::cout);
+	}
+
+	return &simulations_;
+}
+
 
 /// get simualtion by simulation number
 Simulation *Engine::GetSimulation(int simulationNumber) {
@@ -674,7 +699,7 @@ void Engine::ResetMap() {
 	delete map;
 	map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapWidth);
 
-	cout << "====================== Map has been reset ======================" << endl;
+	cout << "======================= Map has been reset =======================" << endl;
 }
 
 /// stop the current simulation, and clear all vehicles
@@ -687,6 +712,7 @@ void Engine::ClearMap() {
 		demo_simulation_ = nullptr;
 		Simulation::DemoRunning = false;
 		Vehicle::DeleteAllVehicles();
+
 	} else if (Simulation::SimRunning)
 	{
 		cout << "Stopping running simulations..." << endl;
@@ -757,6 +783,7 @@ void Engine::update(float elapsedTime) {
 			if (s->Update(elapsedTime))
 			{
 				// send a signal that simulation has ended
+				Vehicle::DeleteAllVehicles();
 				SimulationFinished();
 			}
 		}
@@ -784,7 +811,7 @@ bool Engine::AddVehicleRandomly() {
 	// while new routes to append are available
 	// new routes will be searched starting from the previous route end
 	list<Lane *> *tempQueue = new list<Lane *>();;
-	Lane *lastLane;
+	Lane *lastLane = nullptr;
 
 	while (r != nullptr)
 	{
@@ -792,9 +819,15 @@ bool Engine::AddVehicleRandomly() {
 		lastLane = r->ToLane;
 		r = map->GetPossibleRoute(r->ToLane->GetLaneNumber());
 	}
-	tempQueue->push_back(lastLane);
+	if(lastLane != nullptr)
+	{
+		tempQueue->push_back(lastLane);
+	}
 
-	int randomIndex = rand() % 2;
+	int randomIndex = 0;
+
+	if(Settings::MultiTypeVehicle)
+		randomIndex = rand() % 2;
 
 	return (Vehicle::AddVehicle(tempQueue, this->map, static_cast<VehicleTypeOptions>(randomIndex)) != nullptr);
 }

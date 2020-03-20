@@ -153,7 +153,7 @@ Route * Map::AddRoute(int from, int to) {
 		Route *r = new Route(fromLane, toLane);
 		routes_.emplace_back(r);
 
-		cout << "Route added from " << r->FromLane->GetLaneNumber() << " to " << r->ToLane->GetLaneNumber() << endl;
+		if(Settings::DrawAdded) cout << "Route added from " << r->FromLane->GetLaneNumber() << " to " << r->ToLane->GetLaneNumber() << endl;
 		return r;
 	} else
 	{
@@ -177,7 +177,7 @@ Phase *Map::AddPhase(int phaseNumber, float cycleTime) {
 	++number_of_phases;
 	++Phase::PhaseCount;
 
-	cout << "phase " << phaseNumber << " added" << endl;
+	if(Settings::DrawAdded) cout << "phase " << phaseNumber << " added" << endl;
 
 	return temp;
 }
@@ -191,7 +191,7 @@ Light *Map::AddLight(int lightNumber, int phaseNumber, int parentRoadNumber) {
 	if (myPhase != nullptr && parentRoad != nullptr)
 	{
 		temp = myPhase->AddLight(lightNumber, parentRoad);
-		cout << "light " << temp->GetLightNumber() << " added to phase " << phaseNumber << endl;
+		if(Settings::DrawAdded) cout << "light " << temp->GetLightNumber() << " added to phase " << phaseNumber << endl;
 		return temp;
 	}
 
@@ -220,7 +220,7 @@ bool Map::AssignLaneToPhase(int phaseNumber, int laneNumber) {
 	if (temp != nullptr && lane != nullptr)
 	{
 		temp->AddLane(lane);
-		cout << "lane " << lane->GetLaneNumber()
+		if(Settings::DrawAdded) cout << "lane " << lane->GetLaneNumber()
 		     << " added to phase " << temp->GetPhaseNumber() << endl;
 		return true;
 	}

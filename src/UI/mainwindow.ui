@@ -1776,6 +1776,20 @@
               </widget>
              </item>
              <item>
+              <widget class="QCheckBox" name="TimedSimCheckBox">
+               <property name="text">
+                <string>Timed Simulation</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="Line" name="line">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QLabel" name="label_14">
                <property name="text">
                 <string>Run</string>
@@ -1797,7 +1811,7 @@
                 <number>1000</number>
                </property>
                <property name="singleStep">
-                <number>50</number>
+                <number>10</number>
                </property>
                <property name="displayIntegerBase">
                 <number>10</number>
@@ -1805,9 +1819,12 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_15">
+              <widget class="QLabel" name="SimRunLabel">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
                <property name="text">
-                <string>Cars</string>
+                <string>Vehicles</string>
                </property>
               </widget>
              </item>

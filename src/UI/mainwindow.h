@@ -130,7 +130,9 @@ class MainWindow : public QMainWindow
 
 	void on_ShowMinimapCheckBox_stateChanged(int arg1);
 
-  private:
+    void on_TimedSimCheckBox_stateChanged(int arg1);
+
+private:
 
 	Ui::MainWindow *ui;
 
