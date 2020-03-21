@@ -23,7 +23,8 @@ bool Settings::DrawMinimap = false;
 bool Settings::DrawSimTable = false;
 bool Settings::FollowSelectedVehicle = true;
 
-int Settings::MaxFps = 1000;
+int Settings::Interval = 1000; // max is 1000
+int Settings::Fps = 60;
 int Settings::AntiAliasing = 0;
 bool Settings::MultiColor = true;
 bool Settings::MultiTypeVehicle = false;

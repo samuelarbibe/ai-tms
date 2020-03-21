@@ -7,71 +7,77 @@
 
 #ifdef Q_WS_X11
 #include <Qt/qx11info_x11.h>
-    #include <X11/Xlib.h>
+#include <X11/Xlib.h>
 #endif
 
-QSFMLCanvas::QSFMLCanvas(QWidget* Parent, int FrameTime) :
-        QWidget       (Parent),
-        RenderWindow(VideoMode(0, 0), "Sim", Style::Default, ContextSettings(0, 0, Settings::AntiAliasing))
-{
-    // Setup some states to allow direct rendering into the widget
-    setAttribute(Qt::WA_PaintOnScreen);
-    setAttribute(Qt::WA_OpaquePaintEvent);
-    setAttribute(Qt::WA_NoSystemBackground);
+QSFMLCanvas::QSFMLCanvas(QWidget *Parent, int intervalTime, int drawIntervalTime) :
+	QWidget(Parent),
+	RenderWindow(VideoMode(0, 0), "Sim", Style::Default, ContextSettings(0, 0, Settings::AntiAliasing)) {
+	// Setup some states to allow direct rendering into the widget
+	setAttribute(Qt::WA_PaintOnScreen);
+	setAttribute(Qt::WA_OpaquePaintEvent);
+	setAttribute(Qt::WA_NoSystemBackground);
 
 
-    // Set strong focus to enable keyboard events to be received
-    setFocusPolicy(Qt::StrongFocus);
+	// Set strong focus to enable keyboard events to be received
+	setFocusPolicy(Qt::StrongFocus);
 
-    // Setup the widget geometry
-    // setup for high DPI devices, adjust sfml widget size to actual size
+	// Setup the widget geometry
+	// setup for high DPI devices, adjust sfml widget size to actual size
 
-    parent_ = Parent;
+	parent_ = Parent;
 
-    Settings::SFMLRatio = parent_->devicePixelRatio(); // save ratio for later use
-    resize(parent_->size());
+	Settings::SFMLRatio = parent_->devicePixelRatio(); // save ratio for later use
+	resize(parent_->size());
 
-    // Setup the timer
-    timer_.setTimerType(Qt::PreciseTimer);
-    timer_.setInterval(FrameTime);
+	// Setup the logic timer
+	logic_timer_.setTimerType(Qt::PreciseTimer);
+	logic_timer_.setInterval(intervalTime);
 
-    is_init_ = false;
+	// Setup the draw timer
+	draw_timer_.setInterval(drawIntervalTime);
+
+	is_init_ = false;
 }
 
-void QSFMLCanvas::showEvent(QShowEvent*)
-{
-    if (!is_init_)
-    {
-        // Under X11, we need to flush the commands sent to the server to ensure that
-        // SFML will get an updated view of the windows
+void QSFMLCanvas::showEvent(QShowEvent *) {
+	if (!is_init_)
+	{
+		// Under X11, we need to flush the commands sent to the server to ensure that
+		// SFML will get an updated view of the windows
 #ifdef Q_WS_X11
-        XFlush(QX11Info::display());
+		XFlush(QX11Info::display());
 #endif
 
-        // Create the SFML window with the widget handle
-        RenderWindow::create((sf::WindowHandle)winId());
+		// Create the SFML window with the widget handle
+		RenderWindow::create((sf::WindowHandle) winId());
 
-        // Let the derived class do its specific stuff
-        on_init();
+		// Let the derived class do its specific stuff
+		on_init();
 
-        // Setup the timer to trigger a refresh at specified framerate
-        connect(&timer_, SIGNAL(timeout()), this, SLOT(repaint()));
-        timer_.start();
+		// Setup the timer to trigger a refresh at specified framerate
+		connect(&logic_timer_, SIGNAL(timeout()), this, SLOT(repaint()));
+		logic_timer_.start();
 
-        is_init_ = true;
-    }
+		// Setup the draw timer to trigger a redraw at specified framerate
+		//connect(&draw_timer_, SIGNAL(timeout()), this, SLOT(redraw()));
+		connect(&draw_timer_, SIGNAL(timeout()), this, SLOT(redraw()));
+		draw_timer_.start();
+
+		is_init_ = true;
+	}
 }
 
-QPaintEngine* QSFMLCanvas::paintEngine() const
-{
-    return 0;
+QPaintEngine *QSFMLCanvas::paintEngine() const {
+	return 0;
 }
 
-void QSFMLCanvas::paintEvent(QPaintEvent*)
-{
-    // Let the derived class do its specific stuff
-    cycle();
-
-    // Display on screen
-    display();
+void QSFMLCanvas::paintEvent(QPaintEvent *) {
+	// Let the derived class do its specific stuff
+	logic_cycle();
 }
+
+void QSFMLCanvas::redraw() {
+	draw_cycle();
+}
+

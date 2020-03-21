@@ -71,7 +71,7 @@ class Engine : public QSFMLCanvas
 	bool AddVehicleRandomly();
 	void ResizeFrame(QSize size);
 	bool DeleteSimulation(int simulationNumber);
-//
+
 	void RunSimulation(int vehicleCount = 1000, float runningTime = 0);
 	void RunDemo(int simulationNumber);
 
@@ -82,15 +82,20 @@ class Engine : public QSFMLCanvas
 
   private:
 
-	void on_init();
-	void cycle();
+	void on_init() override ;
+	void logic_cycle() override;
+	void draw_cycle() override;
 	void render();
 
 	void input();
-	void draw_minimap();
+	void render_minimap();
 	void update_shown_area();
 	void update(float elapsedTime);
 	void check_selection(Vector2f position);
+
+	Clock clock_;
+	Time accumulator_;
+	Time ups_;
 
 	bool snap_to_grid_;
 	Grid snap_grid_;

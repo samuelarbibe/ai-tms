@@ -52,7 +52,8 @@ class Settings
 	static bool DrawSimTable;
 	static bool FollowSelectedVehicle;
 
-	static int MaxFps;
+	static int Interval;
+	static int Fps;
 	static int AntiAliasing;
 	static bool MultiColor;
 	static bool MultiTypeVehicle;

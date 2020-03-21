@@ -15,15 +15,19 @@ using namespace std;
 
 class QSFMLCanvas : public QWidget, public RenderWindow
 {
+
+  Q_OBJECT
+
   public :
 
-	QSFMLCanvas(QWidget *Parent, int FrameTime = 0);
+	QSFMLCanvas(QWidget *Parent, int logicIntervalTime = 500, int drawIntervalTime = 60);
 	~QSFMLCanvas() { std::cout << "QSFML Canvas destroyed" << std::endl; }
 
   private :
 
 	virtual void on_init() {}
-	virtual void cycle() {}
+	virtual void logic_cycle() {}
+	virtual void draw_cycle() {}
 
 	QWidget *parent_;
 
@@ -33,8 +37,12 @@ class QSFMLCanvas : public QWidget, public RenderWindow
 
 	bool is_init_;
 
+  private slots:
+	void redraw();
+
   protected:
-	QTimer timer_;
+	QTimer logic_timer_;
+	QTimer draw_timer_;
 };
 
 #endif //SIMULATORSFML_QSFMLCANVAS_HPP

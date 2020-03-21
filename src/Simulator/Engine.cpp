@@ -8,7 +8,7 @@
 
 #include "Engine.hpp"
 
-Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000 / Settings::MaxFps) {
+Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000.f / Settings::Interval, 1000.f / Settings::Fps) {
 
 	cout << "Setting Up Map..." << endl;
 	map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapHeight);
@@ -745,11 +745,20 @@ void Engine::ClearMap() {
 	}
 }
 
-/// do the game cycle (input->update->draw)
-void Engine::cycle() {
+/// do the game cycle (input->update)
+/// draw and display are seperate for different fps
+/// this allows running logic cycle in high rate -> better accuracy
+// and running draw cycle in low rate -> better performance
+void Engine::logic_cycle() {
 	input();
-	update((float(timer_.interval()) / 1000.f));
+	update((float(logic_timer_.interval()) / 1000.f));
+}
+
+/// do the rest of the game cycle independently
+void Engine::draw_cycle()
+{
 	render();
+	display();
 }
 
 /// update all the engine's objects
@@ -762,10 +771,12 @@ void Engine::update(float elapsedTime) {
 		v->Update(elapsedTime);
 	}
 
-	if (Settings::DrawFps)
-		cout << "FPS : " << 1000.f / elapsedTime << endl;
 	//clear all cars to be deleted
 	Vehicle::ClearVehicles();
+
+	if (Settings::DrawFps)
+		cout << "FPS : " << 1000.f / elapsedTime << endl;
+
 
 	// follow the selected car
 	if (Settings::FollowSelectedVehicle && Vehicle::SelectedVehicle != nullptr)
@@ -867,14 +878,14 @@ void Engine::render() {
 	if (Settings::DrawMinimap)
 	{
 		this->setView(minimap_); // switch to minimap for rendering
-		draw_minimap(); // render minimap
+		render_minimap(); // render minimap
 	}
 
 	this->setView(view_); // switch back to main view
 }
 
 /// drawing the minimap is drawing everything but the vehicles and the grid, on a smaller scale
-void Engine::draw_minimap() {
+void Engine::render_minimap() {
 	// Draw the minimap's background
 	this->draw(minimap_bg_);
 

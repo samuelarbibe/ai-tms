@@ -170,6 +170,7 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
 				ui->statusbar->showMessage(selectionText);
 
 			}
+
 			// check for car selection
 			Vehicle *selectedVehicle = Vehicle::SelectedVehicle;
 			bool isVehicleSelected = (selectedVehicle != nullptr);
@@ -178,6 +179,11 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
 				QString selectionText = "Selected: Vehicle {";
 				selectionText.append(QString::number(selectedVehicle->GetVehicleNumber()));
 				selectionText.append("}");
+				/*
+				selectionText.append("Status : {");
+				selectionText.append(QString::number(selectedVehicle->GetState()));
+				selectionText.append("}");
+				 */
 
 				ui->statusbar->showMessage(selectionText);
 			}

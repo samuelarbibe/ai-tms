@@ -180,8 +180,7 @@ void Vehicle::Unselect() {
 	if (Settings::DrawTextures)
 	{
 		this->setFillColor(Color::White);
-	}
-	else
+	} else
 	{
 		this->setFillColor(Color::Transparent);
 	}
@@ -211,7 +210,8 @@ bool Vehicle::LoadVehicleTextures(VehicleType *vehicleType) {
 		}
 
 		cout << "------------------------------------------------------------------" << endl;
-		cout << vehicleType->Textures->size() << "/" << vehicleType->ImageCount << " Textures successfully added for " << vehicleType->VehicleTypeName
+		cout << vehicleType->Textures->size() << "/" << vehicleType->ImageCount << " Textures successfully added for "
+		     << vehicleType->VehicleTypeName
 		     << endl;
 		cout << "------------------------------------------------------------------" << endl;
 		vehicleType->ImageCount = vehicleType->Textures->size();
@@ -398,16 +398,23 @@ State Vehicle::drive() {
 
 /// update a vehicle's location
 void Vehicle::Update(float elapsedTime) {
+
 	if (Settings::DrawVehicleDataBoxes)
 	{
 		data_box_->Update(this->getPosition());
 		data_box_->SetData("Speed", Settings::ConvertVelocity(PXS, KMH, speed_));
 	}
-	drive();
-	// activate car
-	if (active_ == false && state_ == DRIVE)
-		active_ = true;
-	apply_changes(elapsedTime);
+
+	if(state_ != DELETE)
+	{
+		drive();
+
+		// activate car
+		if (! active_ && state_ == DRIVE)
+			active_ = true;
+
+		apply_changes(elapsedTime);
+	}
 }
 
 /// apply the calculated next position
