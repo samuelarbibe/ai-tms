@@ -41,12 +41,12 @@ void Light::UpdatePosition()
     t.rotate(direction - 90);
     float margin = parent_road_->GetWidth() / 2 + 30;
     t.scale(margin, margin);
-    Vector2f sideVector = t.transformPoint(Settings::ForwardVector);
+    Vector2f sideVector = t.transformPoint(Settings::BaseVec);
 
     t = Transform();
     t.rotate(direction);
     t.scale(20, 20);
-    Vector2f marginVector = t.transformPoint(Settings::ForwardVector);
+    Vector2f marginVector = t.transformPoint(Settings::BaseVec);
     Vector2f position = roadPos + sideVector + marginVector;
 
     direction -= 180;
@@ -64,7 +64,7 @@ void Light::UpdatePosition()
     t = Transform();
     t.rotate(direction-180);
     // set axis relative to basePos and direction
-    Vector2f yDir = t.transformPoint(Settings::ForwardVector);
+    Vector2f yDir = t.transformPoint(Settings::BaseVec);
 
     // set location relative to new axis
     Vector2f yMargin = Vector2f(radius * 2 + 7, radius * 2 + 7);

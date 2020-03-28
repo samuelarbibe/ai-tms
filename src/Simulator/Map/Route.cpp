@@ -70,7 +70,7 @@ void Route::BuildRadiusLine()
     }
     else
     {
-        Vector2f radiusVec = t.transformPoint(Settings::ForwardVector);
+        Vector2f radiusVec = t.transformPoint(Settings::BaseVec);
         Vector2f circleCenter = startPos + radiusVec;
 
         // a strip [alpha] of lines, making a quarter of a circle

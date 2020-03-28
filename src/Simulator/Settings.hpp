@@ -19,11 +19,11 @@ enum DistanceUnits
 };
 enum VelocityUnits
 {
-	CMS, KMH, MS, MPH, PXS
+	CMS, KMH, MSS, MPH, PXS
 };
 enum VehicleTypeOptions
 {
-	CAR, TRUCK, MOTORCYCLE
+	SMALL_CAR, MEDIUM_CAR, LONG_CAR, TRUCK
 };
 
 class Settings
@@ -35,7 +35,7 @@ class Settings
 	static float ConvertSize(DistanceUnits fromUnit, DistanceUnits toUnit, float value);
 	static float ConvertVelocity(VelocityUnits fromUnit, VelocityUnits toUnit, float value);
 
-	static const Vector2f ForwardVector;
+	static const Vector2f BaseVec;
 
 	static bool DrawFps;
 	static bool DrawActive;
@@ -64,8 +64,11 @@ class Settings
 	static float LaneWidth;
 	static float MinLaneWidth;
 	static float MaxLaneWidth;
+	static float DashLineLength;
+	static float DashLineSpace;
 	static float Scale;
 	static float Speed;
+	static bool  DoubleSeparatorLine;
 
 	static float DefaultLaneLength;
 	static int GridColumns;
@@ -102,11 +105,11 @@ class Settings
 	// 0 - Car
 	// 1 - Truck
 	// 2 - Motorcycle
-	static float MaxSpeeds[3];
+	static float MaxSpeeds[4];
 	// same for accelerations
-	static float MaxAcceleration[3];
+	static float MaxAcceleration[4];
 	// same for braking
-	static float MinAcceleration[3];
+	static float MinAcceleration[4];
 
 	static float CalculateDistance(Vector2f a, Vector2f b);
 	static float CalculateAngle(float a, float b);

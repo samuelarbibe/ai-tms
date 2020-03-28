@@ -21,6 +21,7 @@
 
 using namespace std;
 
+typedef vector<VertexArray> LaneLine;
 
 class Road : public RectangleShape
 {
@@ -33,7 +34,8 @@ public:
 
     void   Draw(RenderWindow * window);
     void   Update(float elapsedTime);
-    void   ReloadRoad();
+    void   ReloadRoadDimensions();
+    void   BuildLaneLines();
 
     // Add entities
     Lane * AddLane(int laneNumber, bool isInRoadDirection);
@@ -79,6 +81,8 @@ private:
     float      width_;
     
     vector<Lane*> lanes_;
+
+    vector<LaneLine> lane_lines_;
 
     DataBox * data_box_;
 };

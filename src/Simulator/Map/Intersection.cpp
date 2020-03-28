@@ -24,7 +24,7 @@ Intersection::Intersection(Vector2f position, int intersectionNumber) : Rectangl
     this->setPosition(position_);
     this->setOutlineColor(WhiteColor);
     this->setFillColor(LaneColor);
-    this->setOutlineThickness(1.f);
+    this->setOutlineThickness(0.f);
     this->setSize(Vector2f(width_, height_));
 };
 
@@ -196,7 +196,7 @@ void Intersection::ReloadIntersection()
 {
 	for(Road * r : roads_)
 	{
-		r->ReloadRoad();
+		r->ReloadRoadDimensions();
 	}
 
     // update intersection dimensions

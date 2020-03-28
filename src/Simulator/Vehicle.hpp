@@ -52,7 +52,7 @@ class Vehicle : RectangleShape
 	// add entities
 	static Vehicle *AddVehicle(list<Lane *> *instructionSet,
 	                           Map *map,
-	                           VehicleTypeOptions vehicleType = CAR,
+	                           VehicleTypeOptions vehicleType = SMALL_CAR,
 	                           int vehicleNumber = VehicleCount + 1);
 
 	// get
@@ -90,9 +90,10 @@ class Vehicle : RectangleShape
 	static int to_be_deleted_;
 	static int active_vehicles_count_;
 
-	static VehicleType Car;
+	static VehicleType SmallCar;
+	static VehicleType MediumCar;
+	static VehicleType LongCar;
 	static VehicleType Truck;
-	static VehicleType Motorcycle;
 
 	int vehicle_number_;
 	VehicleType *vehicle_type_;
@@ -121,6 +122,7 @@ class Vehicle : RectangleShape
 	Intersection *prev_intersection_;
 
 	State state_;
+
 
 	DataBox *data_box_;
 

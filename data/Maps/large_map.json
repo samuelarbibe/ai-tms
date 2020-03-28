@@ -1,0 +1,807 @@
+{
+    "assigned_lanes": [
+        {
+            "lane_number": 50,
+            "phase_number": 1
+        },
+        {
+            "lane_number": 8,
+            "phase_number": 1
+        },
+        {
+            "lane_number": 38,
+            "phase_number": 1
+        },
+        {
+            "lane_number": 11,
+            "phase_number": 1
+        },
+        {
+            "lane_number": 23,
+            "phase_number": 1
+        },       {
+            "lane_number": 68,
+            "phase_number": 1
+        },
+        {
+            "lane_number": 20,
+            "phase_number": 1
+        },
+        {
+            "lane_number": 32,
+            "phase_number": 1
+        },
+        {
+            "lane_number": 27,
+            "phase_number": 2
+        },
+        {
+            "lane_number": 3,
+            "phase_number": 2
+        },
+        {
+            "lane_number": 9,
+            "phase_number": 2
+        },
+        {
+            "lane_number": 15,
+            "phase_number": 2
+        },
+        {
+            "lane_number": 21,
+            "phase_number": 2
+        },
+        {
+            "lane_number" : 69,
+            "phase_number": 2
+        },
+        {
+            "lane_number": 45,
+            "phase_number": 2
+        },
+        {
+            "lane_number": 39,
+            "phase_number": 2
+        },
+        {
+            "lane_number": 4,
+            "phase_number": 3
+        },
+        {
+            "lane_number": 33,
+            "phase_number": 3
+        },
+        {
+            "lane_number": 63,
+            "phase_number": 3
+        },
+        {
+            "lane_number": 22,
+            "phase_number": 3
+        },
+        {
+            "lane_number": 51,
+            "phase_number": 3
+        },
+        {
+            "lane_number": 16,
+            "phase_number": 3
+        },
+        {
+            "lane_number": 57,
+            "phase_number": 3
+        },
+        {
+            "lane_number": 10,
+            "phase_number": 3
+        },
+        {
+            "lane_number": 26,
+            "phase_number": 4
+        },
+        {
+            "lane_number": 5,
+            "phase_number": 4
+        },
+        {
+            "lane_number": 56,
+            "phase_number": 4
+        },
+        {
+            "lane_number": 2,
+            "phase_number": 4
+        },
+        {
+            "lane_number": 62,
+            "phase_number": 4
+        },
+        {
+            "lane_number": 14,
+            "phase_number": 4
+        },
+        {
+            "lane_number": 44,
+            "phase_number": 4
+        },
+        {
+            "lane_number": 17,
+            "phase_number": 4
+        }
+    ],
+    "connecting_roads": [
+        {
+            "id": 1,
+            "intersection_number": [
+                1,
+                2
+            ]
+        },
+        {
+        "id": 2,
+            "intersection_number": [
+                2,
+                3
+            ]
+        },
+        {
+            "id": 3,
+            "intersection_number": [
+                3,
+                4
+            ]
+        },
+        {
+            "id": 4,
+            "intersection_number": [
+                4,
+                1
+            ]
+        }
+    ],
+    "intersections": [
+        {
+            "id": 1,
+            "position": [
+                3540.0,
+                5040.0
+            ]
+        },
+        {
+            "id": 2,
+            "position": [
+                3540.0,
+                3480.0
+            ]
+        },
+        {
+            "id": 3,
+            "position": [
+                5640.0,
+                3480.0
+            ]
+        },
+        {
+            "id": 4,
+            "position": [
+                5640.0,
+                5040.0
+            ]
+        }
+    ],
+    "lanes": [
+        {
+            "id": 1,
+            "is_in_road_direction": false,
+            "road_number": 1
+        },
+        {
+            "id": 2,
+            "is_in_road_direction": false,
+            "road_number": 1
+        },
+        {
+            "id": 3,
+            "is_in_road_direction": false,
+            "road_number": 1
+        },
+        {
+            "id": 4,
+            "is_in_road_direction": true,
+            "road_number": 1
+        },
+        {
+            "id": 5,
+            "is_in_road_direction": true,
+            "road_number": 1
+        },
+        {
+            "id": 6,
+            "is_in_road_direction": true,
+            "road_number": 1
+        },
+        {
+            "id": 25,
+            "is_in_road_direction": false,
+            "road_number": 5
+        },
+        {
+            "id": 26,
+            "is_in_road_direction": false,
+            "road_number": 5
+        },
+        {
+            "id": 27,
+            "is_in_road_direction": false,
+            "road_number": 5
+        },
+        {
+            "id": 28,
+            "is_in_road_direction": true,
+            "road_number": 5
+        },
+        {
+            "id": 29,
+            "is_in_road_direction": true,
+            "road_number": 5
+        },
+        {
+            "id": 30,
+            "is_in_road_direction": true,
+            "road_number": 5
+        },
+        {
+            "id": 31,
+            "is_in_road_direction": false,
+            "road_number": 6
+        },
+        {
+            "id": 32,
+            "is_in_road_direction": false,
+            "road_number": 6
+        },
+        {
+            "id": 33,
+            "is_in_road_direction": false,
+            "road_number": 6
+        },
+        {
+            "id": 34,
+            "is_in_road_direction": true,
+            "road_number": 6
+        },
+        {
+            "id": 35,
+            "is_in_road_direction": true,
+            "road_number": 6
+        },
+        {
+            "id": 36,
+            "is_in_road_direction": true,
+            "road_number": 6
+        },
+        {
+            "id": 7,
+            "is_in_road_direction": false,
+            "road_number": 2
+        },
+        {
+            "id": 8,
+            "is_in_road_direction": false,
+            "road_number": 2
+        },
+        {
+            "id": 9,
+            "is_in_road_direction": false,
+            "road_number": 2
+        },
+        {
+            "id": 10,
+            "is_in_road_direction": true,
+            "road_number": 2
+        },
+        {
+            "id": 11,
+            "is_in_road_direction": true,
+            "road_number": 2
+        },
+        {
+            "id": 12,
+            "is_in_road_direction": true,
+            "road_number": 2
+        },
+        {
+            "id": 37,
+            "is_in_road_direction": false,
+            "road_number": 7
+        },
+        {
+            "id": 38,
+            "is_in_road_direction": false,
+            "road_number": 7
+        },
+        {
+            "id": 39,
+            "is_in_road_direction": false,
+            "road_number": 7
+        },
+        {
+            "id": 40,
+            "is_in_road_direction": true,
+            "road_number": 7
+        },
+        {
+            "id": 41,
+            "is_in_road_direction": true,
+            "road_number": 7
+        },
+        {
+            "id": 42,
+            "is_in_road_direction": true,
+            "road_number": 7
+        },
+        {
+            "id": 55,
+            "is_in_road_direction": false,
+            "road_number": 12
+        },
+        {
+            "id": 56,
+            "is_in_road_direction": false,
+            "road_number": 12
+        },
+        {
+            "id": 57,
+            "is_in_road_direction": false,
+            "road_number": 12
+        },
+        {
+            "id": 58,
+            "is_in_road_direction": true,
+            "road_number": 12
+        },
+        {
+            "id": 59,
+            "is_in_road_direction": true,
+            "road_number": 12
+        },
+        {
+            "id": 60,
+            "is_in_road_direction": true,
+            "road_number": 12
+        },
+        {
+            "id": 13,
+            "is_in_road_direction": false,
+            "road_number": 3
+        },
+        {
+            "id": 14,
+            "is_in_road_direction": false,
+            "road_number": 3
+        },
+        {
+            "id": 15,
+            "is_in_road_direction": false,
+            "road_number": 3
+        },
+        {
+            "id": 16,
+            "is_in_road_direction": true,
+            "road_number": 3
+        },
+        {
+            "id": 17,
+            "is_in_road_direction": true,
+            "road_number": 3
+        },
+        {
+            "id": 18,
+            "is_in_road_direction": true,
+            "road_number": 3
+        },
+        {
+            "id": 43,
+            "is_in_road_direction": false,
+            "road_number": 9
+        },
+        {
+            "id": 44,
+            "is_in_road_direction": false,
+            "road_number": 9
+        },
+        {
+            "id": 45,
+            "is_in_road_direction": false,
+            "road_number": 9
+        },
+        {
+            "id": 46,
+            "is_in_road_direction": true,
+            "road_number": 9
+        },
+        {
+            "id": 47,
+            "is_in_road_direction": true,
+            "road_number": 9
+        },
+        {
+            "id": 48,
+            "is_in_road_direction": true,
+            "road_number": 9
+        },
+        {
+            "id": 49,
+            "is_in_road_direction": false,
+            "road_number": 11
+        },
+        {
+            "id": 50,
+            "is_in_road_direction": false,
+            "road_number": 11
+        },
+        {
+            "id": 51,
+            "is_in_road_direction": false,
+            "road_number": 11
+        },
+        {
+            "id": 52,
+            "is_in_road_direction": true,
+            "road_number": 11
+        },
+        {
+            "id": 53,
+            "is_in_road_direction": true,
+            "road_number": 11
+        },
+        {
+            "id": 54,
+            "is_in_road_direction": true,
+            "road_number": 11
+        },
+        {
+            "id": 19,
+            "is_in_road_direction": false,
+            "road_number": 4
+        },
+        {
+            "id": 20,
+            "is_in_road_direction": false,
+            "road_number": 4
+        },
+        {
+            "id": 21,
+            "is_in_road_direction": false,
+            "road_number": 4
+        },
+        {
+            "id": 22,
+            "is_in_road_direction": true,
+            "road_number": 4
+        },
+        {
+            "id": 23,
+            "is_in_road_direction": true,
+            "road_number": 4
+        },
+        {
+            "id": 24,
+            "is_in_road_direction": true,
+            "road_number": 4
+        },
+        {
+            "id": 61,
+            "is_in_road_direction": false,
+            "road_number": 13
+        },
+        {
+            "id": 62,
+            "is_in_road_direction": false,
+            "road_number": 13
+        },
+        {
+            "id": 63,
+            "is_in_road_direction": false,
+            "road_number": 13
+        },
+        {
+            "id": 64,
+            "is_in_road_direction": true,
+            "road_number": 13
+        },
+        {
+            "id": 65,
+            "is_in_road_direction": true,
+            "road_number": 13
+        },
+        {
+            "id": 66,
+            "is_in_road_direction": true,
+            "road_number": 13
+        },
+        {
+            "id": 67,
+            "is_in_road_direction": false,
+            "road_number": 14
+        },
+        {
+            "id": 68,
+            "is_in_road_direction": false,
+            "road_number": 14
+        },
+        {
+            "id": 69,
+            "is_in_road_direction": false,
+            "road_number": 14
+        },
+        {
+            "id": 70,
+            "is_in_road_direction": true,
+            "road_number": 14
+        },
+        {
+            "id": 71,
+            "is_in_road_direction": true,
+            "road_number": 14
+        },
+        {
+            "id": 72,
+            "is_in_road_direction": true,
+            "road_number": 14
+        }
+    ],
+    "phases": [
+        {
+            "cycle_time": 5,
+            "id": 1
+        },
+        {
+            "cycle_time": 5,
+            "id": 2
+        },
+        {
+            "cycle_time": 5,
+            "id": 3
+        },
+        {
+            "cycle_time": 5,
+            "id": 4
+        }
+    ],
+    "roads": [
+        {
+            "connection_side": 3,
+            "id": 5,
+            "intersection_number": 1
+        },
+        {
+            "connection_side": 4,
+            "id": 6,
+            "intersection_number": 1
+        },
+        {
+            "connection_side": 4,
+            "id": 7,
+            "intersection_number": 2
+        },
+        {
+            "connection_side": 1,
+            "id": 12,
+            "intersection_number": 2
+        },
+        {
+            "connection_side": 1,
+            "id": 9,
+            "intersection_number": 3
+        },
+        {
+            "connection_side": 2,
+            "id": 11,
+            "intersection_number": 3
+        },
+        {
+            "connection_side": 3,
+            "id": 13,
+            "intersection_number": 4
+        },
+        {
+            "connection_side": 2,
+            "id": 14,
+            "intersection_number": 4
+        }
+    ],
+    "routes": [
+        {
+            "from": 25,
+            "to": 19
+        },
+        {
+            "from": 24,
+            "to": 6
+        },
+        {
+            "from": 6,
+            "to": 12
+        },
+        {
+            "from": 12,
+            "to": 18
+        },
+        {
+            "from": 18,
+            "to": 24
+        },
+        {
+            "from": 19,
+            "to": 66
+        },
+        {
+            "from": 31,
+            "to": 30
+        },
+        {
+            "from": 1,
+            "to": 36
+        },
+        {
+            "from": 37,
+            "to": 1
+        },
+        {
+            "from": 55,
+            "to": 42
+        },
+        {
+            "from": 7,
+            "to": 60
+        },
+        {
+            "from": 43,
+            "to": 7
+        },
+        {
+            "from": 49,
+            "to": 48
+        },
+        {
+            "from": 13,
+            "to": 54
+        },
+        {
+            "from": 67,
+            "to": 13
+        },
+        {
+            "from": 61,
+            "to": 72
+        },
+        {
+            "from": 63,
+            "to": 22
+        },
+        {
+            "from": 22,
+            "to": 28
+        },
+        {
+            "from": 27,
+            "to": 34
+        },
+        {
+            "from": 69,
+            "to": 64
+        },
+        {
+            "from": 16,
+            "to": 70
+        },
+        {
+            "from": 21,
+            "to": 15
+        },
+        {
+            "from": 3,
+            "to": 21
+        },
+        {
+            "from": 33,
+            "to": 4
+        },
+        {
+            "from": 4,
+            "to": 40
+        },
+        {
+            "from": 9,
+            "to": 3
+        },
+        {
+            "from": 57,
+            "to": 10
+        },
+        {
+            "from": 39,
+            "to": 58
+        },
+        {
+            "from": 15,
+            "to": 9
+        },
+        {
+            "from": 51,
+            "to": 16
+        },
+        {
+            "from": 45,
+            "to": 52
+        },
+        {
+            "from": 10,
+            "to": 46
+        },
+        {
+            "from": 62,
+            "to": 14
+        },
+        {
+            "from": 14,
+            "to": 47
+        },
+        {
+            "from": 44,
+            "to": 17
+        },
+        {
+            "from": 17,
+            "to": 65
+        },
+        {
+            "from": 68,
+            "to": 23
+        },
+        {
+            "from": 23,
+            "to": 35
+        },
+        {
+            "from": 32,
+            "to": 20
+        },
+        {
+            "from": 20,
+            "to": 71
+        },
+        {
+            "from": 26,
+            "to": 5
+        },
+        {
+            "from": 5,
+            "to": 59
+        },
+        {
+            "from": 56,
+            "to": 2
+        },
+        {
+            "from": 2,
+            "to": 29
+        },
+        {
+            "from": 38,
+            "to": 11
+        },
+        {
+            "from": 11,
+            "to": 53
+        },
+        {
+            "from": 50,
+            "to": 8
+        },
+        {
+            "from": 8,
+            "to": 41
+        }
+    ]
+}

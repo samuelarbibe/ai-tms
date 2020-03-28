@@ -12,7 +12,7 @@ Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000.f / Settings::Interva
 
 	cout << "Setting Up Map..." << endl;
 	map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapHeight);
-
+ 
 	cout << "Setting Up Camera..." << endl;
 	snap_to_grid_ = true;
 	view_pos_ = Vector2f(0, 0);
@@ -25,40 +25,49 @@ Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000.f / Settings::Interva
 
 	cout << "Setting up snap grid..." << endl;
 	BuildGrid(Settings::GridRows, Settings::GridColumns);
-
-	cout << "Setting up max speeds..." << endl;
-	Settings::MaxSpeeds[VehicleTypeOptions::CAR] =
-		Settings::ConvertVelocity(VelocityUnits::KMH, VelocityUnits::PXS, 100.f);
-	Settings::MaxSpeeds[VehicleTypeOptions::TRUCK] =
-		Settings::ConvertVelocity(VelocityUnits::KMH, VelocityUnits::PXS, 90.f);
-	Settings::MaxSpeeds[VehicleTypeOptions::MOTORCYCLE] =
-		Settings::ConvertVelocity(VelocityUnits::KMH, VelocityUnits::PXS, 110.f);
 }
 
 /// set up the map according to the selected presets
 void Engine::on_init() {
 
+
 	map->AddIntersection(0, map->GetSize() / 2.f);
 
 	map->AddRoad(0, 1, UP, Settings::DefaultLaneLength);
 	map->AddRoad(0, 1, RIGHT, Settings::DefaultLaneLength);
+	map->AddRoad(0, 1, DOWN, Settings::DefaultLaneLength);
+	map->AddRoad(0, 1, LEFT, Settings::DefaultLaneLength);
 
 	map->AddLane(0, 1, false);
+	map->AddLane(0, 1, false);
+	map->AddLane(0, 1, true);
 	map->AddLane(0, 1, true);
 	map->AddLane(0, 2, false);
+	map->AddLane(0, 2, false);
 	map->AddLane(0, 2, true);
+	map->AddLane(0, 2, true);
+	map->AddLane(0, 3, false);
+	map->AddLane(0, 3, false);
+	map->AddLane(0, 3, true);
+	map->AddLane(0, 3, true);
+	map->AddLane(0, 4, false);
+	map->AddLane(0, 4, false);
+	map->AddLane(0, 4, true);
+	map->AddLane(0, 4, true);
 
-	map->AddRoute(3, 2);
-	map->AddRoute(1, 4);
-
-	map->AddPhase(0, 10);
-	map->AddPhase(0, 15);
+	map->AddPhase(0, 20);
+	map->AddPhase(0, 20);
+	map->AddPhase(0, 20);
+	map->AddPhase(0, 20);
 
 	map->AssignLaneToPhase(1, 1);
+	map->AssignLaneToPhase(1, 1);
+	map->AssignLaneToPhase(1, 1);
+	map->AssignLaneToPhase(1, 1);
+	map->AssignLaneToPhase(1, 1);
+	map->AssignLaneToPhase(1, 1);
 	map->AssignLaneToPhase(2, 3);
-
-	map->AddLight(0, 1, 1);
-	//map->AddLight(0, 2, 2);
+	map->AssignLaneToPhase(2, 3);
 
 }
 
@@ -821,7 +830,7 @@ bool Engine::AddVehicleRandomly() {
 
 	// while new routes to append are available
 	// new routes will be searched starting from the previous route end
-	list<Lane *> *tempQueue = new list<Lane *>();;
+	list<Lane *> *tempQueue = new list<Lane *>();
 	Lane *lastLane = nullptr;
 
 	while (r != nullptr)
@@ -838,7 +847,7 @@ bool Engine::AddVehicleRandomly() {
 	int randomIndex = 0;
 
 	if(Settings::MultiTypeVehicle)
-		randomIndex = rand() % 2;
+		randomIndex = rand() % 4;
 
 	return (Vehicle::AddVehicle(tempQueue, this->map, static_cast<VehicleTypeOptions>(randomIndex)) != nullptr);
 }

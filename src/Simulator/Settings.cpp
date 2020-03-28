@@ -4,7 +4,7 @@
 
 #include "Settings.hpp"
 
-const Vector2f Settings::ForwardVector = Vector2f(0.f, -1.f);
+const Vector2f Settings::BaseVec = Vector2f(0.f, -1.f);
 
 bool Settings::DrawFps = false;
 bool Settings::DrawActive = false;
@@ -23,25 +23,28 @@ bool Settings::DrawMinimap = false;
 bool Settings::DrawSimTable = false;
 bool Settings::FollowSelectedVehicle = true;
 
-int Settings::Interval = 1000; // max is 1000
+int Settings::Interval = 120; // max is 1000
 int Settings::Fps = 60;
 int Settings::AntiAliasing = 0;
-bool Settings::MultiColor = true;
-bool Settings::MultiTypeVehicle = false;
+bool Settings::MultiColor = false;
+bool Settings::MultiTypeVehicle = true;
 float Settings::MinDistanceFromNextCar = 76;
-float Settings::MinDistanceFromStop = 66;
+float Settings::MinDistanceFromStop = 50;
 bool Settings::AccWhileTurning = true;
 
 float Settings::MinLaneWidth = 83;
 float Settings::LaneWidth = 100; // lane width in px.
-float Settings::MaxLaneWidth = 107;
-float Settings::Scale = 3; // 1 px * [scale] = 1 cm
+float Settings::MaxLaneWidth = 140;
+float Settings::DashLineLength = 100;
+float Settings::DashLineSpace = 80;
+float Settings::Scale = 3; // 1 px / [scale] = 1 cm
 float Settings::Speed = 1; // running speed
+bool Settings::DoubleSeparatorLine = true;
 
 float Settings::DefaultLaneLength = 1000; // lane length in px
 
-int Settings::DefaultMapWidth = 9000;
-int Settings::DefaultMapHeight = 9000;
+int Settings::DefaultMapWidth = 1500;
+int Settings::DefaultMapHeight = 1500;
 
 int Settings::GridColumns = 50;
 int Settings::GridRows = 50;
@@ -100,23 +103,26 @@ float Settings::ConvertVelocity(VelocityUnits fromUnit, VelocityUnits toUnit, fl
 }
 
 // max speed for all the cars in px/s
-float Settings::MaxSpeeds[3]
+float Settings::MaxSpeeds[4]
 	{
-		ConvertVelocity(KMH, PXS, 100.f),
-		ConvertVelocity(KMH, PXS, 90.f),
-		ConvertVelocity(KMH, PXS, 110.f)
+		ConvertVelocity(KMH, PXS, 50.f),
+		ConvertVelocity(KMH, PXS, 50.f),
+		ConvertVelocity(KMH, PXS, 50.f),
+		ConvertVelocity(KMH, PXS, 50.f)
 	};
-float Settings::MaxAcceleration[3]
+float Settings::MaxAcceleration[4]
 	{
-		ConvertVelocity(MS, PXS, 4.f),
-		ConvertVelocity(MS, PXS, 3.5f),
-		ConvertVelocity(MS, PXS, 5.5f)
+		ConvertVelocity(MSS, PXS, 2.f),
+		ConvertVelocity(MSS, PXS, 2.f),
+		ConvertVelocity(MSS, PXS, 2.f),
+		ConvertVelocity(MSS, PXS, 2.f)
 	};
-float Settings::MinAcceleration[3]
+float Settings::MinAcceleration[4]
 	{
-		ConvertVelocity(MS, PXS, -5.5f),
-		ConvertVelocity(MS, PXS, -4.f),
-		ConvertVelocity(MS, PXS, -6.f)
+		ConvertVelocity(MSS, PXS, -4.5f),
+		ConvertVelocity(MSS, PXS, -4.5f),
+		ConvertVelocity(MSS, PXS, -4.5f),
+		ConvertVelocity(MSS, PXS, -4.5f)
 	};
 
 float Settings::GetMaxSpeedAs(VehicleTypeOptions vehicleType, VelocityUnits unit) {

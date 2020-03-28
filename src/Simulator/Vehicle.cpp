@@ -14,10 +14,34 @@ int Vehicle::VehicleCount = 0;
 list<Vehicle *> Vehicle::ActiveVehicles;
 Vehicle *Vehicle::SelectedVehicle = nullptr;
 
-VehicleType Vehicle::Car{CAR, "Car", "../../resources/Cars/car_image_", 3, Vector2f(56.f, 130.f)};
-VehicleType Vehicle::Truck{TRUCK, "Truck", "../../resources/Cars/car_image_", 3, Vector2f(70.f, 160.f)};
-VehicleType Vehicle::Motorcycle{MOTORCYCLE, "Motorcycle", "../resources/Cars/motorcycle_image_", 3,
-                                Vector2f(0.12f, 0.12f)};
+VehicleType Vehicle::SmallCar {
+	SMALL_CAR,
+	"SmallCar",
+	"../../resources/Cars/car_image_",
+	3,
+	Vector2f(1.6 * 100 / Settings::Scale, 3 * 100 / Settings::Scale)
+};
+VehicleType Vehicle::MediumCar{
+	MEDIUM_CAR,
+	"MediumCar",
+	"../../resources/Cars/car_image_",
+	3,
+	Vector2f(1.8 * 100 / Settings::Scale, 4 * 100 / Settings::Scale)
+};
+VehicleType Vehicle::LongCar  {
+	LONG_CAR,
+	"LongCar",
+	"../../resources/Cars/car_image_",
+	3,
+	Vector2f(2 * 100 / Settings::Scale, 5 * 100 / Settings::Scale)
+};
+VehicleType Vehicle::Truck    {
+	TRUCK,
+	"Truck",
+	"../../resources/Cars/car_image_",
+	3,
+	Vector2f(2.1f * 100 / Settings::Scale, 10 * 100 / Settings::Scale)
+};
 
 Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *> *instructionSet, Map *map) {
 	// set initial values for the movable object
@@ -32,7 +56,6 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *>
 	instruction_set_->pop_front();
 	dest_lane_ = instruction_set_->front();
 	active_ = false;
-
 
 	// get a pointer to the current intersection
 	// current intersection is the intersection that the lane leads to
@@ -49,10 +72,13 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *>
 	this->setSize(vehicle_type_->Size);
 	this->setRotation(source_lane_->GetDirection());
 	this->setPosition(source_lane_->GetStartPosition());
+	this->setOutlineColor(Color::Blue);
 	this->setOrigin(this->getSize().x / 2, this->getSize().y / 2);
 	vehicle_in_front_ = nullptr;
 
 	// if vehicle texture hasn't been loaded yet, load it
+
+
 	if (Settings::DrawTextures && Vehicle::LoadVehicleTextures(vehicle_type_))
 	{
 
@@ -73,6 +99,8 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *>
 		this->setOutlineColor(Color::Blue);
 		this->setFillColor(Color::Transparent);
 	}
+
+
 
 	data_box_ = new DataBox(this->getPosition());
 	data_box_->AddData("Speed", speed_);
@@ -223,10 +251,11 @@ bool Vehicle::LoadVehicleTextures(VehicleType *vehicleType) {
 VehicleType *Vehicle::GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions) {
 	switch (vehicleTypeOptions)
 	{
+	case MEDIUM_CAR:return &(Vehicle::MediumCar);
+	case LONG_CAR:return &(Vehicle::LongCar);
+	case SMALL_CAR:return &(Vehicle::SmallCar);
 	case TRUCK:return &(Vehicle::Truck);
-	case MOTORCYCLE:return &(Vehicle::Motorcycle);
-	case CAR:
-	default:return &(Vehicle::Car);
+	default:return &(Vehicle::MediumCar);
 	}
 }
 
@@ -288,10 +317,10 @@ State Vehicle::drive() {
 	// while cars dont have a min distance, they wont start driving
 
 	// check for distance with car in front
-	if (vehicle_in_front_ != nullptr && vehicle_in_front_->state_ != DELETE)
+	if (vehicle_in_front_ != nullptr && vehicle_in_front_->state_ != DELETE && dest_lane_ != nullptr)
 	{
 		float distanceFromNextCar = Settings::CalculateDistance(this->getPosition(), vehicle_in_front_->getPosition())
-			- this->getSize().x - vehicle_in_front_->getSize().x;
+			- this->getSize().y/2 - vehicle_in_front_->getSize().y/2;
 		float brakingDistance = -(speed_ * speed_) / (2 * min_acc_);
 
 		if (distanceFromNextCar < brakingDistance + Settings::MinDistanceFromNextCar ||
@@ -350,7 +379,7 @@ State Vehicle::drive() {
 		!this->getGlobalBounds().contains(source_lane_->GetEndPosition()))
 	{
 		float distanceFromStop = Settings::CalculateDistance(this->getPosition(), source_lane_->GetEndPosition())
-			- this->getSize().x;
+			- this->getSize().y/2;
 		float brakingDistance = -(speed_ * speed_) / (2 * min_acc_);
 
 		if (distanceFromStop < brakingDistance + Settings::MinDistanceFromStop)
@@ -437,7 +466,7 @@ void Vehicle::apply_changes(float elapsed_time) {
 	t.rotate(this->getRotation());
 
 	// rotate the movement vector in relation to the forward vector (0,1)
-	movement_vec_ = t.transformPoint(Settings::ForwardVector);
+	movement_vec_ = t.transformPoint(Settings::BaseVec);
 
 	// apply movement vector on position, relative to elapsed time to ensure
 	// a constant Speed at any FPS
@@ -448,6 +477,7 @@ void Vehicle::apply_changes(float elapsed_time) {
 /// render the vehicle
 void Vehicle::Draw(RenderWindow *window) {
 	window->draw(*this);
+
 	if (Settings::DrawVehicleDataBoxes)
 		data_box_->Draw(window);
 }

@@ -1,0 +1,209 @@
+{
+    "assigned_lanes": [
+        {
+            "lane_number": 1,
+            "phase_number": 1
+        },
+        {
+            "lane_number": 1,
+            "phase_number": 1
+        },
+        {
+            "lane_number": 1,
+            "phase_number": 1
+        },
+        {
+            "lane_number": 1,
+            "phase_number": 1
+        },
+        {
+            "lane_number": 1,
+            "phase_number": 1
+        },
+        {
+            "lane_number": 1,
+            "phase_number": 1
+        },
+        {
+            "lane_number": 3,
+            "phase_number": 2
+        },
+        {
+            "lane_number": 3,
+            "phase_number": 2
+        }
+    ],
+    "intersections": [
+        {
+            "id": 1,
+            "position": [
+                750.0,
+                750.0
+            ]
+        }
+    ],
+    "lanes": [
+        {
+            "id": 1,
+            "is_in_road_direction": false,
+            "road_number": 1
+        },
+        {
+            "id": 2,
+            "is_in_road_direction": false,
+            "road_number": 1
+        },
+        {
+            "id": 3,
+            "is_in_road_direction": true,
+            "road_number": 1
+        },
+        {
+            "id": 4,
+            "is_in_road_direction": true,
+            "road_number": 1
+        },
+        {
+            "id": 5,
+            "is_in_road_direction": false,
+            "road_number": 2
+        },
+        {
+            "id": 6,
+            "is_in_road_direction": false,
+            "road_number": 2
+        },
+        {
+            "id": 7,
+            "is_in_road_direction": true,
+            "road_number": 2
+        },
+        {
+            "id": 8,
+            "is_in_road_direction": true,
+            "road_number": 2
+        },
+        {
+            "id": 9,
+            "is_in_road_direction": false,
+            "road_number": 3
+        },
+        {
+            "id": 10,
+            "is_in_road_direction": false,
+            "road_number": 3
+        },
+        {
+            "id": 11,
+            "is_in_road_direction": true,
+            "road_number": 3
+        },
+        {
+            "id": 12,
+            "is_in_road_direction": true,
+            "road_number": 3
+        },
+        {
+            "id": 13,
+            "is_in_road_direction": false,
+            "road_number": 4
+        },
+        {
+            "id": 14,
+            "is_in_road_direction": false,
+            "road_number": 4
+        },
+        {
+            "id": 15,
+            "is_in_road_direction": true,
+            "road_number": 4
+        },
+        {
+            "id": 16,
+            "is_in_road_direction": true,
+            "road_number": 4
+        }
+    ],
+    "phases": [
+        {
+            "cycle_time": 20.0,
+            "id": 1
+        },
+        {
+            "cycle_time": 20.0,
+            "id": 2
+        },
+        {
+            "cycle_time": 20.0,
+            "id": 3
+        },
+        {
+            "cycle_time": 20.0,
+            "id": 4
+        }
+    ],
+    "roads": [
+        {
+            "connection_side": 1,
+            "id": 1,
+            "intersection_number": 1
+        },
+        {
+            "connection_side": 2,
+            "id": 2,
+            "intersection_number": 1
+        },
+        {
+            "connection_side": 3,
+            "id": 3,
+            "intersection_number": 1
+        },
+        {
+            "connection_side": 4,
+            "id": 4,
+            "intersection_number": 1
+        }
+    ],
+    "routes": [
+        {
+            "from": 5,
+            "to": 4
+        },
+        {
+            "from": 5,
+            "to": 16
+        },
+        {
+            "from": 13,
+            "to": 12
+        },
+        {
+            "from": 13,
+            "to": 8
+        },
+        {
+            "from": 14,
+            "to": 3
+        },
+        {
+            "from": 6,
+            "to": 11
+        },
+        {
+            "from": 1,
+            "to": 16
+        },
+        {
+            "from": 10,
+            "to": 15
+        },
+        {
+            "from": 9,
+            "to": 8
+        },
+        {
+            "from": 2,
+            "to": 7
+        }
+    ]
+}

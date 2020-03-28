@@ -20,10 +20,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->LaneWidthSlider->setSliderPosition(int(Settings::LaneWidth));
 	ui->ZoomSlider->setSliderPosition(int(Settings::Zoom * 99));
 	ui->LaneWidthValueEdit->setText(QString::number(Settings::GetLaneWidthAs(currentDistanceUnit)));
-	ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::CAR, currentUnit)));
+	ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::SMALL_CAR, currentUnit)));
 	ui->MotorcycleMaxSpeed->setText(
-		QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MOTORCYCLE, currentUnit)));
-	ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::TRUCK, currentUnit)));
+		QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::LONG_CAR, currentUnit)));
+	ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MEDIUM_CAR, currentUnit)));
 
 	ui->PhaseDelayLineEdit->setText(QString::number(Settings::PhaseDelay));
 	ui->PhaseDelaySlider->setSliderPosition(Settings::PhaseDelay);
@@ -325,7 +325,7 @@ void MainWindow::on_CarMaxSpeed_editingFinished() {
 	enteredValue = Settings::ConvertVelocity(currentUnit, VelocityUnits::PXS, enteredValue);
 
 	// save the changes
-	Settings::MaxSpeeds[VehicleTypeOptions::CAR] = enteredValue;
+	Settings::MaxSpeeds[VehicleTypeOptions::SMALL_CAR] = enteredValue;
 }
 
 void MainWindow::on_MotorcycleMaxSpeed_editingFinished() {
@@ -339,7 +339,7 @@ void MainWindow::on_MotorcycleMaxSpeed_editingFinished() {
 	enteredValue = Settings::ConvertVelocity(currentUnit, VelocityUnits::PXS, enteredValue);
 
 	// save the changes
-	Settings::MaxSpeeds[VehicleTypeOptions::MOTORCYCLE] = enteredValue;
+	Settings::MaxSpeeds[VehicleTypeOptions::LONG_CAR] = enteredValue;
 }
 
 void MainWindow::on_TruckMaxSpeed_editingFinished() {
@@ -353,16 +353,16 @@ void MainWindow::on_TruckMaxSpeed_editingFinished() {
 	enteredValue = Settings::ConvertVelocity(currentUnit, VelocityUnits::PXS, enteredValue);
 
 	// save the changes
-	Settings::MaxSpeeds[VehicleTypeOptions::TRUCK] = enteredValue;
+	Settings::MaxSpeeds[VehicleTypeOptions::MEDIUM_CAR] = enteredValue;
 }
 
 void MainWindow::on_VelocityUnitComboBox_currentIndexChanged(int index) {
 	VelocityUnits currentUnit = static_cast<VelocityUnits>(index);
 	// re-display all the velocities
-	ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::CAR, currentUnit)));
+	ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::SMALL_CAR, currentUnit)));
 	ui->MotorcycleMaxSpeed->setText(
-		QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MOTORCYCLE, currentUnit)));
-	ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::TRUCK, currentUnit)));
+		QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::LONG_CAR, currentUnit)));
+	ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MEDIUM_CAR, currentUnit)));
 }
 
 void MainWindow::on_MultiColorCheckBox_stateChanged(int arg1) {

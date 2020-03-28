@@ -39,8 +39,6 @@ Lane::Lane(int laneNumber, int roadNumber, int intersectionNumber, Vector2f star
     // init rectangle shape
     this->setOrigin(width_ / 2.f, 0.f);
     this->setPosition(start_pos_);
-    this->setOutlineColor(WhiteColor);
-    this->setOutlineThickness(3.f);
     this->setRotation(direction_ + 180);
     this->setSize(Vector2f(width_, length_));
     this->setFillColor(LaneColor);
@@ -96,7 +94,7 @@ void Lane::create_block_shape()
 	lane_block_shape_.setPosition(this->end_pos_);
 	lane_block_shape_.setSize(Vector2f(this->width_, block_height));
 	lane_block_shape_.rotate(this->getRotation());
-	lane_block_shape_.setFillColor(Color::Red);
+	lane_block_shape_.setFillColor(Color::White);
 }
 
 /// update, for future use
@@ -108,15 +106,13 @@ void Lane::Update(float elapsedTime)
 /// set this lane as selected
 void Lane::Select()
 {
-    this->setOutlineColor(Color::Red);
-    this->setOutlineThickness(3.f);
+    this->setFillColor(Color::Red);
 }
 
 /// set this lane as unselected
 void Lane::Unselect()
 {
-    this->setOutlineColor(WhiteColor);
-    this->setOutlineThickness(1.f);
+    this->setFillColor(LaneColor);
 }
 
 /// draw the road

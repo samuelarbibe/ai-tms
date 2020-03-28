@@ -1,0 +1,109 @@
+{
+    "simulations": [
+        {
+            "end_time": 1583748685,
+            "id": 1,
+            "simulated_time": 360.431396484375,
+            "start_time": 1583748673,
+            "vehicle_count": 50
+        },
+        {
+            "end_time": 1583748731,
+            "id": 2,
+            "simulated_time": 629.9102172851563,
+            "start_time": 1583748694,
+            "vehicle_count": 500
+        },
+        {
+            "end_time": 1583748758,
+            "id": 3,
+            "simulated_time": 366.4491271972656,
+            "start_time": 1583748751,
+            "vehicle_count": 500
+        },
+        {
+            "end_time": 1583748784,
+            "id": 4,
+            "simulated_time": 361.009521484375,
+            "start_time": 1583748776,
+            "vehicle_count": 500
+        },
+        {
+            "end_time": 1583748883,
+            "id": 6,
+            "simulated_time": 393.4551696777344,
+            "start_time": 1583748863,
+            "vehicle_count": 500
+        },
+        {
+            "end_time": 1583748904,
+            "id": 7,
+            "simulated_time": 386.2876892089844,
+            "start_time": 1583748886,
+            "vehicle_count": 500
+        },
+        {
+            "end_time": 1583748936,
+            "id": 8,
+            "simulated_time": 442.6676025390625,
+            "start_time": 1583748915,
+            "vehicle_count": 500
+        },
+        {
+            "end_time": 1583748956,
+            "id": 9,
+            "simulated_time": 434.4122009277344,
+            "start_time": 1583748940,
+            "vehicle_count": 500
+        },
+        {
+            "end_time": 1583748975,
+            "id": 10,
+            "simulated_time": 401.58258056640625,
+            "start_time": 1583748959,
+            "vehicle_count": 500
+        },
+        {
+            "end_time": 1583749014,
+            "id": 11,
+            "simulated_time": 393.0072021484375,
+            "start_time": 1583749006,
+            "vehicle_count": 500
+        },
+        {
+            "end_time": 1583749024,
+            "id": 12,
+            "simulated_time": 399.02276611328125,
+            "start_time": 1583749016,
+            "vehicle_count": 500
+        },
+        {
+            "end_time": 1583749032,
+            "id": 13,
+            "simulated_time": 329.3434753417969,
+            "start_time": 1583749029,
+            "vehicle_count": 500
+        },
+        {
+            "end_time": 1583749038,
+            "id": 14,
+            "simulated_time": 372.4763488769531,
+            "start_time": 1583749034,
+            "vehicle_count": 500
+        },
+        {
+            "end_time": 1583749052,
+            "id": 15,
+            "simulated_time": 381.9476623535156,
+            "start_time": 1583749044,
+            "vehicle_count": 500
+        },
+        {
+            "end_time": 1583749170,
+            "id": 16,
+            "simulated_time": 381.7552185058594,
+            "start_time": 1583749061,
+            "vehicle_count": 500
+        }
+    ]
+}

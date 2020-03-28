@@ -47,7 +47,7 @@ set(project_sources
     src/Simulator/Simulation.hpp
     src/UI/Widgets/SimModel.cpp
     src/UI/Widgets/SimModel.hpp
-    )
+        )
 
 set(project_headers
     src/Simulator/Engine.hpp
@@ -71,7 +71,7 @@ set(project_headers
     src/Simulator/Simulation.hpp
     src/UI/Widgets/SimModel.cpp
     src/UI/Widgets/SimModel.hpp
-    )
+        )
 
 set(project_ui src/UI/mainwindow.ui)
 # wrap the ui file to a c++ header
