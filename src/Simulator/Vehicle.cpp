@@ -9,8 +9,9 @@
 #include "Vehicle.hpp"
 
 int Vehicle::to_be_deleted_ = 0;
-int Vehicle::active_vehicles_count_ = 0;
+int Vehicle::ActiveVehiclesCount = 0;
 int Vehicle::VehicleCount = 0;
+int Vehicle::VehiclesToDeploy = 0;
 list<Vehicle *> Vehicle::ActiveVehicles;
 Vehicle *Vehicle::SelectedVehicle = nullptr;
 
@@ -47,8 +48,11 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *>
 	// set initial values for the movable object
 	vehicle_type_ = GetVehicleTypeByOption(vehicleType);
 	vehicle_number_ = vehicleNumber;
-	speed_ = 0.f;
-	acc_ = max_acc_;
+	max_speed_ = Settings::MaxSpeeds[vehicle_type_->Type];
+	acceleration = Settings::Acceleration[vehicle_type_->Type];
+	deceleration = Settings::Deceleration[vehicle_type_->Type];
+	speed_ = 0;
+	acc_ = 0;
 	state_ = DRIVE;
 	curr_map_ = map;
 	instruction_set_ = instructionSet;
@@ -63,22 +67,19 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *>
 	// the previous intersection, or the intersection of the source lane
 	prev_intersection_ = nullptr;
 
-	max_speed_ = Settings::MaxSpeeds[vehicle_type_->Type];
-	max_acc_ = Settings::MaxAcceleration[vehicle_type_->Type];
-	min_acc_ = Settings::MinAcceleration[vehicle_type_->Type];
+
 
 	angular_vel_ = 0;
 	turning_ = false;
+	vehicle_in_front_ = nullptr;
+
 	this->setSize(vehicle_type_->Size);
 	this->setRotation(source_lane_->GetDirection());
 	this->setPosition(source_lane_->GetStartPosition());
 	this->setOutlineColor(Color::Blue);
 	this->setOrigin(this->getSize().x / 2, this->getSize().y / 2);
-	vehicle_in_front_ = nullptr;
 
 	// if vehicle texture hasn't been loaded yet, load it
-
-
 	if (Settings::DrawTextures && Vehicle::LoadVehicleTextures(vehicle_type_))
 	{
 
@@ -99,8 +100,6 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *>
 		this->setOutlineColor(Color::Blue);
 		this->setFillColor(Color::Transparent);
 	}
-
-
 
 	data_box_ = new DataBox(this->getPosition());
 	data_box_->AddData("Speed", speed_);
@@ -124,6 +123,7 @@ void Vehicle::DeleteAllVehicles() {
 		to_be_deleted_++;
 	}
 	VehicleCount = 0;
+	VehiclesToDeploy = 0;
 	ClearVehicles();
 }
 
@@ -143,9 +143,9 @@ void Vehicle::ClearVehicles() {
 			delete temp;
 
 			to_be_deleted_--;
-			active_vehicles_count_ = ActiveVehicles.size();
+			ActiveVehiclesCount = ActiveVehicles.size();
 			if (Settings::DrawActive)
-				cout << "active vehicles : " << active_vehicles_count_ << endl;
+				cout << "active vehicles : " << ActiveVehiclesCount << endl;
 		} else
 		{
 			it++;
@@ -161,14 +161,13 @@ Vehicle *Vehicle::AddVehicle(list<Lane *> *instructionSet,
 	auto *temp = new Vehicle(vehicleType, vehicleNumber, instructionSet, map);
 	ActiveVehicles.push_back(temp);
 
-	temp->vehicle_in_front_ = (temp->source_lane_->GetLastCar()) ? GetVehicle(temp->source_lane_->GetLastCar())
+	temp->vehicle_in_front_ = (temp->source_lane_->GetBackVehicleId()) ? GetVehicle(temp->source_lane_->GetBackVehicleId())
 	                                                             : nullptr;
 
 	//set this car as the last car that entered the lane
-	temp->source_lane_->SetLastCar(vehicleNumber);
-	temp->source_lane_->AddVehicleCount();
+	temp->source_lane_->PushVehicleInLane(vehicleNumber);
+	ActiveVehiclesCount++;
 	VehicleCount++;
-	active_vehicles_count_++;
 
 	if (Settings::DrawAdded)
 		cout << "car " << vehicleNumber << " added to lane " << temp->source_lane_->GetLaneNumber() << endl;
@@ -287,7 +286,7 @@ void Vehicle::TransferVehicle(Vehicle *vehicle, Lane *toLane, Lane *fromLane) {
 			cout << "vehicle is not in the given lane" << endl;
 			return;
 		}
-		fromLane->RemoveVehicleCount();
+		fromLane->PopVehicleFromLane();
 	}
 
 	vehicle->source_lane_ = toLane;
@@ -295,10 +294,9 @@ void Vehicle::TransferVehicle(Vehicle *vehicle, Lane *toLane, Lane *fromLane) {
 	vehicle->angular_vel_ = 0;
 	vehicle->setPosition(vehicle->source_lane_->GetStartPosition());
 	vehicle->curr_intersection_ = vehicle->curr_map_->GetIntersection(vehicle->source_lane_->GetIntersectionNumber());
-	vehicle->vehicle_in_front_ = (vehicle->source_lane_->GetLastCar()) ? GetVehicle(vehicle->source_lane_->GetLastCar())
+	vehicle->vehicle_in_front_ = (vehicle->source_lane_->GetBackVehicleId()) ? GetVehicle(vehicle->source_lane_->GetBackVehicleId())
 	                                                                   : nullptr;
-	vehicle->source_lane_->SetLastCar(vehicle->vehicle_number_);
-	vehicle->source_lane_->AddVehicleCount();
+	vehicle->source_lane_->PushVehicleInLane(vehicle->vehicle_number_);
 
 	vehicle->instruction_set_->pop_front();
 	// if there are instructions left, transfer them to vehicle
@@ -321,14 +319,14 @@ State Vehicle::drive() {
 	{
 		float distanceFromNextCar = Settings::CalculateDistance(this->getPosition(), vehicle_in_front_->getPosition())
 			- this->getSize().y/2 - vehicle_in_front_->getSize().y/2;
-		float brakingDistance = -(speed_ * speed_) / (2 * min_acc_);
+		float brakingDistance = -(speed_ * speed_) / (2 * deceleration);
 
 		if (distanceFromNextCar < brakingDistance + Settings::MinDistanceFromNextCar ||
 			distanceFromNextCar < Settings::MinDistanceFromNextCar)
 		{
 			turning_ = false;
 			state_ = STOP;
-			acc_ = min_acc_;
+			acc_ = deceleration;
 			return STOP;
 		}
 	}
@@ -364,13 +362,13 @@ State Vehicle::drive() {
 		{
 			prev_intersection_ = curr_map_->GetIntersection(source_lane_->GetIntersectionNumber());
 			prev_intersection_->AddVehicleCount();
-			source_lane_->RemoveVehicleCount();
+			source_lane_->PopVehicleFromLane();
 			source_lane_ = nullptr;
 		}
 
 		state_ = TURN;
 		//set rotation
-		acc_ = (Settings::AccWhileTurning) ? max_acc_ / 2.f : 0;
+		acc_ = (Settings::AccWhileTurning) ? acceleration / 2.f : 0;
 		return TURN;
 	}
 
@@ -380,13 +378,13 @@ State Vehicle::drive() {
 	{
 		float distanceFromStop = Settings::CalculateDistance(this->getPosition(), source_lane_->GetEndPosition())
 			- this->getSize().y/2;
-		float brakingDistance = -(speed_ * speed_) / (2 * min_acc_);
+		float brakingDistance = -(speed_ * speed_) / (2 * deceleration);
 
 		if (distanceFromStop < brakingDistance + Settings::MinDistanceFromStop)
 		{
 			turning_ = false;
 			state_ = STOP;
-			acc_ = min_acc_;
+			acc_ = deceleration;
 			return STOP;
 		}
 	}
@@ -402,7 +400,7 @@ State Vehicle::drive() {
 		TransferVehicle(this, dest_lane_, source_lane_);
 
 		turning_ = false;
-		acc_ = max_acc_;
+		acc_ = acceleration;
 		state_ = DRIVE;
 		return DRIVE;
 	}
@@ -410,7 +408,7 @@ State Vehicle::drive() {
 	// check if car is no longer in intersection
 	if (dest_lane_ == nullptr && !source_lane_->getGlobalBounds().contains(this->getPosition()))
 	{
-		source_lane_->RemoveVehicleCount();
+		source_lane_->PopVehicleFromLane();
 
 		turning_ = false;
 		++to_be_deleted_;
@@ -420,7 +418,7 @@ State Vehicle::drive() {
 
 	// default = just drive
 	turning_ = false;
-	acc_ = max_acc_;
+	acc_ = acceleration;
 	state_ = DRIVE;
 	return DRIVE;
 }

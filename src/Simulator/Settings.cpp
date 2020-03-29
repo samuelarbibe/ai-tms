@@ -7,7 +7,7 @@
 const Vector2f Settings::BaseVec = Vector2f(0.f, -1.f);
 
 bool Settings::DrawFps = false;
-bool Settings::DrawActive = false;
+bool Settings::DrawActive = true;
 bool Settings::DrawDelete = false;
 bool Settings::DrawAdded = false;
 
@@ -22,29 +22,31 @@ bool Settings::DrawClickPoint = false;
 bool Settings::DrawMinimap = false;
 bool Settings::DrawSimTable = false;
 bool Settings::FollowSelectedVehicle = true;
+bool Settings::LaneDensityColorRamping = false;
 
 int Settings::Interval = 120; // max is 1000
 int Settings::Fps = 60;
 int Settings::AntiAliasing = 0;
 bool Settings::MultiColor = false;
 bool Settings::MultiTypeVehicle = true;
-float Settings::MinDistanceFromNextCar = 76;
+float Settings::MinDistanceFromNextCar = 55;
 float Settings::MinDistanceFromStop = 50;
 bool Settings::AccWhileTurning = true;
 
 float Settings::MinLaneWidth = 83;
-float Settings::LaneWidth = 100; // lane width in px.
+float Settings::LaneWidth = 115; // lane width in px.
 float Settings::MaxLaneWidth = 140;
 float Settings::DashLineLength = 100;
 float Settings::DashLineSpace = 80;
 float Settings::Scale = 3; // 1 px / [scale] = 1 cm
 float Settings::Speed = 1; // running speed
 bool Settings::DoubleSeparatorLine = true;
+float Settings::VehicleSpawnDelay = 0.9f;
 
-float Settings::DefaultLaneLength = 1000; // lane length in px
+float Settings::DefaultLaneLength = 1500; // lane length in px
 
-int Settings::DefaultMapWidth = 1500;
-int Settings::DefaultMapHeight = 1500;
+int Settings::DefaultMapWidth = 5000;
+int Settings::DefaultMapHeight = 5000;
 
 int Settings::GridColumns = 50;
 int Settings::GridRows = 50;
@@ -54,7 +56,7 @@ int Settings::SFMLRatio = 1;
 bool Settings::MapOverflow = false;
 
 // camera setting
-float Settings::Zoom = 0.5f;
+float Settings::Zoom = 0.1f;
 
 // minimap Settings
 float Settings::MinimapSize = 120.f;
@@ -110,14 +112,14 @@ float Settings::MaxSpeeds[4]
 		ConvertVelocity(KMH, PXS, 50.f),
 		ConvertVelocity(KMH, PXS, 50.f)
 	};
-float Settings::MaxAcceleration[4]
+float Settings::Acceleration[4]
 	{
 		ConvertVelocity(MSS, PXS, 2.f),
 		ConvertVelocity(MSS, PXS, 2.f),
 		ConvertVelocity(MSS, PXS, 2.f),
 		ConvertVelocity(MSS, PXS, 2.f)
 	};
-float Settings::MinAcceleration[4]
+float Settings::Deceleration[4]
 	{
 		ConvertVelocity(MSS, PXS, -4.5f),
 		ConvertVelocity(MSS, PXS, -4.5f),
@@ -186,6 +188,33 @@ tm *Settings::ConvertStringToTime(const string str) {
 	return time;
 }
 
-float Settings::OrangeDelay = 2.f;
-float Settings::DefaultCycleTime = 5.f;
+void Settings::GetHeatMapColor(float value, float *red, float *green, float *blue)
+{
+	const int NUM_COLORS = 4;
+	static float color[NUM_COLORS][3] = { {0,0,255}, {0,255,0}, {255,255,0}, {255,0,0} };
+	// A static array of 4 colors:  (blue,   green,  yellow,  red) using {r,g,b} for each.
+
+	int idx1;        // |-- Our desired color will be between these two indexes in "color".
+	int idx2;        // |
+	float fractBetween = 0;  // Fraction between "idx1" and "idx2" where our value is.
+
+	if(value <= 0)      {  idx1 = idx2 = 0;            }    // accounts for an input <=0
+	else if(value >= 1)  {  idx1 = idx2 = NUM_COLORS-1; }    // accounts for an input >=0
+	else
+	{
+		value = value * (NUM_COLORS-1);        // Will multiply value by 3.
+		idx1  = floor(value);                  // Our desired color will be after this index.
+		idx2  = idx1+1;                        // ... and before this index (inclusive).
+		fractBetween = value - float(idx1);    // Distance between the two indexes (0-1).
+	}
+
+	*red   = (color[idx2][0] - color[idx1][0])*fractBetween + color[idx1][0];
+	*green = (color[idx2][1] - color[idx1][1])*fractBetween + color[idx1][1];
+	*blue  = (color[idx2][2] - color[idx1][2])*fractBetween + color[idx1][2];
+}
+
+float Settings::OrangeDelay = 3.f;
+float Settings::DefaultCycleTime = 20.f;
+float Settings::MaxCycleTime = 60.f;
+float Settings::MinCycleTime = 5.f;
 float Settings::PhaseDelay = 1.5f;

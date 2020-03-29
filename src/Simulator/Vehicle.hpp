@@ -81,14 +81,15 @@ class Vehicle : RectangleShape
 	static bool LoadVehicleTextures(VehicleType *vehicleType);
 
 	static list<Vehicle *> ActiveVehicles;
-	static int GetActiveVehicleCount() { return active_vehicles_count_; }
+	static int GetActiveVehicleCount() { return ActiveVehiclesCount; }
 	static int VehicleCount;
 	static Vehicle *SelectedVehicle;
+	static int VehiclesToDeploy;
 
   private:
 
 	static int to_be_deleted_;
-	static int active_vehicles_count_;
+	static int ActiveVehiclesCount;
 
 	static VehicleType SmallCar;
 	static VehicleType MediumCar;
@@ -105,8 +106,8 @@ class Vehicle : RectangleShape
 	float speed_;
 	float acc_;
 	float max_speed_;
-	float max_acc_;
-	float min_acc_;
+	float acceleration;
+	float deceleration;
 	float angular_vel_;
 	bool turning_;
 	bool active_;

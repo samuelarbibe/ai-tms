@@ -76,7 +76,6 @@ class Engine : public QSFMLCanvas
 	void RunDemo(int simulationNumber);
 
 	Map *map;
-
   signals:
 	void SimulationFinished();
 
@@ -91,6 +90,7 @@ class Engine : public QSFMLCanvas
 	void render_minimap();
 	void update_shown_area();
 	void update(float elapsedTime);
+	void add_vehicles_with_delay(float elapsedTime);
 	void check_selection(Vector2f position);
 
 	Clock clock_;

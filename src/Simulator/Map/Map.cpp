@@ -617,6 +617,25 @@ int Map::GetLaneCount() {
 	return sum;
 }
 
+/// return a vector of all the existing lanes
+vector<Lane *> Map::GetLanes()
+{
+	vector<Lane*> lanes = vector<Lane*>();
+
+	for(Intersection * inter : intersections_)
+	{
+		for(Road * road : *inter->GetRoads())
+		{
+			for(Lane * lane : *road->GetLanes())
+			{
+				lanes.push_back(lane);
+			}
+		}
+	}
+
+	return lanes;
+}
+
 /// delete a given lane in this map
 bool Map::DeleteLane(int laneNumber) {
 

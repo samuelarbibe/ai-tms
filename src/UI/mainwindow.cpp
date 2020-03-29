@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->PhaseDelaySlider->setSliderPosition(Settings::PhaseDelay);
 	ui->OrangeLightDelayLineEdit->setText(QString::number(Settings::OrangeDelay));
 	ui->OrangeLightDelaySlider->setSliderPosition(Settings::OrangeDelay);
+	ui->PhaseTimeSlider->setMaximum(int(Settings::MaxCycleTime));
+	ui->PhaseTimeSlider->setMinimum(int(Settings::MinCycleTime));
 
 	model_ = new SimModel(this);
 	selected_row_ = 99999;
@@ -753,4 +755,9 @@ void MainWindow::on_TimedSimCheckBox_stateChanged(int arg1)
     else{
         ui->SimRunLabel->setText(tr("Vehicles"));
     }
+}
+
+void MainWindow::on_DensityColorCheckBox_stateChanged(int arg1)
+{
+    Settings::LaneDensityColorRamping = arg1;
 }

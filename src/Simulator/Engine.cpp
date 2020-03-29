@@ -55,19 +55,32 @@ void Engine::on_init() {
 	map->AddLane(0, 4, true);
 	map->AddLane(0, 4, true);
 
+	map->AddRoute(1, 16);
+	map->AddRoute(1, 12);
+	map->AddRoute(2, 7);
+	map->AddRoute(5, 4);
+	map->AddRoute(5, 16);
+	map->AddRoute(6, 11);
+	map->AddRoute(9, 8);
+	map->AddRoute(9, 4);
+	map->AddRoute(10, 15);
+	map->AddRoute(13, 12);
+	map->AddRoute(13, 8);
+	map->AddRoute(14, 3);
+
 	map->AddPhase(0, 20);
 	map->AddPhase(0, 20);
 	map->AddPhase(0, 20);
 	map->AddPhase(0, 20);
 
 	map->AssignLaneToPhase(1, 1);
-	map->AssignLaneToPhase(1, 1);
-	map->AssignLaneToPhase(1, 1);
-	map->AssignLaneToPhase(1, 1);
-	map->AssignLaneToPhase(1, 1);
-	map->AssignLaneToPhase(1, 1);
-	map->AssignLaneToPhase(2, 3);
-	map->AssignLaneToPhase(2, 3);
+	map->AssignLaneToPhase(1, 9);
+	map->AssignLaneToPhase(2, 2);
+	map->AssignLaneToPhase(2, 10);
+	map->AssignLaneToPhase(3, 5);
+	map->AssignLaneToPhase(3, 13);
+	map->AssignLaneToPhase(4, 6);
+	map->AssignLaneToPhase(4, 14);
 
 }
 
@@ -127,10 +140,7 @@ void Engine::RunSimulation(int vehicleCount, float runningTime) {
 		else
 			cout << "Sending " << vehicleCount << " vehicles..." << endl;
 
-		for (int i = 0; i < vehicleCount; i++)
-		{
-			AddVehicleRandomly();
-		}
+		Vehicle::VehiclesToDeploy = vehicleCount;
 
 		// start a new simulation
 		Simulation *s = new Simulation(0, vehicleCount, runningTime);
@@ -167,10 +177,7 @@ void Engine::RunDemo(int simulationNumber) {
 
 			int vehicleCount = demo_simulation_->GetVehicleCount();
 
-			for (int i = 0; i < vehicleCount; i++)
-			{
-				AddVehicleRandomly();
-			}
+			Vehicle::VehiclesToDeploy = vehicleCount;
 
 			demo_simulation_->Run(true);
 
@@ -714,6 +721,12 @@ void Engine::ResetMap() {
 /// stop the current simulation, and clear all vehicles
 void Engine::ClearMap() {
 
+	// clear all lanes;
+	for(Lane * l : map->GetLanes())
+	{
+		l->ClearLane();
+	}
+
 	if (Simulation::DemoRunning)
 	{
 		cout << "Stopping demo of simulation " << demo_simulation_->GetSimulationNumber() << endl;
@@ -775,6 +788,12 @@ void Engine::update(float elapsedTime) {
 
 	map->Update(elapsedTime);
 
+	// deploy vehicles if needed
+	if(Vehicle::VehiclesToDeploy > 0)
+	{
+		add_vehicles_with_delay(elapsedTime);
+	}
+
 	for (Vehicle *v : Vehicle::ActiveVehicles)
 	{
 		v->Update(elapsedTime);
@@ -807,6 +826,21 @@ void Engine::update(float elapsedTime) {
 				SimulationFinished();
 			}
 		}
+	}
+}
+
+/// deploy vehicles in a time controlled manner
+void Engine::add_vehicles_with_delay(float elapsedTime)
+{
+	static float totalElapsedTime = 0;
+
+	totalElapsedTime += elapsedTime;
+
+	if(totalElapsedTime > (Settings::VehicleSpawnDelay / Settings::Speed))
+	{
+		AddVehicleRandomly();
+		totalElapsedTime -= Settings::VehicleSpawnDelay / Settings::Speed;
+		Vehicle::VehiclesToDeploy --;
 	}
 }
 

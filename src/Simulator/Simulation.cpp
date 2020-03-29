@@ -42,7 +42,7 @@ bool Simulation::Update(float elapsedTime) {
 
 		current_vehicle_count_ = Vehicle::GetActiveVehicleCount();
 
-		if ((is_timing_sim_ && elapsed_time_ >= running_time_) || (!is_timing_sim_ && current_vehicle_count_ == 0))
+		if ((is_timing_sim_ && elapsed_time_ >= running_time_) || (!is_timing_sim_ && current_vehicle_count_ == 0 && Vehicle::VehiclesToDeploy == 0))
 		{
 			running_ = false;
 			SimRunning = false;
@@ -87,6 +87,7 @@ bool Simulation::Update(float elapsedTime) {
 			}
 
 			// send a signal that simulation just finished.
+			Vehicle::VehiclesToDeploy = 0;
 			return true;
 		}
 	}

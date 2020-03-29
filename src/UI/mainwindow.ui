@@ -1210,6 +1210,25 @@
                    </widget>
                   </item>
                   <item>
+                   <widget class="QCheckBox" name="DensityColorCheckBox">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Show an illustration of blocked lanes</string>
+                    </property>
+                    <property name="text">
+                     <string>Density Color</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                    <property name="checked">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <spacer name="horizontalSpacer_27">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>

@@ -234,14 +234,14 @@ void Road::Update(float elapsedTime) {
 	{
 		current_vehicle_count_ = 0;
 		total_vehicle_count_ = 0;
-		for (Lane *l : lanes_)
-		{
-			l->Update(elapsedTime);
-			current_vehicle_count_ += l->GetCurrentVehicleCount();
-			total_vehicle_count_ += l->GetTotalVehicleCount();
-		}
-
 		data_box_->SetData("Count", current_vehicle_count_);
+	}
+
+	for (Lane *l : lanes_)
+	{
+		l->Update(elapsedTime);
+		current_vehicle_count_ += l->GetCurrentVehicleCount();
+		total_vehicle_count_ += l->GetTotalVehicleCount();
 	}
 }
 
@@ -403,7 +403,7 @@ void Road::BuildLaneLines() {
 					temp.push_back(line);
 				}
 
-				if(Settings::CalculateDistance(tempPos, endPos) > Settings::CalculateDistance(Vector2f(0, 0), dashVec)/2.f)
+				if(Settings::CalculateDistance(tempPos, endPos) > Settings::CalculateDistance(Vector2f(0, 0), dashVec))
 				{
 					VertexArray line = VertexArray(Lines, 2);
 

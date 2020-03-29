@@ -59,6 +59,7 @@ class Map
 	int GetLaneCount();
 	vector<Route *> *GetRoutes() { return &routes_; }
 	vector<Phase *> *GetPhases() { return &phases_; }
+	vector<Lane  *> GetLanes();
 	Intersection *GetIntersection(int intersectionNumber);
 	vector<Intersection *>  GetIntersectionByLaneNumber(int laneNumber);
 	vector<Intersection *> *GetIntersections() { return &(intersections_); };

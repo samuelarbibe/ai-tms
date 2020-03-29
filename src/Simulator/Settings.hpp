@@ -51,6 +51,7 @@ class Settings
 	static bool DrawMinimap;
 	static bool DrawSimTable;
 	static bool FollowSelectedVehicle;
+	static bool LaneDensityColorRamping;
 
 	static int Interval;
 	static int Fps;
@@ -69,6 +70,7 @@ class Settings
 	static float Scale;
 	static float Speed;
 	static bool  DoubleSeparatorLine;
+	static float VehicleSpawnDelay;
 
 	static float DefaultLaneLength;
 	static int GridColumns;
@@ -107,17 +109,21 @@ class Settings
 	// 2 - Motorcycle
 	static float MaxSpeeds[4];
 	// same for accelerations
-	static float MaxAcceleration[4];
+	static float Acceleration[4];
 	// same for braking
-	static float MinAcceleration[4];
+	static float Deceleration[4];
 
 	static float CalculateDistance(Vector2f a, Vector2f b);
 	static float CalculateAngle(float a, float b);
 	static string ConvertTimeToString(tm * time);
 	static tm * ConvertStringToTime(const string str);
 
+	static void GetHeatMapColor(float value, float *red, float *green, float *blue);
+
 	static float OrangeDelay;
 	static float DefaultCycleTime;
+	static float MaxCycleTime;
+	static float MinCycleTime;
 	static float PhaseDelay;
 };
 

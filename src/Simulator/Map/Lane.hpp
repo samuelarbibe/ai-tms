@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <list>
 #include <math.h>
 
 #include <SFML/Graphics.hpp>
@@ -42,30 +43,55 @@ class Lane : public RectangleShape
 	void Draw(RenderWindow *window);
 
 	// get
-	int   GetLaneNumber() { return lane_number_; };
-	int   GetIntersectionNumber() { return intersection_number_; };
-	int   GetCurrentVehicleCount() { return current_vehicle_count_; };
-	int   GetTotalVehicleCount() { return total_vehicle_count_; };
-	int   GetLastCar() { return last_entered_car_number_; };
-	int   GetRoadNumber() { return road_number_; };
-	int   GetPhaseNumber() { return phase_number_; };
-	bool  GetIsBlocked() { return is_blocked_; };
-	bool  GetIsInRoadDirection() { return is_in_road_direction_; };
+	int GetLaneNumber() { return lane_number_; };
+	int GetIntersectionNumber() { return intersection_number_; };
+	int GetTotalVehicleCount() { return total_vehicle_count_; };
+	int GetRoadNumber() { return road_number_; };
+	int GetPhaseNumber() { return phase_number_; };
+	bool GetIsBlocked() { return is_blocked_; };
+	bool GetIsInRoadDirection() { return is_in_road_direction_; };
 	float GetDirection() { return direction_; };
-	Vector2f GetStartPosition() { return start_pos_; };
-	Vector2f GetEndPosition() { return end_pos_; };
+	int GetFrontVehicleId() {
+		if (!vehicles_in_lane_.empty())
+			return vehicles_in_lane_.front();
+		return 0;
+	}
+	int GetBackVehicleId() {
+		if (!vehicles_in_lane_.empty())
+			return vehicles_in_lane_.back();
+		return 0;
+	}
+	int GetCurrentVehicleCount() { return vehicles_in_lane_.size(); }
 
+	Vector2f GetStartPosition() { return start_pos_; };
+
+	Vector2f GetEndPosition() { return end_pos_; };
 	// set
 	void Select();
 	void Unselect();
-	void AddVehicleCount() {
-		current_vehicle_count_++;
+	void PushVehicleInLane(int vehicleId) {
+		vehicles_in_lane_.push_back(vehicleId);
 		total_vehicle_count_++;
-	};
-	void RemoveVehicleCount() { current_vehicle_count_--; };
-	void SetIsBlocked(bool blocked) { is_blocked_ = blocked; };
-	void SetLastCar(int lastCar) { last_entered_car_number_ = lastCar; };
+		density_ = vehicles_in_lane_.size() / Settings::ConvertSize(PX, M, length_);
+		if (Settings::LaneDensityColorRamping)
+			ColorRamp();
+	}
+	void PopVehicleFromLane() {
+		vehicles_in_lane_.pop_front();
+		density_ = vehicles_in_lane_.size() / Settings::ConvertSize(PX, M, length_);
+		if (Settings::LaneDensityColorRamping)
+			ColorRamp();
+	}
+	void SetIsBlocked(bool blocked) { is_blocked_ = blocked; }
 	void SetPhaseNumber(int phaseNumber) { phase_number_ = phaseNumber; }
+	void ColorRamp();
+	void ClearLane()
+	{
+		total_vehicle_count_ = 0;
+		density_ = 0;
+		Unselect();
+		vehicles_in_lane_.clear();
+	}
 
 	static int LaneCount;
 
@@ -76,10 +102,12 @@ class Lane : public RectangleShape
 	int intersection_number_;
 	int road_number_;
 	int lane_number_;
-	int current_vehicle_count_;
 	int total_vehicle_count_;
-	int last_entered_car_number_;
 	int phase_number_;
+	bool selected_;
+	float density_;
+
+	list<int> vehicles_in_lane_;
 
 	Vector2f start_pos_;
 	Vector2f end_pos_;

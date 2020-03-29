@@ -132,6 +132,8 @@ class MainWindow : public QMainWindow
 
     void on_TimedSimCheckBox_stateChanged(int arg1);
 
+    void on_DensityColorCheckBox_stateChanged(int arg1);
+
 private:
 
 	Ui::MainWindow *ui;
