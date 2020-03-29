@@ -70,7 +70,7 @@ class Settings
 	static float Scale;
 	static float Speed;
 	static bool  DoubleSeparatorLine;
-	static float VehicleSpawnDelay;
+	static float VehicleSpawnRate;
 
 	static float DefaultLaneLength;
 	static int GridColumns;

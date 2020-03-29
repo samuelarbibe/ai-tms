@@ -134,6 +134,10 @@ class MainWindow : public QMainWindow
 
     void on_DensityColorCheckBox_stateChanged(int arg1);
 
+    void on_VehicleSpawnRateSlider_sliderMoved(int position);
+
+    void on_VehicleSpawnRateTextBox_editingFinished();
+
 private:
 
 	Ui::MainWindow *ui;

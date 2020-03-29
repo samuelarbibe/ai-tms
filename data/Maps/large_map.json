@@ -552,19 +552,19 @@
     ],
     "phases": [
         {
-            "cycle_time": 5,
+            "cycle_time": 20,
             "id": 1
         },
         {
-            "cycle_time": 5,
+            "cycle_time": 20,
             "id": 2
         },
         {
-            "cycle_time": 5,
+            "cycle_time": 20,
             "id": 3
         },
         {
-            "cycle_time": 5,
+            "cycle_time": 20,
             "id": 4
         }
     ],

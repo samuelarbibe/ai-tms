@@ -836,10 +836,10 @@ void Engine::add_vehicles_with_delay(float elapsedTime)
 
 	totalElapsedTime += elapsedTime;
 
-	if(totalElapsedTime > (Settings::VehicleSpawnDelay / Settings::Speed))
+	if(totalElapsedTime > (Settings::VehicleSpawnRate / Settings::Speed))
 	{
 		AddVehicleRandomly();
-		totalElapsedTime -= Settings::VehicleSpawnDelay / Settings::Speed;
+		totalElapsedTime -= Settings::VehicleSpawnRate / Settings::Speed;
 		Vehicle::VehiclesToDeploy --;
 	}
 }

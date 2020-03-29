@@ -18,6 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->LaneWidthSlider->setMinimum(int(Settings::MinLaneWidth));
 	ui->LaneWidthSlider->setMaximum(int(Settings::MaxLaneWidth));
 	ui->LaneWidthSlider->setSliderPosition(int(Settings::LaneWidth));
+    ui->VehicleSpawnRateSlider->setMinimum(0);
+    ui->VehicleSpawnRateSlider->setMaximum(2000);
+    ui->VehicleSpawnRateTextBox->setText(QString::number(Settings::VehicleSpawnRate * 1000.f));
+    ui->VehicleSpawnRateSlider->setSliderPosition(int(Settings::VehicleSpawnRate * 1000.f));
 	ui->ZoomSlider->setSliderPosition(int(Settings::Zoom * 99));
 	ui->LaneWidthValueEdit->setText(QString::number(Settings::GetLaneWidthAs(currentDistanceUnit)));
 	ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::SMALL_CAR, currentUnit)));
@@ -760,4 +764,17 @@ void MainWindow::on_TimedSimCheckBox_stateChanged(int arg1)
 void MainWindow::on_DensityColorCheckBox_stateChanged(int arg1)
 {
     Settings::LaneDensityColorRamping = arg1;
+}
+
+void MainWindow::on_VehicleSpawnRateSlider_sliderMoved(int position)
+{
+    ui->VehicleSpawnRateTextBox->setText(QString::number(position));
+    Settings::VehicleSpawnRate = position/1000.f;
+}
+
+void MainWindow::on_VehicleSpawnRateTextBox_editingFinished()
+{
+    float value = ui->VehicleSpawnRateTextBox->text().toFloat();
+    ui->VehicleSpawnRateSlider->setValue(value);
+    Settings::VehicleSpawnRate = value/1000.f;
 }

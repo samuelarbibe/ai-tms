@@ -123,7 +123,6 @@ void Lane::Update(float elapsedTime) {
 	{
 		this->setFillColor(LaneColor);
 	}
-
 }
 
 /// create a color visualisation of lane density
@@ -132,7 +131,7 @@ void Lane::ColorRamp() {
 	// normalizing the lane density.
 	// density is vehicle-per-meter
 
-	float maxDensity = 0.2f;
+	float maxDensity = 0.17f;
 
 	float value = (density_ / maxDensity);
 	float r, g, b;

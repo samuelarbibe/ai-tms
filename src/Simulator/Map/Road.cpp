@@ -175,17 +175,24 @@ void Road::ReAssignLanePositions() {
 		if (tempLaneDirection == direction_)
 		{
 			// send calculated starting point
-			*lanes_[i] = Lane(tempLaneNumber, road_number_, intersection_number_[1],
-			                  firstLanePoint + z.transformPoint(laneDifference), length_, direction_, true);
+			*lanes_[i] = Lane(tempLaneNumber,
+			                  road_number_,
+			                  intersection_number_[1],
+			                  firstLanePoint + z.transformPoint(laneDifference),
+			                  Settings::CalculateDistance(start_pos_, end_pos_),
+			                  direction_, true);
 		} else
 		{
 			// send starting point + length vector
 			y.rotate(direction_);
 			lengthVec = y.transformPoint(Vector2f(0.f, -1.f)) * length_;
 
-			*lanes_[i] = Lane(tempLaneNumber, road_number_, intersection_number_[0],
+			*lanes_[i] = Lane(tempLaneNumber,
+			                  road_number_,
+			                  intersection_number_[0],
 			                  firstLanePoint + z.transformPoint(laneDifference) + lengthVec,
-			                  length_, (direction_ + 180.f), false);
+			                  Settings::CalculateDistance(start_pos_, end_pos_),
+			                  (direction_ + 180.f), false);
 		}
 	}
 
@@ -274,7 +281,7 @@ bool Road::DeleteLane(int laneNumber) {
 /// create all the lines rendered on the road
 void Road::BuildLaneLines() {
 
-	if(number_of_lanes_ > 0)
+	if (number_of_lanes_ > 0)
 	{
 		// clear prev vector
 		lane_lines_.clear();
@@ -328,7 +335,7 @@ void Road::BuildLaneLines() {
 		Vector2f lengthVec = h.transformPoint(Settings::BaseVec);
 		Vector2f laneWidthVec = v.transformPoint(Settings::BaseVec);
 
-		Vector2f upperLeftCorner = start_pos_ - laneWidthVec * float(number_of_lanes_)/2.f;
+		Vector2f upperLeftCorner = start_pos_ - laneWidthVec * float(number_of_lanes_) / 2.f;
 
 		Vector2f startPos, endPos;
 		LaneLine temp;
@@ -340,7 +347,7 @@ void Road::BuildLaneLines() {
 			endPos = startPos + lengthVec;
 
 			// border lines
-			if(i == 0 || i == lineCount - 1)
+			if (i == 0 || i == lineCount - 1)
 			{
 				VertexArray line = VertexArray(Lines, 2);
 
@@ -349,10 +356,10 @@ void Road::BuildLaneLines() {
 
 				temp.push_back(line);
 			}
-			// separator line
-			else if(i == directionSwitchIndex)
+				// separator line
+			else if (i == directionSwitchIndex)
 			{
-				if(Settings::DoubleSeparatorLine)
+				if (Settings::DoubleSeparatorLine)
 				{
 					VertexArray line1 = VertexArray(Lines, 2);
 
@@ -371,8 +378,7 @@ void Road::BuildLaneLines() {
 					line2[1].color = Color::Yellow;
 
 					temp.push_back(line2);
-				}
-				else
+				} else
 				{
 					VertexArray line = VertexArray(Lines, 2);
 
@@ -384,7 +390,7 @@ void Road::BuildLaneLines() {
 					temp.push_back(line);
 				}
 			}
-			// dashed lines
+				// dashed lines
 			else
 			{
 				Vector2f tempPos = startPos;
@@ -403,7 +409,7 @@ void Road::BuildLaneLines() {
 					temp.push_back(line);
 				}
 
-				if(Settings::CalculateDistance(tempPos, endPos) > Settings::CalculateDistance(Vector2f(0, 0), dashVec))
+				if (Settings::CalculateDistance(tempPos, endPos) > Settings::CalculateDistance(Vector2f(0, 0), dashVec))
 				{
 					VertexArray line = VertexArray(Lines, 2);
 

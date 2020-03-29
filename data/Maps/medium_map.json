@@ -5,40 +5,40 @@
             "phase_number": 1
         },
         {
-            "lane_number": 1,
+            "lane_number": 9,
             "phase_number": 1
         },
         {
-            "lane_number": 1,
-            "phase_number": 1
-        },
-        {
-            "lane_number": 1,
-            "phase_number": 1
-        },
-        {
-            "lane_number": 1,
-            "phase_number": 1
-        },
-        {
-            "lane_number": 1,
-            "phase_number": 1
-        },
-        {
-            "lane_number": 3,
+            "lane_number": 2,
             "phase_number": 2
         },
         {
-            "lane_number": 3,
+            "lane_number": 10,
             "phase_number": 2
+        },
+        {
+            "lane_number": 5,
+            "phase_number": 3
+        },
+        {
+            "lane_number": 13,
+            "phase_number": 3
+        },
+        {
+            "lane_number": 6,
+            "phase_number": 4
+        },
+        {
+            "lane_number": 14,
+            "phase_number": 4
         }
     ],
     "intersections": [
         {
             "id": 1,
             "position": [
-                750.0,
-                750.0
+                4500.0,
+                4500.0
             ]
         }
     ],
@@ -166,12 +166,40 @@
     ],
     "routes": [
         {
+            "from": 1,
+            "to": 16
+        },
+        {
+            "from": 1,
+            "to": 12
+        },
+        {
+            "from": 2,
+            "to": 7
+        },
+        {
             "from": 5,
             "to": 4
         },
         {
             "from": 5,
             "to": 16
+        },
+        {
+            "from": 6,
+            "to": 11
+        },
+        {
+            "from": 9,
+            "to": 8
+        },
+        {
+            "from": 9,
+            "to": 4
+        },
+        {
+            "from": 10,
+            "to": 15
         },
         {
             "from": 13,
@@ -184,26 +212,6 @@
         {
             "from": 14,
             "to": 3
-        },
-        {
-            "from": 6,
-            "to": 11
-        },
-        {
-            "from": 1,
-            "to": 16
-        },
-        {
-            "from": 10,
-            "to": 15
-        },
-        {
-            "from": 9,
-            "to": 8
-        },
-        {
-            "from": 2,
-            "to": 7
         }
     ]
 }

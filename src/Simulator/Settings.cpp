@@ -24,8 +24,8 @@ bool Settings::DrawSimTable = false;
 bool Settings::FollowSelectedVehicle = true;
 bool Settings::LaneDensityColorRamping = false;
 
-int Settings::Interval = 120; // max is 1000
-int Settings::Fps = 60;
+int Settings::Interval = 60; // max is 1000
+int Settings::Fps = 30;
 int Settings::AntiAliasing = 0;
 bool Settings::MultiColor = false;
 bool Settings::MultiTypeVehicle = true;
@@ -41,12 +41,12 @@ float Settings::DashLineSpace = 80;
 float Settings::Scale = 3; // 1 px / [scale] = 1 cm
 float Settings::Speed = 1; // running speed
 bool Settings::DoubleSeparatorLine = true;
-float Settings::VehicleSpawnDelay = 0.9f;
+float Settings::VehicleSpawnRate = 0.9f;
 
 float Settings::DefaultLaneLength = 1500; // lane length in px
 
-int Settings::DefaultMapWidth = 5000;
-int Settings::DefaultMapHeight = 5000;
+int Settings::DefaultMapWidth = 9000;
+int Settings::DefaultMapHeight = 9000;
 
 int Settings::GridColumns = 50;
 int Settings::GridRows = 50;

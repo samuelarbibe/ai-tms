@@ -67,8 +67,6 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *>
 	// the previous intersection, or the intersection of the source lane
 	prev_intersection_ = nullptr;
 
-
-
 	angular_vel_ = 0;
 	turning_ = false;
 	vehicle_in_front_ = nullptr;
@@ -129,6 +127,7 @@ void Vehicle::DeleteAllVehicles() {
 
 /// clear the 'to be deleted' vehicles
 void Vehicle::ClearVehicles() {
+
 	auto it = ActiveVehicles.begin();
 
 	// while there are cars to delete;

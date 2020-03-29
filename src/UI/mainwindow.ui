@@ -87,7 +87,7 @@
            </size>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="MapTab">
            <attribute name="title">
@@ -1282,300 +1282,356 @@
            <attribute name="title">
             <string>Vehicles</string>
            </attribute>
-           <layout class="QGridLayout" name="gridLayout_6">
-            <item row="0" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_3">
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_17">
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_17">
-                <item>
-                 <spacer name="horizontalSpacer_14">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="VelocityUnitComboBox">
-                  <property name="whatsThis">
-                   <string>Velocity units</string>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>cm/s</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>km/h</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>m/s</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>mph</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-               </layout>
+               <spacer name="horizontalSpacer_14">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_12">
+               <widget class="QComboBox" name="VelocityUnitComboBox">
+                <property name="whatsThis">
+                 <string>Velocity units</string>
+                </property>
                 <item>
-                 <widget class="QLabel" name="label_11">
-                  <property name="text">
-                   <string>Car Max Speed</string>
-                  </property>
-                 </widget>
+                 <property name="text">
+                  <string>cm/s</string>
+                 </property>
                 </item>
                 <item>
-                 <spacer name="horizontalSpacer_7">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
+                 <property name="text">
+                  <string>km/h</string>
+                 </property>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="CarMaxSpeed">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>50</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="whatsThis">
-                   <string>Adjust max speed for cars</string>
-                  </property>
-                 </widget>
+                 <property name="text">
+                  <string>m/s</string>
+                 </property>
                 </item>
-               </layout>
+                <item>
+                 <property name="text">
+                  <string>mph</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_12">
+              <item>
+               <widget class="QLabel" name="label_11">
+                <property name="text">
+                 <string>Car Max Speed</string>
+                </property>
+               </widget>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_13">
-                <item>
-                 <widget class="QLabel" name="label_12">
-                  <property name="text">
-                   <string>Motorcycle Max Speed</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_10">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="MotorcycleMaxSpeed">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>50</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="whatsThis">
-                   <string>Adjust max speed for motorcycles</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <spacer name="horizontalSpacer_7">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_14">
-                <item>
-                 <widget class="QLabel" name="label_13">
-                  <property name="text">
-                   <string>Truck Max Speed</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_11">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="TruckMaxSpeed">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>50</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="whatsThis">
-                   <string>Adjust max speed for trucks</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <widget class="QLineEdit" name="CarMaxSpeed">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>50</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="whatsThis">
+                 <string>Adjust max speed for cars</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_13">
+              <item>
+               <widget class="QLabel" name="label_12">
+                <property name="text">
+                 <string>Motorcycle Max Speed</string>
+                </property>
+               </widget>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_18">
-                <item>
-                 <widget class="QCheckBox" name="DrawTexturesCheckBox">
-                  <property name="whatsThis">
-                   <string>Draw vehicle textures. If disabled, the textures will be replaced by shapes</string>
-                  </property>
-                  <property name="text">
-                   <string>Draw Textures</string>
-                  </property>
-                  <property name="checked">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="MultiColorCheckBox">
-                  <property name="enabled">
-                   <bool>true</bool>
-                  </property>
-                  <property name="whatsThis">
-                   <string>Draw vehicle textures in multiple colors</string>
-                  </property>
-                  <property name="text">
-                   <string>Multi Color</string>
-                  </property>
-                  <property name="checked">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="FollowSelectedCarButton">
-                  <property name="enabled">
-                   <bool>true</bool>
-                  </property>
-                  <property name="whatsThis">
-                   <string>Bind camera position to a selected car.</string>
-                  </property>
-                  <property name="text">
-                   <string>Follow Selected Car</string>
-                  </property>
-                  <property name="checked">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_15">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
+               <spacer name="horizontalSpacer_10">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_15">
-                <item>
-                 <widget class="QPushButton" name="pushButton_9">
-                  <property name="text">
-                   <string>Load Setup</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_10">
-                  <property name="text">
-                   <string>Save Setup</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_12">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_13">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_12">
-                  <property name="text">
-                   <string>Reset</string>
-                  </property>
-                  <property name="autoDefault">
-                   <bool>false</bool>
-                  </property>
-                  <property name="default">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <widget class="QLineEdit" name="MotorcycleMaxSpeed">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>50</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="whatsThis">
+                 <string>Adjust max speed for motorcycles</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_14">
+              <item>
+               <widget class="QLabel" name="label_13">
+                <property name="text">
+                 <string>Truck Max Speed</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_11">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="TruckMaxSpeed">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>50</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="whatsThis">
+                 <string>Adjust max speed for trucks</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_18">
+              <item>
+               <widget class="QCheckBox" name="DrawTexturesCheckBox">
+                <property name="whatsThis">
+                 <string>Draw vehicle textures. If disabled, the textures will be replaced by shapes</string>
+                </property>
+                <property name="text">
+                 <string>Draw Textures</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="MultiColorCheckBox">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="whatsThis">
+                 <string>Draw vehicle textures in multiple colors</string>
+                </property>
+                <property name="text">
+                 <string>Multi Color</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="FollowSelectedCarButton">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="whatsThis">
+                 <string>Bind camera position to a selected car.</string>
+                </property>
+                <property name="text">
+                 <string>Follow Selected Car</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_15">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <item>
+               <widget class="QLabel" name="label_15">
+                <property name="text">
+                 <string>Vehicle Spawn Rate: </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSlider" name="VehicleSpawnRateSlider">
+                <property name="singleStep">
+                 <number>10</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="VehicleSpawnRateTextBox">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>50</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="whatsThis">
+                 <string>Adjust max speed for cars</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_16">
+                <property name="text">
+                 <string>ms</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_20">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_15">
+              <item>
+               <widget class="QPushButton" name="pushButton_9">
+                <property name="text">
+                 <string>Load Setup</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_10">
+                <property name="text">
+                 <string>Save Setup</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_12">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_13">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_12">
+                <property name="text">
+                 <string>Reset</string>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
