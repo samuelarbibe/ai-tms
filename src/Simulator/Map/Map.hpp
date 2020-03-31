@@ -83,13 +83,20 @@ class Map
 	Lane *CheckSelection(Vector2f position);
 	Lane *SelectedLane;
 
+	// The total count of all the maps created this session
+	static int MapCount;
+
   private:
 
+	// ID of this map
 	int map_number_;
+	// Number of intersection that belong to this
 	int number_of_intersections_;
+	// number of phases that belong to this
 	int number_of_phases;
 	int width_;
 	int height_;
+	// ID of the current active phase
 	int current_phase_index_;
 
 	vector<Route *> routes_;

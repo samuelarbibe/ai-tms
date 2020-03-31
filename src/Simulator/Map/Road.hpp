@@ -61,17 +61,27 @@ public:
     
     Lane * CheckSelection(Vector2f position);
 
+	// The total count of all the roads created this session
     static int RoadCount;
     
 private:
 
-    bool       is_connecting_;
+	// ID of this road
     int        road_number_;
+	// The number of lanes that belong to this road
     int        number_of_lanes_;
+    // ID of intersection / intersections this road connects to
+    // if [1] is empty, this is a non-connecting road
     int        intersection_number_[2];
+    // The connection side of this road to intersection_number_[0] and
+    // intersection_number_[1], respectively
     int        connection_side_[2];
+    // The current count of the active vehicles in this road
     int        current_vehicle_count_;
+    // The count of all the vehicles that passed through this road
     int        total_vehicle_count_;
+	// Is this road connecting
+    bool       is_connecting_;
 
     Vector2f   start_pos_;
     Vector2f   end_pos_;

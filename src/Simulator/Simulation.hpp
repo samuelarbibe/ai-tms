@@ -47,29 +47,42 @@ class Simulation
 	void SetSimulationTime(float time){ elapsed_time_ = time;}
 	void SetFinished(bool fin){ finished_ = fin; running_ = false;}
 
+	// The total count of all the simulations created this session
 	static int SimulationCount;
+	// Is a simulation currently active
 	static bool SimRunning;
+	// Is a demo of a simulation currently active
 	static bool DemoRunning;
-
 
   private:
 
+	// ID of this simulation
 	int simulation_number_;
+	// Vehicles created in this simulation
     int vehicle_count_;
+    // The Vehicles left in this simulation
     int current_vehicle_count_;
+    // Is this simulation finished
     bool finished_;
+    // Is this simulation active and running
     bool running_;
 
     // a simulation can either be a timed simulation, or a vehicle-count simulation
-    // TIMED-SIM : the sim will be ran for a given amount of time, and the result is the amount of cars that passed the simulation.
-    // COUNT-SIM : the sim will send a given amount of cars, and the result is the time it took to run all of these vehicles.
+    // TIMED-SIM : the sim will be ran for a given amount of time,
+    //      and the result is the amount of cars that passed the simulation.
+    // COUNT-SIM : the sim will send a given amount of cars,
+    //      and the result is the time it took to run all of these vehicles.
     bool is_timing_sim_;
-    float ran_vehicles_;
-
+	// In a timed simulation, this is the time the simulation will run for.
+	// In a vehicle count simulation, this is set to 0
+	float  running_time_;
+    // The start time of this simulation
     time_t start_time_;
+    // The end time of this simulation
     time_t end_time_;
+    // Time elapsed since simulation has begun
     float  elapsed_time_;
-    float  running_time_;
+
 };
 
 #endif //SIMULATORSFML_SRC_SIMULATOR_SIMULATION_HPP

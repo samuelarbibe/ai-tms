@@ -28,8 +28,11 @@ public:
     // set
     void SetSelected(bool selected){selected_ = selected;}
 
+    // The total count of all the routes created this session
     static int RouteCount;
+
 private:
+
     void BuildRadiusLine();
 	void BuildLaneLines();
 

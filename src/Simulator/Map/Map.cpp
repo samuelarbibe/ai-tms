@@ -5,10 +5,12 @@
 #include <QStringList>
 #include "Map.hpp"
 
+int Map::MapCount = 0;
+
 Map::Map(int mapNumber, int width, int height) {
 	if (mapNumber == 0)
 	{
-		mapNumber = 1;
+		mapNumber = ++ MapCount;
 	}
 	map_number_ = mapNumber;
 	width_ = width;
@@ -647,7 +649,7 @@ bool Map::DeleteLane(int laneNumber) {
 		// delete all routes that go through this lane
 		RemoveRouteByLaneNumber(laneNumber);
 
-		// delete this road from all phases it belongs to
+		// delete this lane from all phases it belongs to
 		UnassignLaneFromPhase(laneNumber);
 		// delete the given lane
 		// if lane's road is connecting, send other intersection as well to handle deletion

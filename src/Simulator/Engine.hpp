@@ -76,6 +76,7 @@ class Engine : public QSFMLCanvas
 	void RunDemo(int simulationNumber);
 
 	Map *map;
+
   signals:
 	void SimulationFinished();
 
@@ -93,23 +94,25 @@ class Engine : public QSFMLCanvas
 	void add_vehicles_with_delay(float elapsedTime);
 	void check_selection(Vector2f position);
 
-	Clock clock_;
-	Time accumulator_;
-	Time ups_;
-
+	// Snap click points to set grid
 	bool snap_to_grid_;
 	Grid snap_grid_;
 
+	// The simulator camera
 	View view_;
+	// The minimap camera
 	View minimap_;
 
+	// The actual view position
 	Vector2f view_pos_;
+	// The current view position while dragging mouse
 	Vector2f temp_view_pos_;
 
 	RectangleShape minimap_bg_;
 	RectangleShape shown_area_index_;
 	CircleShape click_point_;
 
+	// Number of simulation that have been run this session
 	int number_of_simulations_;
 
 	vector<Simulation *> simulations_;

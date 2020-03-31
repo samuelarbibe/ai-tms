@@ -61,14 +61,21 @@ public:
 
     Lane * CheckSelection(Vector2f position);
 
+    // A static count of how many intersections have been
+    // created overall
     static int IntersectionCount;
     
 private:
 
+	// The current active vehicle count in this intersection
     int current_vehicle_count_;
+	// The total count of vehicles that passed in this intersection
     int total_vehicle_count_;
+    // ID of this intersection
     int intersection_number_;
+    // The number of roads that belong to this intersection
     int number_of_roads_;
+
     int width_;
     int height_;
 

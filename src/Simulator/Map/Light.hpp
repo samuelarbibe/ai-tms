@@ -38,9 +38,12 @@ class Light : public RectangleShape
 	static int LightCount;
 	
   private:
+	// ID of this light
 	int light_number_;
+	// ID of the Phase this light represents
 	int phase_number_;
 
+	// The current state of the light.
 	LightState state_;
 	Road *parent_road_;
 	DataBox *data_box_;

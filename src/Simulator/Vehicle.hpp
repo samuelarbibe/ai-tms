@@ -62,8 +62,6 @@ class Vehicle : RectangleShape
 	Lane *GetTargetLane() { return dest_lane_; }
 	Lane *GetCurrentLane() { return source_lane_; }
 	State GetState() { return state_; }
-	Vector2f GetFrontPosition() { return front_position_; }
-	Vector2f GetRearPosition() { return rear_position_; }
 	Vector2f GetPosition() { return getPosition(); }
 	list<Lane *> *GetInstructionSet() { return instruction_set_; }
 	static VehicleType *GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions);
@@ -88,7 +86,12 @@ class Vehicle : RectangleShape
 
   private:
 
+	State drive();
+	void apply_changes(float elapsedTime);
+
+	// A Count of vehicles due to be deleted
 	static int to_be_deleted_;
+	// The Count of the active running vehicles
 	static int ActiveVehiclesCount;
 
 	static VehicleType SmallCar;
@@ -96,12 +99,12 @@ class Vehicle : RectangleShape
 	static VehicleType LongCar;
 	static VehicleType Truck;
 
+	// ID of this vehicle
 	int vehicle_number_;
 	VehicleType *vehicle_type_;
 
+	// The movement vector of this vehicle
 	Vector2f movement_vec_;
-	Vector2f front_position_;
-	Vector2f rear_position_;
 
 	float speed_;
 	float acc_;
@@ -124,11 +127,7 @@ class Vehicle : RectangleShape
 
 	State state_;
 
-
 	DataBox *data_box_;
-
-	State drive();
-	void apply_changes(float elapsedTime);
 };
 
 #endif /* Vehicle_hpp */

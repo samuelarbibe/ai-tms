@@ -93,18 +93,29 @@ class Lane : public RectangleShape
 		vehicles_in_lane_.clear();
 	}
 
+	// The count of the overall Lanes that have been created
 	static int LaneCount;
 
   private:
 
+	// Is this intersection block
 	bool is_blocked_;
+	// Is this lane the same direction of the parent road
 	bool is_in_road_direction_;
+	// ID of the father intersection
 	int intersection_number_;
+	// ID of the father road
 	int road_number_;
+	// ID if this lane
 	int lane_number_;
+	// Total count of vehicles that passed in this lane
 	int total_vehicle_count_;
+	// The ID of the phase this lane belongs to
 	int phase_number_;
+	// Is this lane currently selected
 	bool selected_;
+	// Density of the lane.
+	// Measured by Car-per-Meter of lane
 	float density_;
 
 	list<int> vehicles_in_lane_;
