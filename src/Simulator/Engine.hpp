@@ -23,7 +23,7 @@
 #include "Vehicle.hpp"
 #include "Settings.hpp"
 #include "../UI/Widgets/QsfmlCanvas.hpp"
-#include "../UI/Terminal/VariadicTable.h"
+#include "public/VariadicTable.h"
 #include "Map/Route.hpp"
 #include "Simulation.hpp"
 

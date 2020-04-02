@@ -87,7 +87,7 @@
            </size>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="MapTab">
            <attribute name="title">
@@ -763,6 +763,25 @@
                      </size>
                     </property>
                    </spacer>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ShowSelectedPhaseLanesCheckBox">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Show an illustration of blocked lanes</string>
+                    </property>
+                    <property name="text">
+                     <string>Highlight Phase Lanes</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                    <property name="checked">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
                   </item>
                   <item>
                    <widget class="QPushButton" name="AddPhaseButton">

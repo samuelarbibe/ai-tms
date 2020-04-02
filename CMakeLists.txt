@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8.0 FATAL_ERROR)
 
-set(PROJECT_NAME "SimulatorSFML")
+set(PROJECT_NAME "TMS")
 project(${PROJECT_NAME})
 
 file(COPY ${ALL_REQUIRED_DLL} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
@@ -78,7 +78,7 @@ set(project_ui src/UI/mainwindow.ui)
 qt5_wrap_ui(ui_wrap ${project_ui})
 qt5_wrap_cpp(moc_sources ${project_headers})
 
-add_executable(SimulatorSFML
+add_executable(TMS
         ${project_sources}
         ${project_headers}
         ${ui_wrap}

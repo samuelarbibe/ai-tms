@@ -138,6 +138,9 @@ class MainWindow : public QMainWindow
 
     void on_VehicleSpawnRateTextBox_editingFinished();
 
+
+    void on_ShowSelectedPhaseLanesCheckBox_stateChanged(int arg1);
+
 private:
 
 	Ui::MainWindow *ui;

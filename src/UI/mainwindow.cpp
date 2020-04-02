@@ -7,7 +7,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->setupUi(this);
 
 	sf::ContextSettings settings;
-	settings.antialiasingLevel = 8;
 
 	SimulatorEngine = new Engine(ui->SimulatorFrame);
 
@@ -113,6 +112,7 @@ void MainWindow::reloadOptionData() {
 		ui->ToPhaseComboBox->addItem(p);
 		ui->AssignLaneToPhaseComboBox->addItem(p);
 	}
+
 
 }
 
@@ -538,7 +538,7 @@ void MainWindow::resize_sim_table() {
 void MainWindow::on_PhaseNumberComboBox_currentTextChanged(const QString &arg1) {
 	reload_lane_options();
 	int phaseNumber = ui->PhaseNumberComboBox->currentText().toInt();
-	if (phaseNumber != 0)
+	if (phaseNumber != 0 && Settings::ShowSelectedPhaseLanes)
 	{
 		SimulatorEngine->map->SelectLanesByPhase(phaseNumber);
 	}
@@ -777,4 +777,18 @@ void MainWindow::on_VehicleSpawnRateTextBox_editingFinished()
     float value = ui->VehicleSpawnRateTextBox->text().toFloat();
     ui->VehicleSpawnRateSlider->setValue(value);
     Settings::VehicleSpawnRate = value/1000.f;
+}
+
+
+void MainWindow::on_ShowSelectedPhaseLanesCheckBox_stateChanged(int arg1)
+{
+    Settings::ShowSelectedPhaseLanes = arg1;
+    if(arg1)
+    {
+        reloadOptionData();
+    }
+    else
+    {
+        SimulatorEngine->map->UnselectAll();
+    }
 }

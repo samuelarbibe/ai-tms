@@ -52,6 +52,7 @@ class Settings
 	static bool DrawSimTable;
 	static bool FollowSelectedVehicle;
 	static bool LaneDensityColorRamping;
+	static bool ShowSelectedPhaseLanes;
 
 	static int Interval;
 	static int Fps;
@@ -83,6 +84,7 @@ class Settings
 	static bool MapOverflow;
 
 	static float Zoom;
+	static float DragFactor;
 
 	static float MinimapSize;
 	static float MinimapMargin;

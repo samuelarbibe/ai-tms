@@ -23,6 +23,7 @@ bool Settings::DrawMinimap = false;
 bool Settings::DrawSimTable = false;
 bool Settings::FollowSelectedVehicle = true;
 bool Settings::LaneDensityColorRamping = false;
+bool Settings::ShowSelectedPhaseLanes = false;
 
 int Settings::Interval = 60; // max is 1000
 int Settings::Fps = 30;
@@ -57,6 +58,7 @@ bool Settings::MapOverflow = false;
 
 // camera setting
 float Settings::Zoom = 0.1f;
+float Settings::DragFactor = 5.f;
 
 // minimap Settings
 float Settings::MinimapSize = 120.f;

@@ -12,7 +12,7 @@ Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000.f / Settings::Interva
 
 	cout << "Setting Up Map..." << endl;
 	map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapHeight);
- 
+
 	cout << "Setting Up Camera..." << endl;
 	snap_to_grid_ = true;
 	view_pos_ = Vector2f(0, 0);
@@ -29,7 +29,6 @@ Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000.f / Settings::Interva
 
 /// set up the map according to the selected presets
 void Engine::on_init() {
-
 
 	map->AddIntersection(0, map->GetSize() / 2.f);
 
@@ -135,7 +134,7 @@ void Engine::RunSimulation(int vehicleCount, float runningTime) {
 
 		cout << "Running Simulation on this map..." << endl;
 
-		if(runningTime != 0)
+		if (runningTime != 0)
 			cout << "Timing set at " << runningTime << " seconds..." << endl;
 		else
 			cout << "Sending " << vehicleCount << " vehicles..." << endl;
@@ -144,7 +143,6 @@ void Engine::RunSimulation(int vehicleCount, float runningTime) {
 
 		// start a new simulation
 		Simulation *s = new Simulation(0, vehicleCount, runningTime);
-
 
 		simulations_.push_back(s);
 		number_of_simulations_ = simulations_.size();
@@ -239,7 +237,7 @@ void Engine::SetMinimap(float size, float margin) {
 void Engine::UpdateView(Vector2f posDelta, float newZoom) {
 	// view_pos_ is position before dragging
 	// t_view_pos_ is the current view position
-	temp_view_pos_ = view_pos_ + posDelta;
+	temp_view_pos_ = view_pos_ + posDelta * Settings::Zoom * Settings::DragFactor;
 
 	// enforce overflow blocking
 	if (!Settings::MapOverflow && map != nullptr)
@@ -336,16 +334,20 @@ Vector2f Engine::DrawPoint(Vector2f position) {
 	return temp;
 }
 
-vector<Simulation *> *Engine::GetSimulations()
-{
-	if(Settings::DrawSimTable)
+vector<Simulation *> *Engine::GetSimulations() {
+	if (Settings::DrawSimTable)
 	{
 
-		VariadicTable<int, string, string, float, int> vt({"ID", "Start Time", "End Time", "Simulated Time", "Vehicle Count"});
+		VariadicTable<int, string, string, float, int>
+			vt({"ID", "Start Time", "End Time", "Simulated Time", "Vehicle Count"});
 
-		for(Simulation * s : simulations_)
+		for (Simulation *s : simulations_)
 		{
-			vt.addRow(s->GetSimulationNumber(), ctime(s->GetStartTime()), ctime(s->GetEndTime()), s->GetElapsedTime(), s->GetVehicleCount());
+			vt.addRow(s->GetSimulationNumber(),
+			          ctime(s->GetStartTime()),
+			          ctime(s->GetEndTime()),
+			          s->GetElapsedTime(),
+			          s->GetVehicleCount());
 		}
 
 		vt.print(std::cout);
@@ -353,7 +355,6 @@ vector<Simulation *> *Engine::GetSimulations()
 
 	return &simulations_;
 }
-
 
 /// get simualtion by simulation number
 Simulation *Engine::GetSimulation(int simulationNumber) {
@@ -452,19 +453,6 @@ void Engine::input() {
 	if (dragging)
 	{
 		UpdateView(Vector2f(startPos.x - mousePos.x, startPos.y - mousePos.y));
-	}
-
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-	{
-
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		map->GetLane(1)->SetIsBlocked(true);
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		map->GetLane(1)->SetIsBlocked(false);
 	}
 }
 
@@ -722,7 +710,7 @@ void Engine::ResetMap() {
 void Engine::ClearMap() {
 
 	// clear all lanes;
-	for(Lane * l : map->GetLanes())
+	for (Lane *l : map->GetLanes())
 	{
 		l->ClearLane();
 	}
@@ -772,13 +760,13 @@ void Engine::ClearMap() {
 /// this allows running logic cycle in high rate -> better accuracy
 // and running draw cycle in low rate -> better performance
 void Engine::logic_cycle() {
+
 	input();
 	update((float(logic_timer_.interval()) / 1000.f));
 }
 
 /// do the rest of the game cycle independently
-void Engine::draw_cycle()
-{
+void Engine::draw_cycle() {
 	render();
 	display();
 }
@@ -789,7 +777,7 @@ void Engine::update(float elapsedTime) {
 	map->Update(elapsedTime);
 
 	// deploy vehicles if needed
-	if(Vehicle::VehiclesToDeploy > 0)
+	if (Vehicle::VehiclesToDeploy > 0)
 	{
 		add_vehicles_with_delay(elapsedTime);
 	}
@@ -830,17 +818,16 @@ void Engine::update(float elapsedTime) {
 }
 
 /// deploy vehicles in a time controlled manner
-void Engine::add_vehicles_with_delay(float elapsedTime)
-{
+void Engine::add_vehicles_with_delay(float elapsedTime) {
 	static float totalElapsedTime = 0;
 
 	totalElapsedTime += elapsedTime;
 
-	if(totalElapsedTime > (Settings::VehicleSpawnRate / Settings::Speed))
+	if (totalElapsedTime > (Settings::VehicleSpawnRate / Settings::Speed))
 	{
 		AddVehicleRandomly();
 		totalElapsedTime -= Settings::VehicleSpawnRate / Settings::Speed;
-		Vehicle::VehiclesToDeploy --;
+		Vehicle::VehiclesToDeploy--;
 	}
 }
 
@@ -873,14 +860,14 @@ bool Engine::AddVehicleRandomly() {
 		lastLane = r->ToLane;
 		r = map->GetPossibleRoute(r->ToLane->GetLaneNumber());
 	}
-	if(lastLane != nullptr)
+	if (lastLane != nullptr)
 	{
 		tempQueue->push_back(lastLane);
 	}
 
 	int randomIndex = 0;
 
-	if(Settings::MultiTypeVehicle)
+	if (Settings::MultiTypeVehicle)
 		randomIndex = rand() % 4;
 
 	return (Vehicle::AddVehicle(tempQueue, this->map, static_cast<VehicleTypeOptions>(randomIndex)) != nullptr);
