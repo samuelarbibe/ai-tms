@@ -132,7 +132,7 @@ void MainWindow::reload_lane_options() {
 	}
 }
 
-// When mouse is clicked, use click coordinates in Map setup
+// When mouse is clicked, use click coordinates in map setup
 void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
 	if (event->buttons() == Qt::LeftButton)
 	{
@@ -406,7 +406,7 @@ void MainWindow::on_ResetButton_clicked() {
 	switch (ret)
 	{
 	case QMessageBox::Ok:SimulatorEngine->ResetMap();
-		ui->statusbar->showMessage(tr("Map has been reset."));
+		ui->statusbar->showMessage(tr("map has been reset."));
 		reloadOptionData();
 		break;
 	case QMessageBox::Cancel:break;

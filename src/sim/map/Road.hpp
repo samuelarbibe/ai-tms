@@ -15,8 +15,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "Lane.hpp"
-#include "../Settings.hpp"
-#include "../../UI/Widgets/DataBox.hpp"
+#include "src/sim/simulator/Settings.hpp"
+#include "src/sim/simulator/DataBox.hpp"
 
 
 using namespace std;

@@ -84,6 +84,7 @@ bool Simulation::Update(float elapsedTime) {
 				cout << "------------------------------------------------------------------" << endl;
 
 				finished_ = true;
+				result_ = float(vehicle_count_) / elapsed_time_;
 			}
 
 			// send a signal that simulation just finished.

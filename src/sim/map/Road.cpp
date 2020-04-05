@@ -169,8 +169,6 @@ void Road::ReAssignLanePositions() {
 		int tempLaneNumber = lanes_[i]->GetLaneNumber();
 		float tempLaneDirection = lanes_[i]->GetDirection();
 
-		//delete lanes_[i];
-
 		//if lane is in road direction
 		if (tempLaneDirection == direction_)
 		{
@@ -237,12 +235,9 @@ Lane *Road::CheckSelection(Vector2f position) {
 
 /// update, for databoxes ect.
 void Road::Update(float elapsedTime) {
-	if (Settings::DrawRoadDataBoxes)
-	{
-		current_vehicle_count_ = 0;
-		total_vehicle_count_ = 0;
-		data_box_->SetData("Count", current_vehicle_count_);
-	}
+
+    current_vehicle_count_ = 0;
+    total_vehicle_count_ = 0;
 
 	for (Lane *l : lanes_)
 	{
@@ -250,6 +245,11 @@ void Road::Update(float elapsedTime) {
 		current_vehicle_count_ += l->GetCurrentVehicleCount();
 		total_vehicle_count_ += l->GetTotalVehicleCount();
 	}
+
+    if (Settings::DrawRoadDataBoxes)
+    {
+        data_box_->SetData("Count", current_vehicle_count_);
+    }
 }
 
 /// delete a given lane in this road

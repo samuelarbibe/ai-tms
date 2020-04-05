@@ -31,11 +31,16 @@ public:
     float GetCycleTime(){return cycle_time_;}
 	vector<Light*> * GetLights(){return &lights_;}
 	vector<Lane*> *  GetAssignedLanes(){return &lanes_;}
+	float GetMaxQueueLength();
+	float GetMaxLaneDensity();
+	float GetMaxTraversalTime();
+	float GetPriorityScore() {return priority_;}
 
     // set
     void Open(){open_ = true;}
     void SetCycleTime(float cycleTime){cycle_time_ = cycleTime;}
 	bool UnassignLane(Lane * lane);
+    void SetPhasePriorityPoints(int points) { priority_ = points;}
 
 	// The total count of all the phases created this session
     static int PhaseCount;
@@ -46,7 +51,6 @@ private:
     int phase_number_;
 	// Number of lights that represent this phase
     int number_of_lights_;
-
     // Is this phase active and open
     bool open_;
 
@@ -54,6 +58,8 @@ private:
     float open_time_;
     // Cycle time of this phase
     float cycle_time_;
+    // The points given to a phase according to its need to be open
+    float priority_;
 
     // the current state of this phase
     LightState state_;

@@ -10,7 +10,7 @@
 #include <QApplication>
 #include <QWidget>
 #include <QFrame>
-#include "UI/mainwindow.h"
+#include "ui/mainwindow.h"
 
 int main(int argc, char **argv)
 {

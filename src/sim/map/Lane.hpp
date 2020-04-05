@@ -15,8 +15,9 @@
 #include <math.h>
 
 #include <SFML/Graphics.hpp>
+#include <src/sim/simulator/DataBox.hpp>
 
-#include "../Settings.hpp"
+#include "src/sim/simulator/Settings.hpp"
 
 using namespace std;
 using namespace sf;
@@ -62,6 +63,11 @@ class Lane : public RectangleShape
 		return 0;
 	}
 	int GetCurrentVehicleCount() { return vehicles_in_lane_.size(); }
+    float GetQueueLength() { return queue_length_ ;}
+    float GetNormalizedQueueLength() { return queue_length_ / length_;}
+    float GetDensity() { return density_;}
+    float GetTraversalTime() { return traversal_time_;}
+    float GetNormalizedDensity() { return density_ / Settings::MaxDensity;}
 
 	Vector2f GetStartPosition() { return start_pos_; };
 
@@ -72,17 +78,11 @@ class Lane : public RectangleShape
 	void PushVehicleInLane(int vehicleId) {
 		vehicles_in_lane_.push_back(vehicleId);
 		total_vehicle_count_++;
-		density_ = vehicles_in_lane_.size() / Settings::ConvertSize(PX, M, length_);
-		if (Settings::LaneDensityColorRamping)
-			ColorRamp();
 	}
 	void PopVehicleFromLane() {
 		vehicles_in_lane_.pop_front();
-		density_ = vehicles_in_lane_.size() / Settings::ConvertSize(PX, M, length_);
-		if (Settings::LaneDensityColorRamping)
-			ColorRamp();
 	}
-	void SetIsBlocked(bool blocked) { is_blocked_ = blocked; }
+	void SetIsBlocked(bool blocked) { is_blocked_ = blocked; if(!blocked) queue_length_ = 0;}
 	void SetPhaseNumber(int phaseNumber) { phase_number_ = phaseNumber; }
 	void ColorRamp();
 	void ClearLane()
@@ -92,12 +92,14 @@ class Lane : public RectangleShape
 		Unselect();
 		vehicles_in_lane_.clear();
 	}
+	void SetQueueLength(float distance);
 
 	// The count of the overall Lanes that have been created
 	static int LaneCount;
 
   private:
 
+    float calculate_traversal_time();
 	// Is this intersection block
 	bool is_blocked_;
 	// Is this lane the same direction of the parent road
@@ -117,6 +119,14 @@ class Lane : public RectangleShape
 	// Density of the lane.
 	// Measured by Car-per-Meter of lane
 	float density_;
+    // The length of the queue in this lane;
+    // calculated in Vehicle class,
+    // as the distance between the
+    // first and the last car in lane with a state of STOP;
+    float queue_length_;
+    // the time it will take for the last vehicle int
+    // the queue to reach the intersection
+    float traversal_time_;
 
 	list<int> vehicles_in_lane_;
 
@@ -132,6 +142,8 @@ class Lane : public RectangleShape
 
 	void create_block_shape();
 	RectangleShape lane_block_shape_;
+
+    DataBox * data_box_;
 };
 
 #endif /* Lane_hpp */

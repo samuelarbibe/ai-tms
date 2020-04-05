@@ -82,7 +82,12 @@ class Simulation
     time_t end_time_;
     // Time elapsed since simulation has begun
     float  elapsed_time_;
+    // The result of the simulation
+    // vehicles per second
+    float result_;
 
+    // the weights used in this simulation
+    vector<float> K_;
 };
 
 #endif //SIMULATORSFML_SRC_SIMULATOR_SIMULATION_HPP

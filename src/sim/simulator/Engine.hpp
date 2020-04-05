@@ -19,12 +19,12 @@
 #include <QtWidgets>
 #include <nlohmann/json.hpp>
 
-#include "Map/Map.hpp"
+#include "src/sim/map/Map.hpp"
 #include "Vehicle.hpp"
 #include "Settings.hpp"
-#include "../UI/Widgets/QsfmlCanvas.hpp"
+#include "src/ui/widgets/QsfmlCanvas.hpp"
 #include "public/VariadicTable.h"
-#include "Map/Route.hpp"
+#include "src/sim/map/Route.hpp"
 #include "Simulation.hpp"
 
 
@@ -57,42 +57,43 @@ class Engine : public QSFMLCanvas
 
 	// set
 	void SetSnapToGrid(bool snapToGrid) { this->snap_to_grid_ = snapToGrid; }
-	void SetMinimap(float size, float margin);
 	void SetView();
-
 	void BuildGrid(int rows, int cols);
+
 	void UpdateView(Vector2f posDelta = Vector2f(0, 0), float zoom = 0);
 	void SaveMap(string saveDirectory);
 	void LoadMap(string loadDirectory);
 	void SaveSimulations(string saveDirectory);
 	void LoadSimulations(string loadDirectory);
 	void ResetMap();
-	void ClearMap();
+    void ClearMap();
 	bool AddVehicleRandomly();
 	void ResizeFrame(QSize size);
 	bool DeleteSimulation(int simulationNumber);
-
 	void RunSimulation(int vehicleCount = 1000, float runningTime = 0);
-	void RunDemo(int simulationNumber);
+	void StartTraining(int vehicleCount = 1000, float runningTime = 0, int generations = 0);
 
+	void RunDemo(int simulationNumber);
 	Map *map;
 
   signals:
-	void SimulationFinished();
 
+	void SimulationFinished();
   private:
 
 	void on_init() override ;
+
 	void logic_cycle() override;
 	void draw_cycle() override;
 	void render();
-
 	void input();
+
 	void render_minimap();
 	void update_shown_area();
 	void update(float elapsedTime);
 	void add_vehicles_with_delay(float elapsedTime);
 	void check_selection(Vector2f position);
+	void set_minimap(float size, float margin);
 
 	// Snap click points to set grid
 	bool snap_to_grid_;

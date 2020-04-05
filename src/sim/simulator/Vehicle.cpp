@@ -326,6 +326,19 @@ State Vehicle::drive() {
 			turning_ = false;
 			state_ = STOP;
 			acc_ = deceleration;
+
+			// if the lane is blocked, send the stopline-distance
+			// to the lane and try to set the queue length
+			if(source_lane_ != nullptr && source_lane_->GetIsBlocked() && speed_ == 0 && active_)
+            {
+                float distanceFromStop = Settings::CalculateDistance(this->getPosition(),
+                        source_lane_->GetEndPosition());
+                // if this is the last car with STOP state in lane,
+                // the queue length is the distance from this vehicle
+                // to the end of the lane;
+                source_lane_->SetQueueLength(distanceFromStop);
+            }
+
 			return STOP;
 		}
 	}
@@ -381,6 +394,16 @@ State Vehicle::drive() {
 
 		if (distanceFromStop < brakingDistance + Settings::MinDistanceFromStop)
 		{
+            // if the lane is blocked, send the stopline-distance
+            // to the lane and try to set the queue length
+            if(speed_ == 0 && active_)
+            {
+                // if this is the last car with STOP state in lane,
+                // the queue length is the distance from this vehicle
+                // to the end of the lane;
+                source_lane_->SetQueueLength(distanceFromStop);
+            }
+
 			turning_ = false;
 			state_ = STOP;
 			acc_ = deceleration;
@@ -416,6 +439,7 @@ State Vehicle::drive() {
 	}
 
 	// default = just drive
+	active_ = true;
 	turning_ = false;
 	acc_ = acceleration;
 	state_ = DRIVE;
@@ -447,6 +471,7 @@ void Vehicle::Update(float elapsedTime) {
 void Vehicle::apply_changes(float elapsed_time) {
 	// apply acceleration
 	speed_ += acc_ * elapsed_time * Settings::Speed;
+	//float running_speed_ = speed_ * Settings::Speed;
 
 	// apply max Speed limit
 	if (speed_ > max_speed_)
@@ -458,7 +483,7 @@ void Vehicle::apply_changes(float elapsed_time) {
 
 	// set rotation relative to currentSpeed, to create a constant turning radius
 	Transform t;
-	this->rotate(angular_vel_ * elapsed_time * speed_ * Settings::Speed);
+	this->rotate(angular_vel_ * speed_ * elapsed_time * Settings::Speed);
 
 	t.rotate(this->getRotation());
 

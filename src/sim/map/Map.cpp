@@ -7,6 +7,18 @@
 
 int Map::MapCount = 0;
 
+bool compare_priority(Phase* first, Phase* second)
+{
+    return (first->GetPriorityScore() < second->GetPriorityScore());
+}
+
+template<typename T>
+void pop_front(std::vector<T>& vec)
+{
+    assert(!vec.empty());
+    vec.erase(vec.begin());
+}
+
 Map::Map(int mapNumber, int width, int height) {
 	if (mapNumber == 0)
 	{
@@ -44,7 +56,7 @@ Map::~Map() {
 	Intersection::IntersectionCount = 0;
 
 	if (Settings::DrawDelete)
-		cout << "Map " << map_number_ << " deleted" << endl;
+		cout << "map " << map_number_ << " deleted" << endl;
 }
 
 /// add an intersection to the map
@@ -342,6 +354,44 @@ void Map::SelectRoutesByVehicle(list<Lane*> * instructionSet)
 	}
 }
 
+/// randomly generate a track
+list<Lane *> * Map::GenerateRandomTrack()
+{
+	// find a random starting point
+	Lane *l = GetPossibleStartingLane();
+	if (l == nullptr)
+	{
+		cout << "no starting lanes available." << endl;
+		return nullptr;
+	}
+	// find a starting route from starting lane
+	Route *r = GetPossibleRoute(l->GetLaneNumber());
+
+	if (r == nullptr)
+	{
+		cout << "no routes available. please add them to the map" << endl;
+		return nullptr;
+	}
+
+	// while new routes to append are available
+	// new routes will be searched starting from the previous route end
+	list<Lane *> *track = new list<Lane *>();
+	Lane *lastLane = nullptr;
+
+	while (r != nullptr)
+	{
+		track->push_back(r->FromLane);
+		lastLane = r->ToLane;
+		r = GetPossibleRoute(r->ToLane->GetLaneNumber());
+	}
+	if (lastLane != nullptr)
+	{
+		track->push_back(lastLane);
+	}
+
+	return track;
+}
+
 /// returns a possible route according to the given lane
 Route *Map::GetPossibleRoute(int fromLane)
 {
@@ -391,7 +441,7 @@ Intersection *Map::GetIntersection(int intersectionNumber) {
 		}
 	}
 
-	cout << "error : intersection not found in Map..." << endl;
+	cout << "error : intersection not found in map..." << endl;
 
 	return nullptr;
 }
@@ -542,19 +592,45 @@ void Map::Update(float elapsedTime) {
 	CyclePhase();
 }
 
+
+
+/// cycle the phases by the phase array order.
+// all the phases but the active one are constantly evaluated
+// and sorted by the score they have been given by the NN
+// sort(arr[0:-2])
+
+// when phase is finished, it gets pop_front and push_back
+// to advance and start the next phase in order.
 void Map::CyclePhase() {
-	// if current phase has ended
-	if (!phases_.empty() && !phases_[current_phase_index_]->GetIsOpen())
-	{
-		// activate next phase
-		++current_phase_index_;
-		if (current_phase_index_ > (phases_.size() - 1))
-		{
-			current_phase_index_ = 0;
-		}
-		phases_[current_phase_index_]->Open();
-	}
+    // if current phase has ended
+    if(phases_.size() > 1)
+    {
+        // when current phase is closed, advance to next phase and open it
+        if (!phases_.back()->GetIsOpen())
+        {
+            Phase * backPhase = phases_[number_of_phases-1];
+            phases_[number_of_phases-1] = phases_[number_of_phases-2];
+            phases_[number_of_phases-2] = backPhase;
+
+            phases_[number_of_phases-1]->Open();
+
+            cout << "[ ";
+            for(int i = 0; i < number_of_phases-1 ; i++)
+            {
+                cout << phases_[i]->GetPriorityScore() << " ";
+            }
+            cout << "[" << phases_[number_of_phases-1]->GetPriorityScore() << "]]" << endl;
+        }
+            // constantly sort the list by their priority score
+        else
+        {
+            partial_sort(phases_.begin(), phases_.end() - 1, phases_.end() - 1, compare_priority);
+        }
+    }
 }
+
+
+
 
 void Map::SelectLanesByPhase(int phaseNumber)
 {

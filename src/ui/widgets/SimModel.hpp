@@ -6,7 +6,7 @@
 #define SIMULATORSFML_SRC_UI_WIDGETS_SIMMODEL_HPP
 
 #include <QAbstractTableModel>
-#include <src/Simulator/Simulation.hpp>
+#include <src/sim/simulator/Simulation.hpp>
 
 class SimModel : public QAbstractTableModel
 {

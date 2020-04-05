@@ -31,6 +31,7 @@ class Light : public RectangleShape
 	int GetLightNumber() { return light_number_; }
 	Road *GetParentRoad() { return parent_road_; }
 
+
 	// set
 	void SetState(LightState state) { state_ = state; }
 	void UpdatePosition();

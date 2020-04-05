@@ -7,7 +7,7 @@
 const Vector2f Settings::BaseVec = Vector2f(0.f, -1.f);
 
 bool Settings::DrawFps = false;
-bool Settings::DrawActive = true;
+bool Settings::DrawActive = false;
 bool Settings::DrawDelete = false;
 bool Settings::DrawAdded = false;
 
@@ -25,7 +25,7 @@ bool Settings::FollowSelectedVehicle = true;
 bool Settings::LaneDensityColorRamping = false;
 bool Settings::ShowSelectedPhaseLanes = false;
 
-int Settings::Interval = 60; // max is 1000
+int Settings::Interval = 1000; // max is 1000
 int Settings::Fps = 30;
 int Settings::AntiAliasing = 0;
 bool Settings::MultiColor = false;
@@ -43,8 +43,9 @@ float Settings::Scale = 3; // 1 px / [scale] = 1 cm
 float Settings::Speed = 1; // running speed
 bool Settings::DoubleSeparatorLine = true;
 float Settings::VehicleSpawnRate = 0.9f;
+float Settings::MaxDensity = 0.20f;
 
-float Settings::DefaultLaneLength = 1500; // lane length in px
+float Settings::DefaultLaneLength = 3000; // lane length in px
 
 int Settings::DefaultMapWidth = 9000;
 int Settings::DefaultMapHeight = 9000;
@@ -108,25 +109,26 @@ float Settings::ConvertVelocity(VelocityUnits fromUnit, VelocityUnits toUnit, fl
 
 // max speed for all the cars in px/s
 float Settings::MaxSpeeds[4]
-	{
-		ConvertVelocity(KMH, PXS, 50.f),
-		ConvertVelocity(KMH, PXS, 50.f),
-		ConvertVelocity(KMH, PXS, 50.f),
-		ConvertVelocity(KMH, PXS, 50.f)
-	};
+    {
+        ConvertVelocity(KMH, PXS, 50.f),
+        ConvertVelocity(KMH, PXS, 50.f),
+        ConvertVelocity(KMH, PXS, 50.f),
+        ConvertVelocity(KMH, PXS, 50.f)
+    };
+// convert m/ss to px/ss
 float Settings::Acceleration[4]
 	{
-		ConvertVelocity(MSS, PXS, 2.f),
-		ConvertVelocity(MSS, PXS, 2.f),
-		ConvertVelocity(MSS, PXS, 2.f),
-		ConvertVelocity(MSS, PXS, 2.f)
+		ConvertVelocity(MS, PXS, 2.f),
+		ConvertVelocity(MS, PXS, 2.f),
+		ConvertVelocity(MS, PXS, 2.f),
+		ConvertVelocity(MS, PXS, 2.f)
 	};
 float Settings::Deceleration[4]
 	{
-		ConvertVelocity(MSS, PXS, -4.5f),
-		ConvertVelocity(MSS, PXS, -4.5f),
-		ConvertVelocity(MSS, PXS, -4.5f),
-		ConvertVelocity(MSS, PXS, -4.5f)
+		ConvertVelocity(MS, PXS, -4.5f),
+		ConvertVelocity(MS, PXS, -4.5f),
+		ConvertVelocity(MS, PXS, -4.5f),
+		ConvertVelocity(MS, PXS, -4.5f)
 	};
 
 float Settings::GetMaxSpeedAs(VehicleTypeOptions vehicleType, VelocityUnits unit) {
@@ -192,31 +194,16 @@ tm *Settings::ConvertStringToTime(const string str) {
 
 void Settings::GetHeatMapColor(float value, float *red, float *green, float *blue)
 {
-	const int NUM_COLORS = 4;
-	static float color[NUM_COLORS][3] = { {0,0,255}, {0,255,0}, {255,255,0}, {255,0,0} };
-	// A static array of 4 colors:  (blue,   green,  yellow,  red) using {r,g,b} for each.
+	int aR = 0;   int aG = 0; int aB=255;  // RGB for our 1st color blue
+	int bR = 255; int bG = 0; int bB=0;    // RGB for our 2nd color red
 
-	int idx1;        // |-- Our desired color will be between these two indexes in "color".
-	int idx2;        // |
-	float fractBetween = 0;  // Fraction between "idx1" and "idx2" where our value is.
-
-	if(value <= 0)      {  idx1 = idx2 = 0;            }    // accounts for an input <=0
-	else if(value >= 1)  {  idx1 = idx2 = NUM_COLORS-1; }    // accounts for an input >=0
-	else
-	{
-		value = value * (NUM_COLORS-1);        // Will multiply value by 3.
-		idx1  = floor(value);                  // Our desired color will be after this index.
-		idx2  = idx1+1;                        // ... and before this index (inclusive).
-		fractBetween = value - float(idx1);    // Distance between the two indexes (0-1).
-	}
-
-	*red   = (color[idx2][0] - color[idx1][0])*fractBetween + color[idx1][0];
-	*green = (color[idx2][1] - color[idx1][1])*fractBetween + color[idx1][1];
-	*blue  = (color[idx2][2] - color[idx1][2])*fractBetween + color[idx1][2];
+	*red   = (float)(bR - aR) * value + aR;      // 255 * value.
+	*green = (float)(bG - aG) * value + aG;      // 0.
+	*blue  = (float)(bB - aB) * value + aB;      // 255 * (1 - value).
 }
 
 float Settings::OrangeDelay = 3.f;
 float Settings::DefaultCycleTime = 20.f;
 float Settings::MaxCycleTime = 60.f;
-float Settings::MinCycleTime = 5.f;
+float Settings::MinCycleTime = 20.f;
 float Settings::PhaseDelay = 1.5f;

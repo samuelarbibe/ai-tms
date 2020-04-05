@@ -19,7 +19,7 @@ enum DistanceUnits
 };
 enum VelocityUnits
 {
-	CMS, KMH, MSS, MPH, PXS
+	CMS, KMH, MS, MPH, PXS
 };
 enum VehicleTypeOptions
 {
@@ -72,6 +72,7 @@ class Settings
 	static float Speed;
 	static bool  DoubleSeparatorLine;
 	static float VehicleSpawnRate;
+	static float MaxDensity;
 
 	static float DefaultLaneLength;
 	static int GridColumns;

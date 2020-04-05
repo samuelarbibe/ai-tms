@@ -15,9 +15,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Map/Map.hpp"
+#include "src/sim/map/Map.hpp"
 #include "Settings.hpp"
-#include "../UI/Widgets/DataBox.hpp"
+#include "DataBox.hpp"
 
 using namespace std;
 using namespace sf;

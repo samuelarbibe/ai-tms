@@ -10,7 +10,7 @@
 
 Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000.f / Settings::Interval, 1000.f / Settings::Fps) {
 
-	cout << "Setting Up Map..." << endl;
+	cout << "Setting Up map..." << endl;
 	map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapHeight);
 
 	cout << "Setting Up Camera..." << endl;
@@ -18,7 +18,7 @@ Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000.f / Settings::Interva
 	view_pos_ = Vector2f(0, 0);
 	temp_view_pos_ = Vector2f(0, 0);
 	SetView();
-	SetMinimap(Settings::MinimapSize, Settings::MinimapMargin);
+	set_minimap(Settings::MinimapSize, Settings::MinimapMargin);
 	this->setView(view_);
 
 	number_of_simulations_ = 0;
@@ -89,7 +89,7 @@ void Engine::ResizeFrame(QSize size) {
 	setSize(sf::Vector2u(size.width(), size.height()));
 
 	SetView();
-	SetMinimap(Settings::MinimapSize, Settings::MinimapMargin);
+	set_minimap(Settings::MinimapSize, Settings::MinimapMargin);
 	this->setView(view_);
 }
 
@@ -192,6 +192,15 @@ void Engine::RunDemo(int simulationNumber) {
 	}
 }
 
+/// Trains the neural network for a set amount of generation.
+    // at the end of a training, it saves all the data in a simulation file.
+    /*
+void Engine::StartTraining()
+{
+    if()
+}
+     */
+
 /// set the viewport for the camera
 void Engine::SetView() {
 	// view setup
@@ -205,7 +214,7 @@ void Engine::SetView() {
 }
 
 /// build the minimap
-void Engine::SetMinimap(float size, float margin) {
+void Engine::set_minimap(float size, float margin) {
 	// minimap viewPort setup
 	minimap_.reset(sf::FloatRect(0, 0, Settings::DefaultMapWidth, Settings::DefaultMapHeight));
 	minimap_.setSize(Vector2f(size, size));
@@ -511,7 +520,7 @@ void Engine::LoadMap(const string loadDirectory) {
 			map->AddLight(data["id"], data["phase_number"], data["parent_road_number"]);
 		}
 
-		cout << "Map has been successfully loaded from '" << loadDirectory << "'. " << endl;
+		cout << "map has been successfully loaded from '" << loadDirectory << "'. " << endl;
 	}
 	catch (const std::exception &e)
 	{
@@ -625,7 +634,7 @@ void Engine::SaveMap(const string saveDirectory) {
 	o << setw(4) << j << endl;
 	o.close();
 
-	cout << "Map saved to '" << saveDirectory << "' successfully." << endl;
+	cout << "map saved to '" << saveDirectory << "' successfully." << endl;
 }
 
 /// save the recent simulations to a file
@@ -699,11 +708,11 @@ void Engine::ResetMap() {
 	cout << "Deleting Vehicles..." << endl;
 	Vehicle::DeleteAllVehicles();
 
-	cout << "Resetting Map..." << endl;
+	cout << "Resetting map..." << endl;
 	delete map;
 	map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapWidth);
 
-	cout << "======================= Map has been reset =======================" << endl;
+	cout << "======================= map has been reset =======================" << endl;
 }
 
 /// stop the current simulation, and clear all vehicles
@@ -748,7 +757,7 @@ void Engine::ClearMap() {
 		cout << "Deleting Vehicles..." << endl;
 		Vehicle::DeleteAllVehicles();
 
-		cout << "====================== Map has been cleared ======================" << endl;
+		cout << "====================== map has been cleared ======================" << endl;
 	} else
 	{
 		cout << "No simulations are currently active" << endl;
@@ -833,44 +842,24 @@ void Engine::add_vehicles_with_delay(float elapsedTime) {
 
 /// add a vehicle at a random track
 bool Engine::AddVehicleRandomly() {
-	// find a random starting point
-	Lane *l = map->GetPossibleStartingLane();
-	if (l == nullptr)
+
+	list<Lane *> * track = map->GenerateRandomTrack();
+
+	if(track != nullptr && !track->empty())
 	{
-		cout << "no starting lanes available." << endl;
+
+		int randomIndex = 0;
+
+		if (Settings::MultiTypeVehicle)
+			randomIndex = rand() % 4;
+
+		return (Vehicle::AddVehicle(track, this->map, static_cast<VehicleTypeOptions>(randomIndex)) != nullptr);
+	}
+	else
+	{
+		cout << "Could not add a new vehicle as tracks could not be generated." << endl;
 		return false;
 	}
-	// find a starting route from starting lane
-	Route *r = map->GetPossibleRoute(l->GetLaneNumber());
-
-	if (r == nullptr)
-	{
-		cout << "no routes available. please add them to the map" << endl;
-		return false;
-	}
-
-	// while new routes to append are available
-	// new routes will be searched starting from the previous route end
-	list<Lane *> *tempQueue = new list<Lane *>();
-	Lane *lastLane = nullptr;
-
-	while (r != nullptr)
-	{
-		tempQueue->push_back(r->FromLane);
-		lastLane = r->ToLane;
-		r = map->GetPossibleRoute(r->ToLane->GetLaneNumber());
-	}
-	if (lastLane != nullptr)
-	{
-		tempQueue->push_back(lastLane);
-	}
-
-	int randomIndex = 0;
-
-	if (Settings::MultiTypeVehicle)
-		randomIndex = rand() % 4;
-
-	return (Vehicle::AddVehicle(tempQueue, this->map, static_cast<VehicleTypeOptions>(randomIndex)) != nullptr);
 }
 
 /// render the engine's objects

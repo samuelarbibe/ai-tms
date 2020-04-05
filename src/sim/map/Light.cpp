@@ -17,6 +17,9 @@ Light::Light(int lightNumber, int phaseNumber, Road * parentRoad)
     circles_.push_back(new CircleShape());
     circles_.push_back(new CircleShape());
 
+    this->setOutlineColor(Color(169, 169, 169, 255));
+    this->setOutlineThickness(4.f);
+
     UpdatePosition();
 
     data_box_ = new DataBox(this->getPosition());

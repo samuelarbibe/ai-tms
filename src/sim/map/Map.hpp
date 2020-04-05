@@ -8,18 +8,21 @@
 #include <iostream>
 #include <list>
 #include <queue>
+#include <algorithm>
 #include <set>
 
 #include <SFML/Graphics.hpp>
 #include <QString>
 
-#include "../Settings.hpp"
+#include "src/sim/simulator/Settings.hpp"
 #include "Intersection.hpp"
 #include "Route.hpp"
 #include "Phase.hpp"
 
 using namespace sf;
 using namespace std;
+
+bool compare_priority(Phase* first, Phase* second);
 
 class Map
 {
@@ -66,6 +69,7 @@ class Map
 	Route *GetPossibleRoute(int from);
 	Route *GetRouteByStartEnd(int from, int to);
 	Lane * GetPossibleStartingLane();
+	list<Lane *> * GenerateRandomTrack();
 
 	// set
 	bool SetPhaseTime(int phaseNumber, float phaseTime);
@@ -86,7 +90,11 @@ class Map
 	// The total count of all the maps created this session
 	static int MapCount;
 
+
   private:
+
+    // comp function for phase sorting
+
 
 	// ID of this map
 	int map_number_;
@@ -102,7 +110,7 @@ class Map
 	vector<Route *> routes_;
 	vector<Lane *> starting_lanes_;
 	vector<Intersection *> intersections_;
-	vector<Phase *> phases_;
+    vector<Phase *> phases_;
 
 	vector<Lane *> selected_lanes_;
 	vector<Route *> selected_routes_;
