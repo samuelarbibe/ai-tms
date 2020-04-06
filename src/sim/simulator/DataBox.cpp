@@ -21,7 +21,7 @@ DataBox::DataBox(Vector2f position) : RectangleShape() {
 	// load font if needed
 	if (!font_loaded_)
 	{
-		if (!font_.loadFromFile("../../resources/Fonts/Roboto/Roboto-Bold.ttf"))
+		if (!font_.loadFromFile("../../resources/fonts/Roboto/Roboto-Bold.ttf"))
 		{
 			cout << "ERROR: Could not load fond from the given file." << endl;
 		}

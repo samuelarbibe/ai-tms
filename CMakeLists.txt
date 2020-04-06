@@ -22,9 +22,9 @@ find_package(SFML COMPONENTS system window graphics REQUIRED)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(project_sources
-        resources/Cars/car_image_1.png
-        resources/Cars/car_image_2.png
-        resources/Cars/car_image_3.png
+        resources/cars/car_image_1.png
+        resources/cars/car_image_2.png
+        resources/cars/car_image_3.png
         src/sim/simulator/Engine.cpp
         src/sim/map/Intersection.cpp
         src/sim/map/Lane.cpp

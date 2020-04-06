@@ -18,28 +18,28 @@ Vehicle *Vehicle::SelectedVehicle = nullptr;
 VehicleType Vehicle::SmallCar {
 	SMALL_CAR,
 	"SmallCar",
-	"../../resources/Cars/car_image_",
+	"../../resources/cars/car_image_",
 	3,
 	Vector2f(1.6 * 100 / Settings::Scale, 3 * 100 / Settings::Scale)
 };
 VehicleType Vehicle::MediumCar{
 	MEDIUM_CAR,
 	"MediumCar",
-	"../../resources/Cars/car_image_",
+	"../../resources/cars/car_image_",
 	3,
 	Vector2f(1.8 * 100 / Settings::Scale, 4 * 100 / Settings::Scale)
 };
 VehicleType Vehicle::LongCar  {
 	LONG_CAR,
 	"LongCar",
-	"../../resources/Cars/car_image_",
+	"../../resources/cars/car_image_",
 	3,
 	Vector2f(2 * 100 / Settings::Scale, 5 * 100 / Settings::Scale)
 };
 VehicleType Vehicle::Truck    {
 	TRUCK,
 	"Truck",
-	"../../resources/Cars/car_image_",
+	"../../resources/cars/car_image_",
 	3,
 	Vector2f(2.1f * 100 / Settings::Scale, 10 * 100 / Settings::Scale)
 };

@@ -740,7 +740,7 @@ void Engine::LoadSets(string loadDirectory) {
 /// reset the whole map, delete everything
 void Engine::ResetMap() {
 
-	cout << "Saving Simulations..." << endl;
+	cout << "Saving simulations..." << endl;
 	//SaveSimulations("../../");
 
 	cout << "Deleting Vehicles..." << endl;
