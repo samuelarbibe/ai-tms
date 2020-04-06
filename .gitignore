@@ -1,5 +1,3 @@
-
-*.xcuserstate
-*.xcbkptlist
 bin/
 /.vscode/
+.DS_Store
