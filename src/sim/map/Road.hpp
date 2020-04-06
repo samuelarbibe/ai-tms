@@ -49,6 +49,8 @@ public:
     bool   GetIsConnecting(){return is_connecting_;}
     int    GetLaneCount(){return lanes_.size();};
     float  GetRoadDirection(){return direction_;}
+	int GetCurrentVehicleCount(){return current_vehicle_count_;}
+	int GetTotalVehicleCount(){return total_vehicle_count_;}
     Vector2f GetStartPosition(){return start_pos_;}
     Vector2f GetEndPosition(){return end_pos_;}
     vector<Lane*> *  GetLanes(){return &(lanes_);};
@@ -63,8 +65,9 @@ public:
 
 	// The total count of all the roads created this session
     static int RoadCount;
-    
-private:
+
+
+  private:
 
 	// ID of this road
     int        road_number_;

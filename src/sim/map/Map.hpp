@@ -17,7 +17,7 @@
 #include "src/sim/simulator/Settings.hpp"
 #include "Intersection.hpp"
 #include "Route.hpp"
-#include "Phase.hpp"
+#include "Cycle.hpp"
 
 using namespace sf;
 using namespace std;
@@ -43,7 +43,8 @@ class Map
 	Road *  AddRoad(int roadNumber, int intersectionNumber, int connectionSide, float length);
 	Road *  AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2);
 	Lane *  AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
-	Phase * AddPhase(int phaseNumber, float cycleTime);
+	Cycle * AddCycle(int cycleNumber, int intersectionNumber = 0);
+	Phase * AddPhase(int phaseNumber, int cycleNumber, float cycleTime);
 	Light * AddLight(int lightNumber, int phaseNumber, int parentRoadNumber);
 	Route * AddRoute(int from, int to);
 
@@ -51,18 +52,24 @@ class Map
 	Vector2f GetSize() { return Vector2f(width_, height_); }
 	Road *   GetRoad(int roadNumber);
 	Lane *   GetLane(int laneNumber);
+	Cycle *  GetCycle(int cycleNumber);
 	Phase *  GetPhase(int phaseNumber);
+
+
 	set<QString> GetLaneIdList(int phaseNumber = 0);
 	set<QString> GetRoadIdList();
 	set<QString> GetIntersectionIdList();
 	set<QString> GetPhaseIdList();
+	set<QString> GetCycleIdList();
 	set<QString> GetLightIdList();
 	int GetIntersectionCount() { return number_of_intersections_; }
 	int GetRoadCount();
 	int GetLaneCount();
 	vector<Route *> *GetRoutes() { return &routes_; }
-	vector<Phase *> *GetPhases() { return &phases_; }
-	vector<Lane  *> GetLanes();
+	vector<Cycle *> *GetCycles() { return &cycles_; }
+	vector<Phase *> *GetPhases();
+	vector<Lane  *> *GetLanes();
+	vector<Light *> *GetLights();
 	Intersection *GetIntersection(int intersectionNumber);
 	vector<Intersection *>  GetIntersectionByLaneNumber(int laneNumber);
 	vector<Intersection *> *GetIntersections() { return &(intersections_); };
@@ -100,8 +107,8 @@ class Map
 	int map_number_;
 	// Number of intersection that belong to this
 	int number_of_intersections_;
-	// number of phases that belong to this
-	int number_of_phases;
+	// number of cycles that belong to this
+	int number_of_cycles_;
 	int width_;
 	int height_;
 	// ID of the current active phase
@@ -110,7 +117,7 @@ class Map
 	vector<Route *> routes_;
 	vector<Lane *> starting_lanes_;
 	vector<Intersection *> intersections_;
-    vector<Phase *> phases_;
+    vector<Cycle *> cycles_;
 
 	vector<Lane *> selected_lanes_;
 	vector<Route *> selected_routes_;

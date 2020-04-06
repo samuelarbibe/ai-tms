@@ -373,7 +373,6 @@ State Vehicle::drive() {
 		if (source_lane_ != nullptr)
 		{
 			prev_intersection_ = curr_map_->GetIntersection(source_lane_->GetIntersectionNumber());
-			prev_intersection_->AddVehicleCount();
 			source_lane_->PopVehicleFromLane();
 			source_lane_ = nullptr;
 		}
@@ -414,8 +413,7 @@ State Vehicle::drive() {
 	// check if car has left intersection and is now in targetLane
 	if (dest_lane_ != nullptr && dest_lane_->getGlobalBounds().contains(this->getPosition()))
 	{
-		// remove count from previous lane, and set in to nullptr
-		prev_intersection_->RemoveVehicleCount();
+		// set previous intersection to nullptr
 		prev_intersection_ = nullptr;
 
 		// we need to transfer vehicle to target lane

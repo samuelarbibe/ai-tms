@@ -256,9 +256,14 @@ int Intersection::GetLaneCount()
 /// update , for future use
 void Intersection::Update(float elapsedTime)
 {
+	current_vehicle_count_ = 0;
+	total_vehicle_count_ = 0;
+
     for(Road * r : roads_)
     {
         r->Update(elapsedTime);
+	    current_vehicle_count_ += r->GetCurrentVehicleCount();
+	    total_vehicle_count_ += r->GetTotalVehicleCount();
     }
 }
 

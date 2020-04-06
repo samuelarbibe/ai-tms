@@ -47,8 +47,8 @@ float Settings::MaxDensity = 0.20f;
 
 float Settings::DefaultLaneLength = 3000; // lane length in px
 
-int Settings::DefaultMapWidth = 9000;
-int Settings::DefaultMapHeight = 9000;
+int Settings::DefaultMapWidth = 10000;
+int Settings::DefaultMapHeight = 10000;
 
 int Settings::GridColumns = 50;
 int Settings::GridRows = 50;

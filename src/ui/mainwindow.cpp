@@ -30,8 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	ui->PhaseDelayLineEdit->setText(QString::number(Settings::PhaseDelay));
 	ui->PhaseDelaySlider->setSliderPosition(Settings::PhaseDelay);
-	ui->OrangeLightDelayLineEdit->setText(QString::number(Settings::OrangeDelay));
-	ui->OrangeLightDelaySlider->setSliderPosition(Settings::OrangeDelay);
 	ui->PhaseTimeSlider->setMaximum(int(Settings::MaxCycleTime));
 	ui->PhaseTimeSlider->setMinimum(int(Settings::MinCycleTime));
 
@@ -40,8 +38,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	// connect the simulation finished event to its slot here
 	QObject::connect(SimulatorEngine, SIGNAL(SimulationFinished()), this, SLOT(on_SimulationFinished()));
-
-	reloadOptionData();
 }
 
 MainWindow::~MainWindow() {
@@ -76,22 +72,24 @@ void MainWindow::reloadOptionData() {
 	ui->FromIntersectionComboBox->clear();
 	ui->ToIntersectionComboBox->clear();
 	ui->IntersectionComboBox->clear();
+    ui->IntersectionNumberComboBox->clear();
 	ui->NearRoadComboBox->clear();
 	ui->ToPhaseComboBox->clear();
-	ui->PhaseNumberComboBox->clear();
+    ui->ShowLanesForPhaseComboBox->clear();
+    ui->ToCycleComboBox->clear();
 	ui->PhaseTimeComboBox->clear();
 	ui->FromLaneComboBox->clear();
 	ui->ToLaneComboBox->clear();
 	ui->AssignLaneToPhaseComboBox->clear();
+    ui->ToRoadComboBox->clear();
 
 	for (const QString s : SimulatorEngine->map->GetIntersectionIdList())
 	{
 		ui->FromIntersectionComboBox->addItem(s);
 		ui->ToIntersectionComboBox->addItem(s);
 		ui->IntersectionComboBox->addItem(s);
+        ui->IntersectionNumberComboBox->addItem(s);
 	}
-
-	ui->ToRoadComboBox->clear();
 
 	for (const QString sd : SimulatorEngine->map->GetRoadIdList())
 	{
@@ -107,19 +105,25 @@ void MainWindow::reloadOptionData() {
 
 	for (const QString p : SimulatorEngine->map->GetPhaseIdList())
 	{
-		ui->PhaseNumberComboBox->addItem(p);
+        ui->ShowLanesForPhaseComboBox->addItem(p);
 		ui->PhaseTimeComboBox->addItem(p);
 		ui->ToPhaseComboBox->addItem(p);
 		ui->AssignLaneToPhaseComboBox->addItem(p);
 	}
 
+    for (const QString p : SimulatorEngine->map->GetCycleIdList())
+    {
+        ui->ToCycleComboBox->addItem(p);
+    }
 
+    reload_lane_options();
 }
 
 void MainWindow::reload_lane_options() {
+
 	ui->AssignedLanesListView->clear();
 
-	int phaseNumber = ui->PhaseNumberComboBox->currentText().toInt();
+    int phaseNumber = ui->ShowLanesForPhaseComboBox->currentText().toInt();
 	if (phaseNumber != 0)
 	{
 		for (auto &p : SimulatorEngine->map->GetLaneIdList(phaseNumber))
@@ -535,9 +539,10 @@ void MainWindow::resize_sim_table() {
 	}
 }
 
-void MainWindow::on_PhaseNumberComboBox_currentTextChanged(const QString &arg1) {
-	reload_lane_options();
-	int phaseNumber = ui->PhaseNumberComboBox->currentText().toInt();
+void MainWindow::on_ShowLanesForPhaseComboBox_currentTextChanged(const QString &arg1) {
+    reload_lane_options();
+    int phaseNumber = ui->ShowLanesForPhaseComboBox->currentText().toInt();
+
 	if (phaseNumber != 0 && Settings::ShowSelectedPhaseLanes)
 	{
 		SimulatorEngine->map->SelectLanesByPhase(phaseNumber);
@@ -549,10 +554,15 @@ void MainWindow::on_AssignedLanesListView_itemClicked(QListWidgetItem *item) {
 
 }
 
+
 void MainWindow::on_AddPhaseButton_clicked() {
-	SimulatorEngine->map->AddPhase(0, Settings::DefaultCycleTime);
+
+    int cycleNumber = ui->ToCycleComboBox->currentText().toInt();
+
+    SimulatorEngine->map->AddPhase(0, cycleNumber, Settings::DefaultCycleTime);
 	reloadOptionData();
 }
+
 
 void MainWindow::on_AddLightButton_clicked() {
 	int phaseNumber = ui->ToPhaseComboBox->currentText().toInt();
@@ -591,13 +601,6 @@ void MainWindow::on_PhaseDelaySlider_sliderMoved(int position) {
 	Settings::PhaseDelay = position;
 	ui->PhaseDelayLineEdit->setText(QString::number(position));
 	ui->statusbar->showMessage(tr("Phase delay changed."));
-}
-
-void MainWindow::on_OrangeLightDelaySlider_sliderMoved(int position) {
-	ui->OrangeLightDelaySlider->setValue(position);
-	Settings::OrangeDelay = position;
-	ui->OrangeLightDelayLineEdit->setText(QString::number(position));
-	ui->statusbar->showMessage(tr("Orange Light delay changed."));
 }
 
 void MainWindow::on_AssignLaneButton_clicked() {
@@ -653,14 +656,6 @@ void MainWindow::on_PhaseDelayLineEdit_editingFinished() {
 	Settings::PhaseDelay = value;
 	ui->PhaseDelayLineEdit->setText(QString::number(value));
 	ui->statusbar->showMessage(tr("Phase delay changed."));
-}
-
-void MainWindow::on_OrangeLightDelayLineEdit_editingFinished() {
-	float value = ui->OrangeLightDelayLineEdit->text().toFloat();
-	ui->OrangeLightDelaySlider->setValue(int(value));
-	Settings::OrangeDelay = value;
-	ui->OrangeLightDelayLineEdit->setText(QString::number(value));
-	ui->statusbar->showMessage(tr("Orange Light delay changed."));
 }
 
 void MainWindow::on_ShowLaneBlockCheckBox_stateChanged(int arg1) {
@@ -791,4 +786,43 @@ void MainWindow::on_ShowSelectedPhaseLanesCheckBox_stateChanged(int arg1)
     {
         SimulatorEngine->map->UnselectAll();
     }
+}
+
+void MainWindow::on_AddCycleButton_clicked()
+{
+    int intersectionNumber = 0;
+    if(ui->IntersectionNumberComboBox->isEnabled())
+    {
+         intersectionNumber = ui->IntersectionNumberComboBox->currentText().toInt();
+    }
+
+    if(SimulatorEngine->map->AddCycle(0, intersectionNumber) != nullptr)
+    {
+        reloadOptionData();
+        ui->statusbar->showMessage(tr("Cycle successfully added."));
+        return;
+    }
+
+    ui->statusbar->showMessage(tr("ERROR: Could not add cycle."));
+}
+
+void MainWindow::on_AssignToIntersectionCheckBox_stateChanged(int arg1)
+{
+    ui->IntersectionNumberComboBox->setEnabled(arg1);
+}
+
+
+void MainWindow::on_RemoveLaneFromPhaseButton_clicked()
+{
+    if(ui->AssignedLanesListView->selectedItems().count() == 1)
+    {
+        int laneNumber = ui->AssignedLanesListView->selectedItems().back()->text().mid(5).toInt();
+
+        SimulatorEngine->map->UnassignLaneFromPhase(laneNumber);
+        reloadOptionData();
+        ui->statusbar->showMessage(tr("Selected lane unassigned from phase."));
+        return;
+
+    }
+    ui->statusbar->showMessage(tr("Please select a lane from the list to unassign it from its phase."));
 }

@@ -14,7 +14,7 @@ using namespace std;
 class Phase
 {
 public:
-    Phase(int phaseNumber, float cycleTime);
+    Phase(int phaseNumber, int cycleNumber, float cycleTime);
     ~Phase();
 
     void Draw(RenderWindow * window);
@@ -27,6 +27,7 @@ public:
 
     // get
     int   GetPhaseNumber(){return phase_number_;}
+    int   GetCycleNumber(){return cycle_number_;}
     bool  GetIsOpen(){return open_;}
     float GetCycleTime(){return cycle_time_;}
 	vector<Light*> * GetLights(){return &lights_;}
@@ -49,6 +50,8 @@ private:
 
 	// ID of this phase
     int phase_number_;
+	// Id of the cycle it belongs to
+	int cycle_number_;
 	// Number of lights that represent this phase
     int number_of_lights_;
     // Is this phase active and open

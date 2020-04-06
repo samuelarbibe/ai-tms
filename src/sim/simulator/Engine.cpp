@@ -67,10 +67,12 @@ void Engine::on_init() {
 	map->AddRoute(13, 8);
 	map->AddRoute(14, 3);
 
-	map->AddPhase(0, 20);
-	map->AddPhase(0, 20);
-	map->AddPhase(0, 20);
-	map->AddPhase(0, 20);
+	map->AddCycle(0, 1);
+
+	map->AddPhase(0, 1, 20);
+	map->AddPhase(0, 1, 20);
+	map->AddPhase(0, 1, 20);
+	map->AddPhase(0, 1, 20);
 
 	map->AssignLaneToPhase(1, 1);
 	map->AssignLaneToPhase(1, 9);
@@ -505,9 +507,15 @@ void Engine::LoadMap(const string loadDirectory) {
 			map->AddRoute(data["from"], data["to"]);
 		}
 
+		for (auto data : j["cycles"])
+		{
+			int interId = data["attached_intersection_id"];
+			map->AddCycle(data["id"], interId);
+		}
+
 		for (auto data : j["phases"])
 		{
-			map->AddPhase(data["id"], data["cycle_time"]);
+			map->AddPhase(data["id"], data["cycle_id"], data["cycle_time"]);
 		}
 
 		for (auto data : j["assigned_lanes"])
@@ -598,34 +606,44 @@ void Engine::SaveMap(const string saveDirectory) {
 		);
 	}
 
-	for (Phase *phase : *map->GetPhases())
+	for(Cycle * cycle : *map->GetCycles())
 	{
-		j["phases"].push_back(
+		j["cycles"].push_back(
 			{
-				{"id", phase->GetPhaseNumber()},
-				{"cycle_time", phase->GetCycleTime()}
+				{"id", cycle->GetCycleNumber()},
+				{"attached_intersection_id", (cycle->GetIntersection() != nullptr) ? cycle->GetIntersection()->GetIntersectionNumber() : 0}
 			}
-		);
-
-		for (Lane *lane : *phase->GetAssignedLanes())
+			);
+		for (Phase *phase : *cycle->GetPhases())
 		{
-			j["assigned_lanes"].push_back(
+			j["phases"].push_back(
 				{
-					{"phase_number", phase->GetPhaseNumber()},
-					{"lane_number", lane->GetLaneNumber()}
+					{"cycle_id", phase->GetCycleNumber()},
+					{"id", phase->GetPhaseNumber()},
+					{"cycle_time", phase->GetCycleTime()}
 				}
 			);
-		}
 
-		for (Light *light : *phase->GetLights())
-		{
-			j["lights"].push_back(
-				{
-					{"id", light->GetLightNumber()},
-					{"phase_number", light->GetPhaseNumber()},
-					{"parent_road_number", light->GetParentRoad()->GetRoadNumber()}
-				}
-			);
+			for (Lane *lane : *phase->GetAssignedLanes())
+			{
+				j["assigned_lanes"].push_back(
+					{
+						{"phase_number", phase->GetPhaseNumber()},
+						{"lane_number", lane->GetLaneNumber()}
+					}
+				);
+			}
+
+			for (Light *light : *phase->GetLights())
+			{
+				j["lights"].push_back(
+					{
+						{"id", light->GetLightNumber()},
+						{"phase_number", light->GetPhaseNumber()},
+						{"parent_road_number", light->GetParentRoad()->GetRoadNumber()}
+					}
+				);
+			}
 		}
 	}
 
@@ -719,7 +737,7 @@ void Engine::ResetMap() {
 void Engine::ClearMap() {
 
 	// clear all lanes;
-	for (Lane *l : map->GetLanes())
+	for (Lane *l : *map->GetLanes())
 	{
 		l->ClearLane();
 	}

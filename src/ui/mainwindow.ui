@@ -67,7 +67,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTabWidget" name="TrafficTab">
+         <widget class="QTabWidget" name="Setup">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -87,19 +87,25 @@
            </size>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
-          <widget class="QWidget" name="MapTab">
+          <widget class="QWidget" name="widget">
            <attribute name="title">
             <string>Map</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout">
             <item row="0" column="0">
              <layout class="QVBoxLayout" name="verticalLayout_2">
+              <property name="spacing">
+               <number>5</number>
+              </property>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_3">
-                <property name="leftMargin">
+                <property name="spacing">
                  <number>5</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
                 </property>
                 <property name="topMargin">
                  <number>5</number>
@@ -117,6 +123,9 @@
                   </property>
                   <property name="text">
                    <string>X Position:</string>
+                  </property>
+                  <property name="indent">
+                   <number>0</number>
                   </property>
                  </widget>
                 </item>
@@ -205,8 +214,11 @@
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_2">
-                <property name="leftMargin">
+                <property name="spacing">
                  <number>5</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
                 </property>
                 <property name="topMargin">
                  <number>5</number>
@@ -275,8 +287,11 @@
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_5">
-                <property name="leftMargin">
+                <property name="spacing">
                  <number>5</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
                 </property>
                 <property name="topMargin">
                  <number>5</number>
@@ -359,8 +374,11 @@
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_4">
-                <property name="leftMargin">
+                <property name="spacing">
                  <number>5</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
                 </property>
                 <property name="topMargin">
                  <number>5</number>
@@ -418,9 +436,78 @@
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_11">
-                <property name="leftMargin">
+               <layout class="QHBoxLayout" name="horizontalLayout_22">
+                <property name="spacing">
                  <number>5</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_18">
+                  <property name="text">
+                   <string>From Lane:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="FromLaneComboBox">
+                  <property name="maximumSize">
+                   <size>
+                    <width>70</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_20">
+                  <property name="text">
+                   <string>To Lane:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="ToLaneComboBox"/>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_18">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="AddRouteButton">
+                  <property name="whatsThis">
+                   <string>Add a route to the map. Vehicles will now be able to take this route</string>
+                  </property>
+                  <property name="text">
+                   <string>Add Route</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_11">
+                <property name="spacing">
+                 <number>5</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
                 </property>
                 <property name="topMargin">
                  <number>5</number>
@@ -530,8 +617,11 @@
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_16">
-                <property name="leftMargin">
+                <property name="spacing">
                  <number>5</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
                 </property>
                 <property name="topMargin">
                  <number>5</number>
@@ -620,8 +710,11 @@
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_10">
-                <property name="leftMargin">
+                <property name="spacing">
                  <number>5</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
                 </property>
                 <property name="topMargin">
                  <number>5</number>
@@ -720,26 +813,41 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="Traffic">
+          <widget class="QWidget" name="Phases">
            <attribute name="title">
-            <string>Traffic</string>
+            <string>Phases</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_5">
             <item row="0" column="0">
-             <layout class="QHBoxLayout" name="horizontalLayout_24">
+             <layout class="QHBoxLayout" name="horizontalLayout_8">
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_6">
+                <property name="spacing">
+                 <number>5</number>
+                </property>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_21">
+                 <layout class="QHBoxLayout" name="horizontalLayout_27">
+                  <property name="spacing">
+                   <number>5</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>5</number>
+                  </property>
                   <item>
-                   <widget class="QLabel" name="label_29">
+                   <widget class="QLabel" name="label_34">
                     <property name="text">
-                     <string>Show Lanes For: </string>
+                     <string>To Intersection:</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="PhaseNumberComboBox">
+                   <widget class="QComboBox" name="IntersectionNumberComboBox">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
                     <property name="maximumSize">
                      <size>
                       <width>70</width>
@@ -752,7 +860,194 @@
                    </widget>
                   </item>
                   <item>
-                   <spacer name="horizontalSpacer_28">
+                   <widget class="QCheckBox" name="AssignToIntersectionCheckBox">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Show an illustration of blocked lanes</string>
+                    </property>
+                    <property name="text">
+                     <string>Assign To Intersection</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                    <property name="checked">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_36">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="AddCycleButton">
+                    <property name="whatsThis">
+                     <string>Add a traffic phase</string>
+                    </property>
+                    <property name="text">
+                     <string>Add Cycle</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_28">
+                  <property name="spacing">
+                   <number>5</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>5</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="label_35">
+                    <property name="text">
+                     <string>To Cycle:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="ToCycleComboBox">
+                    <property name="maximumSize">
+                     <size>
+                      <width>70</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Show all lanes assign to this phase</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_37">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="AddPhaseButton">
+                    <property name="whatsThis">
+                     <string>Add a traffic phase</string>
+                    </property>
+                    <property name="text">
+                     <string>Add Phase</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_9">
+                  <property name="spacing">
+                   <number>5</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>5</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="label_32">
+                    <property name="text">
+                     <string>Assign Selected Lane to Phase:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="AssignLaneToPhaseComboBox">
+                    <property name="maximumSize">
+                     <size>
+                      <width>70</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="whatsThis">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_35">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="AssignLaneButton">
+                    <property name="whatsThis">
+                     <string>Assign a lane to the selected phase</string>
+                    </property>
+                    <property name="text">
+                     <string>Assign Lane</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_24">
+                  <property name="spacing">
+                   <number>5</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>5</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="label_31">
+                    <property name="text">
+                     <string>Show Lanes For: </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="ShowLanesForPhaseComboBox">
+                    <property name="maximumSize">
+                     <size>
+                      <width>70</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Show all lanes assign to this phase</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_34">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
@@ -783,74 +1078,23 @@
                     </property>
                    </widget>
                   </item>
-                  <item>
-                   <widget class="QPushButton" name="AddPhaseButton">
-                    <property name="whatsThis">
-                     <string>Add a traffic phase</string>
-                    </property>
-                    <property name="text">
-                     <string>Add Phase</string>
-                    </property>
-                   </widget>
-                  </item>
                  </layout>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_36">
+                 <layout class="QHBoxLayout" name="horizontalLayout_26">
+                  <property name="spacing">
+                   <number>5</number>
+                  </property>
                   <property name="topMargin">
-                   <number>0</number>
+                   <number>5</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>5</number>
                   </property>
                   <item>
-                   <widget class="QLabel" name="label_30">
+                   <widget class="QLabel" name="label_29">
                     <property name="text">
-                     <string>Assign Lane To:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="AssignLaneToPhaseComboBox">
-                    <property name="maximumSize">
-                     <size>
-                      <width>70</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="whatsThis">
-                     <string/>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_33">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="AssignLaneButton">
-                    <property name="whatsThis">
-                     <string>Assign a lane to the selected phase</string>
-                    </property>
-                    <property name="text">
-                     <string>Assign Lane</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_23">
-                  <item>
-                   <widget class="QLabel" name="label_26">
-                    <property name="text">
-                     <string>To Phase</string>
+                     <string>Represent Phase:</string>
                     </property>
                    </widget>
                   </item>
@@ -865,9 +1109,9 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_27">
+                   <widget class="QLabel" name="label_30">
                     <property name="text">
-                     <string>To Road</string>
+                     <string>On Road:</string>
                     </property>
                    </widget>
                   </item>
@@ -875,7 +1119,7 @@
                    <widget class="QComboBox" name="NearRoadComboBox"/>
                   </item>
                   <item>
-                   <spacer name="horizontalSpacer_32">
+                   <spacer name="horizontalSpacer_33">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
@@ -900,12 +1144,18 @@
                  </layout>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_33">
+                 <layout class="QHBoxLayout" name="horizontalLayout_36">
+                  <property name="spacing">
+                   <number>5</number>
+                  </property>
                   <property name="topMargin">
-                   <number>0</number>
+                   <number>5</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>5</number>
                   </property>
                   <item>
-                   <widget class="QLabel" name="label_28">
+                   <widget class="QLabel" name="label_33">
                     <property name="text">
                      <string>Phase Time :</string>
                     </property>
@@ -922,7 +1172,7 @@
                    </widget>
                   </item>
                   <item>
-                   <spacer name="horizontalSpacer_31">
+                   <spacer name="horizontalSpacer_32">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
@@ -982,6 +1232,15 @@
                 </item>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_34">
+                  <property name="spacing">
+                   <number>5</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>5</number>
+                  </property>
                   <item>
                    <widget class="QLabel" name="ZoomLabel_2">
                     <property name="text">
@@ -1057,600 +1316,504 @@
                   </item>
                  </layout>
                 </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_38">
-                  <item>
-                   <widget class="QLabel" name="ZoomLabel_3">
-                    <property name="text">
-                     <string>Orange Light Delay: </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_30">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QSlider" name="OrangeLightDelaySlider">
-                    <property name="minimumSize">
-                     <size>
-                      <width>200</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="whatsThis">
-                     <string>Adjust the orange light delay</string>
-                    </property>
-                    <property name="maximum">
-                     <number>5</number>
-                    </property>
-                    <property name="singleStep">
-                     <number>1</number>
-                    </property>
-                    <property name="pageStep">
-                     <number>1</number>
-                    </property>
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="invertedAppearance">
-                     <bool>false</bool>
-                    </property>
-                    <property name="invertedControls">
-                     <bool>false</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="OrangeLightDelayLineEdit">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>40</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>40</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_22">
-                  <item>
-                   <widget class="QLabel" name="label_18">
-                    <property name="text">
-                     <string>From Lane:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="FromLaneComboBox">
-                    <property name="maximumSize">
-                     <size>
-                      <width>70</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_20">
-                    <property name="text">
-                     <string>To Lane:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="ToLaneComboBox"/>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_18">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="AddRouteButton">
-                    <property name="whatsThis">
-                     <string>Add a route to the map. Vehicles will now be able to take this route</string>
-                    </property>
-                    <property name="text">
-                     <string>Add Route</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_35">
-                  <item>
-                   <widget class="QCheckBox" name="ShowRoutesCheckBox">
-                    <property name="enabled">
-                     <bool>true</bool>
-                    </property>
-                    <property name="whatsThis">
-                     <string>Show all possible routes</string>
-                    </property>
-                    <property name="text">
-                     <string>Show Routes</string>
-                    </property>
-                    <property name="checkable">
-                     <bool>true</bool>
-                    </property>
-                    <property name="checked">
-                     <bool>false</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="ShowLaneBlockCheckBox">
-                    <property name="enabled">
-                     <bool>true</bool>
-                    </property>
-                    <property name="whatsThis">
-                     <string>Show an illustration of blocked lanes</string>
-                    </property>
-                    <property name="text">
-                     <string>Show Lane Blocks</string>
-                    </property>
-                    <property name="checkable">
-                     <bool>true</bool>
-                    </property>
-                    <property name="checked">
-                     <bool>false</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="DensityColorCheckBox">
-                    <property name="enabled">
-                     <bool>true</bool>
-                    </property>
-                    <property name="whatsThis">
-                     <string>Show an illustration of blocked lanes</string>
-                    </property>
-                    <property name="text">
-                     <string>Density Color</string>
-                    </property>
-                    <property name="checkable">
-                     <bool>true</bool>
-                    </property>
-                    <property name="checked">
-                     <bool>false</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_27">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="RemoveLaneFromPhaseButton">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="whatsThis">
-                     <string>Delete a selected Phase</string>
-                    </property>
-                    <property name="text">
-                     <string>Delete</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
                </layout>
               </item>
               <item>
-               <widget class="QListWidget" name="AssignedLanesListView">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>80</width>
-                  <height>0</height>
-                 </size>
-                </property>
-               </widget>
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <item>
+                 <widget class="QListWidget" name="AssignedLanesListView">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>70</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>125</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="RemoveLaneFromPhaseButton">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Delete a selected Phase</string>
+                  </property>
+                  <property name="text">
+                   <string>Unassign Lane</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>false</bool>
+                  </property>
+                  <property name="flat">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="VehiclesTab">
+          <widget class="QWidget" name="TrafficTab">
            <attribute name="title">
-            <string>Vehicles</string>
+            <string>Traffic</string>
            </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_3">
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_17">
+           <layout class="QGridLayout" name="gridLayout_6">
+            <item row="0" column="0">
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <property name="spacing">
+               <number>5</number>
+              </property>
               <item>
-               <spacer name="horizontalSpacer_14">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+               <layout class="QHBoxLayout" name="horizontalLayout_17">
+                <property name="spacing">
+                 <number>5</number>
                 </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
+                <property name="topMargin">
+                 <number>5</number>
                 </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QComboBox" name="VelocityUnitComboBox">
-                <property name="whatsThis">
-                 <string>Velocity units</string>
+                <property name="bottomMargin">
+                 <number>5</number>
                 </property>
                 <item>
-                 <property name="text">
-                  <string>cm/s</string>
-                 </property>
+                 <spacer name="horizontalSpacer_14">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                 <item>
-                 <property name="text">
-                  <string>km/h</string>
-                 </property>
+                 <widget class="QComboBox" name="VelocityUnitComboBox">
+                  <property name="whatsThis">
+                   <string>Velocity units</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>cm/s</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>km/h</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>m/s</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>mph</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_7">
+                <property name="spacing">
+                 <number>5</number>
+                </property>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_11">
+                  <property name="text">
+                   <string>Car Max Speed</string>
+                  </property>
+                 </widget>
                 </item>
                 <item>
-                 <property name="text">
-                  <string>m/s</string>
-                 </property>
+                 <spacer name="horizontalSpacer_7">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                 <item>
-                 <property name="text">
-                  <string>mph</string>
-                 </property>
+                 <widget class="QLineEdit" name="CarMaxSpeed">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>50</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Adjust max speed for cars</string>
+                  </property>
+                 </widget>
                 </item>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_12">
-              <item>
-               <widget class="QLabel" name="label_11">
-                <property name="text">
-                 <string>Car Max Speed</string>
-                </property>
-               </widget>
+               </layout>
               </item>
               <item>
-               <spacer name="horizontalSpacer_7">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+               <layout class="QHBoxLayout" name="horizontalLayout_13">
+                <property name="spacing">
+                 <number>5</number>
                 </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
+                <property name="topMargin">
+                 <number>5</number>
                 </property>
-               </spacer>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_12">
+                  <property name="text">
+                   <string>Motorcycle Max Speed</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_10">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="MotorcycleMaxSpeed">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>50</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Adjust max speed for motorcycles</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
               <item>
-               <widget class="QLineEdit" name="CarMaxSpeed">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
+               <layout class="QHBoxLayout" name="horizontalLayout_14">
+                <property name="spacing">
+                 <number>5</number>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>50</width>
-                  <height>16777215</height>
-                 </size>
+                <property name="topMargin">
+                 <number>5</number>
                 </property>
-                <property name="whatsThis">
-                 <string>Adjust max speed for cars</string>
+                <property name="bottomMargin">
+                 <number>5</number>
                 </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_13">
-              <item>
-               <widget class="QLabel" name="label_12">
-                <property name="text">
-                 <string>Motorcycle Max Speed</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_10">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="MotorcycleMaxSpeed">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>50</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="whatsThis">
-                 <string>Adjust max speed for motorcycles</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_14">
-              <item>
-               <widget class="QLabel" name="label_13">
-                <property name="text">
-                 <string>Truck Max Speed</string>
-                </property>
-               </widget>
+                <item>
+                 <widget class="QLabel" name="label_13">
+                  <property name="text">
+                   <string>Truck Max Speed</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_11">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="TruckMaxSpeed">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>50</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Adjust max speed for trucks</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
               <item>
-               <spacer name="horizontalSpacer_11">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+               <layout class="QHBoxLayout" name="horizontalLayout_6">
+                <property name="spacing">
+                 <number>5</number>
                 </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
+                <property name="topMargin">
+                 <number>5</number>
                 </property>
-               </spacer>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_15">
+                  <property name="text">
+                   <string>Vehicle Spawn Rate: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="VehicleSpawnRateSlider">
+                  <property name="singleStep">
+                   <number>10</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="VehicleSpawnRateTextBox">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>50</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Adjust max speed for cars</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_16">
+                  <property name="text">
+                   <string>ms</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_20">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </item>
               <item>
-               <widget class="QLineEdit" name="TruckMaxSpeed">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
+               <layout class="QHBoxLayout" name="horizontalLayout_18">
+                <property name="spacing">
+                 <number>5</number>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>50</width>
-                  <height>16777215</height>
-                 </size>
+                <property name="topMargin">
+                 <number>5</number>
                 </property>
-                <property name="whatsThis">
-                 <string>Adjust max speed for trucks</string>
+                <property name="bottomMargin">
+                 <number>5</number>
                 </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_18">
-              <item>
-               <widget class="QCheckBox" name="DrawTexturesCheckBox">
-                <property name="whatsThis">
-                 <string>Draw vehicle textures. If disabled, the textures will be replaced by shapes</string>
-                </property>
-                <property name="text">
-                 <string>Draw Textures</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="MultiColorCheckBox">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="whatsThis">
-                 <string>Draw vehicle textures in multiple colors</string>
-                </property>
-                <property name="text">
-                 <string>Multi Color</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="FollowSelectedCarButton">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="whatsThis">
-                 <string>Bind camera position to a selected car.</string>
-                </property>
-                <property name="text">
-                 <string>Follow Selected Car</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_15">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_6">
-              <item>
-               <widget class="QLabel" name="label_15">
-                <property name="text">
-                 <string>Vehicle Spawn Rate: </string>
-                </property>
-               </widget>
+                <item>
+                 <widget class="QCheckBox" name="DrawTexturesCheckBox">
+                  <property name="whatsThis">
+                   <string>Draw vehicle textures. If disabled, the textures will be replaced by shapes</string>
+                  </property>
+                  <property name="text">
+                   <string>Draw Textures</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="MultiColorCheckBox">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Draw vehicle textures in multiple colors</string>
+                  </property>
+                  <property name="text">
+                   <string>Multi Color</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="FollowSelectedCarButton">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Bind camera position to a selected car.</string>
+                  </property>
+                  <property name="text">
+                   <string>Follow Selected Car</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_15">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </item>
               <item>
-               <widget class="QSlider" name="VehicleSpawnRateSlider">
-                <property name="singleStep">
-                 <number>10</number>
+               <layout class="QHBoxLayout" name="horizontalLayout_35">
+                <property name="spacing">
+                 <number>5</number>
                 </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+                <property name="topMargin">
+                 <number>5</number>
                 </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="VehicleSpawnRateTextBox">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
+                <property name="bottomMargin">
+                 <number>5</number>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>50</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="whatsThis">
-                 <string>Adjust max speed for cars</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_16">
-                <property name="text">
-                 <string>ms</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_20">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_15">
-              <item>
-               <widget class="QPushButton" name="pushButton_9">
-                <property name="text">
-                 <string>Load Setup</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_10">
-                <property name="text">
-                 <string>Save Setup</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_12">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_13">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_12">
-                <property name="text">
-                 <string>Reset</string>
-                </property>
-                <property name="autoDefault">
-                 <bool>false</bool>
-                </property>
-                <property name="default">
-                 <bool>false</bool>
-                </property>
-               </widget>
+                <item>
+                 <widget class="QCheckBox" name="ShowRoutesCheckBox">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Show all possible routes</string>
+                  </property>
+                  <property name="text">
+                   <string>Show Routes</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <property name="checked">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="ShowLaneBlockCheckBox">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Show an illustration of blocked lanes</string>
+                  </property>
+                  <property name="text">
+                   <string>Show Lane Blocks</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <property name="checked">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="DensityColorCheckBox">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Show an illustration of blocked lanes</string>
+                  </property>
+                  <property name="text">
+                   <string>Density Color</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <property name="checked">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_27">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>

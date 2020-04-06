@@ -6,9 +6,10 @@
 
 int Phase::PhaseCount = 0;
 
-Phase::Phase(int phaseNumber, float cycleTime) {
+Phase::Phase(int phaseNumber, int cycleNumber, float cycleTime) {
     number_of_lights_ = 0;
     phase_number_ = phaseNumber;
+    cycle_number_ = cycleNumber;
     cycle_time_ = cycleTime;
     open_ = false;
     open_time_ = 0;

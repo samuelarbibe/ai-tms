@@ -1,30 +1,19 @@
 {
     "assigned_lanes": [
         {
-            "lane_number": 50,
-            "phase_number": 1
+            "lane_number": 27,
+            "phase_number": 2
         },
         {
-            "lane_number": 8,
-            "phase_number": 1
+            "lane_number": 26,
+            "phase_number": 2
         },
         {
-            "lane_number": 38,
-            "phase_number": 1
+            "lane_number": 25,
+            "phase_number": 2
         },
         {
-            "lane_number": 11,
-            "phase_number": 1
-        },
-        {
-            "lane_number": 23,
-            "phase_number": 1
-        },       {
-            "lane_number": 68,
-            "phase_number": 1
-        },
-        {
-            "lane_number": 20,
+            "lane_number": 33,
             "phase_number": 1
         },
         {
@@ -32,79 +21,11 @@
             "phase_number": 1
         },
         {
-            "lane_number": 27,
-            "phase_number": 2
+            "lane_number": 31,
+            "phase_number": 1
         },
         {
             "lane_number": 3,
-            "phase_number": 2
-        },
-        {
-            "lane_number": 9,
-            "phase_number": 2
-        },
-        {
-            "lane_number": 15,
-            "phase_number": 2
-        },
-        {
-            "lane_number": 21,
-            "phase_number": 2
-        },
-        {
-            "lane_number" : 69,
-            "phase_number": 2
-        },
-        {
-            "lane_number": 45,
-            "phase_number": 2
-        },
-        {
-            "lane_number": 39,
-            "phase_number": 2
-        },
-        {
-            "lane_number": 4,
-            "phase_number": 3
-        },
-        {
-            "lane_number": 33,
-            "phase_number": 3
-        },
-        {
-            "lane_number": 63,
-            "phase_number": 3
-        },
-        {
-            "lane_number": 22,
-            "phase_number": 3
-        },
-        {
-            "lane_number": 51,
-            "phase_number": 3
-        },
-        {
-            "lane_number": 16,
-            "phase_number": 3
-        },
-        {
-            "lane_number": 57,
-            "phase_number": 3
-        },
-        {
-            "lane_number": 10,
-            "phase_number": 3
-        },
-        {
-            "lane_number": 26,
-            "phase_number": 4
-        },
-        {
-            "lane_number": 5,
-            "phase_number": 4
-        },
-        {
-            "lane_number": 56,
             "phase_number": 4
         },
         {
@@ -112,20 +33,164 @@
             "phase_number": 4
         },
         {
-            "lane_number": 62,
+            "lane_number": 1,
             "phase_number": 4
+        },
+        {
+            "lane_number": 22,
+            "phase_number": 3
+        },
+        {
+            "lane_number": 23,
+            "phase_number": 3
+        },
+        {
+            "lane_number": 24,
+            "phase_number": 3
+        },
+        {
+            "lane_number": 57,
+            "phase_number": 8
+        },
+        {
+            "lane_number": 56,
+            "phase_number": 8
+        },
+        {
+            "lane_number": 55,
+            "phase_number": 8
+        },
+        {
+            "lane_number": 39,
+            "phase_number": 5
+        },
+        {
+            "lane_number": 38,
+            "phase_number": 5
+        },
+        {
+            "lane_number": 37,
+            "phase_number": 5
+        },
+        {
+            "lane_number": 9,
+            "phase_number": 7
+        },
+        {
+            "lane_number": 8,
+            "phase_number": 7
+        },
+        {
+            "lane_number": 7,
+            "phase_number": 7
+        },
+        {
+            "lane_number": 4,
+            "phase_number": 6
+        },
+        {
+            "lane_number": 5,
+            "phase_number": 6
+        },
+        {
+            "lane_number": 6,
+            "phase_number": 6
+        },
+        {
+            "lane_number": 10,
+            "phase_number": 9
+        },
+        {
+            "lane_number": 11,
+            "phase_number": 9
+        },
+        {
+            "lane_number": 12,
+            "phase_number": 9
+        },
+        {
+            "lane_number": 15,
+            "phase_number": 10
         },
         {
             "lane_number": 14,
-            "phase_number": 4
+            "phase_number": 10
+        },
+        {
+            "lane_number": 13,
+            "phase_number": 10
+        },
+        {
+            "lane_number": 51,
+            "phase_number": 11
+        },
+        {
+            "lane_number": 50,
+            "phase_number": 11
+        },
+        {
+            "lane_number": 49,
+            "phase_number": 11
+        },
+        {
+            "lane_number": 45,
+            "phase_number": 12
         },
         {
             "lane_number": 44,
-            "phase_number": 4
+            "phase_number": 12
+        },
+        {
+            "lane_number": 43,
+            "phase_number": 12
+        },
+        {
+            "lane_number": 63,
+            "phase_number": 14
+        },
+        {
+            "lane_number": 62,
+            "phase_number": 14
+        },
+        {
+            "lane_number": 61,
+            "phase_number": 14
+        },
+        {
+            "lane_number": 69,
+            "phase_number": 15
+        },
+        {
+            "lane_number": 68,
+            "phase_number": 15
+        },
+        {
+            "lane_number": 67,
+            "phase_number": 15
+        },
+        {
+            "lane_number": 16,
+            "phase_number": 16
         },
         {
             "lane_number": 17,
-            "phase_number": 4
+            "phase_number": 16
+        },
+        {
+            "lane_number": 18,
+            "phase_number": 16
+        },
+        {
+            "lane_number": 21,
+            "phase_number": 13
+        },
+        {
+            "lane_number": 20,
+            "phase_number": 13
+        },
+        {
+            "lane_number": 19,
+            "phase_number": 13
         }
     ],
     "connecting_roads": [
@@ -137,7 +202,7 @@
             ]
         },
         {
-        "id": 2,
+            "id": 2,
             "intersection_number": [
                 2,
                 3
@@ -158,33 +223,51 @@
             ]
         }
     ],
+    "cycles": [
+        {
+            "attached_intersection_id": 1,
+            "id": 1
+        },
+        {
+            "attached_intersection_id": 2,
+            "id": 2
+        },
+        {
+            "attached_intersection_id": 3,
+            "id": 3
+        },
+        {
+            "attached_intersection_id": 4,
+            "id": 4
+        }
+    ],
     "intersections": [
         {
             "id": 1,
             "position": [
-                3540.0,
-                5040.0
+                3500.0,
+                6500.0
             ]
         },
         {
             "id": 2,
             "position": [
-                3540.0,
-                3480.0
+                3500.0,
+                3500.0
             ]
         },
         {
             "id": 3,
             "position": [
-                5640.0,
-                3480.0
+                6500.0,
+                3500.0
             ]
         },
         {
             "id": 4,
             "position": [
-                5640.0,
-                5040.0
+                6500.0,
+                6500.0
             ]
         }
     ],
@@ -552,20 +635,84 @@
     ],
     "phases": [
         {
-            "cycle_time": 20,
-            "id": 1
-        },
-        {
-            "cycle_time": 20,
+            "cycle_id" : 1,
+            "cycle_time": 20.0,
             "id": 2
         },
         {
-            "cycle_time": 20,
+            "cycle_id" : 1,
+            "cycle_time": 20.0,
+            "id": 1
+        },
+        {
+            "cycle_id" : 1,
+            "cycle_time": 20.0,
+            "id": 4
+        },
+        {
+            "cycle_id" : 1,
+            "cycle_time": 20.0,
             "id": 3
         },
         {
-            "cycle_time": 20,
-            "id": 4
+            "cycle_id" : 2,
+            "cycle_time": 20.0,
+            "id": 8
+        },
+        {
+            "cycle_id" : 2,
+            "cycle_time": 20.0,
+            "id": 5
+        },
+        {
+            "cycle_id" : 2,
+            "cycle_time": 20.0,
+            "id": 7
+        },
+        {
+            "cycle_id" : 2,
+            "cycle_time": 20.0,
+            "id": 6
+        },
+        {
+            "cycle_id" : 3,
+            "cycle_time": 20.0,
+            "id": 9
+        },
+        {
+            "cycle_id" : 3,
+            "cycle_time": 20.0,
+            "id": 10
+        },
+        {
+            "cycle_id" : 3,
+            "cycle_time": 20.0,
+            "id": 11
+        },
+        {
+            "cycle_id" : 3,
+            "cycle_time": 20.0,
+            "id": 12
+        },
+        {
+            "cycle_id" : 4,
+            "cycle_time": 20.0,
+            "id": 14
+        },
+        {
+            "cycle_id" : 4,
+            "cycle_time": 20.0,
+            "id": 15
+        },
+        {
+            "cycle_id" : 4,
+            "cycle_time": 20.0,
+            "id": 16
+        },
+        {
+            "cycle_id" : 4,
+            "cycle_time": 20.0,
+            "id": 13
         }
     ],
     "roads": [
@@ -802,6 +949,134 @@
         {
             "from": 8,
             "to": 41
+        },
+        {
+            "from": 4,
+            "to": 58
+        },
+        {
+            "from": 39,
+            "to": 10
+        },
+        {
+            "from": 9,
+            "to": 40
+        },
+        {
+            "from": 57,
+            "to": 3
+        },
+        {
+            "from": 22,
+            "to": 34
+        },
+        {
+            "from": 33,
+            "to": 21
+        },
+        {
+            "from": 3,
+            "to": 28
+        },
+        {
+            "from": 27,
+            "to": 4
+        },
+        {
+            "from": 24,
+            "to": 36
+        },
+        {
+            "from": 31,
+            "to": 19
+        },
+        {
+            "from": 25,
+            "to": 6
+        },
+        {
+            "from": 1,
+            "to": 30
+        },
+        {
+            "from": 6,
+            "to": 60
+        },
+        {
+            "from": 55,
+            "to": 1
+        },
+        {
+            "from": 37,
+            "to": 12
+        },
+        {
+            "from": 7,
+            "to": 42
+        },
+        {
+            "from": 15,
+            "to": 46
+        },
+        {
+            "from": 45,
+            "to": 16
+        },
+        {
+            "from": 51,
+            "to": 9
+        },
+        {
+            "from": 10,
+            "to": 52
+        },
+        {
+            "from": 49,
+            "to": 7
+        },
+        {
+            "from": 12,
+            "to": 54
+        },
+        {
+            "from": 43,
+            "to": 18
+        },
+        {
+            "from": 13,
+            "to": 48
+        },
+        {
+            "from": 69,
+            "to": 22
+        },
+        {
+            "from": 21,
+            "to": 70
+        },
+        {
+            "from": 63,
+            "to": 15
+        },
+        {
+            "from": 16,
+            "to": 64
+        },
+        {
+            "from": 61,
+            "to": 13
+        },
+        {
+            "from": 18,
+            "to": 66
+        },
+        {
+            "from": 19,
+            "to": 72
+        },
+        {
+            "from": 67,
+            "to": 24
         }
     ]
 }

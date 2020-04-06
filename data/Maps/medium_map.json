@@ -124,21 +124,31 @@
             "road_number": 4
         }
     ],
+    "cycles":[
+        {
+            "id" : 1,
+            "attached_intersection_id" : 1
+        }
+    ],
     "phases": [
         {
             "cycle_time": 20.0,
+            "cycle_id" : 1,
             "id": 1
         },
         {
             "cycle_time": 20.0,
+            "cycle_id" : 1,
             "id": 2
         },
         {
             "cycle_time": 20.0,
+            "cycle_id" : 1,
             "id": 3
         },
         {
             "cycle_time": 20.0,
+            "cycle_id" : 1,
             "id": 4
         }
     ],

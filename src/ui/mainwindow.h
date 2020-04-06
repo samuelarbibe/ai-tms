@@ -89,7 +89,7 @@ private slots:
 
     void on_ReloadButton_clicked();
 
-    void on_PhaseNumberComboBox_currentTextChanged(const QString &arg1);
+    void on_ShowLanesForPhaseComboBox_currentTextChanged(const QString &arg1);
 
     void on_AssignedLanesListView_itemClicked(QListWidgetItem *item);
 
@@ -101,8 +101,6 @@ private slots:
 
     void on_PhaseDelaySlider_sliderMoved(int position);
 
-    void on_OrangeLightDelaySlider_sliderMoved(int position);
-
     void on_AssignLaneButton_clicked();
 
     void on_PhaseTimeComboBox_currentTextChanged(const QString &arg1);
@@ -110,8 +108,6 @@ private slots:
     void on_PhaseTimeLineEdit_editingFinished();
 
     void on_PhaseDelayLineEdit_editingFinished();
-
-    void on_OrangeLightDelayLineEdit_editingFinished();
 
     void on_ShowLaneBlockCheckBox_stateChanged(int arg1);
 
@@ -142,6 +138,13 @@ private slots:
     void on_VehicleSpawnRateTextBox_editingFinished();
 
     void on_ShowSelectedPhaseLanesCheckBox_stateChanged(int arg1);
+
+    void on_AddCycleButton_clicked();
+
+    void on_AssignToIntersectionCheckBox_stateChanged(int arg1);
+
+    void on_RemoveLaneFromPhaseButton_clicked();
+
 
 private:
 

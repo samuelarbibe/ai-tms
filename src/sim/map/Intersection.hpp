@@ -55,10 +55,6 @@ public:
     int GetLaneCount();
     Vector2f GetPositionByConnectionSide(int connectionSide);
 
-    // set
-    void  AddVehicleCount(){current_vehicle_count_++; total_vehicle_count_++;};
-    void  RemoveVehicleCount(){current_vehicle_count_--;};
-
     Lane * CheckSelection(Vector2f position);
 
     // A static count of how many intersections have been
