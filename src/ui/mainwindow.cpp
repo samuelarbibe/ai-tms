@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	// connect the simulation finished event to its slot here
 	QObject::connect(SimulatorEngine, SIGNAL(SimulationFinished()), this, SLOT(on_SimulationFinished()));
+	QObject::connect(SimulatorEngine, SIGNAL(SetFinished()), this, SLOT(on_SetFinished()));
 }
 
 MainWindow::~MainWindow() {
@@ -45,9 +46,12 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_SimulationFinished() {
-	ui->AbortButton->setEnabled(false);
 	reload_sim_table();
 	resize_sim_table();
+}
+
+void MainWindow::on_SetFinished() {
+	ui->AbortButton->setEnabled(false);
 }
 
 void MainWindow::reload_sim_table() {
@@ -478,15 +482,12 @@ void MainWindow::on_PauseButton_clicked() {
 }
 
 void MainWindow::on_RunSimulationButton_clicked() {
-	int amount = ui->CarCountSpinBox->value();
-	bool timed = ui->TimedSimCheckBox->isChecked();
+	int vehicleCount = ui->CarCountSpinBox->value();
+    int generations = ui->SimulationCountSpinBox->value();
 
 	if (!Simulation::SimRunning)
 	{
-		if(timed)
-			SimulatorEngine->RunSimulation(1000, amount);
-		else
-			SimulatorEngine->RunSimulation(amount);
+        SimulatorEngine->RunSet(vehicleCount, generations);
 		ui->AbortButton->setEnabled(true);
 	} else
 	{
@@ -680,7 +681,7 @@ void MainWindow::on_SaveSimButton_clicked() {
 	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
 	                                                "simulations.json",
 	                                                tr("JSON Files (*.json"));
-	SimulatorEngine->SaveSimulations(fileName.toStdString());
+	SimulatorEngine->SaveSets(fileName.toStdString());
 }
 
 void MainWindow::on_LoadSimButton_clicked() {
@@ -693,7 +694,7 @@ void MainWindow::on_LoadSimButton_clicked() {
 	if (dialog.exec())
 	{
 		fileNames = dialog.selectedFiles();
-		SimulatorEngine->LoadSimulations(fileNames.front().toStdString());
+		SimulatorEngine->LoadSets(fileNames.front().toStdString());
 		reloadOptionData();
 		reload_sim_table();
 		resize_sim_table();

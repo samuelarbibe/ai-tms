@@ -17,11 +17,10 @@ Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000.f / Settings::Interva
 	snap_to_grid_ = true;
 	view_pos_ = Vector2f(0, 0);
 	temp_view_pos_ = Vector2f(0, 0);
+	number_of_sets_ = 0;
 	SetView();
 	set_minimap(Settings::MinimapSize, Settings::MinimapMargin);
 	this->setView(view_);
-
-	number_of_simulations_ = 0;
 
 	cout << "Setting up snap grid..." << endl;
 	BuildGrid(Settings::GridRows, Settings::GridColumns);
@@ -99,109 +98,66 @@ void Engine::ResizeFrame(QSize size) {
 bool Engine::DeleteSimulation(int simulationNumber) {
 
 	Simulation *s = GetSimulation(simulationNumber);
-
 	if (s != nullptr)
 	{
-		// remove the targetLane from the list by iterator
-		auto it = simulations_.begin();
-		while (it != simulations_.end())
+		Set *set = GetSet(s->GetSetNumber());
+
+		if (set != nullptr)
 		{
-			if ((*it)->GetSimulationNumber() == simulationNumber)
-			{
-				it = simulations_.erase(it);
-				delete s;
-				number_of_simulations_--;
-				return true;
-			} else
-			{
-				it++;
-			}
+			return set->DeleteSimulation(simulationNumber);
 		}
 	}
-
 	cout << "Could not delete simulation as it wasnt found. " << endl;
 	return false;
 }
 
-/// run a simualtion on the given vehicle count
-void Engine::RunSimulation(int vehicleCount, float runningTime) {
+/// re-run a simualtion by sim-number, without calculating it as a simulation
+bool Engine::RunDemo(int simulationNumber) {
 
-	if (!Simulation::SimRunning)
+	if (!Simulation::DemoRunning && !Set::SetRunning)
 	{
-		// if demo is running, stop it
-		if (Simulation::DemoRunning)
+		Simulation *s = GetSimulation(simulationNumber);
+		if (s != nullptr)
+		{
+			Set *set = GetSet(s->GetSetNumber());
+
+			if (set != nullptr)
+			{
+				return set->DemoSimulation(simulationNumber);
+			}
+		}
+		cout << "Could not demo simulation as it wasn't found. " << endl;
+	}
+	cout << "Cannot run demo as a set is currently running." << endl;
+	return false;
+}
+
+/// Trains the neural network for a set amount of generation.
+// at the end of a training, it saves all the data in a simulation file.
+
+bool Engine::RunSet(int vehicleCount, int generations)
+{
+	if(!Set::SetRunning)
+	{
+		if(Simulation::DemoRunning)
 		{
 			ClearMap();
 		}
 
-		cout << "Running Simulation on this map..." << endl;
+		Set * s = AddSet(0, vehicleCount, generations);
 
-		if (runningTime != 0)
-			cout << "Timing set at " << runningTime << " seconds..." << endl;
-		else
-			cout << "Sending " << vehicleCount << " vehicles..." << endl;
+		s->RunSet();
 
-		Vehicle::VehiclesToDeploy = vehicleCount;
-
-		// start a new simulation
-		Simulation *s = new Simulation(0, vehicleCount, runningTime);
-
-		simulations_.push_back(s);
-		number_of_simulations_ = simulations_.size();
-
-		s->Run();
-
-		cout << "------------------------------------------------------------------" << endl;
-		cout << "Simulation " << s->GetSimulationNumber() << " started at ";
-		cout << ctime(s->GetStartTime());
-		cout << "------------------------------------------------------------------" << endl;
-	} else
+		cout << "Set number " << s->GetSetNumber() << " has started running" << endl;
+		return true;
+	}
+	else
 	{
-		cout << "Another simulation is running, please wait for it to finish." << endl;
+		cout << "Cannot run set as another set is already running." << endl;
+		return false;
 	}
 }
 
-/// re-run a simualtion by sim-number, without calculating it as a simulation
-void Engine::RunDemo(int simulationNumber) {
-	demo_simulation_ = GetSimulation(simulationNumber);
-
-	if (demo_simulation_ != nullptr)
-	{
-		if (!Simulation::SimRunning)
-		{
-			// if demo is running, stop it
-			if (Simulation::DemoRunning)
-			{
-				ClearMap();
-			}
-
-			int vehicleCount = demo_simulation_->GetVehicleCount();
-
-			Vehicle::VehiclesToDeploy = vehicleCount;
-
-			demo_simulation_->Run(true);
-
-			cout << "------------------------------------------------------------------" << endl;
-			cout << "Demo of simulation " << demo_simulation_->GetSimulationNumber() << " started" << endl;
-			cout << "------------------------------------------------------------------" << endl;
-		} else
-		{
-			cout << "A simulation is already running. Abort the current simulation to run a demo." << endl;
-		}
-	} else
-	{
-		cout << "Could not demo simualtion as it wasnt found." << endl;
-	}
-}
-
-/// Trains the neural network for a set amount of generation.
-    // at the end of a training, it saves all the data in a simulation file.
-    /*
-void Engine::StartTraining()
-{
-    if()
-}
-     */
 
 /// set the viewport for the camera
 void Engine::SetView() {
@@ -346,32 +302,40 @@ Vector2f Engine::DrawPoint(Vector2f position) {
 }
 
 vector<Simulation *> *Engine::GetSimulations() {
-	if (Settings::DrawSimTable)
+
+	vector<Simulation *> *sims = new vector<Simulation *>();
+
+	for (Set *set : sets_)
 	{
-
-		VariadicTable<int, string, string, float, int>
-			vt({"ID", "Start Time", "End Time", "Simulated Time", "Vehicle Count"});
-
-		for (Simulation *s : simulations_)
+		for (Simulation *sim : *set->GetSimulations())
 		{
-			vt.addRow(s->GetSimulationNumber(),
-			          ctime(s->GetStartTime()),
-			          ctime(s->GetEndTime()),
-			          s->GetElapsedTime(),
-			          s->GetVehicleCount());
+			sims->push_back(sim);
 		}
-
-		vt.print(std::cout);
 	}
 
-	return &simulations_;
+	return sims;
 }
 
 /// get simualtion by simulation number
 Simulation *Engine::GetSimulation(int simulationNumber) {
-	for (Simulation *s : simulations_)
+	Simulation *temp = nullptr;
+
+	for (Set *s : sets_)
 	{
-		if (s->GetSimulationNumber() == simulationNumber)
+		if ((temp = s->GetSimulation(simulationNumber)) != nullptr)
+		{
+			return temp;
+		}
+	}
+
+	return nullptr;
+}
+
+/// get set by set number
+Set *Engine::GetSet(int setNumber) {
+	for (Set *s: sets_)
+	{
+		if (s->GetSetNumber() == setNumber)
 		{
 			return s;
 		}
@@ -465,6 +429,27 @@ void Engine::input() {
 	{
 		UpdateView(Vector2f(startPos.x - mousePos.x, startPos.y - mousePos.y));
 	}
+}
+
+Set * Engine::AddSet(int setNumber, int vehicleCount, int generations)
+{
+	if(setNumber == 0)
+	{
+		setNumber = Set::SetCount + 1;
+	}
+
+	Set * set = new Set(setNumber, generations, vehicleCount);
+	sets_.push_back(set);
+
+	Set::SetCount++;
+	number_of_sets_++;
+
+	if(Settings::DrawAdded)
+	{
+		cout << "Set number " << setNumber << " added." << endl;
+	}
+
+	return set;
 }
 
 /// build a map using instructions from a given json file
@@ -606,14 +591,15 @@ void Engine::SaveMap(const string saveDirectory) {
 		);
 	}
 
-	for(Cycle * cycle : *map->GetCycles())
+	for (Cycle *cycle : *map->GetCycles())
 	{
 		j["cycles"].push_back(
 			{
 				{"id", cycle->GetCycleNumber()},
-				{"attached_intersection_id", (cycle->GetIntersection() != nullptr) ? cycle->GetIntersection()->GetIntersectionNumber() : 0}
+				{"attached_intersection_id",
+				 (cycle->GetIntersection() != nullptr) ? cycle->GetIntersection()->GetIntersectionNumber() : 0}
 			}
-			);
+		);
 		for (Phase *phase : *cycle->GetPhases())
 		{
 			j["phases"].push_back(
@@ -656,20 +642,40 @@ void Engine::SaveMap(const string saveDirectory) {
 }
 
 /// save the recent simulations to a file
-void Engine::SaveSimulations(string saveDirectory) {
+void Engine::SaveSets(string saveDirectory) {
 
 	json j;
-	for (Simulation *sim : simulations_)
+	for (Set *set : sets_)
 	{
-		j["simulations"].push_back(
+		j["sets"].push_back(
 			{
-				{"id", sim->GetSimulationNumber()},
-				{"vehicle_count", sim->GetVehicleCount()},
-				{"start_time", static_cast<long int>(*sim->GetStartTime())},
-				{"end_time", static_cast<long int>(*sim->GetEndTime())},
-				{"simulated_time", sim->GetElapsedTime()}
+				{"id", set->GetSetNumber()},
+				{"generation_simulated", set->GetGenerationsSimulated()},
+				{"generation_count", set->GetGenerationsCount()},
+				{"vehicle_count", set->GetVehicleCount()},
+				{"start_time", static_cast<long int>(*set->GetStartTime())},
+				{"end_time", static_cast<long int>(*set->GetEndTime())},
+				{"progress", set->GetProgress()},
+				{"finished", set->IsFinished()}
+
 			}
 		);
+
+		for (Simulation *sim : *set->GetSimulations())
+		{
+			j["simulations"].push_back(
+				{
+					{"id", sim->GetSimulationNumber()},
+					{"set_id", sim->GetSetNumber()},
+					{"vehicle_count", sim->GetVehicleCount()},
+					{"start_time", static_cast<long int>(*sim->GetStartTime())},
+					{"end_time", static_cast<long int>(*sim->GetEndTime())},
+					{"simulated_time", sim->GetElapsedTime()},
+					{"result", sim->GetScore()},
+
+				}
+			);
+		}
 	}
 
 	// write to file
@@ -677,11 +683,11 @@ void Engine::SaveSimulations(string saveDirectory) {
 	o << setw(4) << j << endl;
 	o.close();
 
-	cout << "Simulation saved to '" << saveDirectory << "' successfully." << endl;
+	cout << "Set saved to '" << saveDirectory << "' successfully." << endl;
 }
 
 /// load simulations from a file
-void Engine::LoadSimulations(string loadDirectory) {
+void Engine::LoadSets(string loadDirectory) {
 
 	try
 	{
@@ -690,21 +696,35 @@ void Engine::LoadSimulations(string loadDirectory) {
 		ifstream i(loadDirectory);
 		i >> j;
 
-		Simulation *s;
-		// build intersections
-		for (auto data : j["simulations"])
+		Set *s;
+		for (auto data : j["sets"])
 		{
-			s = new Simulation(data["id"], data["vehicle_count"]);
+			s = new Set(data["id"],
+			            data["generation_count"],
+			            data["vehicle_count"]);
 			s->SetStartTime(time_t(data["start_time"]));
 			s->SetEndTime(time_t(data["end_time"]));
-			s->SetSimulationTime(data["simulated_time"]);
-			s->SetFinished(true);
-			simulations_.push_back(s);
+			s->SetGenerationsSimulated(data["generation_simulated"]);
+			s->SetProgress(data["progress"]);
+			s->SetFinished(data["finished"]);
+			sets_.push_back(s);
 		}
 
-		if (simulations_.size() > 0)
+		// build intersections
+		Simulation *sim;
+		for (auto data : j["simulations"])
 		{
-			cout << "simulations have been successfully loaded from '" << loadDirectory << "'. " << endl;
+			s = GetSet(data["set_id"]);
+			sim = s->AddSimulation(data["id"], data["vehicle_count"]);
+			sim->SetStartTime(time_t(data["start_time"]));
+			sim->SetEndTime(time_t(data["end_time"]));
+			sim->SetSimulationTime(data["simulated_time"]);
+			sim->SetFinished(true);
+		}
+
+		if (!sets_.empty())
+		{
+			cout << "sets have been successfully loaded from '" << loadDirectory << "'. " << endl;
 		} else
 		{
 			throw std::exception();
@@ -742,45 +762,16 @@ void Engine::ClearMap() {
 		l->ClearLane();
 	}
 
-	if (Simulation::DemoRunning)
+	for (Set *s : sets_)
 	{
-		cout << "Stopping demo of simulation " << demo_simulation_->GetSimulationNumber() << endl;
-		demo_simulation_->SetFinished(true);
-		demo_simulation_ = nullptr;
-		Simulation::DemoRunning = false;
-		Vehicle::DeleteAllVehicles();
-
-	} else if (Simulation::SimRunning)
-	{
-		cout << "Stopping running simulations..." << endl;
-		for (auto it = simulations_.begin(); it != simulations_.end();)
-		{
-			if ((*it)->IsRunning())
-			{
-				Simulation *temp = (*it);
-				it = simulations_.erase(it);
-
-				Simulation::SimRunning = false;
-
-				cout << "Simulation number " << temp->GetSimulationNumber() << " stopped and deleted." << endl;
-
-				delete temp;
-
-			} else
-			{
-				it++;
-			}
-		}
-
-		cout << "Deleting Vehicles..." << endl;
-		Vehicle::DeleteAllVehicles();
-
-		cout << "====================== map has been cleared ======================" << endl;
-	} else
-	{
-		cout << "No simulations are currently active" << endl;
+		s->StopSet();
 	}
+
+	Vehicle::DeleteAllVehicles();
+
+	cout << "====================== map has been cleared ======================" << endl;
 }
+
 
 /// do the game cycle (input->update)
 /// draw and display are seperate for different fps
@@ -829,17 +820,17 @@ void Engine::update(float elapsedTime) {
 		SetView();
 	}
 
-	for (Simulation *s : simulations_)
+	for (Set *s : sets_)
 	{
-		if (s->IsRunning())
+		// when an update on a set returns true
+		// it means that a simulation has finished
+		if(s->Update(elapsedTime) == true)
 		{
-			// update, and check if simulation has ended
-			if (s->Update(elapsedTime))
+			if(s->IsFinished())
 			{
-				// send a signal that simulation has ended
-				Vehicle::DeleteAllVehicles();
-				SimulationFinished();
+				SetFinished();
 			}
+			SimulationFinished();
 		}
 	}
 }
@@ -861,9 +852,9 @@ void Engine::add_vehicles_with_delay(float elapsedTime) {
 /// add a vehicle at a random track
 bool Engine::AddVehicleRandomly() {
 
-	list<Lane *> * track = map->GenerateRandomTrack();
+	list<Lane *> *track = map->GenerateRandomTrack();
 
-	if(track != nullptr && !track->empty())
+	if (track != nullptr && !track->empty())
 	{
 
 		int randomIndex = 0;
@@ -872,8 +863,7 @@ bool Engine::AddVehicleRandomly() {
 			randomIndex = rand() % 4;
 
 		return (Vehicle::AddVehicle(track, this->map, static_cast<VehicleTypeOptions>(randomIndex)) != nullptr);
-	}
-	else
+	} else
 	{
 		cout << "Could not add a new vehicle as tracks could not be generated." << endl;
 		return false;
@@ -936,9 +926,3 @@ void Engine::render_minimap() {
 	// Draw the shown area index
 	this->draw(shown_area_index_);
 }
-
-
-
-
-
-

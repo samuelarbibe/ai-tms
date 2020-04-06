@@ -53,6 +53,7 @@ class Settings
 	static bool FollowSelectedVehicle;
 	static bool LaneDensityColorRamping;
 	static bool ShowSelectedPhaseLanes;
+	static bool PrintSimulationLog;
 
 	static int Interval;
 	static int Fps;

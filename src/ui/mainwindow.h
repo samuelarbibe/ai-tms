@@ -33,6 +33,8 @@ private slots:
 
     void on_SimulationFinished();
 
+    void on_SetFinished();
+
     void on_AddIntersectionButton_clicked();
 
     void on_AddConnectingRoadButton_clicked();

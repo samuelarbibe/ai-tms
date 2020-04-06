@@ -25,7 +25,7 @@
 #include "src/ui/widgets/QsfmlCanvas.hpp"
 #include "public/VariadicTable.h"
 #include "src/sim/map/Route.hpp"
-#include "Simulation.hpp"
+#include "Set.hpp"
 
 
 using namespace sf;
@@ -49,11 +49,17 @@ class Engine : public QSFMLCanvas
 	Engine(QWidget *Parent);
 	~Engine() {};
 
+	bool RunSet(int vehicleCount = 1000, int generations = 10);
+	bool RunDemo(int simulationNumber);
+	Set * AddSet(int setNumber, int vehicleCount, int generations);
+
+
 	// get
 	Vector2f GetSnappedPoint(Vector2f point);
 	Vector2f DrawPoint(Vector2f position);
 	vector<Simulation *> *GetSimulations();
 	Simulation *GetSimulation(int simulationNumber);
+	Set * GetSet(int setNumber);
 
 	// set
 	void SetSnapToGrid(bool snapToGrid) { this->snap_to_grid_ = snapToGrid; }
@@ -63,22 +69,21 @@ class Engine : public QSFMLCanvas
 	void UpdateView(Vector2f posDelta = Vector2f(0, 0), float zoom = 0);
 	void SaveMap(string saveDirectory);
 	void LoadMap(string loadDirectory);
-	void SaveSimulations(string saveDirectory);
-	void LoadSimulations(string loadDirectory);
+	void SaveSets(string saveDirectory);
+	void LoadSets(string loadDirectory);
 	void ResetMap();
     void ClearMap();
 	bool AddVehicleRandomly();
 	void ResizeFrame(QSize size);
 	bool DeleteSimulation(int simulationNumber);
-	void RunSimulation(int vehicleCount = 1000, float runningTime = 0);
-	void StartTraining(int vehicleCount = 1000, float runningTime = 0, int generations = 0);
 
-	void RunDemo(int simulationNumber);
 	Map *map;
 
   signals:
 
 	void SimulationFinished();
+	void SetFinished();
+
   private:
 
 	void on_init() override ;
@@ -87,6 +92,7 @@ class Engine : public QSFMLCanvas
 	void draw_cycle() override;
 	void render();
 	void input();
+
 
 	void render_minimap();
 	void update_shown_area();
@@ -113,11 +119,10 @@ class Engine : public QSFMLCanvas
 	RectangleShape shown_area_index_;
 	CircleShape click_point_;
 
-	// Number of simulation that have been run this session
-	int number_of_simulations_;
 
-	vector<Simulation *> simulations_;
-	Simulation *demo_simulation_;
+	int number_of_sets_;
+	// an array of simulation sets
+	vector<Set*> sets_;
 };
 
 #endif /* Engine_hpp */

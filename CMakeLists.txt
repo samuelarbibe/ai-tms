@@ -47,7 +47,7 @@ set(project_sources
         src/sim/simulator/Simulation.hpp
         src/ui/widgets/SimModel.cpp
         src/ui/widgets/SimModel.hpp
-        src/sim/map/Cycle.cpp src/sim/map/Cycle.hpp)
+        src/sim/map/Cycle.cpp src/sim/map/Cycle.hpp src/sim/simulator/Set.cpp src/sim/simulator/Set.hpp)
 
 set(project_headers
         src/sim/simulator/Engine.hpp
@@ -71,7 +71,7 @@ set(project_headers
         src/sim/simulator/Simulation.hpp
         src/ui/widgets/SimModel.cpp
         src/ui/widgets/SimModel.hpp
-        src/sim/map/Cycle.cpp src/sim/map/Cycle.hpp)
+        src/sim/map/Cycle.cpp src/sim/map/Cycle.hpp src/sim/simulator/Set.cpp src/sim/simulator/Set.hpp)
 
 set(project_ui src/ui/mainwindow.ui)
 # wrap the ui file to a c++ header

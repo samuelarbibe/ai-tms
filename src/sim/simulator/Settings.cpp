@@ -24,8 +24,10 @@ bool Settings::DrawSimTable = false;
 bool Settings::FollowSelectedVehicle = true;
 bool Settings::LaneDensityColorRamping = false;
 bool Settings::ShowSelectedPhaseLanes = false;
+bool Settings::PrintSimulationLog = true;
 
-int Settings::Interval = 1000; // max is 1000
+
+int Settings::Interval = 700; // max is 1000
 int Settings::Fps = 30;
 int Settings::AntiAliasing = 0;
 bool Settings::MultiColor = false;

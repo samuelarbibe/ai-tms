@@ -24,15 +24,22 @@ class Simulation
 {
   public:
 
-	Simulation(int simulationNumber, int vehicleCount = 1000, float runningTime = 0);
+	Simulation(int simulationNumber, int setNumber, int vehicleCount = 1000);
 	~Simulation();
 
 	bool Update(float elapsedTime);
-	void Run(bool demo = false){running_ = true; if(demo) DemoRunning = true; else SimRunning = true;}
+	void Run(){running_ = true; SimRunning = true; start_time_ = time(nullptr); Vehicle::VehiclesToDeploy = vehicle_count_;}
+	void Demo(){running_ = true; DemoRunning = true; Vehicle::VehiclesToDeploy = vehicle_count_;}
+	void PrintSimulationLog();
+	void StopDemo(){finished_ = true; DemoRunning = false;}
+	void StopSimulation(){finished_ = false; finished_ = true; SimRunning = false;}
+
 
 	// get
 	int GetSimulationNumber(){return simulation_number_;}
 	int GetVehicleCount(){return vehicle_count_;}
+	int GetSetNumber(){return set_number_;}
+	float GetScore(){return score_;}
 	int GetCurrentVehicleCount(){return current_vehicle_count_;}
 	int IsFinished(){return finished_;}
 	int IsRunning(){return running_;}
@@ -58,6 +65,8 @@ class Simulation
 
 	// ID of this simulation
 	int simulation_number_;
+	// the set number of this simulation
+	int set_number_;
 	// Vehicles created in this simulation
     int vehicle_count_;
     // The Vehicles left in this simulation
@@ -66,16 +75,6 @@ class Simulation
     bool finished_;
     // Is this simulation active and running
     bool running_;
-
-    // a simulation can either be a timed simulation, or a vehicle-count simulation
-    // TIMED-SIM : the sim will be ran for a given amount of time,
-    //      and the result is the amount of cars that passed the simulation.
-    // COUNT-SIM : the sim will send a given amount of cars,
-    //      and the result is the time it took to run all of these vehicles.
-    bool is_timing_sim_;
-	// In a timed simulation, this is the time the simulation will run for.
-	// In a vehicle count simulation, this is set to 0
-	float  running_time_;
     // The start time of this simulation
     time_t start_time_;
     // The end time of this simulation
@@ -84,7 +83,7 @@ class Simulation
     float  elapsed_time_;
     // The result of the simulation
     // vehicles per second
-    float result_;
+    float score_;
 
     // the weights used in this simulation
     vector<float> K_;
