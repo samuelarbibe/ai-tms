@@ -49,6 +49,7 @@ class Set
 	bool IsRunning() {return running_;}
 	Simulation * GetSimulation(int simulationNumber);
 	vector<Simulation *> *GetSimulations(){return &simulations_;}
+	float GetLastSimulationResult() {return last_simulation_result_;}
 
 	static int SetCount;
 	static bool SetRunning;
@@ -83,6 +84,8 @@ class Set
 	// a pointer to the simulation that is currently being ran
 	Simulation *running_simulation_;
 	Simulation *running_demo_;
+
+	float last_simulation_result_;
 };
 
 #endif //TMS_SRC_SIM_SIMULATOR_SET_HPP

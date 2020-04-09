@@ -32,6 +32,7 @@ public:
     float GetCycleTime(){return cycle_time_;}
 	vector<Light*> * GetLights(){return &lights_;}
 	vector<Lane*> *  GetAssignedLanes(){return &lanes_;}
+	void GetInputValues(vector<float> * inputValues);
 	float GetMaxQueueLength();
 	float GetMaxLaneDensity();
 	float GetMaxTraversalTime();
@@ -41,7 +42,7 @@ public:
     void Open(){open_ = true;}
     void SetCycleTime(float cycleTime){cycle_time_ = cycleTime;}
 	bool UnassignLane(Lane * lane);
-    void SetPhasePriorityPoints(int points) { priority_ = points;}
+    void SetPhasePriority(float points) { priority_ = points;}
 
 	// The total count of all the phases created this session
     static int PhaseCount;
@@ -69,6 +70,7 @@ private:
 
     vector<Light*> lights_;
     vector<Lane*> lanes_;
+
 };
 
 

@@ -1,18 +1,17 @@
 cmake_minimum_required(VERSION 3.8.0 FATAL_ERROR)
 
+set(CMAKE_INSTALL_PREFIX /Desktop/)
+
 set(PROJECT_NAME "TMS")
 project(${PROJECT_NAME})
 
 file(COPY ${ALL_REQUIRED_DLL} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.14.1)
 # find Qt5 and required components
 find_package(Qt5 COMPONENTS REQUIRED Core Gui Widgets)
 find_package(Qt5Widgets REQUIRED)
-
-# find json c++ support and required components
-find_package(nlohmann_json 3.2.0 REQUIRED)
 
 # find SFML and required components
 find_package(SFML COMPONENTS system window graphics REQUIRED)
@@ -47,9 +46,11 @@ set(project_sources
         src/sim/simulator/Simulation.hpp
         src/ui/widgets/SimModel.cpp
         src/ui/widgets/SimModel.hpp
-        src/sim/map/Cycle.cpp src/sim/map/Cycle.hpp src/sim/simulator/Set.cpp src/sim/simulator/Set.hpp)
+        src/sim/map/Cycle.cpp src/sim/map/Cycle.hpp src/sim/simulator/Set.cpp src/sim/simulator/Set.hpp src/sim/neural_network/NeuralNet.cpp src/sim/neural_network/NeuralNet.hpp src/sim/neural_network/Neuron.cpp src/sim/neural_network/Neuron.hpp)
 
 set(project_headers
+        public/json.hpp
+        public/VariadicTable.h
         src/sim/simulator/Engine.hpp
         src/sim/map/Intersection.hpp
         src/sim/map/Lane.hpp
@@ -71,7 +72,10 @@ set(project_headers
         src/sim/simulator/Simulation.hpp
         src/ui/widgets/SimModel.cpp
         src/ui/widgets/SimModel.hpp
-        src/sim/map/Cycle.cpp src/sim/map/Cycle.hpp src/sim/simulator/Set.cpp src/sim/simulator/Set.hpp)
+        src/sim/map/Cycle.cpp
+        src/sim/map/Cycle.hpp
+        src/sim/simulator/Set.cpp
+        src/sim/simulator/Set.hpp src/sim/neural_network/NeuralNet.cpp src/sim/neural_network/NeuralNet.hpp src/sim/neural_network/Neuron.cpp src/sim/neural_network/Neuron.hpp)
 
 set(project_ui src/ui/mainwindow.ui)
 # wrap the ui file to a c++ header
@@ -94,6 +98,5 @@ target_link_libraries(${PROJECT_NAME}
     Qt5::Widgets
     Qt5::Core
     Qt5::Gui
-    nlohmann_json::nlohmann_json
     )
 

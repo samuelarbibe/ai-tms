@@ -8,6 +8,7 @@ int Simulation::SimulationCount = 0;
 bool Simulation::SimRunning = false;
 bool Simulation::DemoRunning = false;
 
+
 Simulation::Simulation(int simulationNumber, int setNumber, int vehicleCount) {
 
 	simulation_number_ = (simulationNumber != 0) ? simulationNumber : SimulationCount + 1;
@@ -17,11 +18,11 @@ Simulation::Simulation(int simulationNumber, int setNumber, int vehicleCount) {
 	finished_ = false;
 	running_ = false;
 	set_number_ = setNumber;
+	result_ = 0;
 
 	// start timer
 	start_time_ = 0;
 	end_time_ = 0;
-	score_ = 0;
 
 	elapsed_time_ = 0;
 	++SimulationCount;
@@ -35,10 +36,9 @@ Simulation::~Simulation() {
 // function returns true if simulation has ended
 bool Simulation::Update(float elapsedTime) {
 
-	if (running_)
+	if (running_ && !finished_)
 	{
-		if (!finished_)
-			elapsed_time_ += elapsedTime * Settings::Speed;
+		elapsed_time_ += elapsedTime * Settings::Speed;
 
 		current_vehicle_count_ = Vehicle::GetActiveVehicleCount();
 
@@ -52,7 +52,7 @@ bool Simulation::Update(float elapsedTime) {
 			// get simulation end time
 			end_time_ = time(nullptr);
 
-			score_ = float(vehicle_count_) / elapsed_time_;
+			result_ = float(vehicle_count_) / elapsed_time_;
 
 			if (Settings::PrintSimulationLog)
 			{
@@ -77,7 +77,7 @@ void Simulation::PrintSimulationLog() {
 	cout << "Results:" << endl;
 	cout << "   Vehicles Simulated: " << vehicle_count_ << endl;
 	cout << "   Simulation Time: " << elapsed_time_ << " seconds" << endl;
-	cout << "   SCORE: " << score_ << endl;
+	cout << "   Score: " << result_ << endl;
 	cout << "------------------------------------------------------------------" << endl;
 
 }

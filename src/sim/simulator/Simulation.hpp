@@ -12,7 +12,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <QtWidgets>
-#include <nlohmann/json.hpp>
+#include <public/json.hpp>
 #include "Settings.hpp"
 #include "Vehicle.hpp"
 
@@ -39,7 +39,7 @@ class Simulation
 	int GetSimulationNumber(){return simulation_number_;}
 	int GetVehicleCount(){return vehicle_count_;}
 	int GetSetNumber(){return set_number_;}
-	float GetScore(){return score_;}
+	float GetResult(){return result_;}
 	int GetCurrentVehicleCount(){return current_vehicle_count_;}
 	int IsFinished(){return finished_;}
 	int IsRunning(){return running_;}
@@ -83,10 +83,10 @@ class Simulation
     float  elapsed_time_;
     // The result of the simulation
     // vehicles per second
-    float score_;
+    float result_;
 
     // the weights used in this simulation
-    vector<float> K_;
+    NeuralNet * neural_network_;
 };
 
 #endif //SIMULATORSFML_SRC_SIMULATOR_SIMULATION_HPP

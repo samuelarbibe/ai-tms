@@ -9,6 +9,7 @@
 #include <cstring>
 #include <sstream>
 #include <SFML/Graphics.hpp>
+#include "../neural_network/NeuralNet.hpp"
 
 using namespace sf;
 using namespace std;
@@ -29,6 +30,8 @@ enum VehicleTypeOptions
 class Settings
 {
   public:
+
+	static NeuralNet NeuralNetwork;
 
 	static float GetLaneWidthAs(DistanceUnits unit);
 	static float GetMaxSpeedAs(VehicleTypeOptions vehicleType, VelocityUnits unit);
@@ -54,6 +57,7 @@ class Settings
 	static bool LaneDensityColorRamping;
 	static bool ShowSelectedPhaseLanes;
 	static bool PrintSimulationLog;
+	static bool DrawNnProgression;
 
 	static int Interval;
 	static int Fps;

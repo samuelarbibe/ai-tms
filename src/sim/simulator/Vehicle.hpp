@@ -75,7 +75,7 @@ class Vehicle : RectangleShape
 
 	static void DeleteAllVehicles();
 	static void ClearVehicles();
-	static void TransferVehicle(Vehicle *vehicle, Lane *toLane, Lane *fromLane = nullptr);
+
 	static bool LoadVehicleTextures(VehicleType *vehicleType);
 
 	static list<Vehicle *> ActiveVehicles;
@@ -88,6 +88,7 @@ class Vehicle : RectangleShape
 
 	State drive();
 	void apply_changes(float elapsedTime);
+	void transfer_vehicle(Lane *toLane);
 
 	// A Count of vehicles due to be deleted
 	static int to_be_deleted_;

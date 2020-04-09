@@ -64,7 +64,6 @@ class Lane : public RectangleShape
 	}
 	int GetCurrentVehicleCount() { return vehicles_in_lane_.size(); }
     float GetQueueLength() { return queue_length_ ;}
-    float GetNormalizedQueueLength() { return queue_length_ / length_;}
     float GetDensity() { return density_;}
     float GetTraversalTime() { return traversal_time_;}
     float GetNormalizedDensity() { return density_ / Settings::MaxDensity;}

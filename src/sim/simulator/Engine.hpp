@@ -17,7 +17,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <QtWidgets>
-#include <nlohmann/json.hpp>
+#include <public/json.hpp>
 
 #include "src/sim/map/Map.hpp"
 #include "Vehicle.hpp"
@@ -78,7 +78,6 @@ class Engine : public QSFMLCanvas
 	bool DeleteSimulation(int simulationNumber);
 
 	Map *map;
-
   signals:
 
 	void SimulationFinished();
@@ -119,10 +118,10 @@ class Engine : public QSFMLCanvas
 	RectangleShape shown_area_index_;
 	CircleShape click_point_;
 
-
 	int number_of_sets_;
 	// an array of simulation sets
 	vector<Set*> sets_;
+	vector<float> target_results_;
 };
 
 #endif /* Engine_hpp */

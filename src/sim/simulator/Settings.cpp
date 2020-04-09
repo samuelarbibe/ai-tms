@@ -6,6 +6,8 @@
 
 const Vector2f Settings::BaseVec = Vector2f(0.f, -1.f);
 
+NeuralNet Settings::NeuralNetwork = NeuralNet();
+
 bool Settings::DrawFps = false;
 bool Settings::DrawActive = false;
 bool Settings::DrawDelete = false;
@@ -24,11 +26,12 @@ bool Settings::DrawSimTable = false;
 bool Settings::FollowSelectedVehicle = true;
 bool Settings::LaneDensityColorRamping = false;
 bool Settings::ShowSelectedPhaseLanes = false;
-bool Settings::PrintSimulationLog = true;
+bool Settings::PrintSimulationLog = false;
+bool Settings::DrawNnProgression = true;
 
 
 int Settings::Interval = 700; // max is 1000
-int Settings::Fps = 30;
+int Settings::Fps = 60;
 int Settings::AntiAliasing = 0;
 bool Settings::MultiColor = false;
 bool Settings::MultiTypeVehicle = true;
@@ -207,5 +210,5 @@ void Settings::GetHeatMapColor(float value, float *red, float *green, float *blu
 float Settings::OrangeDelay = 3.f;
 float Settings::DefaultCycleTime = 20.f;
 float Settings::MaxCycleTime = 60.f;
-float Settings::MinCycleTime = 20.f;
+float Settings::MinCycleTime = 5.f;
 float Settings::PhaseDelay = 1.5f;

@@ -82,6 +82,7 @@ void Phase::Update(float elapsedTime) {
     if (open_)
     {
         open_time_ += elapsedTime * Settings::Speed;
+        cout << open_time_ << endl;
 
         if (open_time_ > cycle_time_)
         {
@@ -113,12 +114,18 @@ void Phase::Update(float elapsedTime) {
             l->SetIsBlocked(true);
         }
     }
-
-    //priority_ = GetMaxLaneDensity() * k_[0] + GetMaxQueueLength() * k_[1];
-
-    priority_ = GetMaxLaneDensity() + GetMaxQueueLength();
-    cycle_time_ = GetMaxTraversalTime();
 }
+
+void Phase::GetInputValues(vector<float> * inputValues)
+{
+    (*inputValues)[0] = GetMaxLaneDensity();
+    if(GetMaxQueueLength() > 200){
+
+    }
+	(*inputValues)[1] = GetMaxQueueLength();
+	//cout << "input: " << (*inputValues)[0] <<", " << (*inputValues)[1] << endl;
+}
+
 
 /// return the largest lane queue length
 float Phase::GetMaxQueueLength() {
@@ -127,7 +134,7 @@ float Phase::GetMaxQueueLength() {
 
     for (Lane *l : lanes_)
     {
-        if ((temp = l->GetNormalizedQueueLength()) > max)
+        if ((temp = l->GetQueueLength()) > max)
         {
             max = temp;
         }

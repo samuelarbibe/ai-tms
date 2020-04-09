@@ -64,7 +64,7 @@ Lane::Lane(int laneNumber,
 
     data_box_ = new DataBox(end_pos_);
     data_box_->AddData("ID", lane_number_);
-    data_box_->AddData("TT", 0);
+    data_box_->AddData("Dens", 0);
     data_box_->AddData("Qlen", 0);
 }
 
@@ -126,7 +126,7 @@ void Lane::Update(float elapsedTime) {
     if (Settings::DrawRoadDataBoxes)
     {
         data_box_->SetData("Qlen", queue_length_);
-        data_box_->SetData("TT", traversal_time_);
+        data_box_->SetData("Dens", density_ * 100);
     }
 
     // disable lane coloring if needed

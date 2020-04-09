@@ -13,6 +13,9 @@ Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent, 1000.f / Settings::Interva
 	cout << "Setting Up map..." << endl;
 	map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapHeight);
 
+	//int outputNeuronsCount = Settings::NeuralNetwork.GetOutputNeuronCount();
+	//target_results_ = vector<float>(outputNeuronsCount, 0.4);
+
 	cout << "Setting Up Camera..." << endl;
 	snap_to_grid_ = true;
 	view_pos_ = Vector2f(0, 0);
@@ -135,29 +138,27 @@ bool Engine::RunDemo(int simulationNumber) {
 /// Trains the neural network for a set amount of generation.
 // at the end of a training, it saves all the data in a simulation file.
 
-bool Engine::RunSet(int vehicleCount, int generations)
-{
-	if(!Set::SetRunning)
+bool Engine::RunSet(int vehicleCount, int generations) {
+	if (!Set::SetRunning)
 	{
-		if(Simulation::DemoRunning)
+		if (Simulation::DemoRunning)
 		{
 			ClearMap();
 		}
+		cout << "Creating a new neural network..." << endl;
 
-		Set * s = AddSet(0, vehicleCount, generations);
+		Set *s = AddSet(0, vehicleCount, generations);
 
 		s->RunSet();
 
 		cout << "Set number " << s->GetSetNumber() << " has started running" << endl;
 		return true;
-	}
-	else
+	} else
 	{
 		cout << "Cannot run set as another set is already running." << endl;
 		return false;
 	}
 }
-
 
 /// set the viewport for the camera
 void Engine::SetView() {
@@ -431,20 +432,19 @@ void Engine::input() {
 	}
 }
 
-Set * Engine::AddSet(int setNumber, int vehicleCount, int generations)
-{
-	if(setNumber == 0)
+Set *Engine::AddSet(int setNumber, int vehicleCount, int generations) {
+	if (setNumber == 0)
 	{
 		setNumber = Set::SetCount + 1;
 	}
 
-	Set * set = new Set(setNumber, generations, vehicleCount);
+	Set *set = new Set(setNumber, generations, vehicleCount);
 	sets_.push_back(set);
 
 	Set::SetCount++;
 	number_of_sets_++;
 
-	if(Settings::DrawAdded)
+	if (Settings::DrawAdded)
 	{
 		cout << "Set number " << setNumber << " added." << endl;
 	}
@@ -671,7 +671,7 @@ void Engine::SaveSets(string saveDirectory) {
 					{"start_time", static_cast<long int>(*sim->GetStartTime())},
 					{"end_time", static_cast<long int>(*sim->GetEndTime())},
 					{"simulated_time", sim->GetElapsedTime()},
-					{"result", sim->GetScore()},
+					{"result", sim->GetResult()},
 
 				}
 			);
@@ -772,7 +772,6 @@ void Engine::ClearMap() {
 	cout << "====================== map has been cleared ======================" << endl;
 }
 
-
 /// do the game cycle (input->update)
 /// draw and display are seperate for different fps
 /// this allows running logic cycle in high rate -> better accuracy
@@ -820,17 +819,36 @@ void Engine::update(float elapsedTime) {
 		SetView();
 	}
 
-	for (Set *s : sets_)
+	if (Set::SetRunning)
 	{
-		// when an update on a set returns true
-		// it means that a simulation has finished
-		if(s->Update(elapsedTime) == true)
+		for (Set *s : sets_)
 		{
-			if(s->IsFinished())
+			// when an update on a set returns true
+			// it means that a simulation has finished
+			if (s->Update(elapsedTime) == true)
 			{
-				SetFinished();
+				if (s->IsFinished())
+				{
+					SetFinished();
+				} else
+				{
+					SimulationFinished();
+					/*
+					// set the new score as result
+					float result = s->GetLastSimulationResult();
+					Settings::NeuralNetwork.SetActualResult(result);
+
+					// back propogate on default target value (1.0)
+					Settings::NeuralNetwork.BackPropagate(target_results_);
+
+					if (Settings::DrawNnProgression)
+					{
+						cout << "Sim no. " << s->GetGenerationsSimulated() + 1 << " result :" << result << endl;
+						cout << "         Average Error :" << Settings::NeuralNetwork.GetRecentAverageError() << endl;
+					}
+					 */
+				}
 			}
-			SimulationFinished();
 		}
 	}
 }
@@ -839,12 +857,12 @@ void Engine::update(float elapsedTime) {
 void Engine::add_vehicles_with_delay(float elapsedTime) {
 	static float totalElapsedTime = 0;
 
-	totalElapsedTime += elapsedTime;
+	totalElapsedTime += elapsedTime * Settings::Speed;
 
-	if (totalElapsedTime > (Settings::VehicleSpawnRate / Settings::Speed))
+	if (totalElapsedTime > (Settings::VehicleSpawnRate))
 	{
 		AddVehicleRandomly();
-		totalElapsedTime -= Settings::VehicleSpawnRate / Settings::Speed;
+		totalElapsedTime -= Settings::VehicleSpawnRate;
 		Vehicle::VehiclesToDeploy--;
 	}
 }
@@ -862,7 +880,9 @@ bool Engine::AddVehicleRandomly() {
 		if (Settings::MultiTypeVehicle)
 			randomIndex = rand() % 4;
 
-		return (Vehicle::AddVehicle(track, this->map, static_cast<VehicleTypeOptions>(randomIndex)) != nullptr);
+		return (Vehicle::AddVehicle(track,
+		                            this->map,
+		                            static_cast<VehicleTypeOptions>(randomIndex)) != nullptr);
 	} else
 	{
 		cout << "Could not add a new vehicle as tracks could not be generated." << endl;

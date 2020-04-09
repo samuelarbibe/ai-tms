@@ -58,6 +58,19 @@ bool Set::Update(float elapsedTime) {
 				// check if simulation has finished
 				if (running_simulation_->IsFinished())
 				{
+					/*
+					// set the new score as result
+					float result = running_simulation_->GetResult();
+					Settings::NeuralNetwork.SetActualResult(result);
+
+					// back propogate on default target value (1.0)
+					Settings::NeuralNetwork.BackPropagate(target_results_);
+
+					cout << "Sim no. " << generations_simulated_+1 << " result :" << result << endl;
+					cout << "         Average Error :" << Settings::NeuralNetwork.GetRecentAverageError() << endl;
+					*/
+					last_simulation_result_ = running_simulation_->GetResult();
+
 					running_simulation_ = nullptr;
 					++generations_simulated_;
 					return true;
@@ -138,7 +151,7 @@ bool Set::DeleteSimulation(int simulationNumber)
 Simulation * Set::StartNewSimulation() {
 
 	// start a new simulation
-	Simulation *s = new Simulation(0, set_number_, vehicle_count_);
+	Simulation * s = new Simulation(0, set_number_, vehicle_count_);
 
 	simulations_.push_back(s);
 	number_of_simulations_ ++;

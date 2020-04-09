@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->PhaseTimeSlider->setMinimum(int(Settings::MinCycleTime));
 
 	model_ = new SimModel(this);
-	selected_row_ = 99999;
+	selected_row_ = 0;
 
 	// connect the simulation finished event to its slot here
 	QObject::connect(SimulatorEngine, SIGNAL(SimulationFinished()), this, SLOT(on_SimulationFinished()));
@@ -59,6 +59,8 @@ void MainWindow::reload_sim_table() {
 	model_ = new SimModel(this);
 	model_->populateData(SimulatorEngine->GetSimulations());
 	ui->SimTable->setModel(model_);
+	ui->SimTable->scrollToBottom();
+
 }
 
 void MainWindow::showEvent(QShowEvent *ev) {
@@ -745,16 +747,6 @@ void MainWindow::on_DeleteSimButton_clicked() {
 
 void MainWindow::on_ShowMinimapCheckBox_stateChanged(int arg1) {
 	Settings::DrawMinimap = arg1;
-}
-
-void MainWindow::on_TimedSimCheckBox_stateChanged(int arg1)
-{
-    if(arg1){
-        ui->SimRunLabel->setText(tr("Seconds"));
-    }
-    else{
-        ui->SimRunLabel->setText(tr("Vehicles"));
-    }
 }
 
 void MainWindow::on_DensityColorCheckBox_stateChanged(int arg1)

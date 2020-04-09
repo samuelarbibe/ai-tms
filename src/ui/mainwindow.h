@@ -131,8 +131,6 @@ private slots:
 
     void on_ShowMinimapCheckBox_stateChanged(int arg1);
 
-    void on_TimedSimCheckBox_stateChanged(int arg1);
-
     void on_DensityColorCheckBox_stateChanged(int arg1);
 
     void on_VehicleSpawnRateSlider_sliderMoved(int position);

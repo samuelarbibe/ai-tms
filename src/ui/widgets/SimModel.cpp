@@ -20,7 +20,8 @@ void SimModel::populateData(const vector<Simulation *> *data)
 		               QString::fromUtf8(ctime(s->GetStartTime())),
 		               QString::fromUtf8(ctime(s->GetEndTime())),
 		               QString::number(s->GetElapsedTime()),
-		               QString::number(s->GetVehicleCount())
+		               QString::number(s->GetVehicleCount()),
+		               QString::number(s->GetResult()),
 		              });
 		this->row_count_ ++;
 	}
@@ -42,7 +43,7 @@ int SimModel::rowCount(const QModelIndex & /*parent*/) const {
 }
 
 int SimModel::columnCount(const QModelIndex & /*parent*/) const {
-	return 5;
+	return 6;
 }
 
 QVariant SimModel::data(const QModelIndex &index, int role) const {
@@ -63,6 +64,7 @@ QVariant SimModel::headerData(int section, Qt::Orientation orientation, int role
 		case 2: return QString("End Time");
 		case 3: return QString("Simulated Time");
 		case 4: return QString("Vehicle Count");
+		case 5: return QString("Score");
 		default: return QString("#");
 		}
 	}

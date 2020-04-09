@@ -271,40 +271,25 @@ Vehicle *Vehicle::GetVehicle(int vehicleNumber) {
 }
 
 /// transfer a vehicle from a lane to another lane
-void Vehicle::TransferVehicle(Vehicle *vehicle, Lane *toLane, Lane *fromLane) {
-	if (vehicle == nullptr)
-	{
-		cout << "vehicle not found" << endl;
-		return;
-	}
+void Vehicle::transfer_vehicle(Lane *toLane) {
 
-	if (fromLane != nullptr)
-	{
-		if (vehicle->source_lane_->GetLaneNumber() != fromLane->GetLaneNumber())
-		{
-			cout << "vehicle is not in the given lane" << endl;
-			return;
-		}
-		fromLane->PopVehicleFromLane();
-	}
-
-	vehicle->source_lane_ = toLane;
-	vehicle->setRotation(vehicle->source_lane_->GetDirection());
-	vehicle->angular_vel_ = 0;
-	vehicle->setPosition(vehicle->source_lane_->GetStartPosition());
-	vehicle->curr_intersection_ = vehicle->curr_map_->GetIntersection(vehicle->source_lane_->GetIntersectionNumber());
-	vehicle->vehicle_in_front_ = (vehicle->source_lane_->GetBackVehicleId()) ? GetVehicle(vehicle->source_lane_->GetBackVehicleId())
+	this->source_lane_ = toLane;
+	this->setRotation(this->source_lane_->GetDirection());
+	this->angular_vel_ = 0;
+	this->setPosition(this->source_lane_->GetStartPosition());
+	this->curr_intersection_ = this->curr_map_->GetIntersection(this->source_lane_->GetIntersectionNumber());
+	this->vehicle_in_front_ = (this->source_lane_->GetBackVehicleId()) ? GetVehicle(this->source_lane_->GetBackVehicleId())
 	                                                                   : nullptr;
-	vehicle->source_lane_->PushVehicleInLane(vehicle->vehicle_number_);
+	this->source_lane_->PushVehicleInLane(this->vehicle_number_);
 
-	vehicle->instruction_set_->pop_front();
-	// if there are instructions left, transfer them to vehicle
-	if (!vehicle->instruction_set_->empty())
+	this->instruction_set_->pop_front();
+	// if there are instructions left, transfer them to this
+	if (!this->instruction_set_->empty())
 	{
-		vehicle->dest_lane_ = vehicle->instruction_set_->front();
+		this->dest_lane_ = this->instruction_set_->front();
 	} else
 	{
-		vehicle->dest_lane_ = nullptr;
+		this->dest_lane_ = nullptr;
 	}
 }
 
@@ -361,10 +346,10 @@ State Vehicle::drive() {
 			} else
 			{
 				float turningRadius = (distanceSourceTarget / 2.f) / (sin(angle * M_PI / 360.f));
-				float turningParameter = 2.f * M_PI * turningRadius;
-				float turningDistance = (angle / 360.f) * turningParameter;
+				float parameter = 2.f * M_PI * turningRadius;
+				float turningParameter = (angle / 360.f) * parameter;
 
-				angular_vel_ = angle / turningDistance;
+				angular_vel_ = angle / turningParameter;
 			}
 
 			turning_ = true;
@@ -403,6 +388,8 @@ State Vehicle::drive() {
                 source_lane_->SetQueueLength(distanceFromStop);
             }
 
+			// ignore the vehicle in front
+			vehicle_in_front_ = nullptr;
 			turning_ = false;
 			state_ = STOP;
 			acc_ = deceleration;
@@ -417,7 +404,7 @@ State Vehicle::drive() {
 		prev_intersection_ = nullptr;
 
 		// we need to transfer vehicle to target lane
-		TransferVehicle(this, dest_lane_, source_lane_);
+		transfer_vehicle(dest_lane_);
 
 		turning_ = false;
 		acc_ = acceleration;
