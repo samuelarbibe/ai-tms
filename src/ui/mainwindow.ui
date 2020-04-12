@@ -641,6 +641,12 @@
                 </item>
                 <item>
                  <widget class="QSlider" name="ZoomSlider">
+                  <property name="minimumSize">
+                   <size>
+                    <width>200</width>
+                    <height>0</height>
+                   </size>
+                  </property>
                   <property name="singleStep">
                    <number>10</number>
                   </property>
@@ -662,11 +668,30 @@
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
-                    <width>40</width>
-                    <height>20</height>
+                    <width>20</width>
+                    <height>10</height>
                    </size>
                   </property>
                  </spacer>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="ShowNeuralNetCheckBox">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Show a hint of information on each simulation entity</string>
+                  </property>
+                  <property name="text">
+                   <string>Show Neural Net</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <property name="checked">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <widget class="QCheckBox" name="ShowMinimapCheckBox">
@@ -1880,77 +1905,119 @@
            <string/>
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="0">
-            <layout class="QVBoxLayout" name="verticalLayout_7">
-             <item>
-              <widget class="QTableView" name="SimTable">
-               <property name="sortingEnabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout_5">
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_25">
-                 <item>
-                  <widget class="QPushButton" name="LoadSimButton">
-                   <property name="text">
-                    <string>Load Simulations</string>
+           <property name="leftMargin">
+            <number>5</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>5</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item row="0" column="1">
+            <widget class="QTabWidget" name="DataTabs">
+             <property name="currentIndex">
+              <number>0</number>
+             </property>
+             <widget class="QWidget" name="tab">
+              <attribute name="title">
+               <string>Table</string>
+              </attribute>
+              <layout class="QGridLayout" name="gridLayout_8">
+               <item row="0" column="0">
+                <layout class="QGridLayout" name="gridLayout_7">
+                 <item row="0" column="0">
+                  <widget class="QTableView" name="SimTable">
+                   <property name="sortingEnabled">
+                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>
-                 <item>
-                  <widget class="QPushButton" name="SaveSimButton">
-                   <property name="text">
-                    <string>Save Simulations</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_19">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="RunDemoButton">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="whatsThis">
-                    <string>delete selected item</string>
-                   </property>
-                   <property name="text">
-                    <string>Demo</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="DeleteSimButton">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="whatsThis">
-                    <string>delete selected item</string>
-                   </property>
-                   <property name="text">
-                    <string>Delete</string>
-                   </property>
-                  </widget>
+                 <item row="1" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_25">
+                   <item>
+                    <widget class="QPushButton" name="LoadSimButton">
+                     <property name="text">
+                      <string>Load Simulations</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="SaveSimButton">
+                     <property name="text">
+                      <string>Save Simulations</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer_19">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="RunDemoButton">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="whatsThis">
+                      <string>delete selected item</string>
+                     </property>
+                     <property name="text">
+                      <string>Demo</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="DeleteSimButton">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="whatsThis">
+                      <string>delete selected item</string>
+                     </property>
+                     <property name="text">
+                      <string>Delete</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
                </item>
               </layout>
-             </item>
-            </layout>
+             </widget>
+             <widget class="QWidget" name="tab_2">
+              <attribute name="title">
+               <string>Graph</string>
+              </attribute>
+              <layout class="QGridLayout" name="gridLayout_9">
+               <item row="0" column="0">
+                <widget class="QFrame" name="ChartFrame">
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
            </item>
           </layout>
          </widget>

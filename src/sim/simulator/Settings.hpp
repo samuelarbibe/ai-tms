@@ -31,7 +31,6 @@ class Settings
 {
   public:
 
-	static Net NeuralNetwork;
 
 	static float GetLaneWidthAs(DistanceUnits unit);
 	static float GetMaxSpeedAs(VehicleTypeOptions vehicleType,
@@ -57,6 +56,7 @@ class Settings
 	static bool DrawTextures;
 	static bool DrawClickPoint;
 	static bool DrawMinimap;
+	static bool DrawVisualNet;
 	static bool DrawSimTable;
 	static bool FollowSelectedVehicle;
 	static bool LaneDensityColorRamping;
@@ -92,13 +92,20 @@ class Settings
 	static int SFMLRatio;
 	static int DefaultMapWidth;
 	static int DefaultMapHeight;
+
 	static bool MapOverflow;
 
 	static float Zoom;
 	static float DragFactor;
 
-	static float MinimapSize;
+	static float MinimapWidth;
+	static float MinimapHeight;
 	static float MinimapMargin;
+
+
+	static float VisualNetHeight;
+	static float VisualNetWidth;
+	static float VisualNetMargin;
 
 	// an array of scales for each distance unit
 	// 0 - M

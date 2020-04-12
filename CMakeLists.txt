@@ -8,9 +8,9 @@ project(${PROJECT_NAME})
 file(COPY ${ALL_REQUIRED_DLL} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOUIC ON)
-set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.14.1)
+set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.14.2)
 # find Qt5 and required components
-find_package(Qt5 COMPONENTS REQUIRED Core Gui Widgets)
+find_package(Qt5 COMPONENTS REQUIRED Core Gui Widgets Charts)
 find_package(Qt5Widgets REQUIRED)
 
 # find SFML and required components
@@ -46,7 +46,16 @@ set(project_sources
         src/sim/simulator/Simulation.hpp
         src/ui/widgets/SimModel.cpp
         src/ui/widgets/SimModel.hpp
-        src/sim/map/Cycle.cpp src/sim/map/Cycle.hpp src/sim/simulator/Set.cpp src/sim/simulator/Set.hpp src/sim/neural_network/NeuralNet.cpp src/sim/neural_network/NeuralNet.hpp src/sim/neural_network/Neuron.cpp src/sim/neural_network/Neuron.hpp)
+        src/sim/map/Cycle.cpp
+        src/sim/map/Cycle.hpp
+        src/sim/simulator/Set.cpp
+        src/sim/simulator/Set.hpp
+        src/sim/neural_network/NeuralNet.cpp
+        src/sim/neural_network/NeuralNet.hpp
+        src/sim/neural_network/Neuron.cpp
+        src/sim/neural_network/Neuron.hpp
+        src/ui/widgets/GraphView.cpp
+        src/ui/widgets/GraphView.hpp)
 
 set(project_headers
         public/json.hpp
@@ -75,7 +84,14 @@ set(project_headers
         src/sim/map/Cycle.cpp
         src/sim/map/Cycle.hpp
         src/sim/simulator/Set.cpp
-        src/sim/simulator/Set.hpp src/sim/neural_network/NeuralNet.cpp src/sim/neural_network/NeuralNet.hpp src/sim/neural_network/Neuron.cpp src/sim/neural_network/Neuron.hpp)
+        src/sim/simulator/Set.hpp
+        src/sim/neural_network/NeuralNet.cpp
+        src/sim/neural_network/NeuralNet.hpp
+        src/sim/neural_network/Neuron.cpp
+        src/sim/neural_network/Neuron.hpp
+        src/ui/widgets/GraphView.cpp
+        src/ui/widgets/GraphView.hpp
+        )
 
 set(project_ui src/ui/mainwindow.ui)
 # wrap the ui file to a c++ header
@@ -97,6 +113,7 @@ target_link_libraries(${PROJECT_NAME}
     sfml-system
     Qt5::Widgets
     Qt5::Core
+    Qt5::Charts
     Qt5::Gui
     )
 

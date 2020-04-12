@@ -5,9 +5,9 @@
 #include "Neuron.hpp"
 
 double Neuron::eta = 0.1;
-double Neuron::alpha = 0.3;
+double Neuron::alpha = 0.5;
 
-Neuron::Neuron(unsigned numOutputs, unsigned myIndex) {
+Neuron::Neuron(unsigned numOutputs, unsigned myIndex, Vector2f position, float radius) {
 
 	// create random output weights
 	for(int c = 0; c < numOutputs ; c++)
@@ -18,6 +18,49 @@ Neuron::Neuron(unsigned numOutputs, unsigned myIndex) {
 	}
 
 	my_index_ = myIndex;
+
+	circle_ = new CircleShape();
+	circle_->setOrigin(radius, radius);
+	circle_->setPosition(position);
+	circle_->setRadius(radius);
+	circle_->setFillColor(Color::Black);
+
+}
+
+void Neuron::Update(float elapsedTime, vector<VertexArray> * weight_lines_, int * firstWeightIndex)
+{
+	unsigned outputCount = output_weights_.size();
+	float sum = 0;
+	int value = 0, max = 0;
+
+	for(int c = 0; c < outputCount; c++)
+	{
+		value = 255 * output_weights_[c].weight;
+		Color color(value, value, value);
+		(*weight_lines_)[(*firstWeightIndex)][0].color = color;
+		(*weight_lines_)[(*firstWeightIndex)++][1].color = color;
+		sum += output_weights_[c].weight;
+	}
+
+	value = (sum / float(outputCount)) * 255.f;
+
+	Color color(value, value, value);
+	circle_->setFillColor(color);
+}
+
+void Neuron::Draw(RenderWindow *window) {
+	window->draw(*circle_);
+}
+
+void Neuron::Reset() {
+
+	for(Connection con : output_weights_)
+	{
+		con.weight = randomize_weight();
+		con.deltaWeight = 0;
+	}
+
+	output_value_ = 0;
 }
 
 /// sum up all the weights that go into this neuron

@@ -25,7 +25,6 @@ void SimModel::populateData(const vector<Simulation *> *data)
 		              });
 		this->row_count_ ++;
 	}
-
 }
 
 int SimModel::GetIdByRow(int rowNumber){

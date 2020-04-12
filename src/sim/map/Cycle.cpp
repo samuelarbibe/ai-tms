@@ -96,8 +96,8 @@ void Cycle::calculate_priority() {
 
 		if(input_values_[0] > 0)
 		{
-			Settings::NeuralNetwork.FeedForward(input_values_);
-			Settings::NeuralNetwork.GetResults(output_values_);
+			Net::NeuralNetwork.FeedForward(input_values_);
+			Net::NeuralNetwork.GetResults(output_values_);
 
 			phases_[p]->SetPhasePriority(output_values_[0]);	
 			phases_[p]->SetCycleTime(clamp(float(output_values_[1]) * Settings::MaxCycleTime, Settings::MinCycleTime, Settings::MaxCycleTime));
@@ -128,7 +128,7 @@ void Cycle::cycle_phases() {
 
 			phases_[number_of_phases_ - 1]->Open();
 
-			//Settings::NeuralNetwork.printNet();
+			//Net::NeuralNetwork.printNet();
 		}
 			// constantly sort the list by their priority score
 		else

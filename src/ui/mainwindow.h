@@ -5,6 +5,7 @@
 #include <QMouseEvent>
 #include "../sim/simulator/Engine.hpp"
 #include "widgets/SimModel.hpp"
+#include "widgets/GraphView.hpp"
 
 namespace Ui {
     class MainWindow;
@@ -146,18 +147,23 @@ private slots:
     void on_RemoveLaneFromPhaseButton_clicked();
 
 
+    void on_ShowNeuralNetCheckBox_stateChanged(int arg1);
+
 private:
 
     Ui::MainWindow *ui;
 
     SimModel *model_;
+    GraphView *graph_view_;
     int selected_row_;
 
     void reload_lane_options();
 
     void resize_sim_table();
+    void resize_sim_graph();
 
     void reload_sim_table();
+    void reload_sim_graph();
 };
 
 #endif // MAINWINDOW_H

@@ -10,8 +10,11 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
+#include <SFML/Graphics.hpp>
+
 
 using namespace std;
+using namespace sf;
 
 class Neuron;
 
@@ -28,13 +31,20 @@ typedef vector<Neuron> Layer;
 class Neuron
 {
   public:
-	Neuron(unsigned numOutputs, unsigned myIndex);
+	Neuron(unsigned numOutputs, unsigned myIndex, Vector2f position, float radius);
+
+	void Draw(RenderWindow * window);
+	void Update(float elapsedTime, vector<VertexArray> * weight_lines_, int * firstWeightIndex);
+	void Reset();
+
 	void SetOutputValue(double val) { output_value_ = val; }
 	double GetOutputValue() const { return output_value_; }
 	void FeedForward(const Layer &prevLayer);
 	void CalculateOutputGradients(double targetVals);
 	void CalculateHiddenGradients(const Layer &nextLayer);
 	void UpdateInputWeights(Layer &prevLayer);
+	Vector2f GetPosition(){return circle_->getPosition();}
+
   private:
 	// [0.0...1.0] net training rate
 	static double eta;
@@ -49,6 +59,7 @@ class Neuron
 	vector<Connection> output_weights_;
 	unsigned my_index_;
 	double gradient_;
+	CircleShape * circle_;
 };
 
 #endif //TMS_SRC_SIM_NN_NEURON_HPP

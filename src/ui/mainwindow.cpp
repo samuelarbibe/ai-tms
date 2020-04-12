@@ -36,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	model_ = new SimModel(this);
 	selected_row_ = 0;
 
+    graph_view_ = new GraphView(ui->ChartFrame);
+
 	// connect the simulation finished event to its slot here
 	QObject::connect(SimulatorEngine, SIGNAL(SimulationFinished()), this, SLOT(on_SimulationFinished()));
 	QObject::connect(SimulatorEngine, SIGNAL(SetFinished()), this, SLOT(on_SetFinished()));
@@ -48,6 +50,9 @@ MainWindow::~MainWindow() {
 void MainWindow::on_SimulationFinished() {
 	reload_sim_table();
 	resize_sim_table();
+
+    reload_sim_graph();
+    resize_sim_graph();
 }
 
 void MainWindow::on_SetFinished() {
@@ -55,12 +60,18 @@ void MainWindow::on_SetFinished() {
 }
 
 void MainWindow::reload_sim_table() {
-
 	model_ = new SimModel(this);
 	model_->populateData(SimulatorEngine->GetSimulations());
 	ui->SimTable->setModel(model_);
 	ui->SimTable->scrollToBottom();
+}
 
+void MainWindow::reload_sim_graph() {
+    graph_view_->populateData(SimulatorEngine->GetSimulations());
+}
+
+void MainWindow::resize_sim_graph() {
+	graph_view_->resize();
 }
 
 void MainWindow::showEvent(QShowEvent *ev) {
@@ -70,6 +81,7 @@ void MainWindow::showEvent(QShowEvent *ev) {
 	SimulatorEngine->ResizeFrame(ui->SimulatorFrame->size() * Settings::SFMLRatio);
 
 	reloadOptionData();
+	resize_sim_graph();
 }
 
 void MainWindow::reloadOptionData() {
@@ -818,4 +830,9 @@ void MainWindow::on_RemoveLaneFromPhaseButton_clicked()
 
     }
     ui->statusbar->showMessage(tr("Please select a lane from the list to unassign it from its phase."));
+}
+
+void MainWindow::on_ShowNeuralNetCheckBox_stateChanged(int arg1)
+{
+    Settings::DrawVisualNet = arg1;
 }

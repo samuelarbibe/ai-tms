@@ -6,8 +6,6 @@
 
 const Vector2f Settings::BaseVec = Vector2f(0.f, -1.f);
 
-Net Settings::NeuralNetwork = Net();
-
 bool Settings::DrawFps = false;
 bool Settings::DrawActive = false;
 bool Settings::DrawDelete = false;
@@ -22,6 +20,7 @@ bool Settings::DrawLaneBlock = false;
 bool Settings::DrawTextures = true;
 bool Settings::DrawClickPoint = false;
 bool Settings::DrawMinimap = false;
+bool Settings::DrawVisualNet = false;
 bool Settings::DrawSimTable = false;
 bool Settings::FollowSelectedVehicle = true;
 bool Settings::LaneDensityColorRamping = false;
@@ -67,8 +66,15 @@ float Settings::Zoom = 0.1f;
 float Settings::DragFactor = 5.f;
 
 // minimap Settings
-float Settings::MinimapSize = 120.f;
-float Settings::MinimapMargin = 10.f;
+float Settings::MinimapWidth = 0.2f;
+float Settings::MinimapHeight = 0.2f;
+float Settings::MinimapMargin = 0.01f;
+
+// visual net settings
+
+float Settings::VisualNetWidth = 0.3f;
+float Settings::VisualNetHeight = 0.3f;
+float Settings::VisualNetMargin = 0.01f;
 
 // [LaneWidth in px] * Scale * unitScale = laneWidth in Unit
 // M, CM, Feet, Inch

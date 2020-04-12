@@ -15,16 +15,17 @@ Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent,
 	cout << "Setting Up map..." << endl;
 	map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapHeight);
 
-	//int outputNeuronsCount = Settings::NeuralNetwork.GetOutputNeuronCount();
-	target_results_ = vector<double>(1, 0.4);
+	//int outputNeuronsCount = Net::NeuralNetwork.GetOutputNeuronCount();
+	target_results_ = vector<double>(1, 1);
 
 	cout << "Setting Up Camera..." << endl;
 	snap_to_grid_ = true;
 	view_pos_ = Vector2f(0, 0);
 	temp_view_pos_ = Vector2f(0, 0);
 	number_of_sets_ = 0;
-	SetView();
-	set_minimap(Settings::MinimapSize, Settings::MinimapMargin);
+	set_view();
+	set_minimap(Vector2f(Settings::MinimapWidth, Settings::MinimapHeight), Settings::MinimapMargin);
+	set_visual_net(Vector2f(Settings::VisualNetWidth, Settings::VisualNetHeight), Settings::VisualNetMargin);
 	this->setView(view_);
 
 	cout << "Setting up snap grid..." << endl;
@@ -94,8 +95,8 @@ void Engine::ResizeFrame(QSize size) {
 	resize(size);
 	setSize(sf::Vector2u(size.width(), size.height()));
 
-	SetView();
-	set_minimap(Settings::MinimapSize, Settings::MinimapMargin);
+	set_view();
+	//set_minimap(Settings::MinimapSize, Settings::MinimapMargin);
 	this->setView(view_);
 }
 
@@ -143,17 +144,16 @@ bool Engine::RunDemo(int simulationNumber) {
 bool Engine::RunSet(int vehicleCount, int generations) {
 	if (!Set::SetRunning)
 	{
-		if (Simulation::DemoRunning)
-		{
-			ClearMap();
-		}
+		ClearMap();
+
 		cout << "Creating a new neural network..." << endl;
 
 		Set *s = AddSet(0, vehicleCount, generations);
 
 		s->RunSet();
 
-		cout << "Set number " << s->GetSetNumber() << " has started running" << endl;
+		cout << "Set number " << s->GetSetNumber() << " has started running"
+		     << endl;
 		return true;
 	} else
 	{
@@ -163,8 +163,9 @@ bool Engine::RunSet(int vehicleCount, int generations) {
 }
 
 /// set the viewport for the camera
-void Engine::SetView() {
+void Engine::set_view() {
 	// view setup
+
 	view_.reset(sf::FloatRect(temp_view_pos_.x,
 	                          temp_view_pos_.y,
 	                          Settings::DefaultMapWidth,
@@ -175,26 +176,27 @@ void Engine::SetView() {
 }
 
 /// build the minimap
-void Engine::set_minimap(float size, float margin) {
+void Engine::set_minimap(Vector2f size, float margin) {
 	// minimap viewPort setup
 	minimap_.reset(sf::FloatRect(0,
 	                             0,
 	                             Settings::DefaultMapWidth,
 	                             Settings::DefaultMapHeight));
-	minimap_.setSize(Vector2f(size, size));
+
 	minimap_.setViewport(sf::FloatRect(
-		1.f - (size / this->width()) - (margin / this->width()),
-		margin / this->height(),
-		size / this->width(),
-		size / this->height()));
-	float zoomFactor = Settings::DefaultMapWidth / size;
-	minimap_.zoom(zoomFactor);
-	float outlineThickness = 30;
+		1 - size.x - margin,
+		margin,
+		size.x,
+		size.y
+		));
+
+	float outlineThickness = Settings::DefaultMapWidth / 150;
 
 	// background setup
 	minimap_bg_ =
-		RectangleShape(Vector2f(Settings::DefaultMapWidth - outlineThickness * 2,
-		                        Settings::DefaultMapHeight - outlineThickness * 2));
+		RectangleShape(Vector2f(
+			Settings::DefaultMapWidth - outlineThickness * 2,
+			Settings::DefaultMapHeight - outlineThickness * 2));
 	minimap_bg_.setPosition(outlineThickness, outlineThickness);
 	minimap_bg_.setFillColor(Color(110, 110, 110, 220));
 	minimap_bg_.setOutlineColor(Color::Black);
@@ -202,16 +204,50 @@ void Engine::set_minimap(float size, float margin) {
 
 	shown_area_index_ = RectangleShape(Vector2f(0, 0));
 	shown_area_index_.setOutlineColor(Color(255, 0, 0, 100));
-	shown_area_index_.setOutlineThickness(30.f);
+	shown_area_index_.setOutlineThickness(outlineThickness);
 	shown_area_index_.setFillColor(Color::Transparent);
 	update_shown_area();
+}
+
+void Engine::set_visual_net(Vector2f size, float margin) {
+	// visual_net viewPort setup
+
+
+	visual_net_.reset(sf::FloatRect(0,
+	                             0,
+	                             Settings::DefaultMapWidth,
+	                             Settings::DefaultMapHeight));
+	visual_net_.setViewport(sf::FloatRect(
+		margin,
+		margin,
+		size.x,
+		size.y));
+
+	/*
+	float zoomFactor = Settings::DefaultMapWidth / size;
+	visual_net_.zoom(zoomFactor);
+	 */
+
+	float outlineThickness = Settings::DefaultMapWidth / 200;
+
+	// background setup
+	visual_net_bg_ =
+		RectangleShape(Vector2f(
+			Settings::DefaultMapWidth - outlineThickness * 2,
+			Settings::DefaultMapHeight - outlineThickness * 2));
+	visual_net_bg_.setPosition(outlineThickness, outlineThickness);
+	visual_net_bg_.setFillColor(Color(110, 110, 110, 220));
+	visual_net_bg_.setOutlineColor(Color::Black);
+	visual_net_bg_.setOutlineThickness(outlineThickness);
+
 }
 
 /// update camera after movement, and enforce overflow
 void Engine::UpdateView(Vector2f posDelta, float newZoom) {
 	// view_pos_ is position before dragging
 	// t_view_pos_ is the current view position
-	temp_view_pos_ = view_pos_ + posDelta * Settings::Zoom * Settings::DragFactor;
+	temp_view_pos_ =
+		view_pos_ + posDelta * Settings::Zoom * Settings::DragFactor;
 
 	// enforce overflow blocking
 	if (!Settings::MapOverflow && map != nullptr)
@@ -237,7 +273,7 @@ void Engine::UpdateView(Vector2f posDelta, float newZoom) {
 		Settings::Zoom = newZoom;
 	}
 	// set view
-	SetView();
+	set_view();
 }
 
 /// update the shown area index in minimap
@@ -270,7 +306,8 @@ void Engine::BuildGrid(int rows, int cols) {
 		Vertex *line = new Vertex[2];
 
 		line[0] = sf::Vertex(sf::Vector2f(i * snap_grid_.ColumnWidth, 0));
-		line[1] = sf::Vertex(sf::Vector2f(i * snap_grid_.ColumnWidth, map->GetSize().y));
+		line[1] = sf::Vertex(sf::Vector2f(i * snap_grid_.ColumnWidth,
+		                                  map->GetSize().y));
 
 		snap_grid_.Lines.push_back(line);
 	}
@@ -280,7 +317,8 @@ void Engine::BuildGrid(int rows, int cols) {
 		Vertex *line = new Vertex[2];
 
 		line[0] = sf::Vertex(sf::Vector2f(0, i * snap_grid_.RowHeight));
-		line[1] = sf::Vertex(sf::Vector2f(map->GetSize().x, i * snap_grid_.RowHeight));
+		line[1] = sf::Vertex(sf::Vector2f(map->GetSize().x,
+		                                  i * snap_grid_.RowHeight));
 
 		snap_grid_.Lines.push_back(line);
 	}
@@ -362,10 +400,12 @@ Vector2f Engine::GetSnappedPoint(Vector2f point) {
 
 	if (int(point.x) % snap_grid_.ColumnWidth > snap_grid_.ColumnWidth / 2)
 	{
-		x = int(ceil(point.x / snap_grid_.ColumnWidth)) * snap_grid_.ColumnWidth;
+		x = int(ceil(point.x / snap_grid_.ColumnWidth))
+			* snap_grid_.ColumnWidth;
 	} else
 	{
-		x = int(floor(point.x / snap_grid_.ColumnWidth)) * snap_grid_.ColumnWidth;
+		x = int(floor(point.x / snap_grid_.ColumnWidth))
+			* snap_grid_.ColumnWidth;
 	}
 
 	if (int(point.y) % snap_grid_.RowHeight > snap_grid_.RowHeight / 2)
@@ -405,7 +445,8 @@ void Engine::check_selection(Vector2f position) {
 	{
 		list<Lane *> *ptr = Vehicle::SelectedVehicle->GetInstructionSet();
 		Lane *currentLane;
-		if ((currentLane = Vehicle::SelectedVehicle->GetCurrentLane()) != nullptr)
+		if ((currentLane = Vehicle::SelectedVehicle->GetCurrentLane())
+			!= nullptr)
 		{
 			ptr->push_front(currentLane);
 			map->SelectRoutesByVehicle(ptr);
@@ -480,7 +521,8 @@ void Engine::LoadMap(const string loadDirectory) {
 		for (auto data : j["intersections"])
 		{
 			map->AddIntersection(data["id"],
-			                     Vector2f(data["position"][0], data["position"][1]));
+			                     Vector2f(data["position"][0],
+			                              data["position"][1]));
 		}
 
 		// build connecting roads
@@ -502,7 +544,9 @@ void Engine::LoadMap(const string loadDirectory) {
 
 		for (auto data : j["lanes"])
 		{
-			map->AddLane(data["id"], data["road_number"], data["is_in_road_direction"]);
+			map->AddLane(data["id"],
+			             data["road_number"],
+			             data["is_in_road_direction"]);
 		}
 
 		for (auto data : j["routes"])
@@ -528,10 +572,13 @@ void Engine::LoadMap(const string loadDirectory) {
 
 		for (auto data : j["lights"])
 		{
-			map->AddLight(data["id"], data["phase_number"], data["parent_road_number"]);
+			map->AddLight(data["id"],
+			              data["phase_number"],
+			              data["parent_road_number"]);
 		}
 
-		cout << "map has been successfully loaded from '" << loadDirectory << "'. "
+		cout << "map has been successfully loaded from '" << loadDirectory
+		     << "'. "
 		     << endl;
 	}
 	catch (const std::exception &e)
@@ -571,19 +618,22 @@ void Engine::SaveMap(const string saveDirectory) {
 						{
 							{"id", lane->GetLaneNumber()},
 							{"road_number", lane->GetRoadNumber()},
-							{"is_in_road_direction", lane->GetIsInRoadDirection()}
+							{"is_in_road_direction",
+							 lane->GetIsInRoadDirection()}
 						});
 				}
 			} else
 			{
 				// only save the connecting road once for the connected intersection
-				if (inter->GetIntersectionNumber() == road->GetIntersectionNumber(0))
+				if (inter->GetIntersectionNumber()
+					== road->GetIntersectionNumber(0))
 				{
 					j["connecting_roads"].push_back(
 						{
 							{"id", road->GetRoadNumber()},
-							{"intersection_number", {road->GetIntersectionNumber(
-								0), road->GetIntersectionNumber(1)}}
+							{"intersection_number",
+							 {road->GetIntersectionNumber(
+								 0), road->GetIntersectionNumber(1)}}
 						});
 
 					for (Lane *lane : *road->GetLanes())
@@ -592,7 +642,8 @@ void Engine::SaveMap(const string saveDirectory) {
 							{
 								{"id", lane->GetLaneNumber()},
 								{"road_number", lane->GetRoadNumber()},
-								{"is_in_road_direction", lane->GetIsInRoadDirection()}
+								{"is_in_road_direction",
+								 lane->GetIsInRoadDirection()}
 							});
 					}
 				}
@@ -616,7 +667,8 @@ void Engine::SaveMap(const string saveDirectory) {
 			{
 				{"id", cycle->GetCycleNumber()},
 				{"attached_intersection_id",
-				 (cycle->GetIntersection() != nullptr) ? cycle->GetIntersection()
+				 (cycle->GetIntersection() != nullptr) ? cycle
+					 ->GetIntersection()
 					 ->GetIntersectionNumber() : 0}
 			}
 		);
@@ -646,7 +698,8 @@ void Engine::SaveMap(const string saveDirectory) {
 					{
 						{"id", light->GetLightNumber()},
 						{"phase_number", light->GetPhaseNumber()},
-						{"parent_road_number", light->GetParentRoad()->GetRoadNumber()}
+						{"parent_road_number",
+						 light->GetParentRoad()->GetRoadNumber()}
 					}
 				);
 			}
@@ -744,7 +797,8 @@ void Engine::LoadSets(string loadDirectory) {
 
 		if (!sets_.empty())
 		{
-			cout << "sets have been successfully loaded from '" << loadDirectory << "'. "
+			cout << "sets have been successfully loaded from '" << loadDirectory
+			     << "'. "
 			     << endl;
 		} else
 		{
@@ -761,8 +815,7 @@ void Engine::LoadSets(string loadDirectory) {
 /// reset the whole map, delete everything
 void Engine::ResetMap() {
 
-	cout << "Saving simulations..." << endl;
-	//SaveSimulations("../../");
+	Net::NeuralNetwork.Reset();
 
 	cout << "Deleting Vehicles..." << endl;
 	Vehicle::DeleteAllVehicles();
@@ -771,11 +824,14 @@ void Engine::ResetMap() {
 	delete map;
 	map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapWidth);
 
-	cout << "======================= map has been reset =======================" << endl;
+	cout << "======================= map has been reset ======================="
+	     << endl;
 }
 
 /// stop the current simulation, and clear all vehicles
 void Engine::ClearMap() {
+
+	Net::NeuralNetwork.Reset();
 
 	// clear all lanes;
 	for (Lane *l : *map->GetLanes())
@@ -790,7 +846,8 @@ void Engine::ClearMap() {
 
 	Vehicle::DeleteAllVehicles();
 
-	cout << "====================== map has been cleared ======================" << endl;
+	cout << "====================== map has been cleared ======================"
+	     << endl;
 }
 
 /// do the game cycle (input->update)
@@ -838,7 +895,7 @@ void Engine::update(float elapsedTime) {
 		view_pos_ = Vehicle::SelectedVehicle->GetPosition()
 			- Vector2f(map->GetSize().x / 2, map->GetSize().y / 2);
 		temp_view_pos_ = view_pos_;
-		SetView();
+		set_view();
 	}
 
 	if (Set::SetRunning)
@@ -859,16 +916,19 @@ void Engine::update(float elapsedTime) {
 					// set the new score as result
 					float result = s->GetLastSimulationResult();
 
-					Settings::NeuralNetwork.SetActualResults(result);
+					Net::NeuralNetwork.SetActualResults(result);
 
 					// back propogate on default target value (1.0)
-					Settings::NeuralNetwork.BackPropagate(target_results_);
+					Net::NeuralNetwork.BackPropagate(target_results_);
+
+					Net::NeuralNetwork.Update(elapsedTime);
 
 					if (Settings::DrawNnProgression)
 					{
 						cout << "Sim no. " << s->GetGenerationsSimulated() + 1
 						     << " result :" << result << "  avg. error :"
-						     << Settings::NeuralNetwork.GetRecentAverageError() << endl;
+						     << Net::NeuralNetwork.GetRecentAverageError()
+						     << endl;
 					}
 
 				}
@@ -910,7 +970,8 @@ bool Engine::AddVehicleRandomly() {
 			!= nullptr);
 	} else
 	{
-		cout << "Could not add a new vehicle as tracks could not be generated." << endl;
+		cout << "Could not add a new vehicle as tracks could not be generated."
+		     << endl;
 		return false;
 	}
 }
@@ -953,6 +1014,13 @@ void Engine::render() {
 		render_minimap(); // render minimap
 	}
 
+	// draw the visual net
+	if (Settings::DrawVisualNet)
+	{
+		this->setView(visual_net_); // switch to minimap for rendering
+		render_visual_net(); // render minimap
+	}
+
 	this->setView(view_); // switch back to main view
 }
 
@@ -970,4 +1038,11 @@ void Engine::render_minimap() {
 
 	// Draw the shown area index
 	this->draw(shown_area_index_);
+}
+
+void Engine::render_visual_net() {
+
+	this->draw(visual_net_bg_);
+
+	Net::NeuralNetwork.Draw(this);
 }

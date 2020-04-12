@@ -4,11 +4,14 @@
 
 #include "NeuralNet.hpp"
 
-Net::Net(const vector<unsigned> &topology) {
-	srand((time(nullptr)));
+Net Net::NeuralNetwork = Net();
 
-	unsigned numLayers = topology.size();
-	for (unsigned layerNum = 0; layerNum < numLayers; ++layerNum)
+Net::Net(const vector<unsigned> &topology, Vector2f size) {
+
+	size_ = size;
+
+	unsigned layerCount = topology.size();
+	for (unsigned layerNum = 0; layerNum < layerCount; ++layerNum)
 	{
 		layers_.push_back(Layer());
 
@@ -16,13 +19,95 @@ Net::Net(const vector<unsigned> &topology) {
 			layerNum == topology.size() - 1 ? 0 : topology[layerNum + 1];
 
 		// We have made a new Layer, fill it ith neurons
-		for (unsigned neuronNum = 0; neuronNum < topology[layerNum];
+		unsigned neuronCount = topology[layerNum];
+		for (unsigned neuronNum = 0; neuronNum < neuronCount;
 		     ++neuronNum)
 		{
-			layers_.back().push_back(Neuron(numOutputs, neuronNum));
+			Vector2f position = calculate_neuron_position(layerNum,
+			                                              layerCount,
+			                                              neuronNum,
+			                                              neuronCount);
+			layers_.back().push_back(Neuron(numOutputs, neuronNum, position, size.x/25.f));
 			cout << "Mad a Neuron!" << endl;
 		}
 	}
+
+	create_weight_vertex_array();
+	Update(0.f);
+}
+
+void Net::create_weight_vertex_array() {
+
+	unsigned layerCount = layers_.size();
+
+	for (unsigned layerNum = 1; layerNum < layerCount; ++layerNum)
+	{
+		Layer & prevLayer = layers_[layerNum - 1];
+		Layer & currLayer = layers_[layerNum];
+		unsigned NeuronCount = layers_[layerNum].size();
+		unsigned PrevNeuronCount = prevLayer.size();
+
+		// previous layer
+		for (unsigned i = 0; i < PrevNeuronCount; ++i)
+		{
+			Neuron * prevNeuron = &prevLayer[i];
+			// current layer
+			for (unsigned j = 0; j < NeuronCount; ++j)
+			{
+				Neuron * currNeuron = &currLayer[j];
+
+				VertexArray line = VertexArray(Lines, 2);
+
+				line[0].position = prevNeuron->GetPosition();
+				line[1].position = currNeuron->GetPosition();
+
+				weight_lines_.push_back(line);
+			}
+		}
+	}
+}
+
+void Net::Update(float elapsedTime) {
+
+	int weights_index = 0;
+	for(int l = 0 ; l < layers_.size() - 1;l++)
+	{
+		Layer & layer = layers_[l];
+		for(int n = 0 ; n < layer.size() ;n++)
+		{
+			layer[n].Update(elapsedTime, &weight_lines_, &weights_index);
+		}
+	}
+}
+
+void Net::Draw(RenderWindow * window) {
+
+	for(VertexArray va : weight_lines_)
+	{
+		window->draw(va);
+	}
+
+	for(const Layer& l : layers_)
+	{
+		for(Neuron n : l)
+		{
+			n.Draw(window);
+		}
+	}
+
+}
+
+void Net::Reset() {
+
+	for(int l = 0 ; l < layers_.size() - 1;l++)
+	{
+		Layer & layer = layers_[l];
+		for(int n = 0 ; n < layer.size() ;n++)
+		{
+			layer[n].Reset();
+		}
+	}
+	Update(0.f);
 }
 
 double Net::recent_average_smoothing_factor_ =
@@ -35,6 +120,19 @@ void Net::GetResults(vector<double> &resultVals) const {
 	{
 		resultVals.push_back(layers_.back()[n].GetOutputValue());
 	}
+}
+
+Vector2f Net::calculate_neuron_position(unsigned layerNum,
+                                        unsigned layerCount,
+                                        unsigned neuronNum,
+                                        unsigned neuronCount) {
+
+	Vector2f pos;
+
+	pos.x = size_.x / float(layerCount + 1) * float(layerNum + 1);
+	pos.y = size_.y / float(neuronCount + 1) * float(neuronNum + 1);
+
+	return pos;
 }
 
 void Net::BackPropagate(const std::vector<double> &targetVals) {

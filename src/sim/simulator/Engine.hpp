@@ -61,7 +61,6 @@ class Engine : public QSFMLCanvas
 
 	// set
 	void SetSnapToGrid(bool snapToGrid) { this->snap_to_grid_ = snapToGrid; }
-	void SetView();
 	void BuildGrid(int rows, int cols);
 
 	void UpdateView(Vector2f posDelta = Vector2f(0, 0), float zoom = 0);
@@ -91,11 +90,14 @@ class Engine : public QSFMLCanvas
 	void input();
 
 	void render_minimap();
+	void render_visual_net();
 	void update_shown_area();
 	void update(float elapsedTime);
 	void add_vehicles_with_delay(float elapsedTime);
 	void check_selection(Vector2f position);
-	void set_minimap(float size, float margin);
+	void set_view();
+	void set_minimap(Vector2f size, float margin);
+	void set_visual_net(Vector2f size, float margin);
 
 	// Snap click points to set grid
 	bool snap_to_grid_;
@@ -105,6 +107,8 @@ class Engine : public QSFMLCanvas
 	View view_;
 	// The minimap camera
 	View minimap_;
+	// The Visual Neural Network camera
+	View visual_net_;
 
 	// The actual view position
 	Vector2f view_pos_;
@@ -112,6 +116,7 @@ class Engine : public QSFMLCanvas
 	Vector2f temp_view_pos_;
 
 	RectangleShape minimap_bg_;
+	RectangleShape visual_net_bg_;
 	RectangleShape shown_area_index_;
 	CircleShape click_point_;
 
