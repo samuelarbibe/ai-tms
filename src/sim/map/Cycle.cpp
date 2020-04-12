@@ -20,18 +20,9 @@ Cycle::Cycle(int cycleNumber, Intersection *intersection) {
 	cycle_number_ = cycleNumber;
 	intersection_ = intersection;
 	number_of_phases_ = 0;
-	/*
-	int inputCount = Settings::NeuralNetwork.GetInputNeuronCount();
-	for(int n = 0; n < inputCount ; n++)
-	{
-		input_values_.push_back(rand() / float(RAND_MAX));
-	}
 
-	int outputCount = Settings::NeuralNetwork.GetOutputNeuronCount();
-	output_values_ = vector<float>(outputCount, 0);
-	 */
-
-	input_values_ = vector<float>(2, 0);
+	input_values_ = vector<double>(2, 0);
+	output_values_ = vector<double>(1, 0);
 }
 
 Cycle::~Cycle() {
@@ -101,13 +92,21 @@ void Cycle::calculate_priority() {
 	for (int p = 0; p < number_of_phases_ - 1; p++)
 	{
 		// get input values
-		phases_[p]->GetInputValues(&input_values_);
+		phases_[p]->GetInputValues(input_values_);
 
-		phases_[p]->SetPhasePriority(input_values_[0]);
+		if(input_values_[0] > 0)
+		{
+			Settings::NeuralNetwork.FeedForward(input_values_);
+			Settings::NeuralNetwork.GetResults(output_values_);
 
-		float cycleTime = input_values_[1]/2500.f * Settings::MaxCycleTime;
-		cycleTime = clamp(cycleTime, Settings::MinCycleTime, Settings::MaxCycleTime);
-		phases_[p]->SetCycleTime(cycleTime);
+			phases_[p]->SetPhasePriority(output_values_[0]);	
+			phases_[p]->SetCycleTime(clamp(float(output_values_[1]) * Settings::MaxCycleTime, Settings::MinCycleTime, Settings::MaxCycleTime));
+		}
+		else
+		{
+			phases_[p]->SetCycleTime(Settings::MinCycleTime);
+			phases_[p]->SetPhasePriority(0);
+		}
 	}
 }
 
@@ -129,15 +128,7 @@ void Cycle::cycle_phases() {
 
 			phases_[number_of_phases_ - 1]->Open();
 
-			/*
-			cout << "[" ;
-			for(int p = 0; p < number_of_phases_; p++)
-			{
-				cout << "[ " << phases_[p]->GetPriorityScore() << ", " << phases_[p]->GetMaxLaneDensity() << "]";
-			}
-			cout << "]" << endl;
-			 */
-			//cout << phases_[number_of_phases_-1]->GetCycleTime() << endl;
+			//Settings::NeuralNetwork.printNet();
 		}
 			// constantly sort the list by their priority score
 		else

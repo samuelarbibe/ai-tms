@@ -28,11 +28,11 @@ Set::~Set() {
 
 }
 
-Simulation * Set::GetSimulation(int simulationNumber) {
+Simulation *Set::GetSimulation(int simulationNumber) {
 
-	for(Simulation *s : simulations_)
+	for (Simulation *s : simulations_)
 	{
-		if(s->GetSimulationNumber() == simulationNumber)
+		if (s->GetSimulationNumber() == simulationNumber)
 		{
 			return s;
 		}
@@ -42,7 +42,7 @@ Simulation * Set::GetSimulation(int simulationNumber) {
 
 bool Set::Update(float elapsedTime) {
 
-	if(running_)
+	if (running_)
 	{
 		//update set progress
 		progress_ = float(generations_simulated_) / float(generations_count_);
@@ -58,17 +58,6 @@ bool Set::Update(float elapsedTime) {
 				// check if simulation has finished
 				if (running_simulation_->IsFinished())
 				{
-					/*
-					// set the new score as result
-					float result = running_simulation_->GetResult();
-					Settings::NeuralNetwork.SetActualResult(result);
-
-					// back propogate on default target value (1.0)
-					Settings::NeuralNetwork.BackPropagate(target_results_);
-
-					cout << "Sim no. " << generations_simulated_+1 << " result :" << result << endl;
-					cout << "         Average Error :" << Settings::NeuralNetwork.GetRecentAverageError() << endl;
-					*/
 					last_simulation_result_ = running_simulation_->GetResult();
 
 					running_simulation_ = nullptr;
@@ -80,8 +69,7 @@ bool Set::Update(float elapsedTime) {
 				// start a new simulation and run it
 				running_simulation_ = StartNewSimulation();
 			}
-		}
-		else
+		} else
 		{
 			running_ = false;
 			finished_ = true;
@@ -91,10 +79,10 @@ bool Set::Update(float elapsedTime) {
 		}
 	}
 
-	if(running_demo_ != nullptr)
+	if (running_demo_ != nullptr)
 	{
 		running_demo_->Update(elapsedTime);
-		if(running_demo_->IsFinished())
+		if (running_demo_->IsFinished())
 		{
 			running_demo_ = nullptr;
 		}
@@ -108,32 +96,31 @@ void Set::StopSet() {
 	running_ = false;
 	SetRunning = false;
 
-	if(running_simulation_ != nullptr)
+	if (running_simulation_ != nullptr)
 	{
 		running_simulation_->StopSimulation();
 		DeleteSimulation(running_simulation_->GetSimulationNumber());
 		running_simulation_ = nullptr;
 	}
 
-	if(running_demo_ != nullptr)
+	if (running_demo_ != nullptr)
 	{
 		running_demo_->StopDemo();
 		running_demo_ = nullptr;
 	}
 }
 
-
-bool Set::DeleteSimulation(int simulationNumber)
-{
+bool Set::DeleteSimulation(int simulationNumber) {
 	auto it = simulations_.begin();
 	while (it != simulations_.end())
 	{
 		if ((*it)->GetSimulationNumber() == simulationNumber)
 		{
 			it = simulations_.erase(it);
-			if((*it)->IsFinished()) generations_simulated_--;
-			number_of_simulations_ --;
-			generations_count_ --;
+			if ((*it)->IsFinished())
+				generations_simulated_--;
+			number_of_simulations_--;
+			generations_count_--;
 
 			delete (*it);
 
@@ -148,33 +135,32 @@ bool Set::DeleteSimulation(int simulationNumber)
 	return false;
 }
 
-Simulation * Set::StartNewSimulation() {
+Simulation *Set::StartNewSimulation() {
 
 	// start a new simulation
-	Simulation * s = new Simulation(0, set_number_, vehicle_count_);
+	Simulation *s = new Simulation(0, set_number_, vehicle_count_);
 
 	simulations_.push_back(s);
-	number_of_simulations_ ++;
+	number_of_simulations_++;
 
 	s->Run();
 
 	return s;
 }
 
-Simulation * Set::AddSimulation(int simulationNumber, int vehicleCount)
-{
-	if(simulationNumber == 0)
+Simulation *Set::AddSimulation(int simulationNumber, int vehicleCount) {
+	if (simulationNumber == 0)
 	{
 		simulationNumber = Simulation::SimulationCount + 1;
 	}
 
-	Simulation * s = new Simulation(simulationNumber, set_number_, vehicleCount);
+	Simulation *s = new Simulation(simulationNumber, set_number_, vehicleCount);
 	simulations_.push_back(s);
 
-	number_of_simulations_ ++;
-	Simulation::SimulationCount ++;
+	number_of_simulations_++;
+	Simulation::SimulationCount++;
 
-	if(Settings::DrawAdded)
+	if (Settings::DrawAdded)
 	{
 		cout << "Simulation " << s->GetSimulationNumber() << " added." << endl;
 	}
@@ -182,9 +168,8 @@ Simulation * Set::AddSimulation(int simulationNumber, int vehicleCount)
 	return s;
 }
 
-bool Set::DemoSimulation(int simulationNumber)
-{
-	if(!SetRunning)
+bool Set::DemoSimulation(int simulationNumber) {
+	if (!SetRunning)
 	{
 		Simulation *s = GetSimulation(simulationNumber);
 
@@ -199,9 +184,8 @@ bool Set::DemoSimulation(int simulationNumber)
 	return false;
 }
 
-bool Set::StopDemo()
-{
-	if(running_demo_ != nullptr)
+bool Set::StopDemo() {
+	if (running_demo_ != nullptr)
 	{
 		running_demo_->StopDemo();
 		running_demo_ = nullptr;

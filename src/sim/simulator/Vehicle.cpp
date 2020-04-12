@@ -15,7 +15,7 @@ int Vehicle::VehiclesToDeploy = 0;
 list<Vehicle *> Vehicle::ActiveVehicles;
 Vehicle *Vehicle::SelectedVehicle = nullptr;
 
-VehicleType Vehicle::SmallCar {
+VehicleType Vehicle::SmallCar{
 	SMALL_CAR,
 	"SmallCar",
 	"../../resources/cars/car_image_",
@@ -29,14 +29,14 @@ VehicleType Vehicle::MediumCar{
 	3,
 	Vector2f(1.8 * 100 / Settings::Scale, 4 * 100 / Settings::Scale)
 };
-VehicleType Vehicle::LongCar  {
+VehicleType Vehicle::LongCar{
 	LONG_CAR,
 	"LongCar",
 	"../../resources/cars/car_image_",
 	3,
 	Vector2f(2 * 100 / Settings::Scale, 5 * 100 / Settings::Scale)
 };
-VehicleType Vehicle::Truck    {
+VehicleType Vehicle::Truck{
 	TRUCK,
 	"Truck",
 	"../../resources/cars/car_image_",
@@ -44,7 +44,10 @@ VehicleType Vehicle::Truck    {
 	Vector2f(2.1f * 100 / Settings::Scale, 10 * 100 / Settings::Scale)
 };
 
-Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *> *instructionSet, Map *map) {
+Vehicle::Vehicle(VehicleTypeOptions vehicleType,
+                 int vehicleNumber,
+                 list<Lane *> *instructionSet,
+                 Map *map) {
 	// set initial values for the movable object
 	vehicle_type_ = GetVehicleTypeByOption(vehicleType);
 	vehicle_number_ = vehicleNumber;
@@ -63,7 +66,8 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *>
 
 	// get a pointer to the current intersection
 	// current intersection is the intersection that the lane leads to
-	curr_intersection_ = map->GetIntersection(source_lane_->GetIntersectionNumber());
+	curr_intersection_ =
+		map->GetIntersection(source_lane_->GetIntersectionNumber());
 	// the previous intersection, or the intersection of the source lane
 	prev_intersection_ = nullptr;
 
@@ -160,8 +164,10 @@ Vehicle *Vehicle::AddVehicle(list<Lane *> *instructionSet,
 	auto *temp = new Vehicle(vehicleType, vehicleNumber, instructionSet, map);
 	ActiveVehicles.push_back(temp);
 
-	temp->vehicle_in_front_ = (temp->source_lane_->GetBackVehicleId()) ? GetVehicle(temp->source_lane_->GetBackVehicleId())
-	                                                             : nullptr;
+	temp->vehicle_in_front_ =
+		(temp->source_lane_->GetBackVehicleId()) ? GetVehicle(temp->source_lane_
+			                                                      ->GetBackVehicleId())
+		                                         : nullptr;
 
 	//set this car as the last car that entered the lane
 	temp->source_lane_->PushVehicleInLane(vehicleNumber);
@@ -169,7 +175,8 @@ Vehicle *Vehicle::AddVehicle(list<Lane *> *instructionSet,
 	VehicleCount++;
 
 	if (Settings::DrawAdded)
-		cout << "car " << vehicleNumber << " added to lane " << temp->source_lane_->GetLaneNumber() << endl;
+		cout << "car " << vehicleNumber << " added to lane "
+		     << temp->source_lane_->GetLaneNumber() << endl;
 
 	return temp;
 }
@@ -213,7 +220,7 @@ void Vehicle::Unselect() {
 }
 
 /// load textures as required
-bool Vehicle::LoadVehicleTextures(VehicleType *vehicleType) {
+bool Vehicle::LoadVehicleTextures(VehicleType * vehicleType) {
 
 	if (vehicleType->Textures == nullptr)
 	{
@@ -231,15 +238,21 @@ bool Vehicle::LoadVehicleTextures(VehicleType *vehicleType) {
 				vehicleType->Textures->push_back(tempTexture);
 			} else
 			{
-				cerr << "loading texture no." << i << " for " << vehicleType->VehicleTypeName << " failed" << endl;
+				cerr << "loading texture no." << i << " for "
+				     << vehicleType->VehicleTypeName << " failed" << endl;
 			}
 		}
 
-		cout << "------------------------------------------------------------------" << endl;
-		cout << vehicleType->Textures->size() << "/" << vehicleType->ImageCount << " Textures successfully added for "
+		cout
+			<< "------------------------------------------------------------------"
+			<< endl;
+		cout << vehicleType->Textures->size() << "/" << vehicleType->ImageCount
+		     << " Textures successfully added for "
 		     << vehicleType->VehicleTypeName
 		     << endl;
-		cout << "------------------------------------------------------------------" << endl;
+		cout
+			<< "------------------------------------------------------------------"
+			<< endl;
 		vehicleType->ImageCount = vehicleType->Textures->size();
 	}
 	return bool(vehicleType->ImageCount > 0);
@@ -277,9 +290,13 @@ void Vehicle::transfer_vehicle(Lane *toLane) {
 	this->setRotation(this->source_lane_->GetDirection());
 	this->angular_vel_ = 0;
 	this->setPosition(this->source_lane_->GetStartPosition());
-	this->curr_intersection_ = this->curr_map_->GetIntersection(this->source_lane_->GetIntersectionNumber());
-	this->vehicle_in_front_ = (this->source_lane_->GetBackVehicleId()) ? GetVehicle(this->source_lane_->GetBackVehicleId())
-	                                                                   : nullptr;
+	this->curr_intersection_ =
+		this->curr_map_
+			->GetIntersection(this->source_lane_->GetIntersectionNumber());
+	this->vehicle_in_front_ =
+		(this->source_lane_->GetBackVehicleId()) ? GetVehicle(this->source_lane_
+			                                                      ->GetBackVehicleId())
+		                                         : nullptr;
 	this->source_lane_->PushVehicleInLane(this->vehicle_number_);
 
 	this->instruction_set_->pop_front();
@@ -299,13 +316,18 @@ State Vehicle::drive() {
 	// while cars dont have a min distance, they wont start driving
 
 	// check for distance with car in front
-	if (vehicle_in_front_ != nullptr && vehicle_in_front_->state_ != DELETE && dest_lane_ != nullptr)
+	if (vehicle_in_front_ != nullptr && vehicle_in_front_->state_ != DELETE
+		&& dest_lane_ != nullptr)
 	{
-		float distanceFromNextCar = Settings::CalculateDistance(this->getPosition(), vehicle_in_front_->getPosition())
-			- this->getSize().y/2 - vehicle_in_front_->getSize().y/2;
+		float distanceFromNextCar =
+			Settings::CalculateDistance(this->getPosition(),
+			                            vehicle_in_front_
+				                            ->getPosition())
+				- this->getSize().y / 2 - vehicle_in_front_->getSize().y / 2;
 		float brakingDistance = -(speed_ * speed_) / (2 * deceleration);
 
-		if (distanceFromNextCar < brakingDistance + Settings::MinDistanceFromNextCar ||
+		if (distanceFromNextCar
+			< brakingDistance + Settings::MinDistanceFromNextCar ||
 			distanceFromNextCar < Settings::MinDistanceFromNextCar)
 		{
 			turning_ = false;
@@ -314,30 +336,36 @@ State Vehicle::drive() {
 
 			// if the lane is blocked, send the stopline-distance
 			// to the lane and try to set the queue length
-			if(source_lane_ != nullptr && source_lane_->GetIsBlocked() && speed_ == 0 && active_)
-            {
-                float distanceFromStop = Settings::CalculateDistance(this->getPosition(),
-                        source_lane_->GetEndPosition());
-                // if this is the last car with STOP state in lane,
-                // the queue length is the distance from this vehicle
-                // to the end of the lane;
-                source_lane_->SetQueueLength(distanceFromStop);
-            }
+			if (source_lane_ != nullptr && source_lane_->GetIsBlocked()
+				&& speed_ == 0
+				&& active_)
+			{
+				float distanceFromStop =
+					Settings::CalculateDistance(this->getPosition(),
+					                            source_lane_
+						                            ->GetEndPosition());
+				// if this is the last car with STOP state in lane,
+				// the queue length is the distance from this vehicle
+				// to the end of the lane;
+				source_lane_->SetQueueLength(distanceFromStop);
+			}
 
 			return STOP;
 		}
 	}
 
-	// check if car is in between lanes (inside an intersection)
+	// check if car is in between lanes (inside an intersection) and turning
 	if (curr_intersection_->getGlobalBounds().contains(this->getPosition()) &&
 		source_lane_ != nullptr &&
 		dest_lane_ != nullptr)
 	{
 		if (!turning_)
 		{
-			float distanceSourceTarget = Settings::CalculateDistance(source_lane_->GetEndPosition(),
-			                                                         dest_lane_->GetStartPosition());
-			float angle = Settings::CalculateAngle(source_lane_->GetDirection(), dest_lane_->GetDirection());
+			float distanceSourceTarget =
+				Settings::CalculateDistance(source_lane_->GetEndPosition(),
+				                            dest_lane_->GetStartPosition());
+			float angle = Settings::CalculateAngle(source_lane_->GetDirection(),
+			                                       dest_lane_->GetDirection());
 
 			// if going in a straight line
 			if (angle < 1.f && angle > -1.f)
@@ -345,7 +373,8 @@ State Vehicle::drive() {
 				angular_vel_ = 0;
 			} else
 			{
-				float turningRadius = (distanceSourceTarget / 2.f) / (sin(angle * M_PI / 360.f));
+				float turningRadius =
+					(distanceSourceTarget / 2.f) / (sin(angle * M_PI / 360.f));
 				float parameter = 2.f * M_PI * turningRadius;
 				float turningParameter = (angle / 360.f) * parameter;
 
@@ -357,7 +386,9 @@ State Vehicle::drive() {
 
 		if (source_lane_ != nullptr)
 		{
-			prev_intersection_ = curr_map_->GetIntersection(source_lane_->GetIntersectionNumber());
+			prev_intersection_ =
+				curr_map_
+					->GetIntersection(source_lane_->GetIntersectionNumber());
 			source_lane_->PopVehicleFromLane();
 			source_lane_ = nullptr;
 		}
@@ -369,24 +400,28 @@ State Vehicle::drive() {
 	}
 
 	// check distance from stop (if lane is blocked)
-	if (source_lane_ != nullptr && source_lane_ != dest_lane_ && source_lane_->GetIsBlocked() &&
+	if (source_lane_ != nullptr && source_lane_ != dest_lane_
+		&& source_lane_->GetIsBlocked() &&
 		!this->getGlobalBounds().contains(source_lane_->GetEndPosition()))
 	{
-		float distanceFromStop = Settings::CalculateDistance(this->getPosition(), source_lane_->GetEndPosition())
-			- this->getSize().y/2;
+		float
+			distanceFromStop = Settings::CalculateDistance(this->getPosition(),
+			                                               source_lane_
+				                                               ->GetEndPosition())
+			- this->getSize().y / 2;
 		float brakingDistance = -(speed_ * speed_) / (2 * deceleration);
 
 		if (distanceFromStop < brakingDistance + Settings::MinDistanceFromStop)
 		{
-            // if the lane is blocked, send the stopline-distance
-            // to the lane and try to set the queue length
-            if(speed_ == 0 && active_)
-            {
-                // if this is the last car with STOP state in lane,
-                // the queue length is the distance from this vehicle
-                // to the end of the lane;
-                source_lane_->SetQueueLength(distanceFromStop);
-            }
+			// if the lane is blocked, send the stopline-distance
+			// to the lane and try to set the queue length
+			if (speed_ == 0 && active_)
+			{
+				// if this is the last car with STOP state in lane,
+				// the queue length is the distance from this vehicle
+				// to the end of the lane;
+				source_lane_->SetQueueLength(distanceFromStop);
+			}
 
 			// ignore the vehicle in front
 			vehicle_in_front_ = nullptr;
@@ -398,7 +433,8 @@ State Vehicle::drive() {
 	}
 
 	// check if car has left intersection and is now in targetLane
-	if (dest_lane_ != nullptr && dest_lane_->getGlobalBounds().contains(this->getPosition()))
+	if (dest_lane_ != nullptr
+		&& dest_lane_->getGlobalBounds().contains(this->getPosition()))
 	{
 		// set previous intersection to nullptr
 		prev_intersection_ = nullptr;
@@ -413,7 +449,8 @@ State Vehicle::drive() {
 	}
 
 	// check if car is no longer in intersection
-	if (dest_lane_ == nullptr && !source_lane_->getGlobalBounds().contains(this->getPosition()))
+	if (dest_lane_ == nullptr
+		&& !source_lane_->getGlobalBounds().contains(this->getPosition()))
 	{
 		source_lane_->PopVehicleFromLane();
 
@@ -437,15 +474,16 @@ void Vehicle::Update(float elapsedTime) {
 	if (Settings::DrawVehicleDataBoxes)
 	{
 		data_box_->Update(this->getPosition());
-		data_box_->SetData("Speed", Settings::ConvertVelocity(PXS, KMH, speed_));
+		data_box_
+			->SetData("Speed", Settings::ConvertVelocity(PXS, KMH, speed_));
 	}
 
-	if(state_ != DELETE)
+	if (state_ != DELETE)
 	{
 		drive();
 
 		// activate car
-		if (! active_ && state_ == DRIVE)
+		if (!active_ && state_ == DRIVE)
 			active_ = true;
 
 		apply_changes(elapsedTime);

@@ -27,7 +27,6 @@
 #include "src/sim/map/Route.hpp"
 #include "Set.hpp"
 
-
 using namespace sf;
 using json = nlohmann::json;
 
@@ -51,15 +50,14 @@ class Engine : public QSFMLCanvas
 
 	bool RunSet(int vehicleCount = 1000, int generations = 10);
 	bool RunDemo(int simulationNumber);
-	Set * AddSet(int setNumber, int vehicleCount, int generations);
-
+	Set *AddSet(int setNumber, int vehicleCount, int generations);
 
 	// get
 	Vector2f GetSnappedPoint(Vector2f point);
 	Vector2f DrawPoint(Vector2f position);
 	vector<Simulation *> *GetSimulations();
 	Simulation *GetSimulation(int simulationNumber);
-	Set * GetSet(int setNumber);
+	Set *GetSet(int setNumber);
 
 	// set
 	void SetSnapToGrid(bool snapToGrid) { this->snap_to_grid_ = snapToGrid; }
@@ -72,7 +70,7 @@ class Engine : public QSFMLCanvas
 	void SaveSets(string saveDirectory);
 	void LoadSets(string loadDirectory);
 	void ResetMap();
-    void ClearMap();
+	void ClearMap();
 	bool AddVehicleRandomly();
 	void ResizeFrame(QSize size);
 	bool DeleteSimulation(int simulationNumber);
@@ -85,13 +83,12 @@ class Engine : public QSFMLCanvas
 
   private:
 
-	void on_init() override ;
+	void on_init() override;
 
 	void logic_cycle() override;
 	void draw_cycle() override;
 	void render();
 	void input();
-
 
 	void render_minimap();
 	void update_shown_area();
@@ -120,8 +117,8 @@ class Engine : public QSFMLCanvas
 
 	int number_of_sets_;
 	// an array of simulation sets
-	vector<Set*> sets_;
-	vector<float> target_results_;
+	vector<Set *> sets_;
+	vector<double> target_results_;
 };
 
 #endif /* Engine_hpp */

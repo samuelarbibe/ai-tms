@@ -8,40 +8,29 @@
 #include <cstdlib>
 #include <cmath>
 #include <vector>
+#include <iostream>
+#include <iomanip>
 #include "Neuron.hpp"
 
 using namespace std;
 
-class NeuralNet
+class Net
 {
   public:
-
-	NeuralNet(){};
-	NeuralNet(vector<int> topology);
-	~NeuralNet(){};
-
-	void FeedForward(vector<float> inputValues);
-	void BackPropagate(vector<float> targetValues);
-	//void BackPropagate();
-	void GetResults(vector<float> * resultValues);
-	void SetActualResult(float actualResult);
-	//void SetTargetResult(float targetResult){ target_value_ = targetResult;}
-	float GetActualResult() { return actual_value_;}
-	float GetRecentAverageError(){return recent_average_error_;}
-	int GetOutputNeuronCount() { return layers_.back().size();}
-	int GetInputNeuronCount() { return layers_.front().size();}
+	Net(){}
+	Net(const vector<unsigned> &topology);
+	void FeedForward(const vector<double> &inputVals);
+	void BackPropagate(const vector<double> &targetVals);
+	void PrintNet();
+	void SetActualResults(const double actualResult);
+	void GetResults(vector<double> &resultVals) const;
+	double GetRecentAverageError(void) const { return recent_average_error_; }
 
   private:
-
-	static float recent_average_smoothing_factor;
-
-	float error_;
-	float actual_value_;
-	float target_value_;
-
-	vector<Layer> layers_;
-
-	float recent_average_error_;
+	vector<Layer> layers_; //layers_[layerNum][neuronNum]
+	double error_;
+	double recent_average_error_;
+	static double recent_average_smoothing_factor_;
 };
 
 #endif //TMS_SRC_SIM_NN_NEURALNET_HPP

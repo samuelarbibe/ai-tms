@@ -32,7 +32,7 @@ public:
     float GetCycleTime(){return cycle_time_;}
 	vector<Light*> * GetLights(){return &lights_;}
 	vector<Lane*> *  GetAssignedLanes(){return &lanes_;}
-	void GetInputValues(vector<float> * inputValues);
+	void GetInputValues(vector<double> & inputValues);
 	float GetMaxQueueLength();
 	float GetMaxLaneDensity();
 	float GetMaxTraversalTime();

@@ -19,37 +19,44 @@ class Set
 
 	bool Update(float elapsedTime);
 	void StopSet();
-	void RunSet(){running_ = true; SetRunning = true; start_time_ = time(nullptr);}
+	void RunSet() {
+		running_ = true;
+		SetRunning = true;
+		start_time_ = time(nullptr);
+	}
 	bool DemoSimulation(int simulationNumber);
-	Simulation * StartNewSimulation();
-	Simulation * AddSimulation(int simulationNumber, int vehicleCount);
+	Simulation *StartNewSimulation();
+	Simulation *AddSimulation(int simulationNumber, int vehicleCount);
 	bool DeleteSimulation(int simulationNumber);
 	bool StopDemo();
 
 	// set
 
-	void SetStartTime(time_t time){ start_time_ = time;}
-	void SetEndTime(time_t time){ end_time_ = time;}
-	void SetFinished(bool finished){ finished_ = finished; running_ = false;}
-	void SetGenerationsSimulated(int count){ generations_simulated_ = count;}
-	void SetGenerationCount(int count){ generations_count_ = count;}
-	void SetProgress(float progress){ progress_ = progress;}
+	void SetStartTime(time_t time) { start_time_ = time; }
+	void SetEndTime(time_t time) { end_time_ = time; }
+	void SetFinished(bool finished) {
+		finished_ = finished;
+		running_ = false;
+	}
+	void SetGenerationsSimulated(int count) { generations_simulated_ = count; }
+	void SetGenerationCount(int count) { generations_count_ = count; }
+	void SetProgress(float progress) { progress_ = progress; }
 
 	// get
-	int GetSetNumber(){ return set_number_;}
-	int GetNumberOfSimulations() {return number_of_simulations_;}
-	int GetGenerationsSimulated() {return generations_simulated_;}
-	int GetGenerationsCount() {return generations_count_;}
-	int GetVehicleCount() {return vehicle_count_;}
-	int GetRunning() {return running_;}
-	int GetProgress() {return progress_;}
-	time_t * GetStartTime() {return &start_time_;}
-	time_t * GetEndTime() {return &end_time_;}
-	bool IsFinished() {return finished_;}
-	bool IsRunning() {return running_;}
-	Simulation * GetSimulation(int simulationNumber);
-	vector<Simulation *> *GetSimulations(){return &simulations_;}
-	float GetLastSimulationResult() {return last_simulation_result_;}
+	int GetSetNumber() { return set_number_; }
+	int GetNumberOfSimulations() { return number_of_simulations_; }
+	int GetGenerationsSimulated() { return generations_simulated_; }
+	int GetGenerationsCount() { return generations_count_; }
+	int GetVehicleCount() { return vehicle_count_; }
+	int GetRunning() { return running_; }
+	int GetProgress() { return progress_; }
+	time_t *GetStartTime() { return &start_time_; }
+	time_t *GetEndTime() { return &end_time_; }
+	bool IsFinished() { return finished_; }
+	bool IsRunning() { return running_; }
+	Simulation *GetSimulation(int simulationNumber);
+	vector<Simulation *> *GetSimulations() { return &simulations_; }
+	float GetLastSimulationResult() { return last_simulation_result_; }
 
 	static int SetCount;
 	static bool SetRunning;

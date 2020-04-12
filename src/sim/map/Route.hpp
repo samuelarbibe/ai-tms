@@ -11,38 +11,37 @@
 
 class Route
 {
-public:
+  public:
 
-    Lane * FromLane;
-    Lane * ToLane;
+	Lane *FromLane;
+	Lane *ToLane;
 
-    Route(Lane * from, Lane * to);
-    ~Route();
+	Route(Lane *from, Lane *to);
+	~Route();
 
-    void Draw(RenderWindow * window);
-    void ReloadRoute();
+	void Draw(RenderWindow *window);
+	void ReloadRoute();
 
-    // get
-    int GetRouteNumber(){return route_number_;}
+	// get
+	int GetRouteNumber() { return route_number_; }
 
-    // set
-    void SetSelected(bool selected){selected_ = selected;}
+	// set
+	void SetSelected(bool selected) { selected_ = selected; }
 
-    // The total count of all the routes created this session
-    static int RouteCount;
+	// The total count of all the routes created this session
+	static int RouteCount;
 
-private:
+  private:
 
-    void BuildRadiusLine();
+	void BuildRadiusLine();
 	void BuildLaneLines();
 
 	bool selected_;
 
-    int route_number_;
+	int route_number_;
 
-    vector<Vertex*> lines_;
-    VertexArray radius_line_;
+	vector<Vertex *> lines_;
+	VertexArray radius_line_;
 };
-
 
 #endif //SIMULATORSFML_ROUTE_HPP

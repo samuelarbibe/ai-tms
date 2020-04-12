@@ -14,14 +14,15 @@
 
 int main(int argc, char **argv)
 {
-	/*
-	vector<int> topology;
+
+	vector<unsigned> topology;
 
 	topology.push_back(2); // input neurons : max lane density, max queue length
-	topology.push_back(1); // output neurons : priority points
+	topology.push_back(3); // input neurons : max lane density, max queue length
+	topology.push_back(2); // output neurons : priority points
 
-	Settings::NeuralNetwork = NeuralNet(topology);
-*/
+	Settings::NeuralNetwork = Net(topology);
+
     QApplication Application(argc, argv);
 
     auto * main = new MainWindow();

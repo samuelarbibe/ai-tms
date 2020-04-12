@@ -50,7 +50,8 @@ class Cycle
 	vector<float> neural_net_results_;
 	vector<float> output_values_;
 	 */
-	vector<float> input_values_;
+	vector<double> input_values_;
+	vector<double> output_values_;
 };
 
 #endif //TMS_SRC_SIM_MAP_CYCLE_HPP

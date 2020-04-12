@@ -43,7 +43,10 @@ class Vehicle : RectangleShape
 
   public:
 
-	Vehicle(VehicleTypeOptions vehicleType, int vehicleNumber, list<Lane *> *instructionSet, Map *map);
+	Vehicle(VehicleTypeOptions vehicleType,
+	        int vehicleNumber,
+	        list<Lane *> *instructionSet,
+	        Map *map);
 	~Vehicle();
 
 	void Draw(RenderWindow *window);
@@ -62,7 +65,7 @@ class Vehicle : RectangleShape
 	Lane *GetTargetLane() { return dest_lane_; }
 	Lane *GetCurrentLane() { return source_lane_; }
 	State GetState() { return state_; }
-	Vector2f GetPosition() { return getPosition(); }
+	Vector2f GetPosition() { return GetPosition(); }
 	list<Lane *> *GetInstructionSet() { return instruction_set_; }
 	static VehicleType *GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions);
 	static Vehicle *GetVehicle(int vehicleNumber);

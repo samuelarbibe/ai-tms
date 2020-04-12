@@ -31,12 +31,17 @@ class Settings
 {
   public:
 
-	static NeuralNet NeuralNetwork;
+	static Net NeuralNetwork;
 
 	static float GetLaneWidthAs(DistanceUnits unit);
-	static float GetMaxSpeedAs(VehicleTypeOptions vehicleType, VelocityUnits unit);
-	static float ConvertSize(DistanceUnits fromUnit, DistanceUnits toUnit, float value);
-	static float ConvertVelocity(VelocityUnits fromUnit, VelocityUnits toUnit, float value);
+	static float GetMaxSpeedAs(VehicleTypeOptions vehicleType,
+	                           VelocityUnits unit);
+	static float ConvertSize(DistanceUnits fromUnit,
+	                         DistanceUnits toUnit,
+	                         float value);
+	static float ConvertVelocity(VelocityUnits fromUnit,
+	                             VelocityUnits toUnit,
+	                             float value);
 
 	static const Vector2f BaseVec;
 
@@ -75,7 +80,7 @@ class Settings
 	static float DashLineSpace;
 	static float Scale;
 	static float Speed;
-	static bool  DoubleSeparatorLine;
+	static bool DoubleSeparatorLine;
 	static float VehicleSpawnRate;
 	static float MaxDensity;
 
@@ -123,10 +128,13 @@ class Settings
 
 	static float CalculateDistance(Vector2f a, Vector2f b);
 	static float CalculateAngle(float a, float b);
-	static string ConvertTimeToString(tm * time);
-	static tm * ConvertStringToTime(const string str);
+	static string ConvertTimeToString(tm *time);
+	static tm *ConvertStringToTime(const string str);
 
-	static void GetHeatMapColor(float value, float *red, float *green, float *blue);
+	static void GetHeatMapColor(float value,
+	                            float *red,
+	                            float *green,
+	                            float *blue);
 
 	static float OrangeDelay;
 	static float DefaultCycleTime;

@@ -8,55 +8,47 @@
 #include <cstdlib>
 #include <cmath>
 #include <vector>
+#include <iostream>
+#include <iomanip>
 
 using namespace std;
 
 class Neuron;
 
-typedef vector<Neuron> Layer;
-
 struct Connection
 {
-	float weight;
-	float delta_weight;
+	double weight;
+	double deltaWeight;
 };
+
+typedef vector<Neuron> Layer;
+
+// ****************** class Neuron ******************
 
 class Neuron
 {
   public:
-
-	Neuron(int outputsCount, int myIndex);
-	~Neuron(){};
-
-	void FeedForward(Layer & prevLayer);
-	void CalculateOutputGradient(float targetValue);
-	void CalculateHiddenGradients(Layer & nextLayer);
-	void UpdateInputWeights(Layer & prevLayer);
-
-	// get
-	float GetOutputValue() {return output_value_;}
-
-	// set
-	void SetOutputValue(float value) { output_value_ = value;}
-
+	Neuron(unsigned numOutputs, unsigned myIndex);
+	void SetOutputValue(double val) { output_value_ = val; }
+	double GetOutputValue() const { return output_value_; }
+	void FeedForward(const Layer &prevLayer);
+	void CalculateOutputGradients(double targetVals);
+	void CalculateHiddenGradients(const Layer &nextLayer);
+	void UpdateInputWeights(Layer &prevLayer);
   private:
-	// Training rate. [0.0...1.0]
-	// Larger rate, more extreme learning
-	static float eta;
-	// Multiplier of previous weight change (Momentum);
-	// if a change goes well, how much to push in that direction?
-	static float alpha;
-	static float transfer_function(float x);
-	static float transfer_function_derivative(float x);
-	static float randomize_weight() { return rand() / float(RAND_MAX);}
-
-	float sum_dow(Layer & nextLayer);
-	float output_value_;
+	// [0.0...1.0] net training rate
+	static double eta;
+	// [0.0...n] multiplier of last weight change [momentum]
+	static double alpha;
+	static double transfer_function(double x);
+	static double transfer_function_derivative(double x);
+	// randomWeight: 0 - 1
+	static double randomize_weight() { return rand() / double(RAND_MAX); }
+	double sum_dow(const Layer &nextLayer) const;
+	double output_value_;
 	vector<Connection> output_weights_;
-	// the Index of this neuron in its layer
-	int my_index_;
-	float gradient_;
-
+	unsigned my_index_;
+	double gradient_;
 };
 
 #endif //TMS_SRC_SIM_NN_NEURON_HPP

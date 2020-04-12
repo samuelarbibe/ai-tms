@@ -6,7 +6,7 @@
 
 const Vector2f Settings::BaseVec = Vector2f(0.f, -1.f);
 
-NeuralNet Settings::NeuralNetwork = NeuralNet();
+Net Settings::NeuralNetwork = Net();
 
 bool Settings::DrawFps = false;
 bool Settings::DrawActive = false;
@@ -50,7 +50,7 @@ bool Settings::DoubleSeparatorLine = true;
 float Settings::VehicleSpawnRate = 0.9f;
 float Settings::MaxDensity = 0.20f;
 
-float Settings::DefaultLaneLength = 3000; // lane length in px
+float Settings::DefaultLaneLength = 2300; // lane length in px
 
 int Settings::DefaultMapWidth = 10000;
 int Settings::DefaultMapHeight = 10000;
