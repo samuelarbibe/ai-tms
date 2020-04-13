@@ -4,7 +4,7 @@
 
 #include "Neuron.hpp"
 
-double Neuron::eta = 0.1;
+double Neuron::eta = 0.5;
 double Neuron::alpha = 0.5;
 
 Neuron::Neuron(unsigned numOutputs, unsigned myIndex, Vector2f position, float radius) {
@@ -29,23 +29,25 @@ Neuron::Neuron(unsigned numOutputs, unsigned myIndex, Vector2f position, float r
 
 void Neuron::Update(float elapsedTime, vector<VertexArray> * weight_lines_, int * firstWeightIndex)
 {
-	unsigned outputCount = output_weights_.size();
+	int outputCount = output_weights_.size();
 	float sum = 0;
 	int value = 0, max = 0;
+	Color col;
 
 	for(int c = 0; c < outputCount; c++)
 	{
 		value = 255 * output_weights_[c].weight;
-		Color color(value, value, value);
-		(*weight_lines_)[(*firstWeightIndex)][0].color = color;
-		(*weight_lines_)[(*firstWeightIndex)++][1].color = color;
+		col = Color(value, value, value);
+		(*weight_lines_)[(*firstWeightIndex)][0].color = col;
+		(*weight_lines_)[(*firstWeightIndex)++][1].color = col;
+
 		sum += output_weights_[c].weight;
 	}
 
-	value = (sum / float(outputCount)) * 255.f;
+	value = float(sum / outputCount) * 255;
 
-	Color color(value, value, value);
-	circle_->setFillColor(color);
+	col = Color(value, value, value);
+	circle_->setFillColor(col);
 }
 
 void Neuron::Draw(RenderWindow *window) {

@@ -15,7 +15,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "src/sim/map/Map.hpp"
+#include "../map/Map.hpp"
 #include "Settings.hpp"
 #include "DataBox.hpp"
 

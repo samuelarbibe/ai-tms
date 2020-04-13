@@ -11,7 +11,7 @@
 #include <cmath>
 
 #include <SFML/Graphics.hpp>
-#include <public/json.hpp>
+#include "../../../public/json.hpp"
 
 using nlohmann::json;
 using namespace sf;

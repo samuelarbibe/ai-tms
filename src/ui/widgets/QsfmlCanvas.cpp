@@ -2,7 +2,7 @@
 // Created by Samuel Arbibe on 01/01/2020.
 //
 
-#include <src/sim/simulator/Settings.hpp>
+#include "../../sim/simulator/Settings.hpp"
 #include "QsfmlCanvas.hpp"
 
 #ifdef Q_WS_X11

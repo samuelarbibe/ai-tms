@@ -15,9 +15,8 @@
 #include <math.h>
 
 #include <SFML/Graphics.hpp>
-#include <src/sim/simulator/DataBox.hpp>
-
-#include "src/sim/simulator/Settings.hpp"
+#include "../simulator/DataBox.hpp"
+#include "../simulator/Settings.hpp"
 
 using namespace std;
 using namespace sf;

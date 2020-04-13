@@ -70,12 +70,11 @@ void Net::create_weight_vertex_array() {
 void Net::Update(float elapsedTime) {
 
 	int weights_index = 0;
-	for(int l = 0 ; l < layers_.size() - 1;l++)
+	for(int l = 0 ; l < layers_.size();l++)
 	{
-		Layer & layer = layers_[l];
-		for(int n = 0 ; n < layer.size() ;n++)
+		for(int n = 0 ; n < layers_[l].size() ;n++)
 		{
-			layer[n].Update(elapsedTime, &weight_lines_, &weights_index);
+			layers_[l][n].Update(elapsedTime, &weight_lines_, &weights_index);
 		}
 	}
 }
@@ -87,14 +86,13 @@ void Net::Draw(RenderWindow * window) {
 		window->draw(va);
 	}
 
-	for(const Layer& l : layers_)
+	for(Layer& l : layers_)
 	{
 		for(Neuron n : l)
 		{
 			n.Draw(window);
 		}
 	}
-
 }
 
 void Net::Reset() {

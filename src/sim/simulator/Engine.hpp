@@ -17,14 +17,14 @@
 
 #include <SFML/Graphics.hpp>
 #include <QtWidgets>
-#include <public/json.hpp>
+#include "../../../public/json.hpp"
 
-#include "src/sim/map/Map.hpp"
+#include "../map/Map.hpp"
 #include "Vehicle.hpp"
 #include "Settings.hpp"
-#include "src/ui/widgets/QsfmlCanvas.hpp"
-#include "public/VariadicTable.h"
-#include "src/sim/map/Route.hpp"
+#include "../../ui/widgets/QsfmlCanvas.hpp"
+#include "../../../public/VariadicTable.h"
+#include "../map/Route.hpp"
 #include "Set.hpp"
 
 using namespace sf;

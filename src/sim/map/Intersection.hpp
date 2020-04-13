@@ -16,7 +16,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Road.hpp"
-#include "src/sim/simulator/Settings.hpp"
+#include "../simulator/Settings.hpp"
 
 using namespace sf;
 using namespace std;

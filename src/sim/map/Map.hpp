@@ -14,7 +14,7 @@
 #include <SFML/Graphics.hpp>
 #include <QString>
 
-#include "src/sim/simulator/Settings.hpp"
+#include "../simulator/Settings.hpp"
 #include "Intersection.hpp"
 #include "Route.hpp"
 #include "Cycle.hpp"

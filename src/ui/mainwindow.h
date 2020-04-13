@@ -5,7 +5,7 @@
 #include <QMouseEvent>
 #include "../sim/simulator/Engine.hpp"
 #include "widgets/SimModel.hpp"
-#include "widgets/GraphView.hpp"
+#include "src/ui/widgets/SimChart.hpp"
 
 namespace Ui {
     class MainWindow;
@@ -154,13 +154,12 @@ private:
     Ui::MainWindow *ui;
 
     SimModel *model_;
-    GraphView *graph_view_;
+    SimChart *chart_;
     int selected_row_;
 
     void reload_lane_options();
 
     void resize_sim_table();
-    void resize_sim_graph();
 
     void reload_sim_table();
     void reload_sim_graph();

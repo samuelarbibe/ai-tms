@@ -1,29 +1,21 @@
-cmake_minimum_required(VERSION 3.8.0 FATAL_ERROR)
-
-set(CMAKE_INSTALL_PREFIX /Desktop/)
+cmake_minimum_required(VERSION 3.15.0 FATAL_ERROR)
 
 set(PROJECT_NAME "TMS")
-project(${PROJECT_NAME})
-
-file(COPY ${ALL_REQUIRED_DLL} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOUIC ON)
-set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.14.2)
-# find Qt5 and required components
-find_package(Qt5 COMPONENTS REQUIRED Core Gui Widgets Charts)
-find_package(Qt5Widgets REQUIRED)
+set(CMAKE_AUTOUIC_SEARCH_PATHS ON)
 
-# find SFML and required components
+project(${PROJECT_NAME})
+
+##############################  Qt  ###################################
+set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.14.1)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+find_package(Qt5 COMPONENTS Core Gui Widgets Charts REQUIRED)
+
+#############################  SFML  ##################################
 find_package(SFML COMPONENTS system window graphics REQUIRED)
 
-# need this to include the auto generated ui_mainwindow.h
-# file from the qt5_wrap_ui call below.
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
 set(project_sources
-        resources/cars/car_image_1.png
-        resources/cars/car_image_2.png
-        resources/cars/car_image_3.png
         src/sim/simulator/Engine.cpp
         src/sim/map/Intersection.cpp
         src/sim/map/Lane.cpp
@@ -54,10 +46,14 @@ set(project_sources
         src/sim/neural_network/NeuralNet.hpp
         src/sim/neural_network/Neuron.cpp
         src/sim/neural_network/Neuron.hpp
-        src/ui/widgets/GraphView.cpp
-        src/ui/widgets/GraphView.hpp)
+        src/ui/widgets/SimChart.cpp
+        src/ui/widgets/SimChart.hpp)
 
 set(project_headers
+        resources/cars/car_image_1.png
+        resources/cars/car_image_2.png
+        resources/cars/car_image_3.png
+        resources/fonts/Roboto/Roboto-Bold.ttf
         public/json.hpp
         public/VariadicTable.h
         src/sim/simulator/Engine.hpp
@@ -89,11 +85,11 @@ set(project_headers
         src/sim/neural_network/NeuralNet.hpp
         src/sim/neural_network/Neuron.cpp
         src/sim/neural_network/Neuron.hpp
-        src/ui/widgets/GraphView.cpp
-        src/ui/widgets/GraphView.hpp
+        src/ui/widgets/SimChart.cpp
+        src/ui/widgets/SimChart.hpp
         )
 
-set(project_ui src/ui/mainwindow.ui)
+set(project_ui ${PROJECT_SOURCE_DIR}/src/ui/mainwindow.ui)
 # wrap the ui file to a c++ header
 qt5_wrap_ui(ui_wrap ${project_ui})
 qt5_wrap_cpp(moc_sources ${project_headers})
@@ -111,9 +107,12 @@ target_link_libraries(${PROJECT_NAME}
     sfml-graphics
     sfml-window
     sfml-system
+
     Qt5::Widgets
     Qt5::Core
     Qt5::Charts
     Qt5::Gui
     )
 
+
+#install(TARGETS TMS DESTINATION bin)

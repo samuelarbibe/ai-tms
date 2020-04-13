@@ -33,10 +33,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->PhaseTimeSlider->setMaximum(int(Settings::MaxCycleTime));
 	ui->PhaseTimeSlider->setMinimum(int(Settings::MinCycleTime));
 
+	ui->Graph->setContentsMargins(0,0,0,0);
+
 	model_ = new SimModel(this);
 	selected_row_ = 0;
 
-    graph_view_ = new GraphView(ui->ChartFrame);
+	chart_ = new SimChart(this);
 
 	// connect the simulation finished event to its slot here
 	QObject::connect(SimulatorEngine, SIGNAL(SimulationFinished()), this, SLOT(on_SimulationFinished()));
@@ -52,7 +54,6 @@ void MainWindow::on_SimulationFinished() {
 	resize_sim_table();
 
     reload_sim_graph();
-    resize_sim_graph();
 }
 
 void MainWindow::on_SetFinished() {
@@ -60,6 +61,7 @@ void MainWindow::on_SetFinished() {
 }
 
 void MainWindow::reload_sim_table() {
+	delete model_;
 	model_ = new SimModel(this);
 	model_->populateData(SimulatorEngine->GetSimulations());
 	ui->SimTable->setModel(model_);
@@ -67,11 +69,8 @@ void MainWindow::reload_sim_table() {
 }
 
 void MainWindow::reload_sim_graph() {
-    graph_view_->populateData(SimulatorEngine->GetSimulations());
-}
-
-void MainWindow::resize_sim_graph() {
-	graph_view_->resize();
+	chart_->populateData(SimulatorEngine->GetSimulations());
+    ui->Graph->setChart(chart_);
 }
 
 void MainWindow::showEvent(QShowEvent *ev) {
@@ -81,7 +80,6 @@ void MainWindow::showEvent(QShowEvent *ev) {
 	SimulatorEngine->ResizeFrame(ui->SimulatorFrame->size() * Settings::SFMLRatio);
 
 	reloadOptionData();
-	resize_sim_graph();
 }
 
 void MainWindow::reloadOptionData() {

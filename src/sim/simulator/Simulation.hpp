@@ -12,7 +12,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <QtWidgets>
-#include <public/json.hpp>
+
+#include "../../../public/json.hpp"
 #include "Settings.hpp"
 #include "Vehicle.hpp"
 
