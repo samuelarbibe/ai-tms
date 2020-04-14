@@ -10,7 +10,8 @@
 
 int Intersection::IntersectionCount = 0;
 
-Intersection::Intersection(Vector2f position, int intersectionNumber) : RectangleShape() {
+Intersection::Intersection(Vector2f position, int intersectionNumber)
+	: RectangleShape() {
 	intersection_number_ = intersectionNumber;
 	position_ = position;
 	width_ = 0;
@@ -25,7 +26,7 @@ Intersection::Intersection(Vector2f position, int intersectionNumber) : Rectangl
 	this->setFillColor(LaneColor);
 	this->setOutlineThickness(0.f);
 	this->setSize(Vector2f(width_, height_));
-};
+}
 
 Intersection::~Intersection() {
 	// every road belongs to 2 intersections
@@ -92,7 +93,8 @@ Road *Intersection::AddConnectingRoad(int roadNumber,
 	Road::RoadCount++;
 
 	if (Settings::DrawAdded)
-		std::cout << "Connecting Road " << roadNumber << " added between intersections "
+		std::cout << "Connecting Road " << roadNumber
+		          << " added between intersections "
 		          << this->intersection_number_ << " <--> "
 		          << connectedIntersection->intersection_number_ << "" << endl;
 
@@ -147,7 +149,9 @@ Road *Intersection::GetRoadByConnectionSide(int connectionSide) {
 }
 
 /// add a regular lane to an intersection
-Lane *Intersection::AddLane(int laneNumber, int roadNumber, bool isInRoadDirection) {
+Lane *Intersection::AddLane(int laneNumber,
+                            int roadNumber,
+                            bool isInRoadDirection) {
 	Road *temp = GetRoad(roadNumber);
 	Lane *l;
 
@@ -190,12 +194,14 @@ void Intersection::ReAssignRoadPositions() {
 		} else
 		{
 			if (roads_[i]->GetIsConnecting()
-				&& roads_[i]->GetIntersectionNumber(1) == this->intersection_number_)
+				&& roads_[i]->GetIntersectionNumber(1)
+					== this->intersection_number_)
 			{
 				// if road connects this intersection to another
-				roads_[i]->UpdateEndPosition(GetPositionByConnectionSide(roads_[i]
-					                                                         ->GetConnectionSide(
-						                                                         1)));
+				roads_[i]
+					->UpdateEndPosition(GetPositionByConnectionSide(roads_[i]
+						                                                ->GetConnectionSide(
+							                                                1)));
 			}
 		}
 	}
@@ -265,7 +271,7 @@ int Intersection::GetLaneCount() {
 	return sum;
 }
 
-/// update , for future use
+/// update
 void Intersection::Update(float elapsedTime) {
 	current_vehicle_count_ = 0;
 	total_vehicle_count_ = 0;

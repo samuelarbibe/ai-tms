@@ -10,9 +10,14 @@
 #include <X11/Xlib.h>
 #endif
 
-QSFMLCanvas::QSFMLCanvas(QWidget *Parent, int intervalTime, int drawIntervalTime) :
+QSFMLCanvas::QSFMLCanvas(QWidget *Parent,
+                         int intervalTime,
+                         int drawIntervalTime) :
 	QWidget(Parent),
-	RenderWindow(VideoMode(0, 0), "Sim", Style::Default, ContextSettings(0, 0, Settings::AntiAliasing)) {
+	RenderWindow(VideoMode(0, 0),
+	             "Sim",
+	             Style::Default,
+	             ContextSettings(0, 0, Settings::AntiAliasing)) {
 	// Setup some states to allow direct rendering into the widget
 	setAttribute(Qt::WA_PaintOnScreen);
 	setAttribute(Qt::WA_OpaquePaintEvent);
@@ -27,7 +32,8 @@ QSFMLCanvas::QSFMLCanvas(QWidget *Parent, int intervalTime, int drawIntervalTime
 
 	parent_ = Parent;
 
-	Settings::SFMLRatio = parent_->devicePixelRatio(); // save ratio for later use
+	Settings::SFMLRatio =
+		parent_->devicePixelRatio(); // save ratio for later use
 	resize(parent_->size());
 
 	// Setup the logic timer
@@ -80,4 +86,3 @@ void QSFMLCanvas::paintEvent(QPaintEvent *) {
 void QSFMLCanvas::redraw() {
 	draw_cycle();
 }
-

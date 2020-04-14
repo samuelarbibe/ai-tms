@@ -4,13 +4,16 @@
 
 #include "Neuron.hpp"
 
-double Neuron::eta = 0.5;
+double Neuron::eta = 0.15;
 double Neuron::alpha = 0.5;
 
-Neuron::Neuron(unsigned numOutputs, unsigned myIndex, Vector2f position, float radius) {
+Neuron::Neuron(unsigned numOutputs,
+               unsigned myIndex,
+               Vector2f position,
+               float radius) {
 
 	// create random output weights
-	for(int c = 0; c < numOutputs ; c++)
+	for (int c = 0; c < numOutputs; c++)
 	{
 		// push a random into the output weights
 		output_weights_.push_back(Connection());
@@ -27,14 +30,15 @@ Neuron::Neuron(unsigned numOutputs, unsigned myIndex, Vector2f position, float r
 
 }
 
-void Neuron::Update(float elapsedTime, vector<VertexArray> * weight_lines_, int * firstWeightIndex)
-{
+void Neuron::Update(float elapsedTime,
+                    vector<VertexArray> *weight_lines_,
+                    int *firstWeightIndex) {
 	int outputCount = output_weights_.size();
 	float sum = 0;
 	int value = 0, max = 0;
 	Color col;
 
-	for(int c = 0; c < outputCount; c++)
+	for (int c = 0; c < outputCount; c++)
 	{
 		value = 255 * output_weights_[c].weight;
 		col = Color(value, value, value);
@@ -56,7 +60,7 @@ void Neuron::Draw(RenderWindow *window) {
 
 void Neuron::Reset() {
 
-	for(Connection con : output_weights_)
+	for (Connection con : output_weights_)
 	{
 		con.weight = randomize_weight();
 		con.deltaWeight = 0;
@@ -66,8 +70,8 @@ void Neuron::Reset() {
 }
 
 /// sum up all the weights that go into this neuron
-	// apply a transfer function
-	// and set it as this neuron's output value
+// apply a transfer function
+// and set it as this neuron's output value
 void Neuron::FeedForward(const Layer &prevLayer) {
 
 	// the sum of outputs from previous layer
@@ -75,7 +79,7 @@ void Neuron::FeedForward(const Layer &prevLayer) {
 	float sum = 0.f;
 
 	// for each neuron in previous layer
-	for(int n = 0 ; n < prevLayer.size(); ++n)
+	for (int n = 0; n < prevLayer.size(); ++n)
 	{
 		sum += prevLayer[n].GetOutputValue() *
 			prevLayer[n].output_weights_[my_index_].weight;
@@ -85,27 +89,25 @@ void Neuron::FeedForward(const Layer &prevLayer) {
 }
 
 /// calculate the gradient by multiplying the difference between
-	// the target value and the calculated output value
-	// by the transfer function's derivative
+// the target value and the calculated output value
+// by the transfer function's derivative
 void Neuron::CalculateOutputGradients(double targetValue) {
 
 	float delta = targetValue - output_value_;
 	gradient_ = delta * Neuron::transfer_function_derivative(output_value_);
 }
 
-// TODO: find out what is DOW
 void Neuron::CalculateHiddenGradients(const Layer &nextLayer) {
 
 	float dow = sum_dow(nextLayer);
 	gradient_ = dow * Neuron::transfer_function_derivative(output_value_);
 }
 
-
 /// calculate the weight delta from previous layer to this neuron
-	// and apply weight changes
+// and apply weight changes
 void Neuron::UpdateInputWeights(Layer &prevLayer) {
 
-	for(int n = 0; n < prevLayer.size(); ++n)
+	for (int n = 0; n < prevLayer.size(); ++n)
 	{
 		Neuron &neuron = prevLayer[n];
 		float oldDeltaWeight = neuron.output_weights_[my_index_].deltaWeight;
@@ -124,10 +126,10 @@ void Neuron::UpdateInputWeights(Layer &prevLayer) {
 }
 
 /// a simple transfer function
-	// which outputs in range [-1.0 .. 1.0]
+// which outputs in range [-1.0 .. 1.0]
 double Neuron::transfer_function(double x) {
 
-	return  1/(1 + exp(-x));
+	return 1 / (1 + exp(-x));
 }
 
 /// an approximation of the derivative function of sigmoid
@@ -137,12 +139,12 @@ double Neuron::transfer_function_derivative(double x) {
 }
 
 /// sums up the contributions of the errors at the nodes we feed
-double Neuron::sum_dow(const  Layer &nextLayer) const  {
+double Neuron::sum_dow(const Layer &nextLayer) const {
 
 	float sum = 0;
 
 	// for all neurons but the bias neuron
-	for(int n = 0; n < nextLayer.size() - 1; n++)
+	for (int n = 0; n < nextLayer.size() - 1; n++)
 	{
 		sum += output_weights_[n].weight * nextLayer[n].gradient_;
 	}

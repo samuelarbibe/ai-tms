@@ -64,7 +64,6 @@ class Lane : public RectangleShape
 	int GetCurrentVehicleCount() { return vehicles_in_lane_.size(); }
 	float GetQueueLength() { return queue_length_; }
 	float GetDensity() { return density_; }
-	float GetTraversalTime() { return traversal_time_; }
 	float GetNormalizedDensity() { return density_ / Settings::MaxDensity; }
 
 	Vector2f GetStartPosition() { return start_pos_; };
@@ -100,7 +99,6 @@ class Lane : public RectangleShape
 
   private:
 
-	float calculate_traversal_time();
 	// Is this intersection block
 	bool is_blocked_;
 	// Is this lane the same direction of the parent road
@@ -125,9 +123,6 @@ class Lane : public RectangleShape
 	// as the distance between the
 	// first and the last car in lane with a state of STOP;
 	float queue_length_;
-	// the time it will take for the last vehicle int
-	// the queue to reach the intersection
-	float traversal_time_;
 
 	list<int> vehicles_in_lane_;
 

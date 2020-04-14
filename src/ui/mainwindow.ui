@@ -2059,7 +2059,7 @@
               <number>5</number>
              </property>
              <item>
-              <widget class="QPushButton" name="RunSimulationButton">
+              <widget class="QPushButton" name="RunSetButton">
                <property name="whatsThis">
                 <string>Run the simulation with the specified data</string>
                </property>

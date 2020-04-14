@@ -9,12 +9,11 @@ SimModel::SimModel(QObject *parent)
 	row_count_ = 0;
 }
 
-void SimModel::populateData(const vector<Simulation *> *data)
-{
+void SimModel::populateData(const vector<Simulation *> *data) {
 	table_.clear();
 	row_count_ = 0;
 
-	for(Simulation * s : *data)
+	for (Simulation *s : *data)
 	{
 		table_.append({QString::number(s->GetSimulationNumber()),
 		               QString::fromUtf8(ctime(s->GetStartTime())),
@@ -23,19 +22,18 @@ void SimModel::populateData(const vector<Simulation *> *data)
 		               QString::number(s->GetVehicleCount()),
 		               QString::number(s->GetResult()),
 		              });
-		this->row_count_ ++;
+		this->row_count_++;
 	}
 }
 
-int SimModel::GetIdByRow(int rowNumber){
+int SimModel::GetIdByRow(int rowNumber) {
 
-	if(table_.size() >= (rowNumber+1))
+	if (table_.size() >= (rowNumber + 1))
 	{
 		return table_[rowNumber][0].toInt();
 	}
 	return 0;
 }
-
 
 int SimModel::rowCount(const QModelIndex & /*parent*/) const {
 	return row_count_;
@@ -53,7 +51,9 @@ QVariant SimModel::data(const QModelIndex &index, int role) const {
 	return QVariant();
 }
 
-QVariant SimModel::headerData(int section, Qt::Orientation orientation, int role) const {
+QVariant SimModel::headerData(int section,
+                              Qt::Orientation orientation,
+                              int role) const {
 	if (role == Qt::DisplayRole && orientation == Qt::Horizontal)
 	{
 		switch (section)

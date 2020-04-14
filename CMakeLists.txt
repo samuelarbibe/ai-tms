@@ -55,7 +55,6 @@ set(project_headers
         resources/cars/car_image_3.png
         resources/fonts/Roboto/Roboto-Bold.ttf
         public/json.hpp
-        public/VariadicTable.h
         src/sim/simulator/Engine.hpp
         src/sim/map/Intersection.hpp
         src/sim/map/Lane.hpp

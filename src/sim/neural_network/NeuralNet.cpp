@@ -27,7 +27,10 @@ Net::Net(const vector<unsigned> &topology, Vector2f size) {
 			                                              layerCount,
 			                                              neuronNum,
 			                                              neuronCount);
-			layers_.back().push_back(Neuron(numOutputs, neuronNum, position, size.x/25.f));
+			layers_.back().push_back(Neuron(numOutputs,
+			                                neuronNum,
+			                                position,
+			                                size.x / 25.f));
 			cout << "Mad a Neuron!" << endl;
 		}
 	}
@@ -42,19 +45,19 @@ void Net::create_weight_vertex_array() {
 
 	for (unsigned layerNum = 1; layerNum < layerCount; ++layerNum)
 	{
-		Layer & prevLayer = layers_[layerNum - 1];
-		Layer & currLayer = layers_[layerNum];
+		Layer &prevLayer = layers_[layerNum - 1];
+		Layer &currLayer = layers_[layerNum];
 		unsigned NeuronCount = layers_[layerNum].size();
 		unsigned PrevNeuronCount = prevLayer.size();
 
 		// previous layer
 		for (unsigned i = 0; i < PrevNeuronCount; ++i)
 		{
-			Neuron * prevNeuron = &prevLayer[i];
+			Neuron *prevNeuron = &prevLayer[i];
 			// current layer
 			for (unsigned j = 0; j < NeuronCount; ++j)
 			{
-				Neuron * currNeuron = &currLayer[j];
+				Neuron *currNeuron = &currLayer[j];
 
 				VertexArray line = VertexArray(Lines, 2);
 
@@ -70,25 +73,25 @@ void Net::create_weight_vertex_array() {
 void Net::Update(float elapsedTime) {
 
 	int weights_index = 0;
-	for(int l = 0 ; l < layers_.size();l++)
+	for (int l = 0; l < layers_.size(); l++)
 	{
-		for(int n = 0 ; n < layers_[l].size() ;n++)
+		for (int n = 0; n < layers_[l].size(); n++)
 		{
 			layers_[l][n].Update(elapsedTime, &weight_lines_, &weights_index);
 		}
 	}
 }
 
-void Net::Draw(RenderWindow * window) {
+void Net::Draw(RenderWindow *window) {
 
-	for(VertexArray va : weight_lines_)
+	for (VertexArray va : weight_lines_)
 	{
 		window->draw(va);
 	}
 
-	for(Layer& l : layers_)
+	for (Layer &l : layers_)
 	{
-		for(Neuron n : l)
+		for (Neuron n : l)
 		{
 			n.Draw(window);
 		}
@@ -97,10 +100,10 @@ void Net::Draw(RenderWindow * window) {
 
 void Net::Reset() {
 
-	for(int l = 0 ; l < layers_.size() - 1;l++)
+	for (int l = 0; l < layers_.size() - 1; l++)
 	{
-		Layer & layer = layers_[l];
-		for(int n = 0 ; n < layer.size() ;n++)
+		Layer &layer = layers_[l];
+		for (int n = 0; n < layer.size(); n++)
 		{
 			layer[n].Reset();
 		}

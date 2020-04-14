@@ -8,10 +8,10 @@ int Simulation::SimulationCount = 0;
 bool Simulation::SimRunning = false;
 bool Simulation::DemoRunning = false;
 
-
 Simulation::Simulation(int simulationNumber, int setNumber, int vehicleCount) {
 
-	simulation_number_ = (simulationNumber != 0) ? simulationNumber : SimulationCount + 1;
+	simulation_number_ =
+		(simulationNumber != 0) ? simulationNumber : SimulationCount + 1;
 	vehicle_count_ = vehicleCount;
 
 	current_vehicle_count_ = 0;
@@ -30,10 +30,12 @@ Simulation::Simulation(int simulationNumber, int setNumber, int vehicleCount) {
 
 Simulation::~Simulation() {
 	if (Settings::DrawDelete)
-		cout << "Simulation number " << simulation_number_ << " has been deleted. " << endl;
+		cout << "Simulation number " << simulation_number_
+		     << " has been deleted. " << endl;
 }
 
-// function returns true if simulation has ended
+/// update
+/// returns true if simulation has ended
 bool Simulation::Update(float elapsedTime) {
 
 	if (running_ && !finished_)
@@ -66,9 +68,11 @@ bool Simulation::Update(float elapsedTime) {
 
 }
 
+/// print a sim log
 void Simulation::PrintSimulationLog() {
 
-	cout << "------------------------------------------------------------------" << endl;
+	cout << "------------------------------------------------------------------"
+	     << endl;
 	cout << "Set " << set_number_ << endl;
 	cout << "Simulation " << simulation_number_ << " ended at ";
 	cout << ctime(&this->end_time_) << endl;
@@ -78,7 +82,8 @@ void Simulation::PrintSimulationLog() {
 	cout << "   Vehicles Simulated: " << vehicle_count_ << endl;
 	cout << "   Simulation Time: " << elapsed_time_ << " seconds" << endl;
 	cout << "   Score: " << result_ << endl;
-	cout << "------------------------------------------------------------------" << endl;
+	cout << "------------------------------------------------------------------"
+	     << endl;
 
 }
 

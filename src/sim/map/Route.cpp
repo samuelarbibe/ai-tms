@@ -26,6 +26,7 @@ Route::~Route()
     lines_.clear();
 }
 
+/// build the green lane lines
 void Route::BuildLaneLines()
 {
 
@@ -41,6 +42,7 @@ void Route::BuildLaneLines()
 
 }
 
+/// build the green radius lines in intersections
 void Route::BuildRadiusLine()
 {
 	radius_line_.clear();
@@ -91,12 +93,14 @@ void Route::BuildRadiusLine()
     }
 }
 
+/// reload this route
 void Route::ReloadRoute()
 {
 	BuildLaneLines();
 	BuildRadiusLine();
 }
 
+/// draw
 void Route::Draw(RenderWindow *window)
 {
 	if(Settings::DrawRoutes || selected_)

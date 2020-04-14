@@ -28,6 +28,7 @@ Set::~Set() {
 
 }
 
+/// get the simulations of this set
 Simulation *Set::GetSimulation(int simulationNumber) {
 
 	for (Simulation *s : simulations_)
@@ -40,6 +41,7 @@ Simulation *Set::GetSimulation(int simulationNumber) {
 	return nullptr;
 }
 
+/// update
 bool Set::Update(float elapsedTime) {
 
 	if (running_)
@@ -91,6 +93,7 @@ bool Set::Update(float elapsedTime) {
 	return false;
 }
 
+/// stop this set
 void Set::StopSet() {
 
 	running_ = false;
@@ -110,6 +113,7 @@ void Set::StopSet() {
 	}
 }
 
+/// delete a given simulation by id
 bool Set::DeleteSimulation(int simulationNumber) {
 	auto it = simulations_.begin();
 	while (it != simulations_.end())
@@ -135,6 +139,7 @@ bool Set::DeleteSimulation(int simulationNumber) {
 	return false;
 }
 
+/// start a new simulation, and run it
 Simulation *Set::StartNewSimulation() {
 
 	// start a new simulation
@@ -148,6 +153,7 @@ Simulation *Set::StartNewSimulation() {
 	return s;
 }
 
+/// add a simualtion to this set (without running)
 Simulation *Set::AddSimulation(int simulationNumber, int vehicleCount) {
 	if (simulationNumber == 0)
 	{
@@ -168,6 +174,7 @@ Simulation *Set::AddSimulation(int simulationNumber, int vehicleCount) {
 	return s;
 }
 
+/// demo a given simualtion
 bool Set::DemoSimulation(int simulationNumber) {
 	if (!SetRunning)
 	{
@@ -184,6 +191,7 @@ bool Set::DemoSimulation(int simulationNumber) {
 	return false;
 }
 
+/// stop a simulation demo
 bool Set::StopDemo() {
 	if (running_demo_ != nullptr)
 	{

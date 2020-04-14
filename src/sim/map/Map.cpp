@@ -69,7 +69,10 @@ Intersection *Map::AddIntersection(int intersectionNumber, Vector2f position) {
 }
 
 /// add a road to a specific intersection
-Road *Map::AddRoad(int roadNumber, int intersectionNumber, int connectionSide, float length) {
+Road *Map::AddRoad(int roadNumber,
+                   int intersectionNumber,
+                   int connectionSide,
+                   float length) {
 	SelectedLane = nullptr;
 
 	Intersection *temp = GetIntersection(intersectionNumber);
@@ -132,13 +135,16 @@ Cycle *Map::AddCycle(int cycleNumber, int intersectionNumber) {
 
 	return temp;
 
-	cout << "could not add cycle as intersection " << intersectionNumber << " wasnt found." << endl;
+	cout << "could not add cycle as intersection " << intersectionNumber
+	     << " wasnt found." << endl;
 
 	return nullptr;
 }
 
 /// add a road connecting between two intersections
-Road *Map::AddConnectingRoad(int roadNumber, int intersectionNumber1, int intersectionNumber2) {
+Road *Map::AddConnectingRoad(int roadNumber,
+                             int intersectionNumber1,
+                             int intersectionNumber2) {
 	SelectedLane = nullptr;
 
 	Intersection *inter1 = GetIntersection(intersectionNumber1);
@@ -161,9 +167,13 @@ Road *Map::AddConnectingRoad(int roadNumber, int intersectionNumber1, int inters
 	}
 
 	pair<ConnectionSides, ConnectionSides> connections;
-	connections = AssignConnectionSides(inter1->getPosition(), inter2->getPosition());
+	connections =
+		AssignConnectionSides(inter1->getPosition(), inter2->getPosition());
 
-	Road *temp = inter1->AddConnectingRoad(roadNumber, connections.first, connections.second, inter2);
+	Road *temp = inter1->AddConnectingRoad(roadNumber,
+	                                       connections.first,
+	                                       connections.second,
+	                                       inter2);
 
 	this->ReloadMap();
 	return temp;
@@ -180,15 +190,19 @@ Route *Map::AddRoute(int from, int to) {
 		routes_.emplace_back(r);
 
 		if (Settings::DrawAdded)
-			cout << "Route added from " << r->FromLane->GetLaneNumber() << " to " << r->ToLane->GetLaneNumber() << endl;
+			cout << "Route added from " << r->FromLane->GetLaneNumber()
+			     << " to " << r->ToLane->GetLaneNumber() << endl;
 		return r;
 	} else
 	{
-		cout << "could not create possible route, as one of the roads was not found" << endl;
+		cout
+			<< "could not create possible route, as one of the roads was not found"
+			<< endl;
 		return nullptr;
 	}
 }
 
+/// add a phase to the mac
 Phase *Map::AddPhase(int phaseNumber, int cycleNumber, float cycleTime) {
 
 	Cycle *cycle = GetCycle(cycleNumber);
@@ -207,6 +221,7 @@ Phase *Map::AddPhase(int phaseNumber, int cycleNumber, float cycleTime) {
 	return nullptr;
 }
 
+/// assign a light to a phase to attach to road
 Light *Map::AddLight(int lightNumber, int phaseNumber, int parentRoadNumber) {
 	Light *temp = nullptr;
 	Phase *myPhase = GetPhase(phaseNumber);
@@ -217,7 +232,8 @@ Light *Map::AddLight(int lightNumber, int phaseNumber, int parentRoadNumber) {
 	{
 		temp = myPhase->AddLight(lightNumber, parentRoad);
 		if (Settings::DrawAdded)
-			cout << "light " << temp->GetLightNumber() << " added to phase " << phaseNumber << endl;
+			cout << "light " << temp->GetLightNumber() << " added to phase "
+			     << phaseNumber << endl;
 		return temp;
 	}
 
@@ -225,13 +241,15 @@ Light *Map::AddLight(int lightNumber, int phaseNumber, int parentRoadNumber) {
 	return temp;
 }
 
+/// set the phase time of a given phase
 bool Map::SetPhaseTime(int phaseNumber, float phaseTime) {
 	Phase *phase = GetPhase(phaseNumber);
 
 	if (phase != nullptr)
 	{
 		phase->SetCycleTime(phaseTime);
-		cout << "Phase time of phase " << phaseNumber << " successfully set." << endl;
+		cout << "Phase time of phase " << phaseNumber << " successfully set."
+		     << endl;
 		return true;
 	}
 
@@ -239,6 +257,7 @@ bool Map::SetPhaseTime(int phaseNumber, float phaseTime) {
 	return false;
 }
 
+/// assign a lane to a given phase
 bool Map::AssignLaneToPhase(int phaseNumber, int laneNumber) {
 	Phase *temp = GetPhase(phaseNumber);
 	Lane *lane = GetLane(laneNumber);
@@ -309,7 +328,9 @@ bool Map::UnassignLaneFromPhase(int laneNumber) {
 
 		} else
 		{
-			cout << "could not Unassign lane from phase, as lane does not belong to any phase" << endl;
+			cout
+				<< "could not Unassign lane from phase, as lane does not belong to any phase"
+				<< endl;
 		}
 	}
 	return false;
@@ -356,7 +377,8 @@ void Map::SelectRoutesByVehicle(list<Lane *> *instructionSet) {
 	to++;
 	for (; to != instructionSet->end(); ++to)
 	{
-		r = GetRouteByStartEnd((*from)->GetLaneNumber(), (*to)->GetLaneNumber());
+		r = GetRouteByStartEnd((*from)->GetLaneNumber(),
+		                       (*to)->GetLaneNumber());
 		if (r != nullptr)
 		{
 			selected_routes_.push_back(r);
@@ -426,6 +448,7 @@ Route *Map::GetPossibleRoute(int fromLane) {
 	return possibleRoutes[randomIndex];
 }
 
+/// get a lane from its source and destination lane ID's
 Route *Map::GetRouteByStartEnd(int from, int to) {
 	for (Route *r : routes_)
 	{
@@ -540,7 +563,8 @@ Phase *Map::GetPhase(int phaseNumber) {
 }
 
 /// set 2 relative connection sides, by intersection positions
-pair<ConnectionSides, ConnectionSides> Map::AssignConnectionSides(Vector2f pos1, Vector2f pos2) {
+pair<ConnectionSides, ConnectionSides> Map::AssignConnectionSides(Vector2f pos1,
+                                                                  Vector2f pos2) {
 	ConnectionSides con1, con2;
 	if (pos1.x > pos2.x)
 	{
@@ -615,6 +639,7 @@ void Map::Update(float elapsedTime) {
 	}
 }
 
+/// select all the lanes that were assigned to a given phase
 void Map::SelectLanesByPhase(int phaseNumber) {
 	Phase *p = GetPhase(phaseNumber);
 
@@ -630,6 +655,7 @@ void Map::SelectLanesByPhase(int phaseNumber) {
 	}
 }
 
+/// unselect al selected items
 void Map::UnselectAll() {
 	// unselect selected lane
 	if (SelectedLane != nullptr)
@@ -727,7 +753,8 @@ vector<Light *> *Map::GetLights() {
 /// delete a given lane in this map
 bool Map::DeleteLane(int laneNumber) {
 
-	vector<Intersection *> targetIntersections = GetIntersectionByLaneNumber(laneNumber);
+	vector<Intersection *>
+		targetIntersections = GetIntersectionByLaneNumber(laneNumber);
 	Lane *lane = GetLane(laneNumber);
 
 	if (!targetIntersections.empty())
@@ -741,7 +768,8 @@ bool Map::DeleteLane(int laneNumber) {
 		// if lane's road is connecting, send other intersection as well to handle deletion
 		if (targetIntersections.size() > 1)
 		{
-			targetIntersections[0]->DeleteLane(laneNumber, targetIntersections[1]);
+			targetIntersections[0]
+				->DeleteLane(laneNumber, targetIntersections[1]);
 		} else
 		{
 			targetIntersections[0]->DeleteLane(laneNumber);
@@ -750,7 +778,9 @@ bool Map::DeleteLane(int laneNumber) {
 		// if intersection has no roads left, delete it as well
 		if (targetIntersections[0]->GetRoadCount() == 0)
 		{
-			auto it = find(intersections_.begin(), intersections_.end(), targetIntersections[0]);
+			auto it = find(intersections_.begin(),
+			               intersections_.end(),
+			               targetIntersections[0]);
 			it = intersections_.erase(it);
 			delete (*it);
 			number_of_intersections_--;
@@ -761,14 +791,17 @@ bool Map::DeleteLane(int laneNumber) {
 		{
 			if (targetIntersections[1]->GetRoadCount() == 0)
 			{
-				auto it = find(intersections_.begin(), intersections_.end(), targetIntersections[1]);
+				auto it = find(intersections_.begin(),
+				               intersections_.end(),
+				               targetIntersections[1]);
 				int intersection_number = (*it)->GetIntersectionNumber();
 				intersections_.erase(it);
 				delete (*it);
 				// if exists, delete a cycle that was attached to this intersection;
 				for (Cycle *c : cycles_)
 				{
-					if (c->GetIntersection()->GetIntersectionNumber() == intersection_number)
+					if (c->GetIntersection()->GetIntersectionNumber()
+						== intersection_number)
 					{
 						auto it2 = find(cycles_.begin(), cycles_.end(), c);
 						cycles_.erase(it2);
@@ -903,12 +936,3 @@ set<QString> Map::GetLightIdList() {
 
 	return idList;
 }
-
-
-
-
-
-
-
-
-

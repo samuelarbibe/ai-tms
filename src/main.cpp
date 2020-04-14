@@ -12,22 +12,26 @@
 #include <QFrame>
 #include "ui/mainwindow.h"
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
 	srand((time(nullptr)));
 	vector<unsigned> topology;
 
-	topology.push_back(2); // input neurons : max lane density, max queue length
-	topology.push_back(3); // input neurons : max lane density, max queue length
-	topology.push_back(2); // output neurons : priority points
+	// input neurons : max lane density, max queue length
+	topology.push_back(2);
+	// hidden neurons
+	topology.push_back(3);
+	// output neurons : priority points, phase time
+	topology.push_back(2);
 
-	Net::NeuralNetwork = Net(topology, Vector2f(Settings::DefaultMapWidth, Settings::DefaultMapHeight));
+	Net::NeuralNetwork = Net(topology,
+	                         Vector2f(Settings::DefaultMapWidth,
+	                                  Settings::DefaultMapHeight));
 
-    QApplication Application(argc, argv);
+	QApplication Application(argc, argv);
 
-    auto * main = new MainWindow();
-    main->show();
+	auto *main = new MainWindow();
+	main->show();
 
-    return QApplication::exec();
+	return QApplication::exec();
 }
 

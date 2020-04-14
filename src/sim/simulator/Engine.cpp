@@ -24,8 +24,11 @@ Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent,
 	temp_view_pos_ = Vector2f(0, 0);
 	number_of_sets_ = 0;
 	set_view();
-	set_minimap(Vector2f(Settings::MinimapWidth, Settings::MinimapHeight), Settings::MinimapMargin);
-	set_visual_net(Vector2f(Settings::VisualNetWidth, Settings::VisualNetHeight), Settings::VisualNetMargin);
+	set_minimap(Vector2f(Settings::MinimapWidth, Settings::MinimapHeight),
+	            Settings::MinimapMargin);
+	set_visual_net(Vector2f(Settings::VisualNetWidth,
+	                        Settings::VisualNetHeight),
+	               Settings::VisualNetMargin);
 	this->setView(view_);
 
 	cout << "Setting up snap grid..." << endl;
@@ -140,7 +143,6 @@ bool Engine::RunDemo(int simulationNumber) {
 
 /// Trains the neural network for a set amount of generation.
 // at the end of a training, it saves all the data in a simulation file.
-
 bool Engine::RunSet(int vehicleCount, int generations) {
 	if (!Set::SetRunning)
 	{
@@ -188,7 +190,7 @@ void Engine::set_minimap(Vector2f size, float margin) {
 		margin,
 		size.x,
 		size.y
-		));
+	));
 
 	float outlineThickness = Settings::DefaultMapWidth / 150;
 
@@ -209,14 +211,15 @@ void Engine::set_minimap(Vector2f size, float margin) {
 	update_shown_area();
 }
 
+/// build the visual net
 void Engine::set_visual_net(Vector2f size, float margin) {
 	// visual_net viewPort setup
 
 
 	visual_net_.reset(sf::FloatRect(0,
-	                             0,
-	                             Settings::DefaultMapWidth,
-	                             Settings::DefaultMapHeight));
+	                                0,
+	                                Settings::DefaultMapWidth,
+	                                Settings::DefaultMapHeight));
 	visual_net_.setViewport(sf::FloatRect(
 		margin,
 		margin,
@@ -351,6 +354,7 @@ Vector2f Engine::DrawPoint(Vector2f position) {
 	return temp;
 }
 
+/// get an array of all the simulations
 vector<Simulation *> *Engine::GetSimulations() {
 
 	vector<Simulation *> *sims = new vector<Simulation *>();
@@ -1040,6 +1044,7 @@ void Engine::render_minimap() {
 	this->draw(shown_area_index_);
 }
 
+/// render the visual net
 void Engine::render_visual_net() {
 
 	this->draw(visual_net_bg_);

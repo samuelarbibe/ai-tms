@@ -6,6 +6,7 @@
 
 int Cycle::CycleCount = 0;
 
+/// a compare function to copmare phases priority
 bool compare_priority(Phase *first, Phase *second) {
 	return (first->GetPriorityScore() < second->GetPriorityScore());
 }
@@ -34,6 +35,7 @@ Cycle::~Cycle() {
 	cout << "Cycle number " << cycle_number_ << " has been deleted." << endl;
 }
 
+/// update function
 void Cycle::Update(float elapsedTime) {
 	for (Phase *p : phases_)
 	{
@@ -43,6 +45,7 @@ void Cycle::Update(float elapsedTime) {
 	cycle_phases();
 }
 
+/// reload all phases in this cycle
 void Cycle::ReloadCycle() {
 
 	for (Phase *p : phases_)
@@ -51,6 +54,7 @@ void Cycle::ReloadCycle() {
 	}
 }
 
+/// add a phase to this cycle
 Phase *Cycle::AddPhase(int phaseNumber, float cycleTime) {
 
 	Phase *temp;
@@ -73,6 +77,7 @@ Phase *Cycle::AddPhase(int phaseNumber, float cycleTime) {
 	return temp;
 }
 
+/// get a phase by phase ID
 Phase *Cycle::GetPhase(int phaseNumber) {
 
 	for (Phase *p : phases_)
@@ -94,15 +99,17 @@ void Cycle::calculate_priority() {
 		// get input values
 		phases_[p]->GetInputValues(input_values_);
 
-		if(input_values_[0] > 0)
+		if (input_values_[0] > 0)
 		{
 			Net::NeuralNetwork.FeedForward(input_values_);
 			Net::NeuralNetwork.GetResults(output_values_);
 
-			phases_[p]->SetPhasePriority(output_values_[0]);	
-			phases_[p]->SetCycleTime(clamp(float(output_values_[1]) * Settings::MaxCycleTime, Settings::MinCycleTime, Settings::MaxCycleTime));
-		}
-		else
+			phases_[p]->SetPhasePriority(output_values_[0]);
+			phases_[p]->SetCycleTime(clamp(
+				float(output_values_[1]) * Settings::MaxCycleTime,
+				Settings::MinCycleTime,
+				Settings::MaxCycleTime));
+		} else
 		{
 			phases_[p]->SetCycleTime(Settings::MinCycleTime);
 			phases_[p]->SetPhasePriority(0);
@@ -136,11 +143,15 @@ void Cycle::cycle_phases() {
 			// calculate the priority of each phase
 			calculate_priority();
 			// sort(arr[0:-2])
-			partial_sort(phases_.begin(), phases_.end() - 1, phases_.end() - 1, compare_priority);
+			partial_sort(phases_.begin(),
+			             phases_.end() - 1,
+			             phases_.end() - 1,
+			             compare_priority);
 		}
 	}
 }
 
+/// draw function
 void Cycle::Draw(RenderWindow *window) {
 
 	for (Phase *p : phases_)

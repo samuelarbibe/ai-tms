@@ -17,6 +17,7 @@ Lane::Lane(int laneNumber,
            float length,
            float direction,
            bool isInRoadDirection) {
+
 	is_in_road_direction_ = isInRoadDirection;
 	lane_number_ = laneNumber;
 	road_number_ = roadNumber;
@@ -31,7 +32,6 @@ Lane::Lane(int laneNumber,
 	density_ = 0;
 	selected_ = false;
 	queue_length_ = 0;
-	traversal_time_ = 0;
 
 	// calculate end position:
 	Vector2f lengthVec;
@@ -62,10 +62,10 @@ Lane::Lane(int laneNumber,
 	// create lane block rectangle shape
 	create_block_shape();
 
-    data_box_ = new DataBox(end_pos_);
-    data_box_->AddData("ID", lane_number_);
-    data_box_->AddData("Dens", 0);
-    data_box_->AddData("Qlen", 0);
+	data_box_ = new DataBox(end_pos_);
+	data_box_->AddData("ID", lane_number_);
+	data_box_->AddData("Dens", 0);
+	data_box_->AddData("Qlen", 0);
 }
 
 Lane::~Lane() {
@@ -81,21 +81,33 @@ void Lane::create_arrow_shape(Transform t) {
 	arrow_shape_.setPoint(0, end_pos_ - t.transformPoint(Vector2f(0.f, -2.f)));
 
 	t.rotate(-45);
-	arrow_shape_.setPoint(1, arrow_shape_.getPoint(0) - t.transformPoint(Vector2f(0.f, -1.f)));
+	arrow_shape_.setPoint(1,
+	                      arrow_shape_.getPoint(0)
+		                      - t.transformPoint(Vector2f(0.f, -1.f)));
 
 	t.rotate(90);
-	arrow_shape_.setPoint(6, arrow_shape_.getPoint(0) - t.transformPoint(Vector2f(0.f, -1.f)));
+	arrow_shape_.setPoint(6,
+	                      arrow_shape_.getPoint(0)
+		                      - t.transformPoint(Vector2f(0.f, -1.f)));
 
 	t.rotate(45);
-	arrow_shape_.setPoint(2, arrow_shape_.getPoint(1) - t.transformPoint(Vector2f(0.f, -1.0f)));
+	arrow_shape_.setPoint(2,
+	                      arrow_shape_.getPoint(1)
+		                      - t.transformPoint(Vector2f(0.f, -1.0f)));
 
 	t.rotate(180);
-	arrow_shape_.setPoint(5, arrow_shape_.getPoint(6) - t.transformPoint(Vector2f(0.f, -1.f)));
+	arrow_shape_.setPoint(5,
+	                      arrow_shape_.getPoint(6)
+		                      - t.transformPoint(Vector2f(0.f, -1.f)));
 
 	t.rotate(90);
-	arrow_shape_.setPoint(3, arrow_shape_.getPoint(2) - t.transformPoint(Vector2f(0.f, -1.f)));
+	arrow_shape_.setPoint(3,
+	                      arrow_shape_.getPoint(2)
+		                      - t.transformPoint(Vector2f(0.f, -1.f)));
 
-	arrow_shape_.setPoint(4, arrow_shape_.getPoint(5) - t.transformPoint(Vector2f(0.f, -1.f)));
+	arrow_shape_.setPoint(4,
+	                      arrow_shape_.getPoint(5)
+		                      - t.transformPoint(Vector2f(0.f, -1.f)));
 
 	arrow_shape_.setFillColor(WhiteColor);
 }
@@ -113,77 +125,28 @@ void Lane::create_block_shape() {
 	lane_block_shape_.setFillColor(Color::White);
 }
 
-/// update, for future use
+/// update
 void Lane::Update(float elapsedTime) {
 
-    density_ = vehicles_in_lane_.size() / Settings::ConvertSize(PX, M, length_);
+	density_ = vehicles_in_lane_.size() / Settings::ConvertSize(PX, M, length_);
 
-    if(queue_length_ > 0)
-    {
-        traversal_time_ = calculate_traversal_time();
-    }
-
-    if (Settings::DrawRoadDataBoxes)
-    {
-        data_box_->SetData("Qlen", queue_length_);
-        data_box_->SetData("Dens", density_ * 100);
-    }
-
-    // disable lane coloring if needed
-    if(selected_)
+	if (Settings::DrawRoadDataBoxes)
 	{
-        this->setFillColor(Color::Red);
-    }
-	else if(Settings::LaneDensityColorRamping)
+		data_box_->SetData("Qlen", queue_length_);
+		data_box_->SetData("Dens", density_ * 100);
+	}
+
+	// disable lane coloring if needed
+	if (selected_)
 	{
-        this->ColorRamp();
-    }
-	else
+		this->setFillColor(Color::Red);
+	} else if (Settings::LaneDensityColorRamping)
 	{
-        this->setFillColor(LaneColor);
-    }
-}
-
-/// calculate the traversal time
-float Lane::calculate_traversal_time()
-{
-
-/*
-    // first, the time it gets to get to top speed:
-    // a = Settings::Acceleration
-    // Vmax = Settings::MaxSpeed[0] (used as average)
-    //
-    // Vmax = a * t -> t = Vmax / a
-    float Vmax = Settings::ConvertVelocity(PXS, MS, Settings::MaxSpeeds[0]);
-    float a = Settings::ConvertVelocity(PXS, MS,Settings::Acceleration[0]);
-    float x = Settings::ConvertSize(PX, M, queue_length_);
-
-    float t1 = Vmax / a ;
-    // now that we reached max speed, we need to calculate the distance that has been traveled.
-    // while getting to the max speed
-    // x = 0.5 * a * t^2
-    float x1 = 0.5f * a * t1 * t1;
-
-    // if the distance to reach max speed is bigger then queue length,
-    // set the traversal time to the time it takes to intersection
-    // while ignoring max speed
-    if(x1 > x)
-    {
-        t1 = sqrt(2 * x / a);
-    }
-        // else, combine the time to reach max speed with the time
-        // it takes to reach the intersection from the max speed point
-    else
-    {
-        // the distance left from the intersection
-        x1 = x - x1;
-        t1 += x1 / Vmax;
-    }
-
-    return t1;
-    */
-
-    return Settings::ConvertSize(PX, M, queue_length_)/2;
+		this->ColorRamp();
+	} else
+	{
+		this->setFillColor(LaneColor);
+	}
 }
 
 /// create a color visualisation of lane density
@@ -193,7 +156,8 @@ void Lane::ColorRamp() {
 	// density is vehicle-per-meter
 
 	float value = (density_ / Settings::MaxDensity);
- 	if (value > 1.f) value = 1.f;
+	if (value > 1.f)
+		value = 1.f;
 	float r, g, b;
 
 	Settings::GetHeatMapColor(value, &r, &g, &b);
@@ -202,12 +166,11 @@ void Lane::ColorRamp() {
 }
 
 /// try to set the current queue length in this lane
-void Lane::SetQueueLength(float queueLength)
-{
-    if(queueLength > queue_length_)
-    {
-        queue_length_ = queueLength;
-    }
+void Lane::SetQueueLength(float queueLength) {
+	if (queueLength > queue_length_)
+	{
+		queue_length_ = queueLength;
+	}
 }
 
 /// set this lane as selected
@@ -230,8 +193,8 @@ void Lane::Draw(RenderWindow *window) {
 		window->draw(lane_block_shape_);
 	}
 
-    if (Settings::DrawRoadDataBoxes)
-        data_box_->Draw(window);
+	if (Settings::DrawRoadDataBoxes)
+		data_box_->Draw(window);
 }
 
 

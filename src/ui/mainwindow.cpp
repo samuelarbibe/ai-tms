@@ -10,30 +10,40 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	SimulatorEngine = new Engine(ui->SimulatorFrame);
 
-	DistanceUnits currentDistanceUnit = static_cast<DistanceUnits>(ui->DistanceUnitComboBox->currentIndex());
-	VelocityUnits currentUnit = static_cast<VelocityUnits>(ui->VelocityUnitComboBox->currentIndex());
+	DistanceUnits currentDistanceUnit =
+		static_cast<DistanceUnits>(ui->DistanceUnitComboBox->currentIndex());
+	VelocityUnits currentUnit =
+		static_cast<VelocityUnits>(ui->VelocityUnitComboBox->currentIndex());
 
 	// load presets
 	ui->LaneWidthSlider->setMinimum(int(Settings::MinLaneWidth));
 	ui->LaneWidthSlider->setMaximum(int(Settings::MaxLaneWidth));
 	ui->LaneWidthSlider->setSliderPosition(int(Settings::LaneWidth));
-    ui->VehicleSpawnRateSlider->setMinimum(0);
-    ui->VehicleSpawnRateSlider->setMaximum(2000);
-    ui->VehicleSpawnRateTextBox->setText(QString::number(Settings::VehicleSpawnRate * 1000.f));
-    ui->VehicleSpawnRateSlider->setSliderPosition(int(Settings::VehicleSpawnRate * 1000.f));
+	ui->VehicleSpawnRateSlider->setMinimum(0);
+	ui->VehicleSpawnRateSlider->setMaximum(2000);
+	ui->VehicleSpawnRateTextBox
+		->setText(QString::number(Settings::VehicleSpawnRate * 1000.f));
+	ui->VehicleSpawnRateSlider
+		->setSliderPosition(int(Settings::VehicleSpawnRate * 1000.f));
 	ui->ZoomSlider->setSliderPosition(int(Settings::Zoom * 99));
-	ui->LaneWidthValueEdit->setText(QString::number(Settings::GetLaneWidthAs(currentDistanceUnit)));
-	ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::SMALL_CAR, currentUnit)));
+	ui->LaneWidthValueEdit
+		->setText(QString::number(Settings::GetLaneWidthAs(currentDistanceUnit)));
+	ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(
+		VehicleTypeOptions::SMALL_CAR,
+		currentUnit)));
 	ui->MotorcycleMaxSpeed->setText(
-		QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::LONG_CAR, currentUnit)));
-	ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MEDIUM_CAR, currentUnit)));
+		QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::LONG_CAR,
+		                                        currentUnit)));
+	ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(
+		VehicleTypeOptions::MEDIUM_CAR,
+		currentUnit)));
 
 	ui->PhaseDelayLineEdit->setText(QString::number(Settings::PhaseDelay));
 	ui->PhaseDelaySlider->setSliderPosition(Settings::PhaseDelay);
 	ui->PhaseTimeSlider->setMaximum(int(Settings::MaxCycleTime));
 	ui->PhaseTimeSlider->setMinimum(int(Settings::MinCycleTime));
 
-	ui->Graph->setContentsMargins(0,0,0,0);
+	ui->Graph->setContentsMargins(0, 0, 0, 0);
 
 	model_ = new SimModel(this);
 	selected_row_ = 0;
@@ -41,8 +51,14 @@ MainWindow::MainWindow(QWidget *parent) :
 	chart_ = new SimChart(this);
 
 	// connect the simulation finished event to its slot here
-	QObject::connect(SimulatorEngine, SIGNAL(SimulationFinished()), this, SLOT(on_SimulationFinished()));
-	QObject::connect(SimulatorEngine, SIGNAL(SetFinished()), this, SLOT(on_SetFinished()));
+	QObject::connect(SimulatorEngine,
+	                 SIGNAL(SimulationFinished()),
+	                 this,
+	                 SLOT(on_SimulationFinished()));
+	QObject::connect(SimulatorEngine,
+	                 SIGNAL(SetFinished()),
+	                 this,
+	                 SLOT(on_SetFinished()));
 }
 
 MainWindow::~MainWindow() {
@@ -53,7 +69,7 @@ void MainWindow::on_SimulationFinished() {
 	reload_sim_table();
 	resize_sim_table();
 
-    reload_sim_graph();
+	reload_sim_graph();
 }
 
 void MainWindow::on_SetFinished() {
@@ -70,14 +86,15 @@ void MainWindow::reload_sim_table() {
 
 void MainWindow::reload_sim_graph() {
 	chart_->populateData(SimulatorEngine->GetSimulations());
-    ui->Graph->setChart(chart_);
+	ui->Graph->setChart(chart_);
 }
 
 void MainWindow::showEvent(QShowEvent *ev) {
 	QMainWindow::showEvent(ev);
 
 	// things that can be done only after complete init
-	SimulatorEngine->ResizeFrame(ui->SimulatorFrame->size() * Settings::SFMLRatio);
+	SimulatorEngine
+		->ResizeFrame(ui->SimulatorFrame->size() * Settings::SFMLRatio);
 
 	reloadOptionData();
 }
@@ -88,23 +105,23 @@ void MainWindow::reloadOptionData() {
 	ui->FromIntersectionComboBox->clear();
 	ui->ToIntersectionComboBox->clear();
 	ui->IntersectionComboBox->clear();
-    ui->IntersectionNumberComboBox->clear();
+	ui->IntersectionNumberComboBox->clear();
 	ui->NearRoadComboBox->clear();
 	ui->ToPhaseComboBox->clear();
-    ui->ShowLanesForPhaseComboBox->clear();
-    ui->ToCycleComboBox->clear();
+	ui->ShowLanesForPhaseComboBox->clear();
+	ui->ToCycleComboBox->clear();
 	ui->PhaseTimeComboBox->clear();
 	ui->FromLaneComboBox->clear();
 	ui->ToLaneComboBox->clear();
 	ui->AssignLaneToPhaseComboBox->clear();
-    ui->ToRoadComboBox->clear();
+	ui->ToRoadComboBox->clear();
 
 	for (const QString s : SimulatorEngine->map->GetIntersectionIdList())
 	{
 		ui->FromIntersectionComboBox->addItem(s);
 		ui->ToIntersectionComboBox->addItem(s);
 		ui->IntersectionComboBox->addItem(s);
-        ui->IntersectionNumberComboBox->addItem(s);
+		ui->IntersectionNumberComboBox->addItem(s);
 	}
 
 	for (const QString sd : SimulatorEngine->map->GetRoadIdList())
@@ -121,25 +138,25 @@ void MainWindow::reloadOptionData() {
 
 	for (const QString p : SimulatorEngine->map->GetPhaseIdList())
 	{
-        ui->ShowLanesForPhaseComboBox->addItem(p);
+		ui->ShowLanesForPhaseComboBox->addItem(p);
 		ui->PhaseTimeComboBox->addItem(p);
 		ui->ToPhaseComboBox->addItem(p);
 		ui->AssignLaneToPhaseComboBox->addItem(p);
 	}
 
-    for (const QString p : SimulatorEngine->map->GetCycleIdList())
-    {
-        ui->ToCycleComboBox->addItem(p);
-    }
+	for (const QString p : SimulatorEngine->map->GetCycleIdList())
+	{
+		ui->ToCycleComboBox->addItem(p);
+	}
 
-    reload_lane_options();
+	reload_lane_options();
 }
 
 void MainWindow::reload_lane_options() {
 
 	ui->AssignedLanesListView->clear();
 
-    int phaseNumber = ui->ShowLanesForPhaseComboBox->currentText().toInt();
+	int phaseNumber = ui->ShowLanesForPhaseComboBox->currentText().toInt();
 	if (phaseNumber != 0)
 	{
 		for (auto &p : SimulatorEngine->map->GetLaneIdList(phaseNumber))
@@ -184,13 +201,17 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
 			if (isLaneSelected)
 			{
 				QString selectionText = "Selected: Lane {";
-				selectionText.append(QString::number(selectedLane->GetLaneNumber()));
+				selectionText
+					.append(QString::number(selectedLane->GetLaneNumber()));
 				selectionText.append("}, Road {");
-				selectionText.append(QString::number(selectedLane->GetRoadNumber()));
+				selectionText
+					.append(QString::number(selectedLane->GetRoadNumber()));
 				selectionText.append("}, Intersection {");
-				selectionText.append(QString::number(selectedLane->GetIntersectionNumber()));
+				selectionText.append(QString::number(selectedLane
+					                                     ->GetIntersectionNumber()));
 				selectionText.append("}, Direction {");
-				selectionText.append(QString::number(selectedLane->GetDirection()));
+				selectionText
+					.append(QString::number(selectedLane->GetDirection()));
 				selectionText.append("}");
 
 				ui->statusbar->showMessage(selectionText);
@@ -203,7 +224,8 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
 			if (isVehicleSelected)
 			{
 				QString selectionText = "Selected: Vehicle {";
-				selectionText.append(QString::number(selectedVehicle->GetVehicleNumber()));
+				selectionText.append(QString::number(selectedVehicle
+					                                     ->GetVehicleNumber()));
 				selectionText.append("}");
 				/*
 				selectionText.append("Status : {");
@@ -220,26 +242,30 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
 }
 
 void MainWindow::on_AddIntersectionButton_clicked() {
-	if (ui->IntersectionXEdit->text().length() > 0 && ui->IntersectionYEdit->text().length() > 0)
+	if (ui->IntersectionXEdit->text().length() > 0
+		&& ui->IntersectionYEdit->text().length() > 0)
 	{
 		int x = ui->IntersectionXEdit->text().toInt();
 		int y = ui->IntersectionYEdit->text().toInt();
 
 		// check for usable data
-		if (x > 0 && x < SimulatorEngine->map->GetSize().x && y > 0 && y < SimulatorEngine->map->GetSize().y)
+		if (x > 0 && x < SimulatorEngine->map->GetSize().x && y > 0
+			&& y < SimulatorEngine->map->GetSize().y)
 		{
 			Vector2f position(x, y);
 			if (SimulatorEngine->map->AddIntersection(0, position) != nullptr)
 			{
 				ui->statusbar->clearMessage();
-				ui->statusbar->showMessage(tr("Intersection Successfully added."), 5000);
+				ui->statusbar
+					->showMessage(tr("Intersection Successfully added."), 5000);
 				// set data for future use
 				reloadOptionData();
 				return; // success
 			}
 		}
 	}
-	ui->statusbar->showMessage(tr("Could not add Intersection. please check that the entered values are correct. "));
+	ui->statusbar->showMessage(tr(
+		"Could not add Intersection. please check that the entered values are correct. "));
 }
 
 void MainWindow::on_AddConnectingRoadButton_clicked() {
@@ -249,24 +275,30 @@ void MainWindow::on_AddConnectingRoadButton_clicked() {
 	// check for usable data
 	if (intersection1 != intersection2)
 	{
-		if (SimulatorEngine->map->AddConnectingRoad(0, intersection1, intersection2) != nullptr)
+		if (SimulatorEngine->map
+			->AddConnectingRoad(0, intersection1, intersection2) != nullptr)
 		{
 			ui->statusbar->clearMessage();
-			ui->statusbar->showMessage(tr("Connecting Road Successfully added."), 5000);
+			ui->statusbar
+				->showMessage(tr("Connecting Road Successfully added."), 5000);
 			// refresh spinboxes data
 			reloadOptionData();
 			return; // success
 		}
 	}
 
-	ui->statusbar->showMessage(tr("Could not add Connecting Road. please check that the entered values are correct. "));
+	ui->statusbar->showMessage(tr(
+		"Could not add Connecting Road. please check that the entered values are correct. "));
 }
 
 void MainWindow::on_AddRoadButton_clicked() {
 	int intersectionNumber = ui->IntersectionComboBox->currentText().toInt();
 	int connectionSide = ui->ConSideComboBox->currentIndex() + 1;
 
-	if (SimulatorEngine->map->AddRoad(0, intersectionNumber, connectionSide, Settings::DefaultLaneLength))
+	if (SimulatorEngine->map->AddRoad(0,
+	                                  intersectionNumber,
+	                                  connectionSide,
+	                                  Settings::DefaultLaneLength))
 	{
 		// refresh spin-boxes data
 		reloadOptionData();
@@ -276,7 +308,8 @@ void MainWindow::on_AddRoadButton_clicked() {
 		reloadOptionData();
 		return; // success
 	}
-	ui->statusbar->showMessage(tr("Could not add Road. please check that the entered values are correct. "));
+	ui->statusbar->showMessage(tr(
+		"Could not add Road. please check that the entered values are correct. "));
 }
 
 void MainWindow::on_AddLanePushButton_clicked() {
@@ -290,7 +323,8 @@ void MainWindow::on_AddLanePushButton_clicked() {
 		reloadOptionData();
 		return; // success
 	}
-	ui->statusbar->showMessage(tr("Could not add Lane. please check that the entered values are correct. "));
+	ui->statusbar->showMessage(tr(
+		"Could not add Lane. please check that the entered values are correct. "));
 
 }
 
@@ -307,11 +341,13 @@ void MainWindow::on_ShowGridCheckBox_stateChanged(int arg1) {
 }
 
 void MainWindow::on_LaneWidthSlider_sliderMoved(int position) {
-	DistanceUnits unit = static_cast<DistanceUnits>(ui->DistanceUnitComboBox->currentIndex());
+	DistanceUnits unit =
+		static_cast<DistanceUnits>(ui->DistanceUnitComboBox->currentIndex());
 	// setting the value will cut the value to the current range
 	ui->LaneWidthSlider->setValue(position);
 	Settings::LaneWidth = ui->LaneWidthSlider->value();
-	ui->LaneWidthValueEdit->setText(QString::number(Settings::GetLaneWidthAs(unit)));
+	ui->LaneWidthValueEdit
+		->setText(QString::number(Settings::GetLaneWidthAs(unit)));
 	// check if init was called, if was then reload map
 	if (SimulatorEngine->map != nullptr)
 		SimulatorEngine->map->ReloadMap();
@@ -319,7 +355,8 @@ void MainWindow::on_LaneWidthSlider_sliderMoved(int position) {
 
 void MainWindow::on_DistanceUnitComboBox_currentIndexChanged(int index) {
 	// get slider position -> lane with as px
-	ui->LaneWidthValueEdit->setText(QString::number(Settings::GetLaneWidthAs(static_cast<DistanceUnits>(index))));
+	ui->LaneWidthValueEdit
+		->setText(QString::number(Settings::GetLaneWidthAs(static_cast<DistanceUnits>(index))));
 }
 
 void MainWindow::on_LaneWidthValueEdit_editingFinished() {
@@ -327,10 +364,13 @@ void MainWindow::on_LaneWidthValueEdit_editingFinished() {
 	float enteredValue = ui->LaneWidthValueEdit->text().toFloat();
 
 	// get the current unit
-	DistanceUnits currentUnit = static_cast<DistanceUnits>(int(ui->DistanceUnitComboBox->currentIndex()));
+	DistanceUnits currentUnit =
+		static_cast<DistanceUnits>(int(ui->DistanceUnitComboBox
+			                               ->currentIndex()));
 
 	// convert the entered unit to PX
-	enteredValue = Settings::ConvertSize(currentUnit, DistanceUnits::PX, enteredValue);
+	enteredValue =
+		Settings::ConvertSize(currentUnit, DistanceUnits::PX, enteredValue);
 	// send it to this function that simulate a slider movement
 	on_LaneWidthSlider_sliderMoved(enteredValue);
 }
@@ -345,10 +385,14 @@ void MainWindow::on_CarMaxSpeed_editingFinished() {
 	float enteredValue = ui->CarMaxSpeed->text().toFloat();
 
 	// get the current unit
-	VelocityUnits currentUnit = static_cast<VelocityUnits>(int(ui->VelocityUnitComboBox->currentIndex()));
+	VelocityUnits currentUnit =
+		static_cast<VelocityUnits>(int(ui->VelocityUnitComboBox
+			                               ->currentIndex()));
 
 	// convert the entered value to px
-	enteredValue = Settings::ConvertVelocity(currentUnit, VelocityUnits::PXS, enteredValue);
+	enteredValue = Settings::ConvertVelocity(currentUnit,
+	                                         VelocityUnits::PXS,
+	                                         enteredValue);
 
 	// save the changes
 	Settings::MaxSpeeds[VehicleTypeOptions::SMALL_CAR] = enteredValue;
@@ -359,10 +403,14 @@ void MainWindow::on_MotorcycleMaxSpeed_editingFinished() {
 	float enteredValue = ui->CarMaxSpeed->text().toFloat();
 
 	// get the current unit
-	VelocityUnits currentUnit = static_cast<VelocityUnits>(int(ui->VelocityUnitComboBox->currentIndex()));
+	VelocityUnits currentUnit =
+		static_cast<VelocityUnits>(int(ui->VelocityUnitComboBox
+			                               ->currentIndex()));
 
 	// convert the entered value to px
-	enteredValue = Settings::ConvertVelocity(currentUnit, VelocityUnits::PXS, enteredValue);
+	enteredValue = Settings::ConvertVelocity(currentUnit,
+	                                         VelocityUnits::PXS,
+	                                         enteredValue);
 
 	// save the changes
 	Settings::MaxSpeeds[VehicleTypeOptions::LONG_CAR] = enteredValue;
@@ -373,10 +421,14 @@ void MainWindow::on_TruckMaxSpeed_editingFinished() {
 	float enteredValue = ui->CarMaxSpeed->text().toFloat();
 
 	// get the current unit
-	VelocityUnits currentUnit = static_cast<VelocityUnits>(int(ui->VelocityUnitComboBox->currentIndex()));
+	VelocityUnits currentUnit =
+		static_cast<VelocityUnits>(int(ui->VelocityUnitComboBox
+			                               ->currentIndex()));
 
 	// convert the entered value to px
-	enteredValue = Settings::ConvertVelocity(currentUnit, VelocityUnits::PXS, enteredValue);
+	enteredValue = Settings::ConvertVelocity(currentUnit,
+	                                         VelocityUnits::PXS,
+	                                         enteredValue);
 
 	// save the changes
 	Settings::MaxSpeeds[VehicleTypeOptions::MEDIUM_CAR] = enteredValue;
@@ -385,10 +437,15 @@ void MainWindow::on_TruckMaxSpeed_editingFinished() {
 void MainWindow::on_VelocityUnitComboBox_currentIndexChanged(int index) {
 	VelocityUnits currentUnit = static_cast<VelocityUnits>(index);
 	// re-display all the velocities
-	ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::SMALL_CAR, currentUnit)));
+	ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(
+		VehicleTypeOptions::SMALL_CAR,
+		currentUnit)));
 	ui->MotorcycleMaxSpeed->setText(
-		QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::LONG_CAR, currentUnit)));
-	ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::MEDIUM_CAR, currentUnit)));
+		QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::LONG_CAR,
+		                                        currentUnit)));
+	ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(
+		VehicleTypeOptions::MEDIUM_CAR,
+		currentUnit)));
 }
 
 void MainWindow::on_MultiColorCheckBox_stateChanged(int arg1) {
@@ -418,7 +475,8 @@ void MainWindow::on_DeleteButton_clicked() {
 void MainWindow::on_ResetButton_clicked() {
 	QMessageBox msgBox;
 	msgBox.setText("Are you sure you want to reset map?");
-	msgBox.setInformativeText("The map and all the active vehicles will be deleted.");
+	msgBox.setInformativeText(
+		"The map and all the active vehicles will be deleted.");
 	msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
 	msgBox.setDefaultButton(QMessageBox::Ok);
 	int ret = msgBox.exec();
@@ -493,17 +551,20 @@ void MainWindow::on_PauseButton_clicked() {
 	}
 }
 
-void MainWindow::on_RunSimulationButton_clicked() {
+void MainWindow::on_RunSetButton_clicked() {
+
 	int vehicleCount = ui->CarCountSpinBox->value();
-    int generations = ui->SimulationCountSpinBox->value();
+	int generations = ui->SimulationCountSpinBox->value();
 
 	if (!Simulation::SimRunning)
 	{
-        SimulatorEngine->RunSet(vehicleCount, generations);
+		SimulatorEngine->RunSet(vehicleCount, generations);
 		ui->AbortButton->setEnabled(true);
 	} else
 	{
-		ui->statusbar->showMessage(tr("Another simulation is currently running, please wait for it to finish"), 5000);
+		ui->statusbar->showMessage(tr(
+			"Another simulation is currently running, please wait for it to finish"),
+		                           5000);
 	}
 }
 
@@ -533,7 +594,8 @@ void MainWindow::on_ShowRoutesCheckBox_stateChanged(int arg1) {
 
 void MainWindow::resizeEvent(QResizeEvent *event) {
 	// resize simulation frame
-	SimulatorEngine->ResizeFrame(ui->SimulatorFrame->size() * Settings::SFMLRatio);
+	SimulatorEngine
+		->ResizeFrame(ui->SimulatorFrame->size() * Settings::SFMLRatio);
 
 	resize_sim_table();
 }
@@ -553,8 +615,8 @@ void MainWindow::resize_sim_table() {
 }
 
 void MainWindow::on_ShowLanesForPhaseComboBox_currentTextChanged(const QString &arg1) {
-    reload_lane_options();
-    int phaseNumber = ui->ShowLanesForPhaseComboBox->currentText().toInt();
+	reload_lane_options();
+	int phaseNumber = ui->ShowLanesForPhaseComboBox->currentText().toInt();
 
 	if (phaseNumber != 0 && Settings::ShowSelectedPhaseLanes)
 	{
@@ -567,15 +629,13 @@ void MainWindow::on_AssignedLanesListView_itemClicked(QListWidgetItem *item) {
 
 }
 
-
 void MainWindow::on_AddPhaseButton_clicked() {
 
-    int cycleNumber = ui->ToCycleComboBox->currentText().toInt();
+	int cycleNumber = ui->ToCycleComboBox->currentText().toInt();
 
-    SimulatorEngine->map->AddPhase(0, cycleNumber, Settings::DefaultCycleTime);
+	SimulatorEngine->map->AddPhase(0, cycleNumber, Settings::DefaultCycleTime);
 	reloadOptionData();
 }
-
 
 void MainWindow::on_AddLightButton_clicked() {
 	int phaseNumber = ui->ToPhaseComboBox->currentText().toInt();
@@ -590,7 +650,8 @@ void MainWindow::on_AddLightButton_clicked() {
 			return;
 		}
 	}
-	ui->statusbar->showMessage(tr("Could not add Traffic Light. View console for details"));
+	ui->statusbar
+		->showMessage(tr("Could not add Traffic Light. View console for details"));
 }
 
 void MainWindow::on_PhaseTimeSlider_sliderMoved(int position) {
@@ -622,7 +683,8 @@ void MainWindow::on_AssignLaneButton_clicked() {
 
 	if (phaseNumber != 0 && lane != nullptr)
 	{
-		if (SimulatorEngine->map->AssignLaneToPhase(phaseNumber, lane->GetLaneNumber()))
+		if (SimulatorEngine->map
+			->AssignLaneToPhase(phaseNumber, lane->GetLaneNumber()))
 		{
 			ui->statusbar->showMessage(tr("Orange Light delay changed."));
 			reloadOptionData();
@@ -630,7 +692,8 @@ void MainWindow::on_AssignLaneButton_clicked() {
 		}
 	}
 
-	ui->statusbar->showMessage(tr("To Assign a lane to a phase, please select click on a lane to select it."));
+	ui->statusbar->showMessage(tr(
+		"To Assign a lane to a phase, please select click on a lane to select it."));
 }
 
 void MainWindow::on_PhaseTimeComboBox_currentTextChanged(const QString &arg1) {
@@ -759,78 +822,71 @@ void MainWindow::on_ShowMinimapCheckBox_stateChanged(int arg1) {
 	Settings::DrawMinimap = arg1;
 }
 
-void MainWindow::on_DensityColorCheckBox_stateChanged(int arg1)
-{
-    Settings::LaneDensityColorRamping = arg1;
+void MainWindow::on_DensityColorCheckBox_stateChanged(int arg1) {
+	Settings::LaneDensityColorRamping = arg1;
 }
 
-void MainWindow::on_VehicleSpawnRateSlider_sliderMoved(int position)
-{
-    ui->VehicleSpawnRateTextBox->setText(QString::number(position));
-    Settings::VehicleSpawnRate = position/1000.f;
+void MainWindow::on_VehicleSpawnRateSlider_sliderMoved(int position) {
+	ui->VehicleSpawnRateTextBox->setText(QString::number(position));
+	Settings::VehicleSpawnRate = position / 1000.f;
 }
 
-void MainWindow::on_VehicleSpawnRateTextBox_editingFinished()
-{
-    float value = ui->VehicleSpawnRateTextBox->text().toFloat();
-    ui->VehicleSpawnRateSlider->setValue(value);
-    Settings::VehicleSpawnRate = value/1000.f;
+void MainWindow::on_VehicleSpawnRateTextBox_editingFinished() {
+	float value = ui->VehicleSpawnRateTextBox->text().toFloat();
+	ui->VehicleSpawnRateSlider->setValue(value);
+	Settings::VehicleSpawnRate = value / 1000.f;
 }
 
-
-void MainWindow::on_ShowSelectedPhaseLanesCheckBox_stateChanged(int arg1)
-{
-    Settings::ShowSelectedPhaseLanes = arg1;
-    if(arg1)
-    {
-        reloadOptionData();
-    }
-    else
-    {
-        SimulatorEngine->map->UnselectAll();
-    }
+void MainWindow::on_ShowSelectedPhaseLanesCheckBox_stateChanged(int arg1) {
+	Settings::ShowSelectedPhaseLanes = arg1;
+	if (arg1)
+	{
+		reloadOptionData();
+	} else
+	{
+		SimulatorEngine->map->UnselectAll();
+	}
 }
 
-void MainWindow::on_AddCycleButton_clicked()
-{
-    int intersectionNumber = 0;
-    if(ui->IntersectionNumberComboBox->isEnabled())
-    {
-         intersectionNumber = ui->IntersectionNumberComboBox->currentText().toInt();
-    }
+void MainWindow::on_AddCycleButton_clicked() {
+	int intersectionNumber = 0;
+	if (ui->IntersectionNumberComboBox->isEnabled())
+	{
+		intersectionNumber =
+			ui->IntersectionNumberComboBox->currentText().toInt();
+	}
 
-    if(SimulatorEngine->map->AddCycle(0, intersectionNumber) != nullptr)
-    {
-        reloadOptionData();
-        ui->statusbar->showMessage(tr("Cycle successfully added."));
-        return;
-    }
+	if (SimulatorEngine->map->AddCycle(0, intersectionNumber) != nullptr)
+	{
+		reloadOptionData();
+		ui->statusbar->showMessage(tr("Cycle successfully added."));
+		return;
+	}
 
-    ui->statusbar->showMessage(tr("ERROR: Could not add cycle."));
+	ui->statusbar->showMessage(tr("ERROR: Could not add cycle."));
 }
 
-void MainWindow::on_AssignToIntersectionCheckBox_stateChanged(int arg1)
-{
-    ui->IntersectionNumberComboBox->setEnabled(arg1);
+void MainWindow::on_AssignToIntersectionCheckBox_stateChanged(int arg1) {
+	ui->IntersectionNumberComboBox->setEnabled(arg1);
 }
 
+void MainWindow::on_RemoveLaneFromPhaseButton_clicked() {
+	if (ui->AssignedLanesListView->selectedItems().count() == 1)
+	{
+		int laneNumber =
+			ui->AssignedLanesListView->selectedItems().back()->text().mid(5)
+				.toInt();
 
-void MainWindow::on_RemoveLaneFromPhaseButton_clicked()
-{
-    if(ui->AssignedLanesListView->selectedItems().count() == 1)
-    {
-        int laneNumber = ui->AssignedLanesListView->selectedItems().back()->text().mid(5).toInt();
+		SimulatorEngine->map->UnassignLaneFromPhase(laneNumber);
+		reloadOptionData();
+		ui->statusbar->showMessage(tr("Selected lane unassigned from phase."));
+		return;
 
-        SimulatorEngine->map->UnassignLaneFromPhase(laneNumber);
-        reloadOptionData();
-        ui->statusbar->showMessage(tr("Selected lane unassigned from phase."));
-        return;
-
-    }
-    ui->statusbar->showMessage(tr("Please select a lane from the list to unassign it from its phase."));
+	}
+	ui->statusbar->showMessage(tr(
+		"Please select a lane from the list to unassign it from its phase."));
 }
 
-void MainWindow::on_ShowNeuralNetCheckBox_stateChanged(int arg1)
-{
-    Settings::DrawVisualNet = arg1;
+void MainWindow::on_ShowNeuralNetCheckBox_stateChanged(int arg1) {
+	Settings::DrawVisualNet = arg1;
 }

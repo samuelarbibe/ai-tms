@@ -11,7 +11,11 @@
 int Road::RoadCount = 0;
 
 /// ctor for a normal road
-Road::Road(int roadNumber, int intersectionNumber, int connectionSide, Vector2f startPosition, float length,
+Road::Road(int roadNumber,
+           int intersectionNumber,
+           int connectionSide,
+           Vector2f startPosition,
+           float length,
            float direction) {
 	is_connecting_ = false;
 	road_number_ = roadNumber;
@@ -48,8 +52,14 @@ Road::Road(int roadNumber, int intersectionNumber, int connectionSide, Vector2f 
 }
 
 /// ctor for a connecting road
-Road::Road(int roadNumber, int intersectionNumber1, int intersectionNumber2, int connectionSide1, int connectionSide2,
-           Vector2f conPosition1, Vector2f conPosition2, float direction) {
+Road::Road(int roadNumber,
+           int intersectionNumber1,
+           int intersectionNumber2,
+           int connectionSide1,
+           int connectionSide2,
+           Vector2f conPosition1,
+           Vector2f conPosition2,
+           float direction) {
 	is_connecting_ = true;
 	road_number_ = roadNumber;
 	intersection_number_[0] = intersectionNumber1;
@@ -98,12 +108,22 @@ Lane *Road::AddLane(int laneNumber, bool isInRoadDirection) {
 	if (isInRoadDirection)
 	{
 		lanes_.push_back(
-			new Lane(laneNumber, road_number_, intersection_number_[isInRoadDirection], start_pos_, length_,
-			         direction_, isInRoadDirection));
+			new Lane(laneNumber,
+			         road_number_,
+			         intersection_number_[isInRoadDirection],
+			         start_pos_,
+			         length_,
+			         direction_,
+			         isInRoadDirection));
 	} else
 	{
-		lanes_.push_back(new Lane(laneNumber, road_number_, intersection_number_[isInRoadDirection], end_pos_, length_,
-		                          (direction_ + 180.f), isInRoadDirection));
+		lanes_.push_back(new Lane(laneNumber,
+		                          road_number_,
+		                          intersection_number_[isInRoadDirection],
+		                          end_pos_,
+		                          length_,
+		                          (direction_ + 180.f),
+		                          isInRoadDirection));
 	}
 
 	number_of_lanes_++;
@@ -115,7 +135,8 @@ Lane *Road::AddLane(int laneNumber, bool isInRoadDirection) {
 	this->setOrigin(width_ / 2, 0.f);
 
 	if (Settings::DrawAdded)
-		std::cout << "lane " << lanes_[number_of_lanes_ - 1]->GetLaneNumber() << " added to road " << road_number_
+		std::cout << "lane " << lanes_[number_of_lanes_ - 1]->GetLaneNumber()
+		          << " added to road " << road_number_
 		          << std::endl;
 
 	return lanes_[number_of_lanes_ - 1];
@@ -188,7 +209,8 @@ void Road::ReAssignLanePositions() {
 			*lanes_[i] = Lane(tempLaneNumber,
 			                  road_number_,
 			                  intersection_number_[0],
-			                  firstLanePoint + z.transformPoint(laneDifference) + lengthVec,
+			                  firstLanePoint + z.transformPoint(laneDifference)
+				                  + lengthVec,
 			                  Settings::CalculateDistance(start_pos_, end_pos_),
 			                  (direction_ + 180.f), false);
 		}
@@ -236,8 +258,8 @@ Lane *Road::CheckSelection(Vector2f position) {
 /// update, for databoxes ect.
 void Road::Update(float elapsedTime) {
 
-    current_vehicle_count_ = 0;
-    total_vehicle_count_ = 0;
+	current_vehicle_count_ = 0;
+	total_vehicle_count_ = 0;
 
 	for (Lane *l : lanes_)
 	{
@@ -246,10 +268,10 @@ void Road::Update(float elapsedTime) {
 		total_vehicle_count_ += l->GetTotalVehicleCount();
 	}
 
-    if (Settings::DrawRoadDataBoxes)
-    {
-        data_box_->SetData("Count", current_vehicle_count_);
-    }
+	if (Settings::DrawRoadDataBoxes)
+	{
+		data_box_->SetData("Count", current_vehicle_count_);
+	}
 }
 
 /// delete a given lane in this road
@@ -335,7 +357,8 @@ void Road::BuildLaneLines() {
 		Vector2f lengthVec = h.transformPoint(Settings::BaseVec);
 		Vector2f laneWidthVec = v.transformPoint(Settings::BaseVec);
 
-		Vector2f upperLeftCorner = start_pos_ - laneWidthVec * float(number_of_lanes_) / 2.f;
+		Vector2f upperLeftCorner =
+			start_pos_ - laneWidthVec * float(number_of_lanes_) / 2.f;
 
 		Vector2f startPos, endPos;
 		LaneLine temp;
@@ -397,7 +420,8 @@ void Road::BuildLaneLines() {
 
 				tempPos += spacerVec;
 
-				while (Settings::CalculateDistance(startPos, tempPos + dashVec) < length_)
+				while (Settings::CalculateDistance(startPos, tempPos + dashVec)
+					< length_)
 				{
 					VertexArray line = VertexArray(Lines, 2);
 
@@ -409,7 +433,8 @@ void Road::BuildLaneLines() {
 					temp.push_back(line);
 				}
 
-				if (Settings::CalculateDistance(tempPos, endPos) > Settings::CalculateDistance(Vector2f(0, 0), dashVec))
+				if (Settings::CalculateDistance(tempPos, endPos)
+					> Settings::CalculateDistance(Vector2f(0, 0), dashVec))
 				{
 					VertexArray line = VertexArray(Lines, 2);
 

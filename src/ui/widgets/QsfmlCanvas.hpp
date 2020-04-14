@@ -20,7 +20,9 @@ class QSFMLCanvas : public QWidget, public RenderWindow
 
   public :
 
-	QSFMLCanvas(QWidget *Parent, int logicIntervalTime = 500, int drawIntervalTime = 60);
+	QSFMLCanvas(QWidget *Parent,
+	            int logicIntervalTime = 500,
+	            int drawIntervalTime = 60);
 	~QSFMLCanvas() { std::cout << "QSFML Canvas destroyed" << std::endl; }
 
   private :

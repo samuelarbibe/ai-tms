@@ -220,7 +220,7 @@ void Vehicle::Unselect() {
 }
 
 /// load textures as required
-bool Vehicle::LoadVehicleTextures(VehicleType * vehicleType) {
+bool Vehicle::LoadVehicleTextures(VehicleType *vehicleType) {
 
 	if (vehicleType->Textures == nullptr)
 	{

@@ -28,10 +28,12 @@ DataBox::DataBox(Vector2f position) : RectangleShape() {
 	}
 }
 
+/// update
 void DataBox::Update(Vector2f position) {
 	this->setPosition(Vector2f(position.x, position.y) + offset_);
 }
 
+/// draw
 void DataBox::Draw(RenderWindow *window) {
 	window->draw(*this);
 	int count = 0;
@@ -56,6 +58,7 @@ void DataBox::Draw(RenderWindow *window) {
 	}
 }
 
+/// add data to this databox
 bool DataBox::AddData(string valueName, float value) {
 	if (data_.size() < max_data_items_)
 	{
@@ -67,6 +70,7 @@ bool DataBox::AddData(string valueName, float value) {
 	return false;
 }
 
+/// set the data of an element in this databox
 bool DataBox::SetData(string valueName, float value) {
 	if (data_[valueName] != nullptr)
 	{
@@ -78,6 +82,7 @@ bool DataBox::SetData(string valueName, float value) {
 	return false;
 }
 
+/// remove a data item
 bool DataBox::RemoveData(string valueName) {
 	if (data_[valueName] != nullptr)
 	{

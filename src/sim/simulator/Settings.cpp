@@ -28,7 +28,6 @@ bool Settings::ShowSelectedPhaseLanes = false;
 bool Settings::PrintSimulationLog = false;
 bool Settings::DrawNnProgression = true;
 
-
 int Settings::Interval = 700; // max is 1000
 int Settings::Fps = 60;
 int Settings::AntiAliasing = 0;
@@ -100,7 +99,9 @@ float Settings::GetLaneWidthAs(DistanceUnits unit) {
 }
 
 // convert a given value from a unit to another unit
-float Settings::ConvertSize(DistanceUnits fromUnit, DistanceUnits toUnit, float value) {
+float Settings::ConvertSize(DistanceUnits fromUnit,
+                            DistanceUnits toUnit,
+                            float value) {
 	// first, convert value to px
 	// LaneWidth in px = laneWidth in unit / Scale / unitScale
 	float valueInPx = value / Scale / DistanceUnitScales[int(fromUnit)];
@@ -110,7 +111,9 @@ float Settings::ConvertSize(DistanceUnits fromUnit, DistanceUnits toUnit, float 
 }
 
 // convert a velocity from a given unit to a given unit
-float Settings::ConvertVelocity(VelocityUnits fromUnit, VelocityUnits toUnit, float value) {
+float Settings::ConvertVelocity(VelocityUnits fromUnit,
+                                VelocityUnits toUnit,
+                                float value) {
 	// first, convert value to px/s
 	float valueInPx = value / Scale / VelocityUnitScales[int(fromUnit)];
 
@@ -120,12 +123,12 @@ float Settings::ConvertVelocity(VelocityUnits fromUnit, VelocityUnits toUnit, fl
 
 // max speed for all the cars in px/s
 float Settings::MaxSpeeds[4]
-    {
-        ConvertVelocity(KMH, PXS, 50.f),
-        ConvertVelocity(KMH, PXS, 50.f),
-        ConvertVelocity(KMH, PXS, 50.f),
-        ConvertVelocity(KMH, PXS, 50.f)
-    };
+	{
+		ConvertVelocity(KMH, PXS, 50.f),
+		ConvertVelocity(KMH, PXS, 50.f),
+		ConvertVelocity(KMH, PXS, 50.f),
+		ConvertVelocity(KMH, PXS, 50.f)
+	};
 // convert m/ss to px/ss
 float Settings::Acceleration[4]
 	{
@@ -142,8 +145,11 @@ float Settings::Deceleration[4]
 		ConvertVelocity(MS, PXS, -4.5f)
 	};
 
-float Settings::GetMaxSpeedAs(VehicleTypeOptions vehicleType, VelocityUnits unit) {
-	return Settings::ConvertVelocity(PXS, unit, Settings::MaxSpeeds[vehicleType]);
+float Settings::GetMaxSpeedAs(VehicleTypeOptions vehicleType,
+                              VelocityUnits unit) {
+	return Settings::ConvertVelocity(PXS,
+	                                 unit,
+	                                 Settings::MaxSpeeds[vehicleType]);
 }
 
 /// calculate distance between 2 vectors
@@ -190,7 +196,7 @@ string Settings::ConvertTimeToString(tm *time) {
 
 tm *Settings::ConvertStringToTime(const string str) {
 
-	tm * time = new tm();
+	tm *time = new tm();
 
 	time->tm_mday = stoi(str.substr(0, 2));
 	time->tm_mon = stoi(str.substr(3, 2)) - 1;
@@ -203,14 +209,20 @@ tm *Settings::ConvertStringToTime(const string str) {
 	return time;
 }
 
-void Settings::GetHeatMapColor(float value, float *red, float *green, float *blue)
-{
-	int aR = 0;   int aG = 0; int aB=255;  // RGB for our 1st color blue
-	int bR = 255; int bG = 0; int bB=0;    // RGB for our 2nd color red
+void Settings::GetHeatMapColor(float value,
+                               float *red,
+                               float *green,
+                               float *blue) {
+	int aR = 0;
+	int aG = 0;
+	int aB = 255;  // RGB for our 1st color blue
+	int bR = 255;
+	int bG = 0;
+	int bB = 0;    // RGB for our 2nd color red
 
-	*red   = (float)(bR - aR) * value + aR;      // 255 * value.
-	*green = (float)(bG - aG) * value + aG;      // 0.
-	*blue  = (float)(bB - aB) * value + aB;      // 255 * (1 - value).
+	*red = (float) (bR - aR) * value + aR;      // 255 * value.
+	*green = (float) (bG - aG) * value + aG;      // 0.
+	*blue = (float) (bB - aB) * value + aB;      // 255 * (1 - value).
 }
 
 float Settings::OrangeDelay = 3.f;

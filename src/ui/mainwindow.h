@@ -86,7 +86,7 @@ private slots:
 
     void on_PauseButton_clicked();
 
-    void on_RunSimulationButton_clicked();
+    void on_RunSetButton_clicked();
 
     void on_AddRouteButton_clicked();
 

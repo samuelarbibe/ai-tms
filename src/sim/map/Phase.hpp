@@ -35,7 +35,6 @@ public:
 	void GetInputValues(vector<double> & inputValues);
 	float GetMaxQueueLength();
 	float GetMaxLaneDensity();
-	float GetMaxTraversalTime();
 	float GetPriorityScore() {return priority_;}
 
     // set
