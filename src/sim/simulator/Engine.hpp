@@ -55,6 +55,7 @@ class Engine : public QSFMLCanvas
 	Vector2f GetSnappedPoint(Vector2f point);
 	Vector2f DrawPoint(Vector2f position);
 	vector<Simulation *> *GetSimulations();
+	vector<Set *> *GetSets(){ return &sets_;}
 	Simulation *GetSimulation(int simulationNumber);
 	Set *GetSet(int setNumber);
 
@@ -64,6 +65,8 @@ class Engine : public QSFMLCanvas
 
 	void UpdateView(Vector2f posDelta = Vector2f(0, 0), float zoom = 0);
 	void SaveMap(string saveDirectory);
+	void SaveNet(string saveDirectory);
+	void LoadNet(string saveDirectory);
 	void LoadMap(string loadDirectory);
 	void SaveSets(string saveDirectory);
 	void LoadSets(string loadDirectory);
@@ -72,6 +75,8 @@ class Engine : public QSFMLCanvas
 	bool AddVehicleRandomly();
 	void ResizeFrame(QSize size);
 	bool DeleteSimulation(int simulationNumber);
+
+	bool DeleteCurrentSet();
 
 	Map *map;
   signals:

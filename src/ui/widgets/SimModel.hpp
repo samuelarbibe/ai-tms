@@ -6,7 +6,7 @@
 #define SIMULATORSFML_SRC_UI_WIDGETS_SIMMODEL_HPP
 
 #include <QAbstractTableModel>
-#include <src/sim/simulator/Simulation.hpp>
+#include "../../sim/simulator/Set.hpp"
 
 class SimModel : public QAbstractTableModel
 {
@@ -16,7 +16,7 @@ class SimModel : public QAbstractTableModel
 
 	SimModel(QObject *parent = nullptr);
 
-	void populateData(const vector<Simulation *> *data);
+	void populateData(const vector<Set *> *data);
 
 	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 

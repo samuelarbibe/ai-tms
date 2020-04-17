@@ -23,9 +23,7 @@ int main(int argc, char **argv) {
 	// output neurons : priority points, phase time
 	topology.push_back(2);
 
-	Net::NeuralNetwork = Net(topology,
-	                         Vector2f(Settings::DefaultMapWidth,
-	                                  Settings::DefaultMapHeight));
+	Net::NeuralNetwork = Net(topology);
 
 	QApplication Application(argc, argv);
 

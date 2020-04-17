@@ -18,12 +18,12 @@ SimChart::SimChart(QWidget * parent) : QChart(){
 	this->axes(Qt::Vertical).front()->setMax(0.8);
 }
 
-void SimChart::populateData(const vector<Simulation *> *data) {
+void SimChart::populateData(Set *data) {
 
 	series_->clear();
 	int count = 0;
 
-	for(Simulation * s : *data)
+	for(Simulation * s : *data->GetSimulations())
 	{
 		series_->append(s->GetSimulationNumber(), s->GetResult());
 		count ++;

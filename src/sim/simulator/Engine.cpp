@@ -120,6 +120,29 @@ bool Engine::DeleteSimulation(int simulationNumber) {
 	return false;
 }
 
+bool Engine::DeleteCurrentSet() {
+	auto it = sets_.begin();
+	while (it != sets_.end())
+	{
+		if ((*it)->GetSetNumber() == Set::CurrentSet)
+		{
+			Set::CurrentSet = 0;
+			(*it)->StopSet();
+			it = sets_.erase(it);
+			number_of_sets_--;
+
+			delete (*it);
+
+			return true;
+		} else
+		{
+			it++;
+		}
+	}
+
+	return false;
+}
+
 /// re-run a simualtion by sim-number, without calculating it as a simulation
 bool Engine::RunDemo(int simulationNumber) {
 
@@ -149,6 +172,7 @@ bool Engine::RunSet(int vehicleCount, int generations) {
 		ClearMap();
 
 		cout << "Creating a new neural network..." << endl;
+		Net::NeuralNetwork.Reset();
 
 		Set *s = AddSet(0, vehicleCount, generations);
 
@@ -718,6 +742,14 @@ void Engine::SaveMap(const string saveDirectory) {
 	cout << "map saved to '" << saveDirectory << "' successfully." << endl;
 }
 
+void Engine::SaveNet(const string saveDirectory) {
+	Net::NeuralNetwork.Save(saveDirectory);
+}
+
+void Engine::LoadNet(const string saveDirectory) {
+	Net::Load(saveDirectory);
+}
+
 /// save the recent simulations to a file
 void Engine::SaveSets(string saveDirectory) {
 
@@ -902,43 +934,40 @@ void Engine::update(float elapsedTime) {
 		set_view();
 	}
 
-	if (Set::SetRunning)
+	for (Set *s : sets_)
 	{
-		for (Set *s : sets_)
+		// when an update on a set returns true
+		// it means that a simulation has finished
+		if (s->Update(elapsedTime) == true)
 		{
-			// when an update on a set returns true
-			// it means that a simulation has finished
-			if (s->Update(elapsedTime) == true)
+			if (s->IsFinished())
 			{
-				if (s->IsFinished())
+				SetFinished();
+			} else
+			{
+				SimulationFinished();
+
+				// set the new score as result
+				float result = s->GetLastSimulationResult();
+
+				Net::NeuralNetwork.SetActualResults(result);
+
+				// back propogate on default target value (1.0)
+				Net::NeuralNetwork.BackPropagate(target_results_);
+
+				Net::NeuralNetwork.Update(elapsedTime);
+
+				if (Settings::DrawNnProgression)
 				{
-					SetFinished();
-				} else
-				{
-					SimulationFinished();
-
-					// set the new score as result
-					float result = s->GetLastSimulationResult();
-
-					Net::NeuralNetwork.SetActualResults(result);
-
-					// back propogate on default target value (1.0)
-					Net::NeuralNetwork.BackPropagate(target_results_);
-
-					Net::NeuralNetwork.Update(elapsedTime);
-
-					if (Settings::DrawNnProgression)
-					{
-						cout << "Sim no. " << s->GetGenerationsSimulated() + 1
-						     << " result :" << result << "  avg. error :"
-						     << Net::NeuralNetwork.GetRecentAverageError()
-						     << endl;
-					}
-
+					cout << "Sim no. " << s->GetGenerationsSimulated()
+					     << " result :" << result << "  avg. error :"
+					     << Net::NeuralNetwork.GetRecentAverageError()
+					     << endl;
 				}
 			}
 		}
 	}
+
 }
 
 /// deploy vehicles in a time controlled manner

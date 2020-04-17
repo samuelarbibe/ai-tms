@@ -1895,14 +1895,28 @@
                 <item>
                  <widget class="QPushButton" name="LoadSimButton">
                   <property name="text">
-                   <string>Load Simulations</string>
+                   <string>Load Set</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QPushButton" name="SaveSimButton">
                   <property name="text">
-                   <string>Save Simulations</string>
+                   <string>Save Set</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="SaveNNButton">
+                  <property name="text">
+                   <string>Save NN</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="LoadNNButton">
+                  <property name="text">
+                   <string>Load NN</string>
                   </property>
                  </widget>
                 </item>
@@ -1918,6 +1932,25 @@
                    </size>
                   </property>
                  </spacer>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="ShowCurrentSetOnlyCheckBox">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Show a hint of information on each simulation entity</string>
+                  </property>
+                  <property name="text">
+                   <string>Show Current Set Only</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <property name="checked">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <widget class="QPushButton" name="RunDemoButton">
@@ -2231,6 +2264,13 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QProgressBar" name="TrainingProgressBar">
+            <property name="value">
+             <number>24</number>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="SlowerButton">

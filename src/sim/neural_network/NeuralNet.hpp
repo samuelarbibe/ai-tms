@@ -9,18 +9,21 @@
 #include <cmath>
 #include <vector>
 #include <iostream>
+#include <fstream>
 #include <iomanip>
 #include "Neuron.hpp"
 #include "../simulator/Settings.hpp"
+#include "../../public/json.hpp"
 
 using namespace std;
 using namespace sf;
+using json = nlohmann::json;
 
 class Net
 {
   public:
 	Net(){}
-	Net(const vector<unsigned> &topology, Vector2f size);
+	Net(const vector<unsigned> &topology);
 
 	void Draw(RenderWindow * window);
 	void Update(float elapsedTime);
@@ -33,6 +36,9 @@ class Net
 	void SetActualResults(const double actualResult);
 	void GetResults(vector<double> &resultVals) const;
 	double GetRecentAverageError(void) const { return recent_average_error_; }
+	void Save(const string dir);
+	static void Load(const string dir);
+
 
 	static Net NeuralNetwork;
 

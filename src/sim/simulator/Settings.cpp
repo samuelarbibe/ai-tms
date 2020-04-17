@@ -27,6 +27,7 @@ bool Settings::LaneDensityColorRamping = false;
 bool Settings::ShowSelectedPhaseLanes = false;
 bool Settings::PrintSimulationLog = false;
 bool Settings::DrawNnProgression = true;
+bool Settings::DrawCurrentSetOnly = false;
 
 int Settings::Interval = 700; // max is 1000
 int Settings::Fps = 60;

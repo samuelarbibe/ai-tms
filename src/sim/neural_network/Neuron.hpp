@@ -37,6 +37,9 @@ class Neuron
 	void Update(float elapsedTime, vector<VertexArray> * weight_lines_, int * firstWeightIndex);
 	void Reset();
 
+	vector<Connection> GetWeights();
+	void SetWeights(vector<Connection> weights);
+
 	void SetOutputValue(double val) { output_value_ = val; }
 	double GetOutputValue() const { return output_value_; }
 	void FeedForward(const Layer &prevLayer);

@@ -6,9 +6,9 @@
 
 Net Net::NeuralNetwork = Net();
 
-Net::Net(const vector<unsigned> &topology, Vector2f size) {
+Net::Net(const vector<unsigned> &topology) {
 
-	size_ = size;
+	size_ = Vector2f(Settings::DefaultMapWidth, Settings::DefaultMapHeight);
 
 	unsigned layerCount = topology.size();
 	for (unsigned layerNum = 0; layerNum < layerCount; ++layerNum)
@@ -30,13 +30,107 @@ Net::Net(const vector<unsigned> &topology, Vector2f size) {
 			layers_.back().push_back(Neuron(numOutputs,
 			                                neuronNum,
 			                                position,
-			                                size.x / 25.f));
+			                                size_.x / 25.f));
 			cout << "Mad a Neuron!" << endl;
 		}
 	}
 
 	create_weight_vertex_array();
 	Update(0.f);
+}
+
+void Net::Save(const string dir) {
+
+	json j;
+
+	unsigned layerCount = layers_.size();
+
+	for (unsigned layerNum = 0; layerNum < layerCount; ++layerNum)
+	{
+		unsigned neuronCount = layers_[layerNum].size();
+
+		j["layers"].push_back(
+			{
+				{"ID", layerNum},
+				{"neuron_count", neuronCount}
+			}
+		);
+
+		for (unsigned neuronNum = 0; neuronNum < neuronCount; ++neuronNum)
+		{
+			vector<Connection>
+				weights = layers_[layerNum][neuronNum].GetWeights();
+			unsigned weightCount = weights.size();
+
+			for (unsigned weightNum = 0; weightNum < weightCount; ++weightNum)
+			{
+				j["weights"].push_back(
+					{
+						{"delta_weight", weights[weightNum].deltaWeight},
+						{"weight", weights[weightNum].weight}
+					}
+				);
+			}
+		}
+	}
+
+	// write to file
+	ofstream o(dir);
+	o << setw(4) << j << endl;
+	o.close();
+
+	cout << "Set saved to '" << dir << "' successfully." << endl;
+
+}
+
+void Net::Load(string dir) {
+	try
+	{
+		json j;
+		// open the given file, read it to a json variable
+		ifstream i(dir);
+		i >> j;
+
+		vector<unsigned> topology;
+		for (auto data : j["layers"])
+		{
+			topology.push_back(unsigned(data["neuron_count"]));
+		}
+
+		Net::NeuralNetwork = Net(topology);
+
+		unsigned layerCount = Net::NeuralNetwork.layers_.size();
+
+		for (unsigned layerNum = 0; layerNum < layerCount; ++layerNum)
+		{
+			unsigned neuronCount = Net::NeuralNetwork.layers_[layerNum].size();
+
+			for (unsigned neuronNum = 0; neuronNum < neuronCount; ++neuronNum)
+			{
+				vector<Connection> weights;
+				unsigned weightCount =
+					Net::NeuralNetwork.layers_[layerNum][neuronNum].GetWeights()
+						.size();
+
+				for (unsigned weightNum = 0; weightNum < weightCount;
+				     ++weightNum)
+				{
+					Connection con = Connection();
+					con.deltaWeight = j["weights"][weightNum]["delta_weight"];
+					con.weight = j["weights"][weightNum]["weight"];
+					weights.push_back(con);
+				}
+
+				Net::NeuralNetwork.layers_[layerNum][neuronNum]
+					.SetWeights(weights);
+			}
+		}
+	}
+	catch (const std::exception &e)
+	{
+		cout << "Could not load Neural Network from this directory." << endl;
+		cout << e.what() << endl;
+	}
 }
 
 void Net::create_weight_vertex_array() {

@@ -5,6 +5,7 @@
 #include "Set.hpp"
 
 int Set::SetCount = 0;
+int Set::CurrentSet = 0;
 bool Set::SetRunning = false;
 
 Set::Set(int setNumber, int generationCount, int vehicleCount) {
@@ -26,6 +27,15 @@ Set::Set(int setNumber, int generationCount, int vehicleCount) {
 
 Set::~Set() {
 
+	for(Simulation *s : simulations_)
+	{
+		delete s;
+	}
+	simulations_.clear();
+
+	if (Settings::DrawDelete)
+		cout << "Set number " << set_number_
+		     << " has been deleted. " << endl;
 }
 
 /// get the simulations of this set
@@ -64,6 +74,8 @@ bool Set::Update(float elapsedTime) {
 
 					running_simulation_ = nullptr;
 					++generations_simulated_;
+					// re-update set progress
+					progress_ = float(generations_simulated_) / float(generations_count_);
 					return true;
 				}
 			} else
@@ -83,10 +95,11 @@ bool Set::Update(float elapsedTime) {
 
 	if (running_demo_ != nullptr)
 	{
-		running_demo_->Update(elapsedTime);
-		if (running_demo_->IsFinished())
+		if (running_demo_->Update(elapsedTime))
 		{
 			running_demo_ = nullptr;
+			Set::SetRunning = false;
+			return true;
 		}
 	}
 

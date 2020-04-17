@@ -46,6 +46,8 @@ private slots:
 
     void on_SnapToGridCheckBox_stateChanged(int arg1);
 
+    void on_ShowCurrentSetOnlyCheckBox_stateChanged(int arg1);
+
     void on_ShowGridCheckBox_stateChanged(int arg1);
 
     void on_LaneWidthSlider_sliderMoved(int position);
@@ -75,6 +77,8 @@ private slots:
     void on_LoadMapButton_clicked();
 
     void on_SaveMapButton_clicked();
+
+    void on_SaveNNButton_clicked();
 
     void on_ShowDataBoxesCheckBox_stateChanged(int arg1);
 
@@ -124,6 +128,8 @@ private slots:
 
     void on_LoadSimButton_clicked();
 
+    void on_LoadNNButton_clicked();
+
     void on_SimTable_clicked(const QModelIndex &index);
 
     void on_RunDemoButton_clicked();
@@ -163,6 +169,8 @@ private:
 
     void reload_sim_table();
     void reload_sim_graph();
+
+    void prompt_set_save();
 };
 
 #endif // MAINWINDOW_H

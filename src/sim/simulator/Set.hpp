@@ -23,6 +23,7 @@ class Set
 		running_ = true;
 		SetRunning = true;
 		start_time_ = time(nullptr);
+		Set::CurrentSet = set_number_;
 	}
 	bool DemoSimulation(int simulationNumber);
 	Simulation *StartNewSimulation();
@@ -49,7 +50,7 @@ class Set
 	int GetGenerationsCount() { return generations_count_; }
 	int GetVehicleCount() { return vehicle_count_; }
 	int GetRunning() { return running_; }
-	int GetProgress() { return progress_; }
+	float GetProgress() { return progress_; }
 	time_t *GetStartTime() { return &start_time_; }
 	time_t *GetEndTime() { return &end_time_; }
 	bool IsFinished() { return finished_; }
@@ -60,6 +61,7 @@ class Set
 
 	static int SetCount;
 	static bool SetRunning;
+	static int CurrentSet;
 
   private:
 

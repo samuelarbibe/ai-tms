@@ -69,6 +69,25 @@ void Neuron::Reset() {
 	output_value_ = 0;
 }
 
+vector<Connection> Neuron::GetWeights() {
+	vector<Connection> temp;
+
+	for(unsigned w = 0; w < output_weights_.size(); w++)
+	{
+		temp.push_back(output_weights_[w]);
+	}
+
+	return temp;
+}
+
+void Neuron::SetWeights(vector<Connection> weights) {
+
+	for(unsigned w = 0; w < output_weights_.size(); w++)
+	{
+		output_weights_[w] = weights[w];
+	}
+}
+
 /// sum up all the weights that go into this neuron
 // apply a transfer function
 // and set it as this neuron's output value

@@ -38,7 +38,7 @@ Simulation::~Simulation() {
 /// returns true if simulation has ended
 bool Simulation::Update(float elapsedTime) {
 
-	if (running_ && !finished_)
+	if (running_ )
 	{
 		elapsed_time_ += elapsedTime * Settings::Speed;
 
@@ -65,7 +65,6 @@ bool Simulation::Update(float elapsedTime) {
 		}
 	}
 	return false;
-
 }
 
 /// print a sim log

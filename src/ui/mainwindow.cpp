@@ -42,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->PhaseDelaySlider->setSliderPosition(Settings::PhaseDelay);
 	ui->PhaseTimeSlider->setMaximum(int(Settings::MaxCycleTime));
 	ui->PhaseTimeSlider->setMinimum(int(Settings::MinCycleTime));
+	ui->TrainingProgressBar->setHidden(true);
 
 	ui->Graph->setContentsMargins(0, 0, 0, 0);
 
@@ -70,23 +71,38 @@ void MainWindow::on_SimulationFinished() {
 	resize_sim_table();
 
 	reload_sim_graph();
+
+	Set * currentSet = SimulatorEngine->GetSet(Set::CurrentSet);
+	if(currentSet != nullptr)
+	{
+		ui->TrainingProgressBar->setValue(int(currentSet->GetProgress() * 100.f));
+	}
 }
 
 void MainWindow::on_SetFinished() {
 	ui->AbortButton->setEnabled(false);
+	ui->TrainingProgressBar->setHidden(true);
 }
 
 void MainWindow::reload_sim_table() {
 	delete model_;
 	model_ = new SimModel(this);
-	model_->populateData(SimulatorEngine->GetSimulations());
+	model_->populateData(SimulatorEngine->GetSets());
 	ui->SimTable->setModel(model_);
 	ui->SimTable->scrollToBottom();
 }
 
 void MainWindow::reload_sim_graph() {
-	chart_->populateData(SimulatorEngine->GetSimulations());
-	ui->Graph->setChart(chart_);
+	Set * currentSet = SimulatorEngine->GetSet(Set::CurrentSet);
+	if(currentSet != nullptr)
+	{
+		chart_ = new SimChart(this);
+		chart_->populateData(currentSet);
+		ui->Graph->setChart(chart_);
+	} else
+	{
+
+	}
 }
 
 void MainWindow::showEvent(QShowEvent *ev) {
@@ -336,6 +352,11 @@ void MainWindow::on_SnapToGridCheckBox_stateChanged(int arg1) {
 	SimulatorEngine->SetSnapToGrid(isChecked);
 }
 
+void MainWindow::on_ShowCurrentSetOnlyCheckBox_stateChanged(int arg1) {
+	Settings::DrawCurrentSetOnly = arg1;
+	reload_sim_table();
+}
+
 void MainWindow::on_ShowGridCheckBox_stateChanged(int arg1) {
 	Settings::DrawGrid = arg1;
 }
@@ -506,11 +527,33 @@ void MainWindow::on_LoadMapButton_clicked() {
 	}
 }
 
+void MainWindow::on_LoadNNButton_clicked() {
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("JSON Files (*.json)"));
+	dialog.setViewMode(QFileDialog::Detail);
+
+	QStringList fileNames;
+	if (dialog.exec())
+	{
+		fileNames = dialog.selectedFiles();
+		SimulatorEngine->LoadNet(fileNames.front().toStdString());
+		reloadOptionData();
+	}
+}
+
 void MainWindow::on_SaveMapButton_clicked() {
 	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
 	                                                "map.json",
 	                                                tr("JSON Files (*.json"));
 	SimulatorEngine->SaveMap(fileName.toStdString());
+}
+
+void MainWindow::on_SaveNNButton_clicked() {
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+	                                                "map.json",
+	                                                tr("JSON Files (*.json"));
+	SimulatorEngine->SaveNet(fileName.toStdString());
 }
 
 void MainWindow::on_ShowDataBoxesCheckBox_stateChanged(int arg1) {
@@ -560,6 +603,8 @@ void MainWindow::on_RunSetButton_clicked() {
 	{
 		SimulatorEngine->RunSet(vehicleCount, generations);
 		ui->AbortButton->setEnabled(true);
+		ui->TrainingProgressBar->setValue(0);
+		ui->TrainingProgressBar->setHidden(false);
 	} else
 	{
 		ui->statusbar->showMessage(tr(
@@ -748,8 +793,48 @@ void MainWindow::on_FollowSelectedCarButton_stateChanged(int arg1) {
 }
 
 void MainWindow::on_AbortButton_clicked() {
-	SimulatorEngine->ClearMap();
-	ui->AbortButton->setEnabled(false);
+
+	if (Settings::Speed != 0)
+	{
+		on_PauseButton_clicked();
+	}
+
+	QMessageBox msgBox;
+	msgBox.setText("The Set has been aborted.");
+	msgBox.setInformativeText("Do you wish to save the set in a file?");
+	msgBox.setStandardButtons(
+		QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+	msgBox.setDefaultButton(QMessageBox::Save);
+	int ret = msgBox.exec();
+
+	switch (ret)
+	{
+	case QMessageBox::Save:
+
+		on_SaveSimButton_clicked();
+		ui->AbortButton->setEnabled(false);
+		ui->TrainingProgressBar->setHidden(true);
+		break;
+
+	case QMessageBox::Discard:
+		// clear the map of running simulations and vehicles.
+		SimulatorEngine->ClearMap();
+		// delete the current set.
+		SimulatorEngine->DeleteCurrentSet();
+		reload_sim_table();
+		ui->AbortButton->setEnabled(false);
+		ui->TrainingProgressBar->setHidden(true);
+		break;
+
+	case QMessageBox::Cancel:
+
+		break;
+	}
+
+	if (Settings::Speed == 0)
+	{
+		on_PauseButton_clicked();
+	}
 }
 
 void MainWindow::on_SaveSimButton_clicked() {
@@ -806,6 +891,7 @@ void MainWindow::on_DeleteSimButton_clicked() {
 
 			ui->statusbar->showMessage(s);
 			reload_sim_table();
+			reload_sim_graph();
 		} else
 		{
 			QString s = "Simulation ";

@@ -8,7 +8,7 @@
 #include <QApplication>
 #include <QWidget>
 #include <QtCharts/QtCharts>
-#include "../../sim/simulator/Simulation.hpp"
+#include "../../sim/simulator/Set.hpp"
 
 class SimChart : public QChart
 {
@@ -16,7 +16,7 @@ class SimChart : public QChart
   public:
 	SimChart(QWidget * parent = nullptr);
 
-	void populateData(const vector<Simulation *> *data);
+	void populateData(Set *data);
 
   private:
 

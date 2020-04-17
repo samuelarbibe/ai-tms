@@ -63,6 +63,7 @@ class Settings
 	static bool ShowSelectedPhaseLanes;
 	static bool PrintSimulationLog;
 	static bool DrawNnProgression;
+	static bool DrawCurrentSetOnly;
 
 	static int Interval;
 	static int Fps;
