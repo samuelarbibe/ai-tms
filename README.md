@@ -5,7 +5,6 @@
 * [General info](#general-info)
 * [Screenshots](#screenshots)
 * [Technologies](#technologies)
-* [Setup](#setup)
 * [Features](#features)
 * [Inspiration](#inspiration)
 * [Contact](#contact)
@@ -27,8 +26,6 @@ the traffic lights.
 * CMake - version 3.15.1
 * Qt - version 5.14.1
 
-## Setup
-Describe how to install / setup your local environement / add link to demo version.
 
 ## Features
 List of features ready and TODOs for future development
