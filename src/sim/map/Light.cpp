@@ -34,7 +34,13 @@ Light::~Light() {
 		cout << "Light " << light_number_ << " deleted" << endl;
 }
 
-/// update the position of the light in relation to the assigned road
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Function makes sure a light is always on the side of it's parent road.
+/// when a road changes position, this light is moved accordingly
+///
+////////////////////////////////////////////////////////////
 void Light::UpdatePosition() {
 	Vector2f roadPos = parent_road_->GetStartPosition();
 	float direction = parent_road_->GetRoadDirection();

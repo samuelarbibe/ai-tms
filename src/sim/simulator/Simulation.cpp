@@ -83,6 +83,5 @@ void Simulation::PrintSimulationLog() {
 	cout << "   Score: " << result_ << endl;
 	cout << "------------------------------------------------------------------"
 	     << endl;
-
 }
 

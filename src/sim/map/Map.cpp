@@ -88,7 +88,7 @@ Road *Map::AddRoad(int roadNumber,
 	return tempRoad;
 }
 
-/// add a road to a specific road
+/// add a lane to a specific road
 Lane *Map::AddLane(int laneNumber, int roadNumber, bool isInRoadDirection) {
 	SelectedLane = nullptr;
 
@@ -141,7 +141,18 @@ Cycle *Map::AddCycle(int cycleNumber, int intersectionNumber) {
 	return nullptr;
 }
 
-/// add a road connecting between two intersections
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Creates a new road connecting between 2 given intersections
+///
+/// \param roadNumber (int) - the ID of the road to be added.
+/// \param intersectionNumber1 (int) - ID of the first intersection
+/// \param intersectionNumber2 (int) - ID of the second intersection
+///
+/// \return the connecting road added
+///
+////////////////////////////////////////////////////////////
 Road *Map::AddConnectingRoad(int roadNumber,
                              int intersectionNumber1,
                              int intersectionNumber2) {
@@ -179,7 +190,17 @@ Road *Map::AddConnectingRoad(int roadNumber,
 	return temp;
 }
 
-/// add a possible route in this map
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Creates a new route between 2 given lanes
+///
+/// \param from (int) - the source lane
+/// \paramto (int) - the target lane
+///
+/// \return a pointer to the created route
+///
+////////////////////////////////////////////////////////////
 Route *Map::AddRoute(int from, int to) {
 	Lane *fromLane = GetLane(from);
 	Lane *toLane = GetLane(to);
@@ -257,7 +278,18 @@ bool Map::SetPhaseTime(int phaseNumber, float phaseTime) {
 	return false;
 }
 
-/// assign a lane to a given phase
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Assign a lane to a phase, to make the lane depend on
+/// the phase status.
+///
+/// \param phaseNumber (int) - the phase ID
+/// \param laneNumber (int) - the lane ID to assign to the phase
+///
+/// \return true if successful, else false
+///
+////////////////////////////////////////////////////////////
 bool Map::AssignLaneToPhase(int phaseNumber, int laneNumber) {
 	Phase *temp = GetPhase(phaseNumber);
 	Lane *lane = GetLane(laneNumber);
@@ -274,6 +306,19 @@ bool Map::AssignLaneToPhase(int phaseNumber, int laneNumber) {
 	return false;
 }
 
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Removes a route by a lane number/
+/// If the given lane is a part of sum routes, as source or as target,
+/// delete it from the routes array.
+/// This function is when a lane is deleted
+///
+/// \param laneNumber (int) - the lane to remove the routes including it
+///
+/// \return true if sucessfull, else false
+///
+////////////////////////////////////////////////////////////
 bool Map::RemoveRouteByLaneNumber(int laneNumber) {
 	Lane *laneToRemove = GetLane(laneNumber);
 
@@ -311,6 +356,7 @@ bool Map::RemoveRouteByLaneNumber(int laneNumber) {
 
 }
 
+/// remove a lane from the control of a phase
 bool Map::UnassignLaneFromPhase(int laneNumber) {
 
 	Lane *lane = GetLane(laneNumber);
@@ -336,11 +382,17 @@ bool Map::UnassignLaneFromPhase(int laneNumber) {
 	return false;
 }
 
-/// finds all starting lanes
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Finds all the starting lanes and assign them to the starting_lane array.
+/// A starting lane is one that its road is not connecting,
+/// and it is against the road direction.
+///
+////////////////////////////////////////////////////////////
 void Map::FindStartingLanes() {
 	// for a lane to be a starting lane, it has to be in a non-connecting road,
 	// and it has to have isInRoadDirection = false;
-
 	starting_lanes_.clear();
 
 	for (Intersection *inter : intersections_)
@@ -369,7 +421,15 @@ Lane *Map::GetPossibleStartingLane() {
 	return starting_lanes_[randomIndex];
 }
 
-/// select all the routes
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Selects all the routes where a vehicle is about to pass through
+///
+/// \param instructionSet (list<Lane *>) - a list of the lanes the vehicle is
+/// going to pass through
+///
+////////////////////////////////////////////////////////////
 void Map::SelectRoutesByVehicle(list<Lane *> *instructionSet) {
 	Route *r = nullptr;
 	std::list<Lane *>::const_iterator to = instructionSet->begin();
@@ -388,7 +448,15 @@ void Map::SelectRoutesByVehicle(list<Lane *> *instructionSet) {
 	}
 }
 
-/// randomly generate a track
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Creates a random track composed of a chain of routes
+///
+/// \return a list of lane, that will act as an instruction
+/// set for a vehicle
+///
+////////////////////////////////////////////////////////////
 list<Lane *> *Map::GenerateRandomTrack() {
 	// find a random starting point
 	Lane *l = GetPossibleStartingLane();
@@ -425,7 +493,16 @@ list<Lane *> *Map::GenerateRandomTrack() {
 	return track;
 }
 
-/// returns a possible route according to the given lane
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Return a random possible route that sources from a given lane
+///
+/// \param fromLane (int) - source lane ID
+///
+/// \return pointer to a randomaly chosen possible route
+///
+////////////////////////////////////////////////////////////
 Route *Map::GetPossibleRoute(int fromLane) {
 	Lane *myLane = GetLane(fromLane);
 	vector<Route *> possibleRoutes;
@@ -448,7 +525,17 @@ Route *Map::GetPossibleRoute(int fromLane) {
 	return possibleRoutes[randomIndex];
 }
 
-/// get a lane from its source and destination lane ID's
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// return a route that starts and ends from given lanes
+///
+/// \param from (int) - source lane ID
+/// \param to (int) - target lane ID
+///
+/// \return a pointer to a corresponding route
+///
+////////////////////////////////////////////////////////////
 Route *Map::GetRouteByStartEnd(int from, int to) {
 	for (Route *r : routes_)
 	{
@@ -558,11 +645,20 @@ Phase *Map::GetPhase(int phaseNumber) {
 	}
 
 	cout << "error : phase not found in map..." << endl;
-
 	return nullptr;
 }
 
-/// set 2 relative connection sides, by intersection positions
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// return the according connection sides to the given intersection positions.
+///
+/// \param pos1 (int) - intersection 1 position
+/// \param pos2 (int) - intersection 2 position
+///
+/// \return a pair of connection sides
+///
+////////////////////////////////////////////////////////////
 pair<ConnectionSides, ConnectionSides> Map::AssignConnectionSides(Vector2f pos1,
                                                                   Vector2f pos2) {
 	ConnectionSides con1, con2;
@@ -588,7 +684,16 @@ pair<ConnectionSides, ConnectionSides> Map::AssignConnectionSides(Vector2f pos1,
 	return connections;
 }
 
-/// check if a road has been selected int this map
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// check if given position is inside the bounds of a lane object
+///
+/// \param position (int) - the mouse position
+///
+/// \return a pointer to a selected lane. nullptr if none selected
+///
+////////////////////////////////////////////////////////////
 Lane *Map::CheckSelection(Vector2f position) {
 	// for each intersection in map
 	Lane *temp;
@@ -750,7 +855,17 @@ vector<Light *> *Map::GetLights() {
 	return lights;
 }
 
-/// delete a given lane in this map
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Delete a lane from the map.
+/// this funciton has to make sure everything that uses this lane, is deleted as well.
+///
+/// \param laneNumber (int) - the ID of the lane to be deleted
+///
+/// \return true if successful, else false
+////////////////////////////////////////////////////////////
+
 bool Map::DeleteLane(int laneNumber) {
 
 	vector<Intersection *>
@@ -843,7 +958,6 @@ void Map::Draw(RenderWindow *window) {
 	{
 		c->Draw(window);
 	}
-
 }
 
 /// return a list of all the lanes' id's

@@ -22,11 +22,17 @@ void SimChart::populateData(Set *data) {
 
 	series_->clear();
 	int count = 0;
+	int max = 0;
 
 	for(Simulation * s : *data->GetSimulations())
 	{
 		series_->append(s->GetSimulationNumber(), s->GetResult());
+		if(s->GetResult() > max)
+		{
+			max = s->GetResult();
+		}
 		count ++;
 	}
+	this->axes(Qt::Vertical).front()->setMax(max + 0.2);
 	this->axes(Qt::Horizontal).front()->setRange(0, count);
 }

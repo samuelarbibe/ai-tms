@@ -92,6 +92,15 @@ Phase *Cycle::GetPhase(int phaseNumber) {
 }
 
 /// calculate the phases priority using neural network
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Calculates the priority of each lane using the neural
+/// network.
+/// Runs the data of each phase as input through the NN,
+/// and sets its priority from the NN outputs.
+///
+////////////////////////////////////////////////////////////
 void Cycle::calculate_priority() {
 
 	for (int p = 0; p < number_of_phases_ - 1; p++)
@@ -118,10 +127,16 @@ void Cycle::calculate_priority() {
 }
 
 /// cycle the phases by the phase array order.
-// all the phases but the active one are constantly evaluated
-// and sorted by the score they have been given by the NN
-// when phase is finished, it gets swapped with the previous one in the array
-// to advance and start the next phase in order.
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// all the phases but the active one are constantly evaluated
+/// and sorted by the score they have been given by the NN
+/// when phase is finished, it gets swapped with the previous one in the array
+/// to advance and start the next phase in order.
+///
+////////////////////////////////////////////////////////////
+
 void Cycle::cycle_phases() {
 	// if cycle has a minimum of 2 phases
 	if (number_of_phases_ >= 2)

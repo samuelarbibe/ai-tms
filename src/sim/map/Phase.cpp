@@ -27,7 +27,7 @@ Phase::~Phase() {
 		cout << "Phase " << phase_number_ << " deleted." << endl;
 }
 
-/// add a light to thi phase and attach it to a road
+/// add a light to this phase and attach it to a road
 Light *Phase::AddLight(int lightNumber, Road *parentRoad) {
 	if (lightNumber == 0)
 	{
@@ -57,7 +57,16 @@ void Phase::ReloadPhase() {
 	}
 }
 
-/// unassign a lane from this phase
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Unassign a given lane from this phase. delete it from the lanes_ array.
+///
+/// \param lane (Lane *) - a pointer to the lane to unassign
+///
+/// \return true if succesfull, else false
+///
+////////////////////////////////////////////////////////////
 bool Phase::UnassignLane(Lane *lane) {
 
 	if (lane != nullptr)
@@ -122,7 +131,14 @@ void Phase::Update(float elapsedTime) {
 	}
 }
 
-/// get the input values for the input neurons of the neural net
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Create input values for the neural network
+///
+/// \param inputValues (vector<double> &) - a refrence to the input array
+///
+////////////////////////////////////////////////////////////
 void Phase::GetInputValues(vector<double> &inputValues) {
 	inputValues[0] = GetMaxLaneDensity();
 	inputValues[1] = GetMaxQueueLength();

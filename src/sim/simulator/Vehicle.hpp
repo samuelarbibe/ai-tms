@@ -38,7 +38,7 @@ typedef struct
 }
 	VehicleType;
 
-class Vehicle : RectangleShape
+class Vehicle : public RectangleShape
 {
 
   public:
@@ -65,7 +65,7 @@ class Vehicle : RectangleShape
 	Lane *GetTargetLane() { return dest_lane_; }
 	Lane *GetCurrentLane() { return source_lane_; }
 	State GetState() { return state_; }
-	Vector2f GetPosition() { return GetPosition(); }
+	//Vector2f GetPosition() { return GetPosition(); }
 	list<Lane *> *GetInstructionSet() { return instruction_set_; }
 	static VehicleType *GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptions);
 	static Vehicle *GetVehicle(int vehicleNumber);

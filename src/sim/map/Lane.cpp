@@ -149,7 +149,14 @@ void Lane::Update(float elapsedTime) {
 	}
 }
 
-/// create a color visualisation of lane density
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Colors the lane in a color that corresponds to its density.
+/// The higher the lane density, the red-er its color is
+/// The lower the lane density, the blue-er its color is
+///
+////////////////////////////////////////////////////////////
 void Lane::ColorRamp() {
 
 	// normalizing the lane density.

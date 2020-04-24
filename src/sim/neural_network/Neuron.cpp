@@ -115,7 +115,7 @@ void Neuron::CalculateOutputGradients(double targetValue) {
 	float delta = targetValue - output_value_;
 	gradient_ = delta * Neuron::transfer_function_derivative(output_value_);
 }
-
+/// calculates the gradients of the hidden layer
 void Neuron::CalculateHiddenGradients(const Layer &nextLayer) {
 
 	float dow = sum_dow(nextLayer);
@@ -133,7 +133,7 @@ void Neuron::UpdateInputWeights(Layer &prevLayer) {
 
 		float newDeltaWeight =
 			// Individual input, magnified by the gradient and train rate:
-			eta
+				eta
 				* neuron.GetOutputValue()
 				* gradient_
 				// Also add momentum = a fraction of the previous delta weight

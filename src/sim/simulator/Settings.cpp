@@ -18,7 +18,7 @@ bool Settings::DrawRoutes = false;
 bool Settings::DrawGrid = false;
 bool Settings::DrawLaneBlock = false;
 bool Settings::DrawTextures = true;
-bool Settings::DrawClickPoint = false;
+bool Settings::DrawClickPoint = true;
 bool Settings::DrawMinimap = false;
 bool Settings::DrawVisualNet = false;
 bool Settings::DrawSimTable = false;
@@ -29,10 +29,10 @@ bool Settings::PrintSimulationLog = false;
 bool Settings::DrawNnProgression = true;
 bool Settings::DrawCurrentSetOnly = false;
 
-int Settings::Interval = 700; // max is 1000
+int Settings::Interval = 1000; // max is 1000
 int Settings::Fps = 60;
 int Settings::AntiAliasing = 0;
-bool Settings::MultiColor = false;
+bool Settings::MultiColor = true;
 bool Settings::MultiTypeVehicle = true;
 float Settings::MinDistanceFromNextCar = 55;
 float Settings::MinDistanceFromStop = 50;
@@ -210,6 +210,7 @@ tm *Settings::ConvertStringToTime(const string str) {
 	return time;
 }
 
+/// convert a normalized value into a corresponding value
 void Settings::GetHeatMapColor(float value,
                                float *red,
                                float *green,

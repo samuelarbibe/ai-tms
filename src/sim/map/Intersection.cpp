@@ -66,7 +66,22 @@ Road *Intersection::AddRoad(int roadNumber, int connectionSide, float length) {
 	return roads_[number_of_roads_ - 1];
 }
 
-/// add a connecting road between 2 different intersections
+////////////////////////////////////////////////////////////
+/// \brief Overload of binary operator !=
+///
+/// This function adds a new road connecting between 2 intersection.
+/// The first intersection is this intersection, the second intersection is
+/// passed through to this function.
+///
+/// \param roadNumber (int) - the ID of the road
+/// \param connectionSide1 (int) - connection side to intersection 1
+/// \param connectionSide2 (int) - connection side to intersection 2
+/// \param connectedIntersection (* Intersection) - pointer to the connected intersection
+///
+///
+/// \return a pointer to the added connecting road
+///
+////////////////////////////////////////////////////////////
 Road *Intersection::AddConnectingRoad(int roadNumber,
                                       int connectionSide1,
                                       int connectionSide2,
@@ -181,7 +196,14 @@ Vector2f Intersection::GetPositionByConnectionSide(int connectionSide) {
 	}
 }
 
-/// relocate all roads connected to intersection
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// This function re-assigns road position if their sturcture has been changed.
+/// When a lane is added or removed for example, the whole intersection's roads
+/// need to be relocated
+///
+////////////////////////////////////////////////////////////
 void Intersection::ReAssignRoadPositions() {
 	for (int i = 0; i < number_of_roads_; i++)
 	{
@@ -207,7 +229,7 @@ void Intersection::ReAssignRoadPositions() {
 	}
 }
 
-/// Reload the intersection cooridinates
+/// Reload the intersection after any change
 void Intersection::ReloadIntersection() {
 	for (Road *r : roads_)
 	{
@@ -284,7 +306,21 @@ void Intersection::Update(float elapsedTime) {
 	}
 }
 
-/// delete a given lane in this intersection
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// This delets a given lane by its ID from its intersection.
+/// function sends down the order to delete a lane to its road,
+/// and if that road is empty after the deletion,
+/// delete that road from the intersection
+///
+/// \param laneNumber (int) - ID of the lane to delete
+/// \param otherIntersection (* Interection) - if lane is connecting between 2
+/// intersections, a pointer to the other intersection is passed here.
+///
+/// \return true if successfully deleted, else false.
+///
+////////////////////////////////////////////////////////////
 bool Intersection::DeleteLane(int laneNumber, Intersection *otherIntersection) {
 	Lane *targetLane = this->GetLane(laneNumber);
 	if (targetLane != nullptr)

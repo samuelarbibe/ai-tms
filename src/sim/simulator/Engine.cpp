@@ -120,6 +120,9 @@ bool Engine::DeleteSimulation(int simulationNumber) {
 	return false;
 }
 
+/// deletes the current set. The current set is either:
+	// the set that is currently running
+	// the last set that ran
 bool Engine::DeleteCurrentSet() {
 	auto it = sets_.begin();
 	while (it != sets_.end())
@@ -351,7 +354,17 @@ void Engine::BuildGrid(int rows, int cols) {
 	}
 }
 
-/// display a given point on the map
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Draws a point in the clicked position on the canvas. if the snap_to_grid option is enabled,
+/// it will snap the point to the grid.
+///
+/// \param position (Vector2f) - the click point
+///
+/// \return the snapped point if option enabled, else the point
+///
+////////////////////////////////////////////////////////////
 Vector2f Engine::DrawPoint(Vector2f position) {
 	// convert it to units according to screen pixel to display ratio
 	position *= float(Settings::SFMLRatio);
@@ -513,6 +526,7 @@ void Engine::input() {
 	}
 }
 
+/// add a new set into the sim engine
 Set *Engine::AddSet(int setNumber, int vehicleCount, int generations) {
 	if (setNumber == 0)
 	{
@@ -742,10 +756,12 @@ void Engine::SaveMap(const string saveDirectory) {
 	cout << "map saved to '" << saveDirectory << "' successfully." << endl;
 }
 
+/// save the neural net in a given directory in JSON file
 void Engine::SaveNet(const string saveDirectory) {
 	Net::NeuralNetwork.Save(saveDirectory);
 }
 
+/// load a neural network from a given JSON file
 void Engine::LoadNet(const string saveDirectory) {
 	Net::Load(saveDirectory);
 }
@@ -928,7 +944,7 @@ void Engine::update(float elapsedTime) {
 	// follow the selected car
 	if (Settings::FollowSelectedVehicle && Vehicle::SelectedVehicle != nullptr)
 	{
-		view_pos_ = Vehicle::SelectedVehicle->GetPosition()
+		view_pos_ = Vehicle::SelectedVehicle->getPosition()
 			- Vector2f(map->GetSize().x / 2, map->GetSize().y / 2);
 		temp_view_pos_ = view_pos_;
 		set_view();

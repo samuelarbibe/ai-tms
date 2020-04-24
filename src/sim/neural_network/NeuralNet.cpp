@@ -31,7 +31,6 @@ Net::Net(const vector<unsigned> &topology) {
 			                                neuronNum,
 			                                position,
 			                                size_.x / 25.f));
-			cout << "Mad a Neuron!" << endl;
 		}
 	}
 
@@ -39,6 +38,14 @@ Net::Net(const vector<unsigned> &topology) {
 	Update(0.f);
 }
 
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Saves the neural net in a JSON file.
+///
+/// \param dir (string) - the directory in which the file will be saved
+///
+////////////////////////////////////////////////////////////
 void Net::Save(const string dir) {
 
 	json j;
@@ -83,6 +90,14 @@ void Net::Save(const string dir) {
 
 }
 
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Loads a given JSON file and creates a new NeuralNet object with it
+///
+/// \param dir (string) - the directory of the JSON file
+///
+////////////////////////////////////////////////////////////
 void Net::Load(string dir) {
 	try
 	{
@@ -133,6 +148,7 @@ void Net::Load(string dir) {
 	}
 }
 
+/// creates the visual element making the visual net
 void Net::create_weight_vertex_array() {
 
 	unsigned layerCount = layers_.size();

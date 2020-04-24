@@ -17,6 +17,7 @@ Road::Road(int roadNumber,
            Vector2f startPosition,
            float length,
            float direction) {
+
 	is_connecting_ = false;
 	road_number_ = roadNumber;
 	intersection_number_[0] = intersectionNumber;
@@ -60,6 +61,7 @@ Road::Road(int roadNumber,
            Vector2f conPosition1,
            Vector2f conPosition2,
            float direction) {
+
 	is_connecting_ = true;
 	road_number_ = roadNumber;
 	intersection_number_[0] = intersectionNumber1;
@@ -155,7 +157,14 @@ Lane *Road::GetLane(int laneNumber) {
 	return nullptr;
 }
 
-/// re-locate all lanes in road to align with the road
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Re-assigns the lane positions of all the lanes in this road.
+/// Every time a lane is added or removed, a position re-assignment
+/// is needed.
+///
+////////////////////////////////////////////////////////////
 void Road::ReAssignLanePositions() {
 
 	Vector2f firstLanePoint;
