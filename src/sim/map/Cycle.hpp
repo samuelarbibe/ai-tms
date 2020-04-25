@@ -19,7 +19,7 @@ class Cycle
 {
   public:
 
-	Cycle(int cycleNumber, Intersection * intersection = nullptr);
+	explicit Cycle(int cycleNumber, Intersection * intersection = nullptr);
 	~Cycle();
 
 	void Update(float elapsedTime);
@@ -29,7 +29,7 @@ class Cycle
 	Phase * AddPhase(int phaseNumber, float cycleTime);
 
 	int GetCycleNumber(){ return cycle_number_;}
-	Phase * GetPhase(int phaseNumber);
+	//Phase * GetPhase(int phaseNumber);
 	vector<Phase *> *GetPhases() { return &phases_; }
 	Intersection * GetIntersection(){ return intersection_;}
 

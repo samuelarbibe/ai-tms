@@ -9,8 +9,8 @@
 #include "Engine.hpp"
 
 Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent,
-                                              1000.f / Settings::Interval,
-                                              1000.f / Settings::Fps) {
+                                              1000 / Settings::Interval,
+                                              1000 / Settings::Fps) {
 
 	cout << "Setting Up map..." << endl;
 	map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapHeight);
@@ -174,8 +174,11 @@ bool Engine::RunSet(int vehicleCount, int generations) {
 	{
 		ClearMap();
 
-		cout << "Creating a new neural network..." << endl;
-		Net::NeuralNetwork.Reset();
+		if(Settings::ResetNeuralNet)
+		{
+			cout << "Creating a new neural network..." << endl;
+			Net::NeuralNetwork.Reset();
+		}
 
 		Set *s = AddSet(0, vehicleCount, generations);
 
@@ -219,7 +222,7 @@ void Engine::set_minimap(Vector2f size, float margin) {
 		size.y
 	));
 
-	float outlineThickness = Settings::DefaultMapWidth / 150;
+	float outlineThickness = Settings::DefaultMapWidth / 150.f;
 
 	// background setup
 	minimap_bg_ =
@@ -258,13 +261,13 @@ void Engine::set_visual_net(Vector2f size, float margin) {
 	visual_net_.zoom(zoomFactor);
 	 */
 
-	float outlineThickness = Settings::DefaultMapWidth / 200;
+	float outlineThickness = Settings::DefaultMapWidth / 200.f;
 
 	// background setup
 	visual_net_bg_ =
 		RectangleShape(Vector2f(
-			Settings::DefaultMapWidth - outlineThickness * 2,
-			Settings::DefaultMapHeight - outlineThickness * 2));
+			Settings::DefaultMapWidth - outlineThickness * 2.f,
+			Settings::DefaultMapHeight - outlineThickness * 2.f));
 	visual_net_bg_.setPosition(outlineThickness, outlineThickness);
 	visual_net_bg_.setFillColor(Color(110, 110, 110, 220));
 	visual_net_bg_.setOutlineColor(Color::Black);
@@ -327,8 +330,8 @@ void Engine::BuildGrid(int rows, int cols) {
 	snap_grid_.Lines.clear(); // clear the old lines list
 	snap_grid_.Rows = rows;
 	snap_grid_.Columns = cols;
-	snap_grid_.ColumnWidth = map->GetSize().x / snap_grid_.Columns;
-	snap_grid_.RowHeight = map->GetSize().y / snap_grid_.Rows;
+	snap_grid_.ColumnWidth = int(map->GetSize().x) / snap_grid_.Columns;
+	snap_grid_.RowHeight = int(map->GetSize().y) / snap_grid_.Rows;
 
 	// create all vertical lines of the grid
 	for (int i = 1; i < snap_grid_.Columns; i++)
@@ -344,7 +347,8 @@ void Engine::BuildGrid(int rows, int cols) {
 	// create all horizontal lines of snap grid
 	for (int i = 1; i < snap_grid_.Rows; i++)
 	{
-		Vertex *line = new Vertex[2];
+		Vertex *line;
+		line = new Vertex[2];
 
 		line[0] = sf::Vertex(sf::Vector2f(0, i * snap_grid_.RowHeight));
 		line[1] = sf::Vertex(sf::Vector2f(map->GetSize().x,
@@ -383,7 +387,7 @@ Vector2f Engine::DrawPoint(Vector2f position) {
 		temp = position;
 	}
 
-	click_point_ = CircleShape(snap_grid_.ColumnWidth / 5.f);
+	click_point_ = CircleShape(snap_grid_.ColumnWidth / 5);
 	click_point_.setOrigin(click_point_.getRadius(), click_point_.getRadius());
 	click_point_.setFillColor(Color::Red);
 	click_point_.setPosition(temp.x, temp.y);
@@ -392,9 +396,11 @@ Vector2f Engine::DrawPoint(Vector2f position) {
 }
 
 /// get an array of all the simulations
+/*
 vector<Simulation *> *Engine::GetSimulations() {
 
-	vector<Simulation *> *sims = new vector<Simulation *>();
+	vector<Simulation *> *sims;
+	sims = new vector<Simulation *>();
 
 	for (Set *set : sets_)
 	{
@@ -406,6 +412,7 @@ vector<Simulation *> *Engine::GetSimulations() {
 
 	return sims;
 }
+ */
 
 /// get simualtion by simulation number
 Simulation *Engine::GetSimulation(int simulationNumber) {
@@ -441,20 +448,20 @@ Vector2f Engine::GetSnappedPoint(Vector2f point) {
 
 	if (int(point.x) % snap_grid_.ColumnWidth > snap_grid_.ColumnWidth / 2)
 	{
-		x = int(ceil(point.x / snap_grid_.ColumnWidth))
+		x = ceil(point.x / snap_grid_.ColumnWidth)
 			* snap_grid_.ColumnWidth;
 	} else
 	{
-		x = int(floor(point.x / snap_grid_.ColumnWidth))
+		x = floor(point.x / snap_grid_.ColumnWidth)
 			* snap_grid_.ColumnWidth;
 	}
 
 	if (int(point.y) % snap_grid_.RowHeight > snap_grid_.RowHeight / 2)
 	{
-		y = int(ceil(point.y / snap_grid_.RowHeight)) * snap_grid_.RowHeight;
+		y = ceil(point.y / snap_grid_.RowHeight) * snap_grid_.RowHeight;
 	} else
 	{
-		y = int(floor(point.y / snap_grid_.RowHeight)) * snap_grid_.RowHeight;
+		y = floor(point.y / snap_grid_.RowHeight) * snap_grid_.RowHeight;
 	}
 
 	return Vector2f(x, y);
@@ -548,7 +555,7 @@ Set *Engine::AddSet(int setNumber, int vehicleCount, int generations) {
 }
 
 /// build a map using instructions from a given json file
-void Engine::LoadMap(const string loadDirectory) {
+void Engine::LoadMap(const string& loadDirectory) {
 	// first, delete the old map.
 	ResetMap();
 
@@ -631,7 +638,7 @@ void Engine::LoadMap(const string loadDirectory) {
 }
 
 /// save the current map to a json file
-void Engine::SaveMap(const string saveDirectory) {
+void Engine::SaveMap(const string& saveDirectory) {
 	// first save intersections, then save connecting roads, then save roads, then save lanes
 	json j;
 
@@ -757,17 +764,17 @@ void Engine::SaveMap(const string saveDirectory) {
 }
 
 /// save the neural net in a given directory in JSON file
-void Engine::SaveNet(const string saveDirectory) {
+void Engine::SaveNet(const string& saveDirectory) {
 	Net::NeuralNetwork.Save(saveDirectory);
 }
 
 /// load a neural network from a given JSON file
-void Engine::LoadNet(const string saveDirectory) {
+void Engine::LoadNet(const string& saveDirectory) {
 	Net::Load(saveDirectory);
 }
 
 /// save the recent simulations to a file
-void Engine::SaveSets(string saveDirectory) {
+void Engine::SaveSets(const string& saveDirectory) {
 
 	json j;
 	for (Set *set : sets_)
@@ -812,7 +819,7 @@ void Engine::SaveSets(string saveDirectory) {
 }
 
 /// load simulations from a file
-void Engine::LoadSets(string loadDirectory) {
+void Engine::LoadSets(const string& loadDirectory) {
 
 	try
 	{
@@ -867,10 +874,10 @@ void Engine::LoadSets(string loadDirectory) {
 /// reset the whole map, delete everything
 void Engine::ResetMap() {
 
-	Net::NeuralNetwork.Reset();
+	ClearMap();
 
-	cout << "Deleting Vehicles..." << endl;
-	Vehicle::DeleteAllVehicles();
+	cout << "Resetting the Neural Network..." << endl;
+	Net::NeuralNetwork.Reset();
 
 	cout << "Resetting map..." << endl;
 	delete map;
@@ -883,8 +890,6 @@ void Engine::ResetMap() {
 /// stop the current simulation, and clear all vehicles
 void Engine::ClearMap() {
 
-	Net::NeuralNetwork.Reset();
-
 	// clear all lanes;
 	for (Lane *l : *map->GetLanes())
 	{
@@ -896,6 +901,7 @@ void Engine::ClearMap() {
 		s->StopSet();
 	}
 
+	cout << "Deleting Vehicles..." << endl;
 	Vehicle::DeleteAllVehicles();
 
 	cout << "====================== map has been cleared ======================"
@@ -954,7 +960,7 @@ void Engine::update(float elapsedTime) {
 	{
 		// when an update on a set returns true
 		// it means that a simulation has finished
-		if (s->Update(elapsedTime) == true)
+		if (s->Update(elapsedTime))
 		{
 			if (s->IsFinished())
 			{
@@ -1011,7 +1017,7 @@ bool Engine::AddVehicleRandomly() {
 		int randomIndex = 0;
 
 		if (Settings::MultiTypeVehicle)
-			randomIndex = rand() % 4;
+			randomIndex = random() % 4;
 
 		return (Vehicle::AddVehicle(track,
 		                            this->map,

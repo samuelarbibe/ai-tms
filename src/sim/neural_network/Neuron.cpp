@@ -33,8 +33,9 @@ Neuron::Neuron(unsigned numOutputs,
 void Neuron::Update(float elapsedTime,
                     vector<VertexArray> *weight_lines_,
                     int *firstWeightIndex) {
+
 	int outputCount = output_weights_.size();
-	float sum = 0;
+	int sum = 0;
 	int value = 0, max = 0;
 	Color col;
 
@@ -45,13 +46,16 @@ void Neuron::Update(float elapsedTime,
 		(*weight_lines_)[(*firstWeightIndex)][0].color = col;
 		(*weight_lines_)[(*firstWeightIndex)++][1].color = col;
 
-		sum += output_weights_[c].weight;
+		sum += value;
 	}
-
-	value = float(sum / outputCount) * 255;
-
-	col = Color(value, value, value);
-	circle_->setFillColor(col);
+	if (sum > 0)
+	{
+		value = sum / outputCount;
+	} else
+	{
+		value = 0;
+	}
+	circle_->setFillColor(Color(value, value, value));
 }
 
 void Neuron::Draw(RenderWindow *window) {
@@ -60,10 +64,10 @@ void Neuron::Draw(RenderWindow *window) {
 
 void Neuron::Reset() {
 
-	for (Connection con : output_weights_)
+	for (unsigned i = 0; i < output_weights_.size(); i++)
 	{
-		con.weight = randomize_weight();
-		con.deltaWeight = 0;
+		output_weights_[i].weight = randomize_weight();
+		output_weights_[i].deltaWeight = 0;
 	}
 
 	output_value_ = 0;
@@ -72,7 +76,7 @@ void Neuron::Reset() {
 vector<Connection> Neuron::GetWeights() {
 	vector<Connection> temp;
 
-	for(unsigned w = 0; w < output_weights_.size(); w++)
+	for (unsigned w = 0; w < output_weights_.size(); w++)
 	{
 		temp.push_back(output_weights_[w]);
 	}
@@ -82,7 +86,7 @@ vector<Connection> Neuron::GetWeights() {
 
 void Neuron::SetWeights(vector<Connection> weights) {
 
-	for(unsigned w = 0; w < output_weights_.size(); w++)
+	for (unsigned w = 0; w < output_weights_.size(); w++)
 	{
 		output_weights_[w] = weights[w];
 	}
@@ -133,7 +137,7 @@ void Neuron::UpdateInputWeights(Layer &prevLayer) {
 
 		float newDeltaWeight =
 			// Individual input, magnified by the gradient and train rate:
-				eta
+			eta
 				* neuron.GetOutputValue()
 				* gradient_
 				// Also add momentum = a fraction of the previous delta weight

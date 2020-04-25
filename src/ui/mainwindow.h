@@ -46,6 +46,8 @@ private slots:
 
     void on_SnapToGridCheckBox_stateChanged(int arg1);
 
+    void on_ResetNeuralNetCheckBox_stateChanged(int arg1);
+
     void on_ShowCurrentSetOnlyCheckBox_stateChanged(int arg1);
 
     void on_ShowGridCheckBox_stateChanged(int arg1);

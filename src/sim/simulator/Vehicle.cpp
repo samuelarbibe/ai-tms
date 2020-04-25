@@ -100,7 +100,7 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType,
 	{
 		this->setOutlineThickness(10.f);
 		this->setOutlineColor(Color::Blue);
-		this->setFillColor(Color::Transparent);
+		this->setFillColor(Color::White);
 	}
 
 	data_box_ = new DataBox(this->getPosition());
@@ -210,13 +210,7 @@ void Vehicle::Select() {
 void Vehicle::Unselect() {
 	this->setOutlineColor(Color::Blue);
 
-	if (Settings::DrawTextures)
-	{
-		this->setFillColor(Color::White);
-	} else
-	{
-		this->setFillColor(Color::Transparent);
-	}
+	this->setFillColor(Color::White);
 }
 
 /// load textures as required

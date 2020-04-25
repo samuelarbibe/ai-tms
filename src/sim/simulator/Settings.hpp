@@ -82,6 +82,7 @@ class Settings
 	static float Scale;
 	static float Speed;
 	static bool DoubleSeparatorLine;
+	static bool ResetNeuralNet;
 	static float VehicleSpawnRate;
 	static float MaxDensity;
 
@@ -91,8 +92,8 @@ class Settings
 	static bool DrawGrid;
 
 	static int SFMLRatio;
-	static int DefaultMapWidth;
-	static int DefaultMapHeight;
+	static float DefaultMapWidth;
+	static float DefaultMapHeight;
 
 	static bool MapOverflow;
 

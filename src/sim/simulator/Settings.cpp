@@ -46,13 +46,14 @@ float Settings::DashLineSpace = 80;
 float Settings::Scale = 3; // 1 px / [scale] = 1 cm
 float Settings::Speed = 1; // running speed
 bool Settings::DoubleSeparatorLine = true;
+bool Settings::ResetNeuralNet = false;
 float Settings::VehicleSpawnRate = 0.9f;
 float Settings::MaxDensity = 0.20f;
 
 float Settings::DefaultLaneLength = 2300; // lane length in px
 
-int Settings::DefaultMapWidth = 10000;
-int Settings::DefaultMapHeight = 10000;
+float Settings::DefaultMapWidth = 10000;
+float Settings::DefaultMapHeight = 10000;
 
 int Settings::GridColumns = 50;
 int Settings::GridRows = 50;

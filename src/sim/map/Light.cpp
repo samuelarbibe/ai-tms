@@ -2,6 +2,8 @@
 // Created by Samuel Arbibe on 20/02/2020.
 //
 
+// TODO: fix warnings
+
 #include "Light.hpp"
 
 int Light::LightCount = 0;

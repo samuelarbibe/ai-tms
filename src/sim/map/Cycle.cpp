@@ -11,12 +11,6 @@ bool compare_priority(Phase *first, Phase *second) {
 	return (first->GetPriorityScore() < second->GetPriorityScore());
 }
 
-template<typename T>
-void pop_front(std::vector<T> &vec) {
-	assert(!vec.empty());
-	vec.erase(vec.begin());
-}
-
 Cycle::Cycle(int cycleNumber, Intersection *intersection) {
 	cycle_number_ = cycleNumber;
 	intersection_ = intersection;
@@ -78,6 +72,7 @@ Phase *Cycle::AddPhase(int phaseNumber, float cycleTime) {
 }
 
 /// get a phase by phase ID
+/*
 Phase *Cycle::GetPhase(int phaseNumber) {
 
 	for (Phase *p : phases_)
@@ -90,6 +85,7 @@ Phase *Cycle::GetPhase(int phaseNumber) {
 
 	return nullptr;
 }
+ */
 
 /// calculate the phases priority using neural network
 ////////////////////////////////////////////////////////////

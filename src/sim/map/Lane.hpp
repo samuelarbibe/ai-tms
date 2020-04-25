@@ -37,7 +37,7 @@ class Lane : public RectangleShape
 	     float length,
 	     float direction,
 	     bool isInRoadDirection);
-	~Lane();
+	~Lane() override;
 
 	void Update(float elapsedTime);
 	void Draw(RenderWindow *window);

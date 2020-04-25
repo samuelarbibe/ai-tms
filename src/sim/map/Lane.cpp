@@ -63,7 +63,7 @@ Lane::Lane(int laneNumber,
 	create_block_shape();
 
 	data_box_ = new DataBox(end_pos_);
-	data_box_->AddData("ID", lane_number_);
+	data_box_->AddData("ID", float(lane_number_));
 	data_box_->AddData("Dens", 0);
 	data_box_->AddData("Qlen", 0);
 }

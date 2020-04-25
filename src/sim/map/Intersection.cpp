@@ -12,6 +12,7 @@ int Intersection::IntersectionCount = 0;
 
 Intersection::Intersection(Vector2f position, int intersectionNumber)
 	: RectangleShape() {
+
 	intersection_number_ = intersectionNumber;
 	position_ = position;
 	width_ = 0;
@@ -20,7 +21,7 @@ Intersection::Intersection(Vector2f position, int intersectionNumber)
 	total_vehicle_count_ = 0;
 	number_of_roads_ = 0;
 
-	this->setOrigin(width_ / 2, height_ / 2);
+	this->setOrigin(width_ / 2.f, height_ / 2.f);
 	this->setPosition(position_);
 	this->setOutlineColor(WhiteColor);
 	this->setFillColor(LaneColor);
@@ -55,7 +56,7 @@ Road *Intersection::AddRoad(int roadNumber, int connectionSide, float length) {
 	                          connectionSide,
 	                          GetPositionByConnectionSide(connectionSide),
 	                          length,
-	                          (connectionSide - 1) * 90));
+	                          float(connectionSide - 1) * 90.f));
 
 	number_of_roads_++;
 	Road::RoadCount++;
@@ -99,7 +100,7 @@ Road *Intersection::AddConnectingRoad(int roadNumber,
 	                          this->GetPositionByConnectionSide(connectionSide1),
 	                          connectedIntersection
 		                          ->GetPositionByConnectionSide(connectionSide2),
-	                          (connectionSide1 - 1) * 90));
+	                          float(connectionSide1 - 1) * 90));
 
 	connectedIntersection->roads_.push_back(roads_[number_of_roads_]);
 	connectedIntersection->number_of_roads_++;
@@ -150,14 +151,13 @@ Road *Intersection::GetRoad(int roadNumber) {
 Road *Intersection::GetRoadByConnectionSide(int connectionSide) {
 	for (int i = 0; i < number_of_roads_; i++)
 	{
-		if (roads_[i]->GetConnectionSide(0) == connectionSide)
-		{
-			return roads_[i];
-		} else if (roads_[i]->GetIsConnecting()
-			&& roads_[i]->GetConnectionSide(1) == connectionSide)
+		if (roads_[i]->GetConnectionSide(0) == connectionSide
+			|| (roads_[i]->GetIsConnecting()
+				&& roads_[i]->GetConnectionSide(1) == connectionSide))
 		{
 			return roads_[i];
 		}
+
 	}
 
 	return nullptr;
@@ -179,20 +179,15 @@ Lane *Intersection::AddLane(int laneNumber,
 Vector2f Intersection::GetPositionByConnectionSide(int connectionSide) {
 	switch (connectionSide)
 	{
-	case UP:return Vector2f(position_.x, position_.y - height_ / 2);
+	case UP:return Vector2f(position_.x, position_.y - height_ / 2.f);
 
-		break;
-	case RIGHT:return Vector2f(position_.x + width_ / 2, position_.y);
+	case RIGHT:return Vector2f(position_.x + width_ / 2.f, position_.y);
 
-		break;
-	case DOWN:return Vector2f(position_.x, position_.y + height_ / 2);
+	case DOWN:return Vector2f(position_.x, position_.y + height_ / 2.f);
 
-		break;
-	case LEFT:return Vector2f(position_.x - width_ / 2, position_.y);
+	case LEFT:return Vector2f(position_.x - width_ / 2.f, position_.y);
 
-		break;
 	default:return position_;
-		break;
 	}
 }
 
@@ -334,15 +329,14 @@ bool Intersection::DeleteLane(int laneNumber, Intersection *otherIntersection) {
 			if (targetRoad->GetLaneCount() == 0)
 			{
 				auto it = find(roads_.begin(), roads_.end(), targetRoad);
-				Road *r = (*it);
-				it = this->roads_.erase(it);
+				this->roads_.erase(it);
 
 				if (otherIntersection != nullptr)
 				{
-					auto it = find(otherIntersection->roads_.begin(),
+					auto xt = find(otherIntersection->roads_.begin(),
 					               otherIntersection->roads_.end(),
 					               targetRoad);
-					it = otherIntersection->roads_.erase(it);
+					otherIntersection->roads_.erase(xt);
 					otherIntersection->number_of_roads_--;
 				}
 

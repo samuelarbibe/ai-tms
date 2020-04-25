@@ -32,7 +32,7 @@ class Intersection : public RectangleShape
   public:
 
 	Intersection(Vector2f position, int intersectionNumber);
-	~Intersection();
+	~Intersection() override;
 
 	void ReloadIntersection();
 	void ReAssignRoadPositions();
@@ -76,8 +76,8 @@ class Intersection : public RectangleShape
 	// The number of roads that belong to this intersection
 	int number_of_roads_;
 
-	int width_;
-	int height_;
+	float width_;
+	float height_;
 
 	Vector2f position_;
 

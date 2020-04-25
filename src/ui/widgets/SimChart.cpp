@@ -18,11 +18,13 @@ SimChart::SimChart(QWidget * parent) : QChart(){
 	this->axes(Qt::Vertical).front()->setMax(0.8);
 }
 
+// TODO: fix series not showing after reset
+// TODO: add summary to [ui] project folder
 void SimChart::populateData(Set *data) {
 
 	series_->clear();
 	int count = 0;
-	int max = 0;
+	float max = 0;
 
 	for(Simulation * s : *data->GetSimulations())
 	{

@@ -54,7 +54,7 @@ class Engine : public QSFMLCanvas
 	// get
 	Vector2f GetSnappedPoint(Vector2f point);
 	Vector2f DrawPoint(Vector2f position);
-	vector<Simulation *> *GetSimulations();
+	//vector<Simulation *> *GetSimulations();
 	vector<Set *> *GetSets(){ return &sets_;}
 	Simulation *GetSimulation(int simulationNumber);
 	Set *GetSet(int setNumber);
@@ -64,12 +64,12 @@ class Engine : public QSFMLCanvas
 	void BuildGrid(int rows, int cols);
 
 	void UpdateView(Vector2f posDelta = Vector2f(0, 0), float zoom = 0);
-	void SaveMap(string saveDirectory);
-	void SaveNet(string saveDirectory);
-	void LoadNet(string saveDirectory);
-	void LoadMap(string loadDirectory);
-	void SaveSets(string saveDirectory);
-	void LoadSets(string loadDirectory);
+	void SaveMap(const string& saveDirectory);
+	static void SaveNet(const string& saveDirectory);
+	static void LoadNet(const string& saveDirectory);
+	void LoadMap(const string& loadDirectory);
+	void SaveSets(const string& saveDirectory);
+	void LoadSets(const string& loadDirectory);
 	void ResetMap();
 	void ClearMap();
 	bool AddVehicleRandomly();

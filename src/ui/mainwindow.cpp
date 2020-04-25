@@ -976,3 +976,7 @@ void MainWindow::on_RemoveLaneFromPhaseButton_clicked() {
 void MainWindow::on_ShowNeuralNetCheckBox_stateChanged(int arg1) {
 	Settings::DrawVisualNet = arg1;
 }
+
+void MainWindow::on_ResetNeuralNetCheckBox_stateChanged(int arg1) {
+	Settings::ResetNeuralNet = arg1;
+}

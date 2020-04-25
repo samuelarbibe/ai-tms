@@ -2190,6 +2190,25 @@
               </widget>
              </item>
              <item>
+              <widget class="QCheckBox" name="ResetNeuralNetCheckBox">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="whatsThis">
+                <string>Show a hint of information on each simulation entity</string>
+               </property>
+               <property name="text">
+                <string>Reset Neural Network</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
               <spacer name="horizontalSpacer_17">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
