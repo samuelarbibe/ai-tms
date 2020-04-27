@@ -10,12 +10,13 @@ project(${PROJECT_NAME})
 ##############################  Qt  ###################################
 set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.14.1)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-find_package(Qt5 COMPONENTS Core Gui Widgets Charts REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Widgets Charts PrintSupport REQUIRED)
 
 #############################  SFML  ##################################
 find_package(SFML COMPONENTS system window graphics REQUIRED)
 
 set(project_sources
+        public/qcustomplot.cpp
         src/sim/simulator/Engine.cpp
         src/sim/map/Intersection.cpp
         src/sim/map/Lane.cpp
@@ -46,8 +47,7 @@ set(project_sources
         src/sim/neural_network/NeuralNet.hpp
         src/sim/neural_network/Neuron.cpp
         src/sim/neural_network/Neuron.hpp
-        src/ui/widgets/SimChart.cpp
-        src/ui/widgets/SimChart.hpp)
+        )
 
 set(project_headers
         resources/cars/car_image_1.png
@@ -55,6 +55,7 @@ set(project_headers
         resources/cars/car_image_3.png
         resources/fonts/Roboto/Roboto-Bold.ttf
         public/json.hpp
+        public/qcustomplot.h
         src/sim/simulator/Engine.hpp
         src/sim/map/Intersection.hpp
         src/sim/map/Lane.hpp
@@ -84,8 +85,6 @@ set(project_headers
         src/sim/neural_network/NeuralNet.hpp
         src/sim/neural_network/Neuron.cpp
         src/sim/neural_network/Neuron.hpp
-        src/ui/widgets/SimChart.cpp
-        src/ui/widgets/SimChart.hpp
         )
 
 set(project_ui ${PROJECT_SOURCE_DIR}/src/ui/mainwindow.ui)
@@ -108,6 +107,7 @@ target_link_libraries(${PROJECT_NAME}
     sfml-system
 
     Qt5::Widgets
+    Qt5::PrintSupport
     Qt5::Core
     Qt5::Charts
     Qt5::Gui

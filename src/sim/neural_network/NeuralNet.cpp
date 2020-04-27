@@ -5,6 +5,9 @@
 #include "NeuralNet.hpp"
 
 Net Net::NeuralNetwork = Net();
+const unsigned PopulationSize = 10;
+float HighScore = 0;
+
 
 Net::Net(const vector<unsigned> &topology) {
 
@@ -309,6 +312,11 @@ void Net::PrintNet() {
 		}
 		cout << endl;
 	}
+}
+
+unsigned Net::GetOutputCount()
+{
+	return layers_.back().size();
 }
 
 void Net::SetActualResults(const double actualResult) {

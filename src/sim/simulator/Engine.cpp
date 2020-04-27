@@ -15,8 +15,8 @@ Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent,
 	cout << "Setting Up map..." << endl;
 	map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapHeight);
 
-	//int outputNeuronsCount = Net::NeuralNetwork.GetOutputNeuronCount();
-	target_results_ = vector<double>(1, 1);
+	int outputNeuronsCount = Net::NeuralNetwork.GetOutputCount();
+	target_results_ = vector<double>(outputNeuronsCount, 0);
 
 	cout << "Setting Up Camera..." << endl;
 	snap_to_grid_ = true;

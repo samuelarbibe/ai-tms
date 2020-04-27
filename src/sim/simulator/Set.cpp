@@ -17,6 +17,7 @@ Set::Set(int setNumber, int generationCount, int vehicleCount) {
 	running_simulation_ = nullptr;
 	running_demo_ = nullptr;
 	number_of_simulations_ = 0;
+	last_simulation_result_ = 0;
 	progress_ = 0;
 	running_ = false;
 	finished_ = false;
@@ -156,7 +157,8 @@ bool Set::DeleteSimulation(int simulationNumber) {
 Simulation *Set::StartNewSimulation() {
 
 	// start a new simulation
-	Simulation *s = new Simulation(0, set_number_, vehicle_count_);
+	Simulation *s;
+	s = new Simulation(0, set_number_, vehicle_count_);
 
 	simulations_.push_back(s);
 	number_of_simulations_++;
@@ -166,14 +168,15 @@ Simulation *Set::StartNewSimulation() {
 	return s;
 }
 
-/// add a simualtion to this set (without running)
+/// add a simulation to this set (without running)
 Simulation *Set::AddSimulation(int simulationNumber, int vehicleCount) {
 	if (simulationNumber == 0)
 	{
 		simulationNumber = Simulation::SimulationCount + 1;
 	}
 
-	Simulation *s = new Simulation(simulationNumber, set_number_, vehicleCount);
+	Simulation *s;
+	s = new Simulation(simulationNumber, set_number_, vehicleCount);
 	simulations_.push_back(s);
 
 	number_of_simulations_++;

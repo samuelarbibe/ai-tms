@@ -4,8 +4,8 @@
 
 #include "Neuron.hpp"
 
-double Neuron::eta = 0.15;
-double Neuron::alpha = 0.5;
+double Neuron::eta = 0.10;
+double Neuron::alpha = 0.3;
 
 Neuron::Neuron(unsigned numOutputs,
                unsigned myIndex,

@@ -33,6 +33,7 @@ class Net
 	void FeedForward(const vector<double> &inputVals);
 	void BackPropagate(const vector<double> &targetVals);
 	void PrintNet();
+	unsigned GetOutputCount();
 	void SetActualResults(const double actualResult);
 	void GetResults(vector<double> &resultVals) const;
 	double GetRecentAverageError(void) const { return recent_average_error_; }
@@ -41,6 +42,7 @@ class Net
 
 
 	static Net NeuralNetwork;
+	static const unsigned PopulationSize;
 
   private:
 	vector<Layer> layers_; //layers_[layerNum][neuronNum]

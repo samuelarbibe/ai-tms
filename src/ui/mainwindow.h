@@ -5,7 +5,6 @@
 #include <QMouseEvent>
 #include "../sim/simulator/Engine.hpp"
 #include "widgets/SimModel.hpp"
-#include "src/ui/widgets/SimChart.hpp"
 
 namespace Ui {
     class MainWindow;
@@ -162,7 +161,6 @@ private:
     Ui::MainWindow *ui;
 
     SimModel *model_;
-    SimChart *chart_;
     int selected_row_;
 
     void reload_lane_options();

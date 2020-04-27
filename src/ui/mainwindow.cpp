@@ -45,11 +45,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->TrainingProgressBar->setHidden(true);
 
 	ui->Graph->setContentsMargins(0, 0, 0, 0);
+	ui->Graph->addGraph();
+	ui->Graph->xAxis->setLabel("simulation");
+	ui->Graph->yAxis->setLabel("score");
 
 	model_ = new SimModel(this);
 	selected_row_ = 0;
-
-	chart_ = new SimChart(this);
 
 	// connect the simulation finished event to its slot here
 	QObject::connect(SimulatorEngine,
@@ -96,12 +97,27 @@ void MainWindow::reload_sim_graph() {
 	Set * currentSet = SimulatorEngine->GetSet(Set::CurrentSet);
 	if(currentSet != nullptr)
 	{
-		chart_ = new SimChart(this);
-		chart_->populateData(currentSet);
-		ui->Graph->setChart(chart_);
-	} else
-	{
+		QVector<double> x, y;
+		vector<Simulation *> * data;
+		data = currentSet->GetSimulations();
+		int count = 0;
+		float max = 0;
 
+		for(unsigned i = 0; i < data->size(); i++)
+		{
+			Simulation * sim = (*data)[i];
+			cout << sim->GetResult() << endl;
+			x.append(sim->GetSimulationNumber());
+			y.append(sim->GetResult());
+
+			if(sim->GetResult() > max){
+				max = sim->GetResult();
+			}
+			count ++;
+		}
+		ui->Graph->graph(0)->setData(x, y);
+		ui->Graph->rescaleAxes();
+		ui->Graph->replot();
 	}
 }
 

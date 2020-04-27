@@ -14,13 +14,16 @@ void SimModel::populateData(const vector<Set *> *data) {
 	table_.clear();
 	row_count_ = 0;
 
-	for(Set * set : *data)
+	for(unsigned i = 0; i < data->size(); i++)
 	{
+		Set * set = (*data)[i];
 		if(!Settings::DrawCurrentSetOnly || (Settings::DrawCurrentSetOnly && set->GetSetNumber() == Set::CurrentSet))
 		{
-
-			for (Simulation *s : *set->GetSimulations())
+			vector<Simulation * > * sims;
+			sims = set->GetSimulations();
+			for (unsigned j = 0; j < sims->size(); j++)
 			{
+				Simulation * s = (*sims)[j];
 				table_.append({QString::number(s->GetSetNumber()),
 				               QString::number(s->GetSimulationNumber()),
 				               QString::fromUtf8(ctime(s->GetStartTime())),

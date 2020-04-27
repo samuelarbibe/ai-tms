@@ -17,7 +17,7 @@ bool Settings::DrawLightDataBoxes = false;
 bool Settings::DrawRoutes = false;
 bool Settings::DrawGrid = false;
 bool Settings::DrawLaneBlock = false;
-bool Settings::DrawTextures = true;
+bool Settings::DrawTextures = false;
 bool Settings::DrawClickPoint = true;
 bool Settings::DrawMinimap = false;
 bool Settings::DrawVisualNet = false;
@@ -30,7 +30,7 @@ bool Settings::DrawNnProgression = true;
 bool Settings::DrawCurrentSetOnly = false;
 
 int Settings::Interval = 1000; // max is 1000
-int Settings::Fps = 60;
+int Settings::Fps = 30;
 int Settings::AntiAliasing = 0;
 bool Settings::MultiColor = true;
 bool Settings::MultiTypeVehicle = true;

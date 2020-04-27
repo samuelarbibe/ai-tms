@@ -14,7 +14,7 @@ class Set
 {
   public:
 
-	Set(int setNumber, int generationCount = 20, int vehicleCount = 1000);
+	explicit Set(int setNumber, int generationCount = 20, int vehicleCount = 1000);
 	~Set();
 
 	bool Update(float elapsedTime);
@@ -44,11 +44,11 @@ class Set
 	void SetProgress(float progress) { progress_ = progress; }
 
 	// get
-	int GetSetNumber() { return set_number_; }
-	int GetNumberOfSimulations() { return number_of_simulations_; }
-	int GetGenerationsSimulated() { return generations_simulated_; }
-	int GetGenerationsCount() { return generations_count_; }
-	int GetVehicleCount() { return vehicle_count_; }
+	int GetSetNumber() const { return set_number_; }
+	int GetNumberOfSimulations() const { return number_of_simulations_; }
+	int GetGenerationsSimulated() const { return generations_simulated_; }
+	int GetGenerationsCount() const { return generations_count_; }
+	int GetVehicleCount() const { return vehicle_count_; }
 	int GetRunning() { return running_; }
 	float GetProgress() { return progress_; }
 	time_t *GetStartTime() { return &start_time_; }

@@ -75,7 +75,7 @@ void QSFMLCanvas::showEvent(QShowEvent *) {
 }
 
 QPaintEngine *QSFMLCanvas::paintEngine() const {
-	return 0;
+	return nullptr;
 }
 
 void QSFMLCanvas::paintEvent(QPaintEvent *) {
