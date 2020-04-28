@@ -7,6 +7,17 @@
 double Neuron::eta = 0.10;
 double Neuron::alpha = 0.3;
 
+double mutator(double value, float rate)
+{
+	if((rand() / double(RAND_MAX)) < rate)
+	{
+		return value + (rand() / double(RAND_MAX)) * 2 - 1;
+	}
+	else{
+		return value;
+	}
+}
+
 Neuron::Neuron(unsigned numOutputs,
                unsigned myIndex,
                Vector2f position,
@@ -173,5 +184,14 @@ double Neuron::sum_dow(const Layer &nextLayer) const {
 	}
 
 	return sum;
+}
+
+void Neuron::Mutate(float mutationRate) {
+
+	for(unsigned w = 0; w < output_weights_.size(); w++)
+	{
+		Connection & con = output_weights_[w];
+		con.weight = mutator(con.weight, mutationRate);
+	}
 }
 

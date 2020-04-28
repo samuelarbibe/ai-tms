@@ -45,8 +45,6 @@ private slots:
 
     void on_SnapToGridCheckBox_stateChanged(int arg1);
 
-    void on_ResetNeuralNetCheckBox_stateChanged(int arg1);
-
     void on_ShowCurrentSetOnlyCheckBox_stateChanged(int arg1);
 
     void on_ShowGridCheckBox_stateChanged(int arg1);
@@ -153,6 +151,7 @@ private slots:
 
     void on_RemoveLaneFromPhaseButton_clicked();
 
+    void on_RunBestCheckBox_stateChanged(int arg1);
 
     void on_ShowNeuralNetCheckBox_stateChanged(int arg1);
 

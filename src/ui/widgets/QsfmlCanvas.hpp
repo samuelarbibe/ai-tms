@@ -15,7 +15,6 @@ using namespace std;
 
 class QSFMLCanvas : public QWidget, public RenderWindow
 {
-
   Q_OBJECT
 
   public :

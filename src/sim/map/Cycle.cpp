@@ -106,8 +106,16 @@ void Cycle::calculate_priority() {
 
 		if (input_values_[0] > 0)
 		{
-			Net::NeuralNetwork.FeedForward(input_values_);
-			Net::NeuralNetwork.GetResults(output_values_);
+			if(Settings::RunBestNet)
+			{
+				Net::BestNet.FeedForward(input_values_);
+				Net::BestNet.GetResults(output_values_);
+			}
+			else
+			{
+				Net::CurrentNet->FeedForward(input_values_);
+				Net::CurrentNet->GetResults(output_values_);
+			}
 
 			phases_[p]->SetPhasePriority(output_values_[0]);
 			phases_[p]->SetCycleTime(clamp(

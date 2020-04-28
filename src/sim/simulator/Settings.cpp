@@ -17,17 +17,17 @@ bool Settings::DrawLightDataBoxes = false;
 bool Settings::DrawRoutes = false;
 bool Settings::DrawGrid = false;
 bool Settings::DrawLaneBlock = false;
-bool Settings::DrawTextures = false;
+bool Settings::DrawTextures = true;
 bool Settings::DrawClickPoint = true;
 bool Settings::DrawMinimap = false;
 bool Settings::DrawVisualNet = false;
-bool Settings::DrawSimTable = false;
 bool Settings::FollowSelectedVehicle = true;
 bool Settings::LaneDensityColorRamping = false;
 bool Settings::ShowSelectedPhaseLanes = false;
 bool Settings::PrintSimulationLog = false;
 bool Settings::DrawNnProgression = true;
 bool Settings::DrawCurrentSetOnly = false;
+bool Settings::RunBestNet = false;
 
 int Settings::Interval = 1000; // max is 1000
 int Settings::Fps = 30;
@@ -182,33 +182,6 @@ float Settings::CalculateAngle(float a, float b) {
 	}
 
 	return temp;
-}
-
-// convert a time to a string, to fit JSON formatting
-// the string will be formatted int this format:
-//          'DD-MM-YYYY HH:MM:SS'
-string Settings::ConvertTimeToString(tm *time) {
-
-	ostringstream oss;
-	oss << asctime(time);
-	string var = oss.str();
-
-	return var;
-}
-
-tm *Settings::ConvertStringToTime(const string str) {
-
-	tm *time = new tm();
-
-	time->tm_mday = stoi(str.substr(0, 2));
-	time->tm_mon = stoi(str.substr(3, 2)) - 1;
-	time->tm_year = stoi(str.substr(6, 4)) - 1900;
-
-	time->tm_hour = stoi(str.substr(11, 2));
-	time->tm_min = stoi(str.substr(14, 2));
-	time->tm_sec = stoi(str.substr(17, 2));
-
-	return time;
 }
 
 /// convert a normalized value into a corresponding value

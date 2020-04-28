@@ -106,7 +106,6 @@ void MainWindow::reload_sim_graph() {
 		for(unsigned i = 0; i < data->size(); i++)
 		{
 			Simulation * sim = (*data)[i];
-			cout << sim->GetResult() << endl;
 			x.append(sim->GetSimulationNumber());
 			y.append(sim->GetResult());
 
@@ -993,6 +992,6 @@ void MainWindow::on_ShowNeuralNetCheckBox_stateChanged(int arg1) {
 	Settings::DrawVisualNet = arg1;
 }
 
-void MainWindow::on_ResetNeuralNetCheckBox_stateChanged(int arg1) {
-	Settings::ResetNeuralNet = arg1;
+void MainWindow::on_RunBestCheckBox_stateChanged(int arg1) {
+	Settings::RunBestNet = arg1;
 }

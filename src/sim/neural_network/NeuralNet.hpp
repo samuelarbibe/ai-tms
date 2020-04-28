@@ -31,27 +31,36 @@ class Net
 	void Reset();
 
 	void FeedForward(const vector<double> &inputVals);
-	void BackPropagate(const vector<double> &targetVals);
-	void PrintNet();
-	unsigned GetOutputCount();
-	void SetActualResults(const double actualResult);
+	[[maybe_unused]] [[maybe_unused]] void PrintNet();
+	void SetScore(double score){ score_ = score;};
 	void GetResults(vector<double> &resultVals) const;
-	double GetRecentAverageError(void) const { return recent_average_error_; }
 	void Save(const string dir);
 	static void Load(const string dir);
 
+	static void NextGeneration();
+	static void NormalizeFitness(vector<Net> &oldGen);
+	static Net PoolSelection(const vector<Net> &oldGen);
+	static vector<Net> Generate(const vector<Net> &oldGen);
 
-	static Net NeuralNetwork;
+	static vector<Net> Generation;
+	static unsigned CurrentNetIndex;
+	static unsigned GenerationCount;
+	static Net * CurrentNet;
+	static Net BestNet;
+	static float HighScore;
 	static const unsigned PopulationSize;
 
   private:
 	vector<Layer> layers_; //layers_[layerNum][neuronNum]
+	double fitness_;
+	double score_;
 	double error_;
 	double recent_average_error_;
-	static double recent_average_smoothing_factor_;
 
 	Vector2f calculate_neuron_position(unsigned layerNum, unsigned layerCount,
 	                                   unsigned neuronNum, unsigned neuronCount);
+
+	void mutate(float mutationRate);
 
 	void create_weight_vertex_array();
 	vector<VertexArray> weight_lines_;

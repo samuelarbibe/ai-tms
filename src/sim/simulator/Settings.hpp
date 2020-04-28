@@ -64,6 +64,7 @@ class Settings
 	static bool PrintSimulationLog;
 	static bool DrawNnProgression;
 	static bool DrawCurrentSetOnly;
+	static bool RunBestNet;
 
 	static int Interval;
 	static int Fps;
@@ -137,8 +138,6 @@ class Settings
 
 	static float CalculateDistance(Vector2f a, Vector2f b);
 	static float CalculateAngle(float a, float b);
-	static string ConvertTimeToString(tm *time);
-	static tm *ConvertStringToTime(const string str);
 
 	static void GetHeatMapColor(float value,
 	                            float *red,

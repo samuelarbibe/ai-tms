@@ -127,7 +127,6 @@ class Engine : public QSFMLCanvas
 	int number_of_sets_;
 	// an array of simulation sets
 	vector<Set *> sets_;
-	vector<double> target_results_;
 };
 
 #endif /* Engine_hpp */

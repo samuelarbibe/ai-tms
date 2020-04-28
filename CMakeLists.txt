@@ -50,9 +50,6 @@ set(project_sources
         )
 
 set(project_headers
-        resources/cars/car_image_1.png
-        resources/cars/car_image_2.png
-        resources/cars/car_image_3.png
         resources/fonts/Roboto/Roboto-Bold.ttf
         public/json.hpp
         public/qcustomplot.h

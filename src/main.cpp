@@ -23,7 +23,11 @@ int main(int argc, char **argv) {
 	// output neurons : priority points, phase time
 	topology.push_back(2);
 
-	Net::NeuralNetwork = Net(topology);
+	for(unsigned i = 0; i < Net::PopulationSize; i++)
+	{
+		Net::Generation.emplace_back(topology);
+		Net::CurrentNet = &(Net::Generation[Net::CurrentNetIndex]);
+	}
 
 	QApplication Application(argc, argv);
 

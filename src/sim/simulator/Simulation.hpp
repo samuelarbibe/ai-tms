@@ -58,6 +58,7 @@ class Simulation
 	int GetCurrentVehicleCount() { return current_vehicle_count_; }
 	int IsFinished() { return finished_; }
 	int IsRunning() { return running_; }
+	Net *GetNet() { return net_; }
 
 	time_t *GetStartTime() { return &start_time_; }
 	time_t *GetEndTime() { return &end_time_; }
@@ -80,7 +81,6 @@ class Simulation
 	static bool DemoRunning;
 
   private:
-
 	// ID of this simulation
 	int simulation_number_;
 	// the set number of this simulation
@@ -103,6 +103,8 @@ class Simulation
 	// vehicles per second
 	float result_;
 
+	// The neural net that is used in this simulation
+	Net *net_;
 };
 
 #endif //SIMULATORSFML_SRC_SIMULATOR_SIMULATION_HPP

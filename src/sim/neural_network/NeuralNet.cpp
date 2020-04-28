@@ -4,10 +4,100 @@
 
 #include "NeuralNet.hpp"
 
-Net Net::NeuralNetwork = Net();
-const unsigned PopulationSize = 10;
-float HighScore = 0;
+Net Net::BestNet = Net();
+Net *Net::CurrentNet = nullptr;
+const unsigned Net::PopulationSize = 10;
+unsigned Net::GenerationCount = 0;
+unsigned Net::CurrentNetIndex = 0;
+float Net::HighScore = 0;
+vector<Net> Net::Generation = vector<Net>();
 
+////////////////////////////////////////////////////////////
+/// \brief Overload of binary operator !=
+///
+/// Creates a new generation of neural nets, based on the
+/// previous generation.
+///
+////////////////////////////////////////////////////////////
+void Net::NextGeneration() {
+
+	Net::CurrentNet = nullptr;
+
+	// normalize the fitness of all the nets in this gen
+	Net::NormalizeFitness(Net::Generation);
+	// create a new generation of nets
+	vector<Net> newGen = Net::Generate(Net::Generation);
+	// copy the new gen to the Generation array
+	Net::Generation = newGen;
+
+	Net::CurrentNetIndex = 0;
+	Net::GenerationCount++;
+}
+
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Create a new array of neural nets based on an old generation
+///
+/// \param oldGen (vector<Net>) - the previous gen of NN's
+///
+/// \return new array of nets
+////////////////////////////////////////////////////////////
+vector<Net> Net::Generate(const vector<Net> &oldGen) {
+	vector<Net> newGen;
+	for(unsigned i = 0; i < oldGen.size(); i++)
+	{
+		newGen.push_back(Net::PoolSelection(oldGen));
+		newGen.back().mutate(0.2);
+	}
+	return newGen;
+}
+
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Normalizes the fitness of all the nets to a value
+/// between 0 and 1
+///
+////////////////////////////////////////////////////////////
+void Net::NormalizeFitness(vector<Net> &oldGen) {
+	double sum = 0;
+	for(unsigned i = 0; i < oldGen.size(); i++)
+	{
+		double score = pow(oldGen[i].score_, 2);
+		oldGen[i].score_ = score;
+		sum += score;
+	}
+
+	for(unsigned i = 0; i < oldGen.size(); i++)
+	{
+		oldGen[i].fitness_ = oldGen[i].score_ / sum;
+	}
+}
+
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Create a copy of a net, selected from the old net.
+/// The probability of a net being selected from the pool
+/// is according to its fitness.
+///
+/// \param oldGen (vector<Net>) - The previous generation
+///
+/// \return a copied Net
+////////////////////////////////////////////////////////////
+Net Net::PoolSelection(const vector<Net> &oldGen) {
+	unsigned index = 0;
+	double r = rand() / double(RAND_MAX);
+
+	while(r > 0)
+	{
+		r -= oldGen[index].fitness_;
+		index++;
+	}
+	index--;
+	return oldGen[index];
+}
 
 Net::Net(const vector<unsigned> &topology) {
 
@@ -39,6 +129,26 @@ Net::Net(const vector<unsigned> &topology) {
 
 	create_weight_vertex_array();
 	Update(0.f);
+}
+
+////////////////////////////////////////////////////////////
+/// \brief
+///
+/// Mutates the weights in a neural net by a given mutation rate.
+///
+/// \param mutationRate (float) - the mutation range
+////////////////////////////////////////////////////////////
+void Net::mutate(float mutationRate)
+{
+	// for all layer but the output layer
+	for(unsigned i = 0; i < layers_.size() - 1; i++)
+	{
+		Layer & layer = layers_[i];
+		for(unsigned j = 0; j < layer.size(); j++)
+		{
+			layer[j].Mutate(mutationRate);
+		}
+	}
 }
 
 ////////////////////////////////////////////////////////////
@@ -96,12 +206,12 @@ void Net::Save(const string dir) {
 ////////////////////////////////////////////////////////////
 /// \brief
 ///
-/// Loads a given JSON file and creates a new NeuralNet object with it
+/// Loads a given JSON file and creates a new NeuralNet
+/// object with it, and sets it as 'bestNet'
 ///
 /// \param dir (string) - the directory of the JSON file
-///
 ////////////////////////////////////////////////////////////
-void Net::Load(string dir) {
+void Net::Load(const string dir) {
 	try
 	{
 		json j;
@@ -115,19 +225,19 @@ void Net::Load(string dir) {
 			topology.push_back(unsigned(data["neuron_count"]));
 		}
 
-		Net::NeuralNetwork = Net(topology);
+		Net::BestNet = Net(topology);
 
-		unsigned layerCount = Net::NeuralNetwork.layers_.size();
+		unsigned layerCount = Net::BestNet.layers_.size();
 
 		for (unsigned layerNum = 0; layerNum < layerCount; ++layerNum)
 		{
-			unsigned neuronCount = Net::NeuralNetwork.layers_[layerNum].size();
+			unsigned neuronCount = Net::BestNet.layers_[layerNum].size();
 
 			for (unsigned neuronNum = 0; neuronNum < neuronCount; ++neuronNum)
 			{
 				vector<Connection> weights;
 				unsigned weightCount =
-					Net::NeuralNetwork.layers_[layerNum][neuronNum].GetWeights()
+					Net::BestNet.layers_[layerNum][neuronNum].GetWeights()
 						.size();
 
 				for (unsigned weightNum = 0; weightNum < weightCount;
@@ -139,7 +249,7 @@ void Net::Load(string dir) {
 					weights.push_back(con);
 				}
 
-				Net::NeuralNetwork.layers_[layerNum][neuronNum]
+				Net::BestNet.layers_[layerNum][neuronNum]
 					.SetWeights(weights);
 			}
 		}
@@ -223,10 +333,6 @@ void Net::Reset() {
 	}
 	Update(0.f);
 }
-
-double Net::recent_average_smoothing_factor_ =
-	100.0; // Number of training samples to average over
-
 void Net::GetResults(vector<double> &resultVals) const {
 	resultVals.clear();
 
@@ -249,60 +355,7 @@ Vector2f Net::calculate_neuron_position(unsigned layerNum,
 	return pos;
 }
 
-void Net::BackPropagate(const std::vector<double> &targetVals) {
-	// Calculate overal net error (RMS of output neuron errors)
-
-	Layer &outputLayer = layers_.back();
-	error_ = 0.0;
-
-	for (unsigned n = 0; n < outputLayer.size(); ++n)
-	{
-		double delta = targetVals[n] - outputLayer[n].GetOutputValue();
-		error_ += delta * delta;
-	}
-	error_ /= outputLayer.size(); // get average error squared
-	error_ = sqrt(error_); // RMS
-
-	// Implement a recent average measurement:
-
-	recent_average_error_ =
-		(recent_average_error_ * recent_average_smoothing_factor_ + error_)
-			/ (recent_average_smoothing_factor_ + 1.0);
-	// Calculate output layer gradients
-
-	for (unsigned n = 0; n < outputLayer.size(); ++n)
-	{
-		outputLayer[n].CalculateOutputGradients(targetVals[n]);
-	}
-	// Calculate gradients on hidden layers
-
-	for (unsigned layerNum = layers_.size() - 2; layerNum > 0; --layerNum)
-	{
-		Layer &hiddenLayer = layers_[layerNum];
-		Layer &nextLayer = layers_[layerNum + 1];
-
-		for (unsigned n = 0; n < hiddenLayer.size(); ++n)
-		{
-			hiddenLayer[n].CalculateHiddenGradients(nextLayer);
-		}
-	}
-
-	// For all layers from outputs to first hidden layer,
-	// update connection weights
-
-	for (unsigned layerNum = layers_.size() - 1; layerNum > 0; --layerNum)
-	{
-		Layer &layer = layers_[layerNum];
-		Layer &prevLayer = layers_[layerNum - 1];
-
-		for (unsigned n = 0; n < layer.size(); ++n)
-		{
-			layer[n].UpdateInputWeights(prevLayer);
-		}
-	}
-}
-
-void Net::PrintNet() {
+[[maybe_unused]] void Net::PrintNet() {
 
 	for (unsigned l = 0; l < layers_.size(); l++)
 	{
@@ -311,19 +364,6 @@ void Net::PrintNet() {
 			cout << setprecision(6) << layers_[l][n].GetOutputValue() << " ";
 		}
 		cout << endl;
-	}
-}
-
-unsigned Net::GetOutputCount()
-{
-	return layers_.back().size();
-}
-
-void Net::SetActualResults(const double actualResult) {
-
-	for (unsigned n = 0; n < layers_.back().size(); n++)
-	{
-		layers_.back()[n].SetOutputValue(actualResult);
 	}
 }
 

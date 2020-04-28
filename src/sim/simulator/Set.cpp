@@ -74,7 +74,8 @@ bool Set::Update(float elapsedTime) {
 					last_simulation_result_ = running_simulation_->GetResult();
 
 					running_simulation_ = nullptr;
-					++generations_simulated_;
+					if(!Settings::RunBestNet)
+						++generations_simulated_;
 					// re-update set progress
 					progress_ = float(generations_simulated_) / float(generations_count_);
 					return true;

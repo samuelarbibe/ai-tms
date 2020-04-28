@@ -18,30 +18,23 @@ Vehicle *Vehicle::SelectedVehicle = nullptr;
 VehicleType Vehicle::SmallCar{
 	SMALL_CAR,
 	"SmallCar",
-	"../../resources/cars/car_image_",
-	3,
+	"../../resources/cars/small/small_",
+	5,
 	Vector2f(1.6 * 100 / Settings::Scale, 3 * 100 / Settings::Scale)
 };
 VehicleType Vehicle::MediumCar{
 	MEDIUM_CAR,
 	"MediumCar",
-	"../../resources/cars/car_image_",
-	3,
+	"../../resources/cars/medium/medium_",
+	4,
 	Vector2f(1.8 * 100 / Settings::Scale, 4 * 100 / Settings::Scale)
 };
 VehicleType Vehicle::LongCar{
 	LONG_CAR,
 	"LongCar",
-	"../../resources/cars/car_image_",
-	3,
-	Vector2f(2 * 100 / Settings::Scale, 5 * 100 / Settings::Scale)
-};
-VehicleType Vehicle::Truck{
-	TRUCK,
-	"Truck",
-	"../../resources/cars/car_image_",
-	3,
-	Vector2f(2.1f * 100 / Settings::Scale, 10 * 100 / Settings::Scale)
+	"../../resources/cars/large/large_",
+	2,
+	Vector2f(2.4 * 100 / Settings::Scale, 5 * 100 / Settings::Scale)
 };
 
 Vehicle::Vehicle(VehicleTypeOptions vehicleType,
@@ -259,7 +252,6 @@ VehicleType *Vehicle::GetVehicleTypeByOption(VehicleTypeOptions vehicleTypeOptio
 	case MEDIUM_CAR:return &(Vehicle::MediumCar);
 	case LONG_CAR:return &(Vehicle::LongCar);
 	case SMALL_CAR:return &(Vehicle::SmallCar);
-	case TRUCK:return &(Vehicle::Truck);
 	default:return &(Vehicle::MediumCar);
 	}
 }

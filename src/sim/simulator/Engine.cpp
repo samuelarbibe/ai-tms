@@ -15,9 +15,6 @@ Engine::Engine(QWidget *Parent) : QSFMLCanvas(Parent,
 	cout << "Setting Up map..." << endl;
 	map = new Map(0, Settings::DefaultMapWidth, Settings::DefaultMapHeight);
 
-	int outputNeuronsCount = Net::NeuralNetwork.GetOutputCount();
-	target_results_ = vector<double>(outputNeuronsCount, 0);
-
 	cout << "Setting Up Camera..." << endl;
 	snap_to_grid_ = true;
 	view_pos_ = Vector2f(0, 0);
@@ -121,8 +118,8 @@ bool Engine::DeleteSimulation(int simulationNumber) {
 }
 
 /// deletes the current set. The current set is either:
-	// the set that is currently running
-	// the last set that ran
+// the set that is currently running
+// the last set that ran
 bool Engine::DeleteCurrentSet() {
 	auto it = sets_.begin();
 	while (it != sets_.end())
@@ -174,10 +171,11 @@ bool Engine::RunSet(int vehicleCount, int generations) {
 	{
 		ClearMap();
 
-		if(Settings::ResetNeuralNet)
+		if (Settings::ResetNeuralNet)
 		{
 			cout << "Creating a new neural network..." << endl;
-			Net::NeuralNetwork.Reset();
+			if (Net::CurrentNet != nullptr)
+				Net::CurrentNet->Reset();
 		}
 
 		Set *s = AddSet(0, vehicleCount, generations);
@@ -555,7 +553,7 @@ Set *Engine::AddSet(int setNumber, int vehicleCount, int generations) {
 }
 
 /// build a map using instructions from a given json file
-void Engine::LoadMap(const string& loadDirectory) {
+void Engine::LoadMap(const string &loadDirectory) {
 	// first, delete the old map.
 	ResetMap();
 
@@ -638,7 +636,7 @@ void Engine::LoadMap(const string& loadDirectory) {
 }
 
 /// save the current map to a json file
-void Engine::SaveMap(const string& saveDirectory) {
+void Engine::SaveMap(const string &saveDirectory) {
 	// first save intersections, then save connecting roads, then save roads, then save lanes
 	json j;
 
@@ -764,17 +762,18 @@ void Engine::SaveMap(const string& saveDirectory) {
 }
 
 /// save the neural net in a given directory in JSON file
-void Engine::SaveNet(const string& saveDirectory) {
-	Net::NeuralNetwork.Save(saveDirectory);
+void Engine::SaveNet(const string &saveDirectory) {
+	if (Net::CurrentNet != nullptr)
+		Net::BestNet.Save(saveDirectory);
 }
 
 /// load a neural network from a given JSON file
-void Engine::LoadNet(const string& saveDirectory) {
+void Engine::LoadNet(const string &saveDirectory) {
 	Net::Load(saveDirectory);
 }
 
 /// save the recent simulations to a file
-void Engine::SaveSets(const string& saveDirectory) {
+void Engine::SaveSets(const string &saveDirectory) {
 
 	json j;
 	for (Set *set : sets_)
@@ -819,7 +818,7 @@ void Engine::SaveSets(const string& saveDirectory) {
 }
 
 /// load simulations from a file
-void Engine::LoadSets(const string& loadDirectory) {
+void Engine::LoadSets(const string &loadDirectory) {
 
 	try
 	{
@@ -877,7 +876,8 @@ void Engine::ResetMap() {
 	ClearMap();
 
 	cout << "Resetting the Neural Network..." << endl;
-	Net::NeuralNetwork.Reset();
+	if (Net::CurrentNet != nullptr)
+		Net::CurrentNet->Reset();
 
 	cout << "Resetting map..." << endl;
 	delete map;
@@ -972,24 +972,43 @@ void Engine::update(float elapsedTime) {
 				// set the new score as result
 				float result = s->GetLastSimulationResult();
 
-				Net::NeuralNetwork.SetActualResults(result);
-
-				// back propogate on default target value (1.0)
-				Net::NeuralNetwork.BackPropagate(target_results_);
-
-				Net::NeuralNetwork.Update(elapsedTime);
-
-				if (Settings::DrawNnProgression)
+				if (Settings::RunBestNet)
 				{
-					cout << "Sim no. " << s->GetGenerationsSimulated()
-					     << " result :" << result << "  avg. error :"
-					     << Net::NeuralNetwork.GetRecentAverageError()
-					     << endl;
+					Net::BestNet.Update(elapsedTime);
+				} else
+				{
+
+					Net::CurrentNet->SetScore(result);
+					Net::CurrentNet->Update(elapsedTime);
+
+					if (result > Net::HighScore)
+					{
+						Net::HighScore = result;
+						Net::BestNet = *(Net::CurrentNet);
+					}
+
+					Net::CurrentNetIndex++;
+
+					// check if generation is done
+					if (Net::CurrentNetIndex == Net::PopulationSize)
+					{
+						// if is, create a new generation
+						Net::NextGeneration();
+					}
+
+					Net::CurrentNet = &(Net::Generation[Net::CurrentNetIndex]);
+
+					if (Settings::DrawNnProgression)
+					{
+						cout << "Gen no. " << Net::GenerationCount + 1
+						     << " Net no. " << Net::CurrentNetIndex << "/"
+						     << Net::PopulationSize
+						     << " High Score: " << Net::HighScore << endl;
+					}
 				}
 			}
 		}
 	}
-
 }
 
 /// deploy vehicles in a time controlled manner
@@ -1100,5 +1119,11 @@ void Engine::render_visual_net() {
 
 	this->draw(visual_net_bg_);
 
-	Net::NeuralNetwork.Draw(this);
+	if (Settings::RunBestNet)
+	{
+		Net::BestNet.Draw(this);
+	} else if (Net::CurrentNet != nullptr)
+	{
+		Net::CurrentNet->Draw(this);
+	}
 }

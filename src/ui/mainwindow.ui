@@ -1881,7 +1881,7 @@
         <item>
          <widget class="QTabWidget" name="DataTabs">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -2190,7 +2190,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="ResetNeuralNetCheckBox">
+              <widget class="QCheckBox" name="RunBestCheckBox">
                <property name="enabled">
                 <bool>true</bool>
                </property>
@@ -2198,7 +2198,7 @@
                 <string>Show a hint of information on each simulation entity</string>
                </property>
                <property name="text">
-                <string>Reset Neural Network</string>
+                <string>Run Best Neural Net</string>
                </property>
                <property name="checkable">
                 <bool>true</bool>

@@ -47,6 +47,7 @@ class Neuron
 	void CalculateHiddenGradients(const Layer &nextLayer);
 	void UpdateInputWeights(Layer &prevLayer);
 	Vector2f GetPosition(){return circle_->getPosition();}
+	void Mutate(float mutationRate);
 
   private:
 	// [0.0...1.0] net training rate
@@ -56,7 +57,7 @@ class Neuron
 	static double transfer_function(double x);
 	static double transfer_function_derivative(double x);
 	// randomWeight: 0 - 1
-	static double randomize_weight() { return rand() / double(RAND_MAX); }
+	static double randomize_weight() { return random() / double(RAND_MAX); }
 	double sum_dow(const Layer &nextLayer) const;
 	double output_value_;
 	vector<Connection> output_weights_;
