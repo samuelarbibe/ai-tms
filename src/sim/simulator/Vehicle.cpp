@@ -49,6 +49,7 @@ Vehicle::Vehicle(VehicleTypeOptions vehicleType,
 	deceleration = Settings::Deceleration[vehicle_type_->Type];
 	speed_ = 0;
 	acc_ = 0;
+	time_turning_ = 0;
 	state_ = DRIVE;
 	curr_map_ = map;
 	instruction_set_ = instructionSet;
@@ -297,7 +298,7 @@ void Vehicle::transfer_vehicle(Lane *toLane) {
 }
 
 /// do drive cycle
-State Vehicle::drive() {
+State Vehicle::drive(float elapsedTime) {
 	// upon creation, all cars are stacked on each other.
 	// while cars dont have a min distance, they wont start driving
 
@@ -347,6 +348,8 @@ State Vehicle::drive() {
 	{
 		if (!turning_)
 		{
+			time_turning_ = 0;
+
 			float distanceSourceTarget =
 				Settings::CalculateDistance(source_lane_->GetEndPosition(),
 				                            dest_lane_->GetStartPosition());
@@ -377,6 +380,15 @@ State Vehicle::drive() {
 					->GetIntersection(source_lane_->GetIntersectionNumber());
 			source_lane_->PopVehicleFromLane();
 			source_lane_ = nullptr;
+		}
+
+		// in case of turning failure (rarely happens), delete the vehicle...
+		time_turning_ += elapsedTime;
+		if (time_turning_ >= 100)
+		{
+			time_turning_ = 0;
+			state_ = DELETE;
+			return DELETE;
 		}
 
 		state_ = TURN;
@@ -466,7 +478,7 @@ void Vehicle::Update(float elapsedTime) {
 
 	if (state_ != DELETE)
 	{
-		drive();
+		drive(elapsedTime);
 
 		// activate car
 		if (!active_ && state_ == DRIVE)

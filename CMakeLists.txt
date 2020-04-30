@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.15.0 FATAL_ERROR)
 
-set(PROJECT_NAME "TMS")
+set(PROJECT_NAME "AI_TMS")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOUIC_SEARCH_PATHS ON)
 
-project(${PROJECT_NAME})
+project(${PROJECT_NAME} VERSION 1.0.0 DESCRIPTION "Artificially-intelligent traffic managent system" LANGUAGES CXX)
 
 ##############################  Qt  ###################################
 set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.14.1)
@@ -89,26 +89,25 @@ set(project_ui ${PROJECT_SOURCE_DIR}/src/ui/mainwindow.ui)
 qt5_wrap_ui(ui_wrap ${project_ui})
 qt5_wrap_cpp(moc_sources ${project_headers})
 
-add_executable(TMS
+add_executable(${PROJECT_NAME}
         ${project_sources}
         ${project_headers}
         ${ui_wrap}
         ${moc_sources}
         )
-message(${ui_wrap})
 
 target_link_libraries(${PROJECT_NAME}
-    PUBLIC
-    sfml-graphics
-    sfml-window
-    sfml-system
+        PUBLIC
+        sfml-graphics
+        sfml-window
+        sfml-system
 
-    Qt5::Widgets
-    Qt5::PrintSupport
-    Qt5::Core
-    Qt5::Charts
-    Qt5::Gui
-    )
+        Qt5::Widgets
+        Qt5::PrintSupport
+        Qt5::Core
+        Qt5::Charts
+        Qt5::Gui
+        )
 
 
 #install(TARGETS TMS DESTINATION bin)

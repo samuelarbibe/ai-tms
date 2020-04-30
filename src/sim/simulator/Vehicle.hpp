@@ -89,7 +89,7 @@ class Vehicle : public RectangleShape
 
   private:
 
-	State drive();
+	State drive(float elapsedTime);
 	void apply_changes(float elapsedTime);
 	void transfer_vehicle(Lane *toLane);
 
@@ -116,6 +116,7 @@ class Vehicle : public RectangleShape
 	float acceleration;
 	float deceleration;
 	float angular_vel_;
+	float time_turning_;
 	bool turning_;
 	bool active_;
 

@@ -23,7 +23,6 @@ QSFMLCanvas::QSFMLCanvas(QWidget *Parent,
 	setAttribute(Qt::WA_OpaquePaintEvent);
 	setAttribute(Qt::WA_NoSystemBackground);
 
-
 	// Set strong focus to enable keyboard events to be received
 	setFocusPolicy(Qt::StrongFocus);
 
@@ -32,8 +31,8 @@ QSFMLCanvas::QSFMLCanvas(QWidget *Parent,
 
 	parent_ = Parent;
 
-	Settings::SFMLRatio =
-		parent_->devicePixelRatio(); // save ratio for later use
+	// save ratio for later use
+	Settings::SFMLRatio = parent_->devicePixelRatio();
 	resize(parent_->size());
 
 	// Setup the logic timer
