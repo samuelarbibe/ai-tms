@@ -87,7 +87,7 @@
            </size>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="widget">
            <attribute name="title">
@@ -1402,12 +1402,9 @@
            <attribute name="title">
             <string>Traffic</string>
            </attribute>
-           <layout class="QGridLayout" name="gridLayout_6">
+           <layout class="QGridLayout" name="gridLayout_2">
             <item row="0" column="0">
              <layout class="QVBoxLayout" name="verticalLayout_3">
-              <property name="spacing">
-               <number>5</number>
-              </property>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_17">
                 <property name="spacing">
@@ -1475,7 +1472,7 @@
                 <item>
                  <widget class="QLabel" name="label_11">
                   <property name="text">
-                   <string>Car Max Speed</string>
+                   <string>Small Car Max Speed</string>
                   </property>
                  </widget>
                 </item>
@@ -1493,7 +1490,7 @@
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="CarMaxSpeed">
+                 <widget class="QLineEdit" name="SmallMaxSpeed">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1514,6 +1511,58 @@
                </layout>
               </item>
               <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_15">
+                <property name="spacing">
+                 <number>5</number>
+                </property>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_21">
+                  <property name="text">
+                   <string>Medium Car Max Speed</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_12">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="MediumMaxSpeed">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>50</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Adjust max speed for motorcycles</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
                <layout class="QHBoxLayout" name="horizontalLayout_13">
                 <property name="spacing">
                  <number>5</number>
@@ -1527,7 +1576,7 @@
                 <item>
                  <widget class="QLabel" name="label_12">
                   <property name="text">
-                   <string>Motorcycle Max Speed</string>
+                   <string>Long Car Max Speed</string>
                   </property>
                  </widget>
                 </item>
@@ -1545,7 +1594,7 @@
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="MotorcycleMaxSpeed">
+                 <widget class="QLineEdit" name="LongMaxSpeed">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1687,16 +1736,7 @@
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_18">
-                <property name="spacing">
-                 <number>5</number>
-                </property>
-                <property name="topMargin">
-                 <number>5</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>5</number>
-                </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_12">
                 <item>
                  <widget class="QCheckBox" name="DrawTexturesCheckBox">
                   <property name="whatsThis">
@@ -1881,7 +1921,7 @@
         <item>
          <widget class="QTabWidget" name="DataTabs">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -2326,7 +2366,7 @@
   <customwidget>
    <class>QCustomPlot</class>
    <extends>QWidget</extends>
-   <header>qcustomplot.h</header>
+   <header>public/qcustomplot.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

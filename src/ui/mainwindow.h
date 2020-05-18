@@ -57,9 +57,11 @@ private slots:
 
     void on_ZoomSlider_valueChanged(int value);
 
-    void on_CarMaxSpeed_editingFinished();
+    void on_SmallMaxSpeed_editingFinished();
 
-    void on_MotorcycleMaxSpeed_editingFinished();
+    void on_MediumMaxSpeed_editingFinished();
+
+    void on_LongMaxSpeed_editingFinished();
 
     void on_TruckMaxSpeed_editingFinished();
 

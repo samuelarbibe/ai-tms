@@ -28,12 +28,15 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->ZoomSlider->setSliderPosition(int(Settings::Zoom * 99));
 	ui->LaneWidthValueEdit
 		->setText(QString::number(Settings::GetLaneWidthAs(currentDistanceUnit)));
-	ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(
+	ui->SmallMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(
 		VehicleTypeOptions::SMALL_CAR,
 		currentUnit)));
-	ui->MotorcycleMaxSpeed->setText(
-		QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::LONG_CAR,
-		                                        currentUnit)));
+	ui->MediumMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(
+		VehicleTypeOptions::MEDIUM_CAR,
+		currentUnit)));
+	ui->LongMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(
+		VehicleTypeOptions::LONG_CAR,
+		currentUnit)));
 	ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(
 		VehicleTypeOptions::MEDIUM_CAR,
 		currentUnit)));
@@ -416,9 +419,9 @@ void MainWindow::on_ZoomSlider_valueChanged(int value) {
 	SimulatorEngine->UpdateView(Vector2f(0, 0), zoomValue);
 }
 
-void MainWindow::on_CarMaxSpeed_editingFinished() {
+void MainWindow::on_SmallMaxSpeed_editingFinished() {
 	// get the entered value for the max speed
-	float enteredValue = ui->CarMaxSpeed->text().toFloat();
+	float enteredValue = ui->SmallMaxSpeed->text().toFloat();
 
 	// get the current unit
 	VelocityUnits currentUnit =
@@ -434,9 +437,27 @@ void MainWindow::on_CarMaxSpeed_editingFinished() {
 	Settings::MaxSpeeds[VehicleTypeOptions::SMALL_CAR] = enteredValue;
 }
 
-void MainWindow::on_MotorcycleMaxSpeed_editingFinished() {
+void MainWindow::on_MediumMaxSpeed_editingFinished() {
 	// get the entered value for the max speed
-	float enteredValue = ui->CarMaxSpeed->text().toFloat();
+	float enteredValue = ui->MediumMaxSpeed->text().toFloat();
+
+	// get the current unit
+	VelocityUnits currentUnit =
+		static_cast<VelocityUnits>(int(ui->VelocityUnitComboBox
+			                               ->currentIndex()));
+
+	// convert the entered value to px
+	enteredValue = Settings::ConvertVelocity(currentUnit,
+	                                         VelocityUnits::PXS,
+	                                         enteredValue);
+
+	// save the changes
+	Settings::MaxSpeeds[VehicleTypeOptions::MEDIUM_CAR] = enteredValue;
+}
+
+void MainWindow::on_LongMaxSpeed_editingFinished() {
+	// get the entered value for the max speed
+	float enteredValue = ui->LongMaxSpeed->text().toFloat();
 
 	// get the current unit
 	VelocityUnits currentUnit =
@@ -454,7 +475,7 @@ void MainWindow::on_MotorcycleMaxSpeed_editingFinished() {
 
 void MainWindow::on_TruckMaxSpeed_editingFinished() {
 	// get the entered value for the max speed
-	float enteredValue = ui->CarMaxSpeed->text().toFloat();
+	float enteredValue = ui->TruckMaxSpeed->text().toFloat();
 
 	// get the current unit
 	VelocityUnits currentUnit =
@@ -467,18 +488,21 @@ void MainWindow::on_TruckMaxSpeed_editingFinished() {
 	                                         enteredValue);
 
 	// save the changes
-	Settings::MaxSpeeds[VehicleTypeOptions::MEDIUM_CAR] = enteredValue;
+	Settings::MaxSpeeds[VehicleTypeOptions::TRUCK] = enteredValue;
 }
 
 void MainWindow::on_VelocityUnitComboBox_currentIndexChanged(int index) {
 	VelocityUnits currentUnit = static_cast<VelocityUnits>(index);
 	// re-display all the velocities
-	ui->CarMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(
+	ui->SmallMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(
 		VehicleTypeOptions::SMALL_CAR,
 		currentUnit)));
-	ui->MotorcycleMaxSpeed->setText(
-		QString::number(Settings::GetMaxSpeedAs(VehicleTypeOptions::LONG_CAR,
-		                                        currentUnit)));
+	ui->MediumMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(
+		VehicleTypeOptions::MEDIUM_CAR,
+		currentUnit)));
+	ui->LongMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(
+		VehicleTypeOptions::LONG_CAR,
+		currentUnit)));
 	ui->TruckMaxSpeed->setText(QString::number(Settings::GetMaxSpeedAs(
 		VehicleTypeOptions::MEDIUM_CAR,
 		currentUnit)));
