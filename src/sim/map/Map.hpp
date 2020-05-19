@@ -45,7 +45,7 @@ class Map
 	Lane *  AddLane(int laneNumber, int roadNumber, bool isInRoadDirection);
 	Cycle * AddCycle(int cycleNumber, int intersectionNumber = 0);
 	Phase * AddPhase(int phaseNumber, int cycleNumber, float cycleTime);
-	Light * AddLight(int lightNumber, int phaseNumber, int parentRoadNumber);
+	Light * AddLight(int lightNumber, int phaseNumber, int parentLaneNumber);
 	Route * AddRoute(int from, int to);
 
 	// get

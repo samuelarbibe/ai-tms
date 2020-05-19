@@ -28,13 +28,13 @@ Phase::~Phase() {
 }
 
 /// add a light to this phase and attach it to a road
-Light *Phase::AddLight(int lightNumber, Road *parentRoad) {
+Light *Phase::AddLight(int lightNumber, Lane *parentLane) {
 	if (lightNumber == 0)
 	{
 		lightNumber = Light::LightCount + 1;
 	}
 
-	Light *temp = new Light(lightNumber, phase_number_, parentRoad);
+	Light *temp = new Light(lightNumber, phase_number_, parentLane);
 	lights_.push_back(temp);
 
 	++Light::LightCount;

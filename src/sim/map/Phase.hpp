@@ -22,7 +22,7 @@ public:
     void ReloadPhase();
 
     // add entities
-    Light * AddLight(int lightNumber, Road * parentRoad);
+    Light * AddLight(int lightNumber, Lane * parentLane);
     void AddLane(Lane * lane);
 
     // get

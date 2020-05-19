@@ -746,7 +746,7 @@ void Engine::SaveMap(const string &saveDirectory) {
 						{"id", light->GetLightNumber()},
 						{"phase_number", light->GetPhaseNumber()},
 						{"parent_road_number",
-						 light->GetParentRoad()->GetRoadNumber()}
+						 light->GetParentLane()->GetRoadNumber()}
 					}
 				);
 			}

@@ -243,22 +243,22 @@ Phase *Map::AddPhase(int phaseNumber, int cycleNumber, float cycleTime) {
 }
 
 /// assign a light to a phase to attach to road
-Light *Map::AddLight(int lightNumber, int phaseNumber, int parentRoadNumber) {
+Light *Map::AddLight(int lightNumber, int phaseNumber, int parentLaneNumber) {
 	Light *temp = nullptr;
 	Phase *myPhase = GetPhase(phaseNumber);
-	Road *parentRoad = GetRoad(parentRoadNumber);
+	Lane *parentLane = GetLane(parentLaneNumber);
 
 	// assign position relative to parent road
-	if (myPhase != nullptr && parentRoad != nullptr)
+	if (myPhase != nullptr && parentLane != nullptr)
 	{
-		temp = myPhase->AddLight(lightNumber, parentRoad);
+		temp = myPhase->AddLight(lightNumber, parentLane);
 		if (Settings::DrawAdded)
 			cout << "light " << temp->GetLightNumber() << " added to phase "
 			     << phaseNumber << endl;
 		return temp;
 	}
 
-	cout << "could not add light as phase or parent road don't exist" << endl;
+	cout << "could not add light as phase or parent lane don't exist" << endl;
 	return temp;
 }
 

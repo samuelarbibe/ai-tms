@@ -140,7 +140,7 @@ void MainWindow::reloadOptionData() {
 	ui->ToIntersectionComboBox->clear();
 	ui->IntersectionComboBox->clear();
 	ui->IntersectionNumberComboBox->clear();
-	ui->NearRoadComboBox->clear();
+	ui->NearLaneComboBox->clear();
 	ui->ToPhaseComboBox->clear();
 	ui->ShowLanesForPhaseComboBox->clear();
 	ui->ToCycleComboBox->clear();
@@ -161,13 +161,13 @@ void MainWindow::reloadOptionData() {
 	for (const QString sd : SimulatorEngine->map->GetRoadIdList())
 	{
 		ui->ToRoadComboBox->addItem(sd);
-		ui->NearRoadComboBox->addItem(sd);
 	}
 
 	for (const QString sd : SimulatorEngine->map->GetLaneIdList())
 	{
 		ui->FromLaneComboBox->addItem(sd);
 		ui->ToLaneComboBox->addItem(sd);
+		ui->NearLaneComboBox->addItem(sd);
 	}
 
 	for (const QString p : SimulatorEngine->map->GetPhaseIdList())
@@ -246,6 +246,9 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
 				selectionText.append("}, Direction {");
 				selectionText
 					.append(QString::number(selectedLane->GetDirection()));
+				selectionText.append("}, Phase  {");
+				selectionText
+					.append(QString::number(selectedLane->GetPhaseNumber()));
 				selectionText.append("}");
 
 				ui->statusbar->showMessage(selectionText);
@@ -723,11 +726,11 @@ void MainWindow::on_AddPhaseButton_clicked() {
 
 void MainWindow::on_AddLightButton_clicked() {
 	int phaseNumber = ui->ToPhaseComboBox->currentText().toInt();
-	int roadNumber = ui->NearRoadComboBox->currentText().toInt();
+	int laneNumber = ui->NearLaneComboBox->currentText().toInt();
 
-	if (phaseNumber != 0 && roadNumber != 0)
+	if (phaseNumber != 0 && laneNumber != 0)
 	{
-		if (SimulatorEngine->map->AddLight(0, phaseNumber, roadNumber))
+		if (SimulatorEngine->map->AddLight(0, phaseNumber, laneNumber))
 		{
 			ui->statusbar->showMessage(tr("Route Added Successfully."));
 			reloadOptionData();

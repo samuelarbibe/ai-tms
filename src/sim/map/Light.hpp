@@ -20,7 +20,7 @@ class Light : public RectangleShape
 {
   public:
 
-	Light(int lightNumber, int phaseNumber, Road *parentRoad);
+	Light(int lightNumber, int phaseNumber, Lane *parentLane);
 	~Light();
 
 	void Draw(RenderWindow *window);
@@ -29,7 +29,7 @@ class Light : public RectangleShape
 	// get
 	int GetPhaseNumber() { return phase_number_; }
 	int GetLightNumber() { return light_number_; }
-	Road *GetParentRoad() { return parent_road_; }
+	Lane * GetParentLane() { return parent_lane_; }
 
 
 	// set
@@ -46,7 +46,7 @@ class Light : public RectangleShape
 
 	// The current state of the light.
 	LightState state_;
-	Road *parent_road_;
+	Lane *parent_lane_;
 	DataBox *data_box_;
 
 	vector<CircleShape *> circles_;

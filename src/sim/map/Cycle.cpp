@@ -154,7 +154,6 @@ void Cycle::cycle_phases() {
 
 			phases_[number_of_phases_ - 1]->Open();
 
-			//Net::NeuralNetwork.printNet();
 		}
 			// constantly sort the list by their priority score
 		else

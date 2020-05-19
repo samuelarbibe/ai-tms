@@ -16,18 +16,19 @@ int main(int argc, char **argv) {
 	srand((time(nullptr)));
 	vector<unsigned> topology;
 
-	// input neurons : max lane density, max queue length
+	// input neurons
 	topology.push_back(2);
 	// hidden neurons
 	topology.push_back(3);
-	// output neurons : priority points, phase time
+	// output neurons
 	topology.push_back(2);
 
 	for(unsigned i = 0; i < Net::PopulationSize; i++)
 	{
 		Net::Generation.emplace_back(topology);
-		Net::CurrentNet = &(Net::Generation[Net::CurrentNetIndex]);
 	}
+
+	Net::CurrentNet = &(Net::Generation[Net::CurrentNetIndex]);
 
 	QApplication Application(argc, argv);
 
@@ -36,4 +37,3 @@ int main(int argc, char **argv) {
 
 	return QApplication::exec();
 }
-

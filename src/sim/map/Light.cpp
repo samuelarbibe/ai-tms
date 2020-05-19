@@ -7,8 +7,8 @@
 
 int Light::LightCount = 0;
 
-Light::Light(int lightNumber, int phaseNumber, Road *parentRoad) {
-	parent_road_ = parentRoad;
+Light::Light(int lightNumber, int phaseNumber, Lane *parentLane) {
+	parent_lane_ = parentLane;
 	phase_number_ = phaseNumber;
 	light_number_ = lightNumber;
 	state_ = RED;
@@ -43,12 +43,12 @@ Light::~Light() {
 ///
 ////////////////////////////////////////////////////////////
 void Light::UpdatePosition() {
-	Vector2f roadPos = parent_road_->GetStartPosition();
-	float direction = parent_road_->GetRoadDirection();
+	Vector2f lanePos = parent_lane_->GetEndPosition();
+	float direction = parent_lane_->GetDirection() - 180;
 
 	Transform t;
 	t.rotate(direction - 90);
-	float margin = parent_road_->GetWidth() / 2 + 30;
+	float margin = parent_lane_->getSize().x / 2 + 30;
 	t.scale(margin, margin);
 	Vector2f sideVector = t.transformPoint(Settings::BaseVec);
 
@@ -56,7 +56,7 @@ void Light::UpdatePosition() {
 	t.rotate(direction);
 	t.scale(20, 20);
 	Vector2f marginVector = t.transformPoint(Settings::BaseVec);
-	Vector2f position = roadPos + sideVector + marginVector;
+	Vector2f position = lanePos + sideVector + marginVector;
 
 	direction -= 180;
 
