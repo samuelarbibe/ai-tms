@@ -1,18 +1,6 @@
 {
     "assigned_lanes": [
         {
-            "lane_number": 27,
-            "phase_number": 2
-        },
-        {
-            "lane_number": 26,
-            "phase_number": 2
-        },
-        {
-            "lane_number": 25,
-            "phase_number": 2
-        },
-        {
             "lane_number": 33,
             "phase_number": 1
         },
@@ -25,16 +13,16 @@
             "phase_number": 1
         },
         {
-            "lane_number": 3,
-            "phase_number": 4
+            "lane_number": 27,
+            "phase_number": 2
         },
         {
-            "lane_number": 2,
-            "phase_number": 4
+            "lane_number": 26,
+            "phase_number": 2
         },
         {
-            "lane_number": 1,
-            "phase_number": 4
+            "lane_number": 25,
+            "phase_number": 2
         },
         {
             "lane_number": 22,
@@ -49,16 +37,16 @@
             "phase_number": 3
         },
         {
-            "lane_number": 57,
-            "phase_number": 8
+            "lane_number": 3,
+            "phase_number": 4
         },
         {
-            "lane_number": 56,
-            "phase_number": 8
+            "lane_number": 2,
+            "phase_number": 4
         },
         {
-            "lane_number": 55,
-            "phase_number": 8
+            "lane_number": 1,
+            "phase_number": 4
         },
         {
             "lane_number": 39,
@@ -73,16 +61,16 @@
             "phase_number": 5
         },
         {
-            "lane_number": 9,
-            "phase_number": 7
+            "lane_number": 57,
+            "phase_number": 8
         },
         {
-            "lane_number": 8,
-            "phase_number": 7
+            "lane_number": 56,
+            "phase_number": 8
         },
         {
-            "lane_number": 7,
-            "phase_number": 7
+            "lane_number": 55,
+            "phase_number": 8
         },
         {
             "lane_number": 4,
@@ -97,16 +85,16 @@
             "phase_number": 6
         },
         {
-            "lane_number": 10,
-            "phase_number": 9
+            "lane_number": 9,
+            "phase_number": 7
         },
         {
-            "lane_number": 11,
-            "phase_number": 9
+            "lane_number": 8,
+            "phase_number": 7
         },
         {
-            "lane_number": 12,
-            "phase_number": 9
+            "lane_number": 7,
+            "phase_number": 7
         },
         {
             "lane_number": 15,
@@ -121,16 +109,16 @@
             "phase_number": 10
         },
         {
-            "lane_number": 51,
-            "phase_number": 11
+            "lane_number": 10,
+            "phase_number": 9
         },
         {
-            "lane_number": 50,
-            "phase_number": 11
+            "lane_number": 11,
+            "phase_number": 9
         },
         {
-            "lane_number": 49,
-            "phase_number": 11
+            "lane_number": 12,
+            "phase_number": 9
         },
         {
             "lane_number": 45,
@@ -145,16 +133,16 @@
             "phase_number": 12
         },
         {
-            "lane_number": 63,
-            "phase_number": 14
+            "lane_number": 51,
+            "phase_number": 11
         },
         {
-            "lane_number": 62,
-            "phase_number": 14
+            "lane_number": 50,
+            "phase_number": 11
         },
         {
-            "lane_number": 61,
-            "phase_number": 14
+            "lane_number": 49,
+            "phase_number": 11
         },
         {
             "lane_number": 69,
@@ -169,16 +157,16 @@
             "phase_number": 15
         },
         {
-            "lane_number": 16,
-            "phase_number": 16
+            "lane_number": 63,
+            "phase_number": 14
         },
         {
-            "lane_number": 17,
-            "phase_number": 16
+            "lane_number": 62,
+            "phase_number": 14
         },
         {
-            "lane_number": 18,
-            "phase_number": 16
+            "lane_number": 61,
+            "phase_number": 14
         },
         {
             "lane_number": 21,
@@ -191,6 +179,18 @@
         {
             "lane_number": 19,
             "phase_number": 13
+        },
+        {
+            "lane_number": 16,
+            "phase_number": 16
+        },
+        {
+            "lane_number": 17,
+            "phase_number": 16
+        },
+        {
+            "lane_number": 18,
+            "phase_number": 16
         }
     ],
     "connecting_roads": [
@@ -633,86 +633,168 @@
             "road_number": 14
         }
     ],
-    "phases": [
+    "lights": [
         {
-            "cycle_id" : 1,
-            "cycle_time": 20.0,
-            "id": 2
+            "id": 13,
+            "parent_lane_number": 31,
+            "phase_number": 1
         },
         {
-            "cycle_id" : 1,
-            "cycle_time": 20.0,
+            "id": 16,
+            "parent_lane_number": 25,
+            "phase_number": 2
+        },
+        {
+            "id": 15,
+            "parent_lane_number": 24,
+            "phase_number": 3
+        },
+        {
+            "id": 14,
+            "parent_lane_number": 1,
+            "phase_number": 4
+        },
+        {
+            "id": 10,
+            "parent_lane_number": 37,
+            "phase_number": 5
+        },
+        {
+            "id": 9,
+            "parent_lane_number": 55,
+            "phase_number": 8
+        },
+        {
+            "id": 12,
+            "parent_lane_number": 6,
+            "phase_number": 6
+        },
+        {
+            "id": 11,
+            "parent_lane_number": 7,
+            "phase_number": 7
+        },
+        {
+            "id": 20,
+            "parent_lane_number": 13,
+            "phase_number": 10
+        },
+        {
+            "id": 18,
+            "parent_lane_number": 12,
+            "phase_number": 9
+        },
+        {
+            "id": 17,
+            "parent_lane_number": 43,
+            "phase_number": 12
+        },
+        {
+            "id": 19,
+            "parent_lane_number": 49,
+            "phase_number": 11
+        },
+        {
+            "id": 21,
+            "parent_lane_number": 67,
+            "phase_number": 15
+        },
+        {
+            "id": 24,
+            "parent_lane_number": 61,
+            "phase_number": 14
+        },
+        {
+            "id": 23,
+            "parent_lane_number": 19,
+            "phase_number": 13
+        },
+        {
+            "id": 22,
+            "parent_lane_number": 18,
+            "phase_number": 16
+        }
+    ],
+    "phases": [
+        {
+            "cycle_id": 1,
+            "cycle_time": 5.0,
             "id": 1
         },
         {
-            "cycle_id" : 1,
-            "cycle_time": 20.0,
-            "id": 4
+            "cycle_id": 1,
+            "cycle_time": 5.0,
+            "id": 2
         },
         {
-            "cycle_id" : 1,
-            "cycle_time": 20.0,
+            "cycle_id": 1,
+            "cycle_time": 5.0,
             "id": 3
         },
         {
-            "cycle_id" : 2,
-            "cycle_time": 20.0,
-            "id": 8
+            "cycle_id": 1,
+            "cycle_time": 5.0,
+            "id": 4
         },
         {
-            "cycle_id" : 2,
-            "cycle_time": 20.0,
+            "cycle_id": 2,
+            "cycle_time": 5.0,
             "id": 5
         },
         {
-            "cycle_id" : 2,
-            "cycle_time": 20.0,
-            "id": 7
+            "cycle_id": 2,
+            "cycle_time": 5.0,
+            "id": 8
         },
         {
-            "cycle_id" : 2,
-            "cycle_time": 20.0,
+            "cycle_id": 2,
+            "cycle_time": 5.0,
             "id": 6
         },
         {
-            "cycle_id" : 3,
-            "cycle_time": 20.0,
-            "id": 9
+            "cycle_id": 2,
+            "cycle_time": 5.0,
+            "id": 7
         },
         {
-            "cycle_id" : 3,
-            "cycle_time": 20.0,
+            "cycle_id": 3,
+            "cycle_time": 5.0,
             "id": 10
         },
         {
-            "cycle_id" : 3,
-            "cycle_time": 20.0,
-            "id": 11
+            "cycle_id": 3,
+            "cycle_time": 5.0,
+            "id": 9
         },
         {
-            "cycle_id" : 3,
-            "cycle_time": 20.0,
+            "cycle_id": 3,
+            "cycle_time": 5.0,
             "id": 12
         },
         {
-            "cycle_id" : 4,
-            "cycle_time": 20.0,
-            "id": 14
+            "cycle_id": 3,
+            "cycle_time": 5.0,
+            "id": 11
         },
         {
-            "cycle_id" : 4,
-            "cycle_time": 20.0,
+            "cycle_id": 4,
+            "cycle_time": 5.0,
             "id": 15
         },
         {
-            "cycle_id" : 4,
-            "cycle_time": 20.0,
-            "id": 16
+            "cycle_id": 4,
+            "cycle_time": 5.0,
+            "id": 14
         },
         {
-            "cycle_id" : 4,
-            "cycle_time": 20.0,
+            "cycle_id": 4,
+            "cycle_time": 5.0,
             "id": 13
+        },
+        {
+            "cycle_id": 4,
+            "cycle_time": 5.0,
+            "id": 16
         }
     ],
     "roads": [

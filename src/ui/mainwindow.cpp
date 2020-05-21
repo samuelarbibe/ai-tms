@@ -725,8 +725,21 @@ void MainWindow::on_AddPhaseButton_clicked() {
 }
 
 void MainWindow::on_AddLightButton_clicked() {
-	int phaseNumber = ui->ToPhaseComboBox->currentText().toInt();
-	int laneNumber = ui->NearLaneComboBox->currentText().toInt();
+	int phaseNumber;
+	int laneNumber;
+
+	Lane * selectedLane;
+
+	if((selectedLane = SimulatorEngine->map->SelectedLane) != nullptr)
+	{
+		laneNumber = selectedLane->GetLaneNumber();
+		phaseNumber = selectedLane->GetPhaseNumber();
+	}
+	else
+	{
+		laneNumber = ui->NearLaneComboBox->currentText().toInt();
+		phaseNumber = ui->ToPhaseComboBox->currentText().toInt();
+	}
 
 	if (phaseNumber != 0 && laneNumber != 0)
 	{

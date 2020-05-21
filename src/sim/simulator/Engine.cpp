@@ -393,24 +393,6 @@ Vector2f Engine::DrawPoint(Vector2f position) {
 	return temp;
 }
 
-/// get an array of all the simulations
-/*
-vector<Simulation *> *Engine::GetSimulations() {
-
-	vector<Simulation *> *sims;
-	sims = new vector<Simulation *>();
-
-	for (Set *set : sets_)
-	{
-		for (Simulation *sim : *set->GetSimulations())
-		{
-			sims->push_back(sim);
-		}
-	}
-
-	return sims;
-}
- */
 
 /// get simualtion by simulation number
 Simulation *Engine::GetSimulation(int simulationNumber) {
@@ -621,7 +603,7 @@ void Engine::LoadMap(const string &loadDirectory) {
 		{
 			map->AddLight(data["id"],
 			              data["phase_number"],
-			              data["parent_road_number"]);
+			              data["parent_lane_number"]);
 		}
 
 		cout << "map has been successfully loaded from '" << loadDirectory
@@ -745,8 +727,8 @@ void Engine::SaveMap(const string &saveDirectory) {
 					{
 						{"id", light->GetLightNumber()},
 						{"phase_number", light->GetPhaseNumber()},
-						{"parent_road_number",
-						 light->GetParentLane()->GetRoadNumber()}
+						{"parent_lane_number",
+						 light->GetParentLane()->GetLaneNumber()}
 					}
 				);
 			}
