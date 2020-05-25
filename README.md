@@ -19,10 +19,13 @@ This project simulates a network of intersections, and aims to improve the traff
 the traffic lights.
 
 Here a links to some videos:
-![Project Explanation (In Hebrew)](https://www.youtube.com/watch?v=xJOcDKXWJXo)
-![Project Demonstration](https://www.youtube.com/watch?v=BLz_PdU2oyo)
+[Project Explanation (Hebrew)](https://www.youtube.com/watch?v=xJOcDKXWJXo)
+[Project Demonstration](https://www.youtube.com/watch?v=BLz_PdU2oyo)
 
-There are Explanation documents under the 'docs' folder.
+Explanetaion docs:
+[Documentation (Hebrew)](./docs/project_book)
+[Summary Presentation](./docs/english/summary_presentation)
+[AI Explanetion Presentation](./docs/english/AI_presentation)
 
 ## Screenshots
 ![Example screenshot](./screenshots/TMS_recording.gif)
