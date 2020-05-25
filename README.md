@@ -12,11 +12,17 @@
 ## General info
 This project is my CS Technician degree's final project.
 The goal of this project was mainly to learn the concept
-of neural network as an introduction to artificial intelligence, 
+of neural network as an introduction to artificial intelligence,
 and to learn and to build experience with the C++ language.
 
 This project simulates a network of intersections, and aims to improve the traffic flow by using neural network to manage
 the traffic lights.
+
+Here a links to some videos:
+![Project Explanation (In Hebrew)](https://www.youtube.com/watch?v=xJOcDKXWJXo)
+![Project Demonstration](https://www.youtube.com/watch?v=BLz_PdU2oyo)
+
+There are Explanation documents under the 'docs' folder.
 
 ## Screenshots
 ![Example screenshot](./screenshots/TMS_recording.gif)
@@ -32,19 +38,18 @@ List of features ready and TODOs for future development
 * Build a new traffic map from scratch
 * Set up the traffic behaviour
 * Run Simulations and train the neural-network
-* Visualize the neural-network's progress with graphs and visual aids
+* Visualise the neural-network's progress with graphs and visual aids
 
 To-do list:
 * Add Windows support
 
 ## Status
 Project is: _in progress_.
-Currenlty adjusting the neural-network's settings
 
 ## Inspiration
-TMS was inspired by the big traffic problem that exist in Israel.
+TMS was inspired by the big traffic problem that exists in Israel.
 
-Though this project is not aimed twords real life use, it can be seen as a *Proof of concept*
+Though this project is not aimed towards real life use, it can be seen as a *Proof of concept*
 
 ### Contact
 samuel.arbibe@gmail.com
