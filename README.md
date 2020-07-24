@@ -23,9 +23,9 @@ Here a links to some videos:
 * [Project Demonstration](https://www.youtube.com/watch?v=BLz_PdU2oyo)
 
 Explanetaion docs:
-* [Documentation (Hebrew)](./docs/project_book)
-* [Summary Presentation](./docs/english/summary_presentation)
-* [AI Explanetion Presentation](./docs/english/AI_presentation)
+* [Documentation (Hebrew)](docs/project_book.pdf)
+* [Summary Presentation](docs/english/summary_presentation.pdf)
+* [AI Explanetion Presentation](docs/english/AI_presentation.pdf)
 
 ## Screenshots
 ![Example screenshot](./screenshots/TMS_recording.gif)
