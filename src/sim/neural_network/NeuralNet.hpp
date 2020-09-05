@@ -13,7 +13,7 @@
 #include <iomanip>
 #include "Neuron.hpp"
 #include "../simulator/Settings.hpp"
-#include "../../public/json.hpp"
+#include "../../../public/json.hpp"
 
 using namespace std;
 using namespace sf;

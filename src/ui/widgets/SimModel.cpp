@@ -2,7 +2,7 @@
 // Created by Samuel Arbibe on 07/03/2020.
 //
 
-#include <src/sim/simulator/Set.hpp>
+#include "../../sim/simulator/Set.hpp"
 #include "SimModel.hpp"
 
 SimModel::SimModel(QObject *parent)

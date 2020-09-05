@@ -1,18 +1,24 @@
 cmake_minimum_required(VERSION 3.15.0 FATAL_ERROR)
 
-set(PROJECT_NAME "AI_TMS")
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOUIC_SEARCH_PATHS ON)
+set(PROJECT_NAME "AI_TMS")
 
 project(${PROJECT_NAME} VERSION 1.0.0 DESCRIPTION "Artificially-intelligent traffic managent system" LANGUAGES CXX)
 
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+if(CMAKE_VERSION VERSION_LESS "3.7.0")
+    set(CMAKE_INCLUDE_CURRENT_DIR ON)
+endif()
+
 ##############################  Qt  ###################################
-set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.14.1)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.15.0)
 find_package(Qt5 COMPONENTS Core Gui Widgets Charts PrintSupport REQUIRED)
 
 #############################  SFML  ##################################
+set(SFML_DIR /usr/local/Cellar/sfml/2.5.1)
 find_package(SFML COMPONENTS system window graphics REQUIRED)
 
 set(project_sources
