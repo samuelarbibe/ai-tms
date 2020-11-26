@@ -29,6 +29,7 @@ Explanetaion docs:
 
 ## Screenshots
 ![Example screenshot](./screenshots/TMS_recording.gif)
+![Example screenshot](./screenshots/TMS_recording_2.gif)
 
 ## Technologies
 * SFML - version 2.5.1
